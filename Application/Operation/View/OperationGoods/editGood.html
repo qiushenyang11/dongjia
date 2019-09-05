@@ -1,0 +1,2254 @@
+<html><head>
+
+    <title>编辑商品</title>
+    <meta  charset="UTF-8">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+
+    <style>
+        .form-horizontal .form-group{
+            margin-right:0;
+            margin-left:0;
+        }
+        .wenzi{margin-top:8px}
+        .priceNum{margin-left:-55px}
+        .sureOrder,.cycleData{
+            display: flex;flex-direction: row;max-width: 700px;justify-content: flex-start;flex-wrap: wrap;
+        }
+        .sureOrderItem{
+            margin-left: 5px;
+            background-color:#E6E6E6;
+            border-redis:2px;
+            min-width: 50px;
+            height: 28px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            font-size: 14px;
+            line-height: 28px;
+            margin-left:15px;
+        }
+        .groupActive{
+            background-color:#646464;
+            color:#ffffff
+        }
+        .weekTime{
+            padding-right:10px;
+            margin-left:14px;
+            margin-top:5px;
+            margin-bottom:10px
+        }
+        #notBooked{
+            display: flex;
+            flex-direction: row;
+            max-width: 700px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .selectItem {
+            margin-left: 15px;
+            background-color:#E6E6E6;
+            min-width: 50px;
+            min-height: 28px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            line-height: 28px;
+        }
+        .selectItem span {
+            cursor: pointer;
+            padding-left: 10px;
+            font-size: 26px;
+            color: #446C94;
+            font-weight: 900;
+            line-height: 24px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">产品管理</a></li>
+    <li><a href="#">产品列表</a></li>
+    <li><a href="#">商品列表</a></li>
+    <li class="active">编辑商品</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*商品名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$res.name}" name="name" id="name" placeholder="输入产品名称,24字以内 ">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*服务类型</label>
+            <div class="col-sm-4">
+                <select name="type" class="form-control" id="serviceType" >
+                    <option value="1" <if condition="$res.type eq 1">selected</if>>其它服务</option>
+                    <option value="2" <if condition="$res.type eq 2">selected</if>>在线咨询</option>
+                    <option value="3" <if condition="$res.type eq 3">selected</if>>上门服务</option>
+                    <option value="4" <if condition="$res.type eq 4">selected</if>>到店服务</option>
+                    <option value="5" <if condition="$res.type eq 5">selected</if>>实物商品</option>
+                </select>
+            </div>
+        </div>
+        <!-- 到家服务信息-->
+        <div id="serviceTimeInfo" >
+            <if condition="$res.type eq 3">
+                <div class="form-group" id="bookedType">
+                    <label for="" class="col-sm-2 control-label">*是否选择服务时间</label>
+                    <div class="col-sm-2" style="margin-top:7px;">
+                        <input  type="radio" <if condition="$res.isselecttime eq 0">checked</if>  name="service-time-select-radio" class="bookedTimeSelected" value="0">
+                        <span>不选择时间</span>
+                    </div>
+                    <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">
+                        <input type="radio" <if condition="$res.isselecttime eq 1">checked</if> name="service-time-select-radio" class="bookedTimeSelected" value="1" >
+                        <span>选择时间</span>
+                    </div>
+                </div>
+                <div class="bookedTime">
+                    <if condition="$res.isselecttime eq 1">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">*提前预约条件</label>
+                            <div class="col-sm-2" style="margin-top:7px;">
+                                <input type="radio" <?php if($res['caltype'] == 1): ?>checked<?php endif; ?>  name="timeTypeBooked"  id="guDing" class="service-time-select" value="1">
+                                <span>按固定时间计算</span>
+                            </div>
+                            <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">
+                                <input type="radio" <?php if($res['caltype'] == 2): ?>checked<?php endif; ?> name="timeTypeBooked" id="ziRanRi" class="service-time-select" value="2">
+                                <span>按自然日计算</span>
+                            </div>
+                        </div>
+                        <div id="yuYueType">
+                            <if condition="$res.caltype eq 1">
+                                <?php if ($res['caltype'] == 1) { ?>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-1 wenzi" style="margin-right:10px">提前</div>
+                                    <div class="col-sm-2 priceNum">
+                                        <input type="text" class="form-control"  value="{$res.caldata.time}" name="" placeholder="" id="hour">
+                                    </div>
+                                    <div class="col-sm-1 wenzi">小时;</div>
+                                </div>
+                                <?php } else { ?>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-1 wenzi" style="margin-right:10px">提前</div>
+                                    <div class="col-sm-2 priceNum">
+                                        <input type="text" class="form-control" value="{$res.caldata.day}"   name="" placeholder="" id="day">
+                                    </div>
+                                    <div class="col-sm-1 wenzi">天，</div>
+                                    <span><select  style="width:60px;height:30px" id="tiqianyuding-day-val-time"></select>&nbsp;&nbsp;几点前;</span>
+                                </div>
+                                <?php } ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">*预约日期范围</label>
+                            <div class="col-sm-1 wenzi" style="margin-right:10px">可预约</div>
+                            <div class="col-sm-2 priceNum">
+                                <input type="text" class="form-control"  value="{$res.booktime}"  name="" placeholder="" id="booktime">
+                            </div>
+                            <div class="col-sm-2 wenzi">天内的服务;</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label">*不可预约的日期</label>
+                            <div class="col-sm-2 ">
+                                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModal" style="width:80px;background:#1AB394;border:0">添加</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label"></label>
+                            <div id="notBooked">
+                                <?php foreach($res['noservicetime'] as $row) {?>
+                                <?php if ($row['date'] && $row['weekends']) {?>
+                                <div class="item selectItem" data-value="<?php echo $row['date'].','.$row['weekends'];?>"><div><div><?=$row['date']?></div><div><?=$row['weekname']?></div></div><span class="delButton">×</span></div>
+                                <?php } elseif($row['date']) { ?>
+                                <div class="item selectItem" data-value="<?php echo $row['date'].','; ?>"><?=$row['date']?><span class="delButton">×</span></div>
+                                <?php } elseif($row['weekends']) { ?>
+                                <div class="item selectItem" data-value="<?php echo ','.$row['weekends']; ?>"><?=$row['weekname']?><span class="delButton">×</span></div>
+                                <?php } ?>
+                                <?php }?>
+                            </div>
+                        </div>
+                        <!--模态框开始-->
+                        <div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content" style="margin-top:50%">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">添加不可预约日期</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <label for="" class="col-sm-2 control-label" style="color:#A1A1A1">周期</label>
+                                            <div class="cycleData">
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="1" id="">
+                                                    <span class="weekDay">周一</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="2" id="">
+                                                    <span class="weekDay">周二</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="3" id="">
+                                                    <span class="weekDay">周三</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="4" id="">
+                                                    <span class="weekDay">周四</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="5" id="">
+                                                    <span class="weekDay">周五</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="6" id="">
+                                                    <span class="weekDay">周六</span>
+                                                </div>
+                                                <div class="weekTime">
+                                                    <input type="checkbox" name="shijianduan" class="weekends" value="0" id="0">
+                                                    <span class="weekDay">周日</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top:10px;">
+                                            <label for="" class="col-sm-2 control-label" style="color:#A1A1A1">选择时间</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="servicestart"  name="" placeholder="选择开始时间">
+                                            </div>
+                                            <div class="col-sm-2 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                                                至
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="serviceend"  name="" placeholder="选择结束时间">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="button" class="btn btn-primary" id="noservicebutton">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </if>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">*下单是否可选人员</label>
+                    <div class="col-sm-3">
+                        <select name="type" <if condition="$res.isselecttime eq '0'">disabled </if> class="form-control" id="isselectstaff" >
+                        <option value="1">下单选择服务人员</option>
+                        <option value="2" selected>供应商分配服务人员</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label">*可接单的员工组</label>
+                    <div class="sureOrder">
+                        <volist name="groupinfo" id="vo1">
+                            <div class="sureOrderItem <?php if (in_array($vo1['id'],$res['staffgroup'])) {?> groupActive<?php }?>"  data-id="{$vo1.id}">{$vo1.name}</div>
+                        </volist>
+
+                    </div>
+                </div>
+            </if>
+        </div>
+
+
+
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*收费方式</label>
+            <div class="col-sm-4">
+                <select name="paystyle" class="form-control" id="paystyle">
+                    <option value="1" <if condition="$res.paystyle eq 1">selected</if>>实际价格</option>
+                    <option value="2" <if condition="$res.paystyle eq 2">selected</if>>定金</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*规格</label>
+            <div class="col-sm-4">
+                <select name="spec" class="form-control" id="spec" disabled>
+                    <option value="0" <if condition="$res.spec eq 0">selected</if>>无规格</option>
+                    <option value="1" <if condition="$res.spec eq 1">selected</if>>有规格</option>
+                </select>
+            </div>
+        </div>
+        <div id="content">
+            <volist name="specinfo" id="vo" key="wdlii" >
+                <div class="form-group col-sm-10 onespec" style="border:1px solid #000;float: right;padding-bottom: 8px">
+                    <div style="margin-top:10px ">
+                        <label class="col-sm-2 control-label" >*规格名称</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control  specname" name="specname " value="{$vo.specname}"  <if condition="$res.spec eq 0">disabled</if>  >
+                        </div>
+                        <label class="col-sm-1 control-label" >*单价</label>
+
+                        <div class="col-sm-5">
+                            <input type="text" value="{$vo.price}" name="price" class="form-control price">
+                        </div>
+                        <label class="col-sm-1" style="color:#000;width: 30px">元</label>
+                    </div>
+                    <div style="margin-top:50px ">
+                        <label class="col-sm-2 control-label" >*库存</label>
+                        <div class="col-sm-3">
+                            <input type="text" value="{$vo.nums}" name="nums" class="form-control nums" >
+                        </div>
+                        <label class="col-sm-1 control-label" >*限购</label>
+                        <div class="col-sm-2">
+                            <select name="limittype" class="form-control limittype" >
+                                <option value="1" <if condition="$vo.limitype eq 1">selected</if>>不限购</option>
+                                <option value="2" <if condition="$vo.limitype eq 2">selected</if>>按用户限购</option>
+                                <option value="3" <if condition="$vo.limitype eq 3">selected</if>>按订单限购</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <if condition="$vo.limitype eq 1">
+                                <input type="text" value="" name="limitnum" class="form-control limitnum" disabled="disabled">
+                                <else />
+                                <input type="text" value="{$vo.limitnum}" name="limitnum" class="form-control limitnum" >
+                            </if>
+                        </div>
+                        <label class="col-sm-1" style="color:#000;width: 30px">份</label>
+                    </div>
+                    <div style="margin-top:90px ;margin-bottom:130px">
+                        <label for="" class="col-sm-2 control-label" >*状态</label>
+                        <div class="col-sm-3">
+                            <select name="status" class="form-control status" >
+                                <option value="1" <if condition="$vo.status eq 1">selected</if>>上线</option>
+                                <option value="2" <if condition="$vo.status eq 2">selected</if>>下线</option>
+                            </select>
+                        </div>
+                        <label class="col-sm-1 control-label" >市场价</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control orginprice" name="orginprice" value="{$vo.orginprice}">
+                        </div>
+                        <label class="col-sm-1" style="color:#000;width: 30px">元</label>
+                    </div>
+                    <div>
+                        <label class="col-sm-2 control-label" >*起订份数</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control minnum" name="minnum " value="{$vo.minnum}">
+                        </div>
+                        <label class="col-sm-2 control-label" style="text-align:left;">sku备注</label>
+                        <div class="col-sm-5" style="margin-left:-76px">
+                            <input type="text" class="form-control remark" name=" " value="{$vo.remark}">
+                        </div>
+                    </div>
+                    <div class="fuWuTime">
+                        <?php if ($res['type'] == 3) { ?>
+
+                        <label class="col-sm-2 control-label" style="text-align:left">*服务时长</label>
+                        <div class="col-sm-3" style="margin-left:-75px;">
+                            <input type="text" class="form-control stime"  value="{$vo.stime}" name=" " placeholder="" >
+                        </div>
+                        <label class="col-sm-1" style="color:#000;">分钟</label>
+                        <?php } ?>
+                    </div>
+
+                    <div class="col-sm-11 initTipss"   style="margin-top:5px">
+                        <?php if ($res['type'] != 5) { ?>
+                        <label class="col-sm-2 control-label" >*tips</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control tips" name=" " value="{$vo.tips}"   placeholder="30字以内">
+                        </div>
+                        <?php } ?>
+                    </div>
+                    <div class="col-sm-11 settlecon" style="margin-top:5px">
+                        <label class="col-sm-2 control-label" >*结算方式</label>
+                        <div class="col-sm-3">
+                            <select name="settletype" class="form-control settletype" >
+                                <option value="1" <if condition="$vo.settletype eq '1'">selected</if>>固定结算金额</option>
+                                <option value="2" <if condition="$vo.settletype eq '2'">selected</if>>固定佣金比例</option>
+                                <option value="3" <if condition="$vo.settletype eq '3'">selected</if>>固定佣金金额</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text"  name="settlevalue"class="form-control settlevalue" value="{$vo.settlevalue}">
+                        </div>
+                        <label class="col-sm-1 settleunit" style="color:#000;width: 30px">
+                            <if condition="$vo.settletype eq '2'">
+                                %
+                                <else />
+                                元
+                            </if>
+                        </label>
+                    </div>
+                    <div class="col-sm-11 tipss" style="margin-top:5px">
+                        <label class="col-sm-2 control-label" >自动下线时间</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control tips endtime" name=""   placeholder="" value="{$vo.endtime}">
+                        </div>
+                    </div>
+                    <div class="col-sm-11 wdlimgdiv" style="margin-top:5px; display:none;">
+                        <label class="col-sm-2 control-label" >*商品图</label>
+                        <div class="col-sm-10 swimg" id="shiwu_{$wdlii}" data="{$vo.swimg}" >
+                        </div>
+                    </div>
+
+
+                    <if condition="$key neq 0">
+                        <img src="__PUBLIC__/Admin/images/u847.png"  class="del" data-id="{$vo.id}" alt="点击删除" style="float: right;position: absolute;right: -30px;height: 30px;top:-1px;cursor: pointer" />
+                        <else />
+                        <img src="__PUBLIC__/Admin/images/u847.png"  class="del" data-id="{$vo.id}" alt="点击删除" style="float: right;position: absolute;right: -30px;height: 30px;top:-1px;cursor: pointer;display: none" />
+                    </if>
+                </div>
+            </volist>
+
+
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10" id="addbutton">
+                <button type="button" name="add" id="add" class="btn btn-primary" style="width:80px;background:#777;border:0" <if condition="$res.spec eq 0">disabled</if>>添加规格</button>
+            </div>
+        </div>
+        <!---------------------------------填单信息---------------------------------->
+        <div id="morenCondition">
+
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label"></label>
+            <div>
+                <button type="button" name="" id="typeButton" class="btn btn-primary" style="width:120px;background:#777;border:0">自定义下单信息</button>
+            </div>
+        </div>
+        <div id="selectCondition">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="submit" id="surebtn" class="btn btn-primary" style="width:120px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+        {__TOKEN__}
+    </form>
+</div>
+<script>
+    //获取当前日期时间
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    var nowdate = newDate.format('yyyy-MM-dd 00:00:00');
+    /*时间插件操作*/
+    $(".endtime").each(function () {
+        $(this).jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+    })
+
+
+
+    /*到家服务操作*/
+    function showdaojiafuwu() {
+        var str = '            <div class="form-group" id="bookedType">\n' +
+        '                <label for="" class="col-sm-2 control-label">*是否选择服务时间</label>\n' +
+        '                <div class="col-sm-2" style="margin-top:7px;">\n' +
+        '                    <input  type="radio" checked  name="service-time-select-radio" class="bookedTimeSelected" value="0">\n' +
+        '                    <span>不选择时间</span>\n' +
+        '                </div>\n' +
+        '                <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">\n' +
+        '                    <input type="radio"  name="service-time-select-radio" class="bookedTimeSelected" value="1" >\n' +
+        '                    <span>选择时间</span>\n' +
+        '                </div>\n' +
+        '            </div>\n' +
+        '            <div class="bookedTime">\n' +
+        '            </div>\n' +
+        '                <div class="form-group">\n' +
+        '                    <label for="" class="col-sm-2 control-label">*下单是否可选人员</label>\n' +
+        '                    <div class="col-sm-3">\n' +
+        '                        <select name="type" disabled class="form-control" id="isselectstaff" >\n' +
+        '                            <option value="1">下单选择服务人员</option>\n' +
+        '                            <option value="2" selected>供应商分配服务人员</option>\n' +
+        '                        </select>\n' +
+        '                    </div>\n' +
+        '                </div>\n' +
+        '                <div class="form-group">\n' +
+        '                    <label for="" class="col-sm-2 control-label">*可接单的员工组</label>\n' +
+        '                    <div class="sureOrder">\n' +
+        <?php foreach($groupinfo as $key1 => $row){ ?>
+            '<div class="sureOrderItem <?php if($key1 == 0) {?> groupActive<?php }?>" data-id="<?=$row['id']?>"><?=$row['name']?></div>\n' +
+            <?php } ?>
+        '                    </div>\n' +
+        '                </div>';
+        $('#serviceTimeInfo').html(str);
+    }
+
+    function hidedaojiafuwu() {
+        $('#serviceTimeInfo').html('');
+    }
+    //下单时间增加
+    function showaddress() {
+        var str = '        <div class="form-group  onecon element2" data-num=\'3\' id="serviceAdress">\n' +
+            '            <label for="" class="col-sm-2 control-label"></label>\n' +
+            '            <div class="col-sm-10" style="border: 1px solid #000;height: 50px;padding-top: 7px">\n' +
+            '                <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+            '                <div class="col-sm-3">\n' +
+            '                    <input type="text" class="form-control name" name="" id=""  disabled value="服务地址">\n' +
+            '                </div>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="type" class="form-control selecttype" disabled>\n' +
+            '                        <option value="1" selected >地址</option>\n' +
+            '                        <option value="2">筛选项</option>\n' +
+            '                        <option value="3"  >上传图片</option>\n' +
+            '                        <option value="4" >地址</option>\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="" class="form-control require" disabled>\n' +
+            '                        <option value="0">是否必填</option>\n' +
+            '                        <option value="1" selected>必填</option>\n' +
+            '                        <option value="2">非必填</option>\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="" class="form-control numtype" disabled>\n' +
+            '                        <option value="0">填写份数</option>\n' +
+            '                        <option value="1" selected>1份</option>\n' +
+            '                        <option value="2">多份</option>\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '        </div>';
+        $('#morenCondition').append(str);
+    }
+    function hideaddress() {
+        $('#serviceAdress').remove();
+    }
+
+    $('#serviceType').change(function(){
+        var serviceType=$('#serviceType option:selected').val();
+        if(serviceType==3){
+            var shichang =             '                   <label class="col-sm-2 control-label" style="text-align:left;">*服务时长</label>\n' +
+                '                    <div class="col-sm-3" style="margin-left:-75px;">\n' +
+                '                        <input type="text" class="form-control stime"  value="" name=" " placeholder="" >\n' +
+                '                    </div>\n' +
+                '<label class="col-sm-1" style="color:#000;">分钟</label>\n';
+            showdaojiafuwu();
+            $('.fuWuTime').html(shichang);
+            showaddress();
+
+            $('.wdlimgdiv').css('display','none') ;
+        }else{
+            hidedaojiafuwu();
+            $('.fuWuTime').html('');
+            hidedaojiafuwu();
+            hideaddress();
+
+
+
+            if(serviceType==5){
+                $('.wdlimgdiv').css('display','inline') ;
+                showaddress();
+                $('.initTipss').css('display','none');
+
+            }else{
+                $('.wdlimgdiv').css('display','none') ;
+                var tipss='<label class="col-sm-2 control-label" >*tips</label><div class="col-sm-10"><input type="text" class="form-control tips" name=" " value=""   placeholder="30字以内"></div>'
+
+            }
+            $('.initTipss').html(tipss);
+
+        }
+    })
+
+
+    //选择时间显示
+    function showselectTime() {
+        var str =             '                <div class="form-group">\n' +
+            '                    <label for="" class="col-sm-2 control-label">*提前预约条件</label>\n' +
+            '                    <div class="col-sm-2" style="margin-top:7px;">\n' +
+            '                        <input type="radio" checked name="timeTypeBooked"  id="guDing" class="service-time-select" value="1">\n' +
+            '                        <span>按固定时间计算</span>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">\n' +
+            '                        <input type="radio" name="timeTypeBooked" id="ziRanRi" class="service-time-select" value="2">\n' +
+            '                        <span>按自然日计算</span>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                <div id="yuYueType">\n' +
+            '                    <div class="form-group">\n' +
+            '                        <label for="" class="col-sm-2 control-label"></label>\n' +
+            '                        <div class="col-sm-1 wenzi" style="margin-right:10px">提前</div>\n' +
+            '                        <div class="col-sm-2 priceNum">\n' +
+            '                            <input type="text" class="form-control"   name="" placeholder="" id="hour">\n' +
+            '                        </div>\n' +
+            '                        <div class="col-sm-1 wenzi">小时;</div>\n' +
+            '                    </div>\n' +
+            '\n' +
+            '                </div>\n' +
+            '                <div class="form-group">\n' +
+            '                    <label for="" class="col-sm-2 control-label">*预约日期范围</label>\n' +
+            '                    <div class="col-sm-1 wenzi" style="margin-right:10px">可预约</div>\n' +
+            '                    <div class="col-sm-2 priceNum">\n' +
+            '                        <input type="text" class="form-control"   name="" placeholder="" id="booktime">\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-2 wenzi">天内的服务;</div>\n' +
+            '                </div>\n' +
+            '                <div class="form-group">\n' +
+            '                    <label for="" class="col-sm-2 control-label">*不可预约的日期</label>\n' +
+            '                    <div class="col-sm-2 ">\n' +
+            '                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModal" style="width:80px;background:#1AB394;border:0">添加</button>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '                <div class="form-group">\n' +
+            '                    <label for="" class="col-sm-2 control-label"></label>\n' +
+            '                     <div id="notBooked">\n' +
+            '\n' +
+            '                     </div>\n' +
+            '                </div>\n' +
+            '                <!--模态框开始-->\n' +
+            '                <div class="modal fade" id="gridSystemModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">\n' +
+            '                    <div class="modal-dialog" role="document">\n' +
+            '                        <div class="modal-content" style="margin-top:50%">\n' +
+            '                            <div class="modal-header">\n' +
+            '                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n' +
+            '                                <h4 class="modal-title" id="gridSystemModalLabel">添加不可预约日期</h4>\n' +
+            '                            </div>\n' +
+            '                            <div class="modal-body">\n' +
+            '                                <div class="row">\n' +
+            '                                    <label for="" class="col-sm-2 control-label" style="color:#A1A1A1">周期</label>\n' +
+            '                                    <div class="cycleData">\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="1" id="">\n' +
+            '                                            <span class="weekDay">周一</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="2" id="">\n' +
+            '                                            <span class="weekDay">周二</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="3" id="">\n' +
+            '                                            <span class="weekDay">周三</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="4" id="">\n' +
+            '                                            <span class="weekDay">周四</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="5" id="">\n' +
+            '                                            <span class="weekDay">周五</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="6" id="">\n' +
+            '                                            <span class="weekDay">周六</span>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="weekTime">\n' +
+            '                                            <input type="checkbox" name="shijianduan" class="weekends" value="0" id="0">\n' +
+            '                                            <span class="weekDay">周日</span>\n' +
+            '                                        </div>\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                                <div class="row" style="margin-top:10px;">\n' +
+            '                                    <label for="" class="col-sm-2 control-label" style="color:#A1A1A1">选择时间</label>\n' +
+            '                                    <div class="col-sm-3">\n' +
+            '                                        <input type="text" class="form-control" id="servicestart"  name="" placeholder="选择开始时间">\n' +
+            '                                    </div>\n' +
+            '                                    <div class="col-sm-2 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">\n' +
+            '                                        至\n' +
+            '                                    </div>\n' +
+            '                                    <div class="col-sm-3">\n' +
+            '                                        <input type="text" class="form-control" id="serviceend"  name="" placeholder="选择结束时间">\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                            <div class="modal-footer">\n' +
+            '                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>\n' +
+            '                                <button type="button" class="btn btn-primary" id="noservicebutton">确定</button>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>\n';
+        $('.bookedTime').html(str);
+    }
+
+    function hideshowselectTime() {
+        $('.bookedTime').html('');
+    }
+
+    //日期插件
+    $("#servicestart").jeDate({
+        format: "YYYY-MM-DD",
+        minDate:nowdate
+    })
+    $("#serviceend").jeDate({
+        format: "YYYY-MM-DD",
+        minDate:nowdate
+    })
+    /* 预定条件选择*/
+    $("#serviceTimeInfo").on('click','.bookedTimeSelected',function () {
+        var bookType=$(this).val();
+        console.log(bookType);
+        if(bookType==1){
+            showselectTime();
+            $('#isselectstaff').prop('disabled', false)
+            $('#isselectstaff option[value="1"]').prop('selected', true)
+            //日期插件
+            $("#servicestart").jeDate({
+                format: "YYYY-MM-DD",
+                minDate:nowdate
+            })
+            $("#serviceend").jeDate({
+                format: "YYYY-MM-DD",
+                minDate:nowdate
+            })
+        }else{
+            hideshowselectTime();
+            $('#isselectstaff option[value="2"]').prop('selected', true)
+            $('#isselectstaff').prop('disabled', true)
+
+        }
+    })
+
+    $('#serviceTimeInfo').on('click','.service-time-select',function () {
+        var type = $(this).val();
+        if (type ==2 ) {
+            $("#yuYueType").html('');
+            addZiRanRI();
+            select_hour_render();
+        } else {
+            $("#yuYueType").html('');
+            addGuDing();
+        }
+    })
+
+    //选择不可服务时间
+    $('#serviceTimeInfo').on('click','#noservicebutton',function () {
+        var starttime = $("#servicestart").val();
+        var endtime = $("#serviceend").val();
+        var date = '';
+        var weekends = '';
+        var weekids = '';
+        var istrue = true;
+        $('.weekends:checked').each(function () {
+            weekends += $(this).parent().find('span').text()+',';
+            weekids += $(this).val()+';'
+        })
+        console.log(weekends)
+        if (weekends) weekends = weekends.substr(0,weekends.length-1);
+        if (weekids) weekids = weekids.substr(0,weekids.length-1);
+        if (starttime && endtime) {
+            if(starttime > endtime){
+                istrue = false;
+                alert('开始时间不能大于结束时间');
+            };
+            starttime = starttime.split('-');
+            starttime = starttime[0]+'/'+starttime[1]+'/'+starttime[2];
+            endtime = endtime.split('-');
+            endtime = endtime[0]+'/'+endtime[1]+'/'+endtime[2];
+            date = starttime+'-'+endtime;
+        } else if (starttime) {
+            istrue = false;
+            alert('选择结束时间');
+        } else if (endtime) {
+            istrue = false;
+            alert('选择开始时间');
+        }
+
+        var html = '';
+        var temp = '';
+        if (istrue) {
+            if (weekends && date) {
+                temp = date+','+weekids;
+                html = '<div class="item selectItem" data-value="'+temp+'"><div><div>'+date+'</div><div>'+weekends+'</div></div><span class="delButton">×</span></div>';
+            } else if (weekends) {
+                temp = ','+weekids;
+                html = '<div class="item selectItem" data-value="'+temp+'">'+weekends+'<span class="delButton">×</span></div>';
+            } else if (date) {
+                temp = date+',';
+                html = '<div class="item selectItem" data-value="'+temp+'">'+date+'<span class="delButton">×</span></div>';
+            }
+            $("#notBooked").append(html);
+            $('#gridSystemModal').modal('hide');
+            $('.weekends').prop('checked', false);
+            $('.servicestart').val('');
+            $('.serviceend').val('');
+            $("#servicestart").val('');
+            $("#serviceend").val('');
+        }
+    })
+    //删除不可预约日期
+    $('#serviceTimeInfo').on('click','.delButton',function () {
+        $(this).parents('.selectItem').remove()
+    })
+
+    //可接单的员工租操作
+    $('#serviceTimeInfo').on('click', '.sureOrderItem', function () {
+        var name = $(this).text();
+        var length = $('.groupActive').length;
+        if (!$(this).hasClass('groupActive')) {
+            $(this).addClass('groupActive');
+        } else {
+            if (length >1) {
+                $(this).removeClass('groupActive');
+            }
+        }
+    });
+
+    //提前预约条件操作
+    //24点时间选择
+    var selecttime = '{$res.caldata.time}'
+    select_hour_render(selecttime);
+    function select_hour_render(temptime){
+        var str='';
+        var tempstr = '';
+        var temp = '';
+        for (let i = 24; i >=0; i --) {
+
+            let hourstr;
+            if (i < 10) {
+                hourstr = '0' + i;
+            } else {
+                hourstr = i;
+            }
+            temp = hourstr + ':00';
+            str += '<option value="'+temp+'" '+(temptime == temp ? 'selected' : '')+'>'+temp+'</option>';
+
+        }
+        $('#tiqianyuding-day-val-time').html(str);
+    }
+
+
+
+    function ziRanRi(){
+        var str='';
+        str='<div class="form-group">\n' +
+            '                        <label for="" class="col-sm-2 control-label"></label>\n' +
+            '                        <div class="col-sm-1 wenzi" style="margin-right:10px">提前</div>\n' +
+            '                        <div class="col-sm-2 priceNum">\n' +
+            '                            <input type="text" class="form-control"   name="" placeholder="" id="day">\n' +
+            '                        </div>\n' +
+            '                        <div class="col-sm-1 wenzi">天，</div>\n' +
+            '                        <span><select  style="width:60px;height:30px" id="tiqianyuding-day-val-time"></select>&nbsp;&nbsp;几点前;</span>\n' +
+            '                    </div>';
+        return str;
+    }
+    function addZiRanRI(){
+        var str='';
+        str=ziRanRi();
+        $("#yuYueType").html(str);
+    }
+
+    function guDing(){
+        var str='';
+        str='<div class="form-group">\n' +
+            '                        <label for="" class="col-sm-2 control-label"></label>\n' +
+            '                        <div class="col-sm-1 wenzi" style="margin-right:10px">提前</div>\n' +
+            '                        <div class="col-sm-2 priceNum">\n' +
+            '                            <input type="text" class="form-control"   name="" placeholder="" id="hour">\n' +
+            '                        </div>\n' +
+            '                        <div class="col-sm-1 wenzi">小时;</div>\n' +
+            '                    </div>';
+        return str;
+    }
+    function addGuDing(){
+        var str='';
+        str=guDing();
+        $("#yuYueType").html(str);
+    }
+
+    //新增一个规格
+    function onestr() {
+        var goodtype = $("#type").val();
+        var paystyle = $("#paystyle").val();
+        var spec = $("#spec").val();
+        var servicetype = $('#serviceType').val();
+        var str='            <div class="form-group col-sm-10 onespec" style="border:1px solid #000;float: right;padding-bottom: 8px">\n' +
+            '\n' +
+            '                <div style="margin-top:10px ">\n' +
+            '                    <label class="col-sm-2 control-label" >*规格名称</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control specname "  name="specname " '+(spec==0?'disabled':'')+'   placeholder="20字以内" >\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1 control-label" >*单价</label>\n' +
+            '                    <div class="col-sm-5">\n' +
+            '                        <input type="text" name="price" class="form-control price"   >\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1" style="color:#000;width: 30px">元</label>\n' +
+            '                </div>\n' +
+            '\n' +
+            '\n' +
+            '                <div style="margin-top:50px ">\n' +
+            '                    <label class="col-sm-2 control-label" >*库存</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control nums" name="nums">\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1 control-label" >*限购</label>\n' +
+            '                    <div class="col-sm-2">\n' +
+            '                        <select name="limittype" class="form-control limittype" >\n' +
+            '                            <option value="1"  >不限购</option>\n' +
+            '                            <option value="2">按用户限购</option>\n' +
+            '                            <option value="3">按订单限购</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text"  name="limitnum"class="form-control limitnum" disabled>\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1" style="color:#000;width: 30px">份</label>\n' +
+            '                </div>\n' +
+            '\n' +
+            '                <div style="margin-top:90px ;margin-bottom:130px">\n' +
+            '                    <label for="" class="col-sm-2 control-label" >*状态</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <select name="status" class="form-control status" >\n' +
+            '                            <option value="1">上线</option>\n' +
+            '                            <option value="2">下线</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1 control-label" >市场价</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control orginprice" name="orginprice">\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1" style="color:#000;width: 30px">元</label>\n' +
+            '                </div>\n' +
+
+            '                    <label class="col-sm-2 control-label" >*起订份数</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control minnum "  name="minnum "  >\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-2 control-label" style="text-align:left;">sku备注</label>\n' +
+            '                    <div class="col-sm-5" style="margin-left:-76px">\n' +
+            '                        <input type="text" class="form-control remark "  name=" "  >\n' +
+            '                    </div>\n' +
+            '<div class="fuWuTime" style="'+(servicetype==3?'':'display:none')+'" >';
+        //       if (servicetype == 3) {
+        str +=      '                   <label class="col-sm-2 control-label" style="text-align:left">*服务时长</label>\n' +
+            '                    <div class="col-sm-3" style="margin-left:-75px;">\n' +
+            '                        <input type="text" class="form-control  stime"   value="" name=" " placeholder="" >\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1" style="color:#000;">分钟</label>\n';
+        //       }
+        str+= '                </div>\n' +
+            '                <div class="col-sm-11 tipss" style="margin-top:5px">\n' +
+            '                    <label class="col-sm-2 control-label" >*tips</label>\n' +
+            '                    <div class="col-sm-10">\n' +
+            '                        <input type="text" class="form-control tips" name=" "   placeholder="30字以内" >\n' +
+            '                    </div>\n' +
+            '                </div>\n' ;
+        str+=            '<div class="col-sm-11 settlecon" style="margin-top:5px">' +
+            '<label class="col-sm-2 control-label" >*结算方式</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <select name="settletype" class="form-control settletype" >\n' +
+            '                            <option value="1"  >固定结算金额</option>\n' +
+            '                            <option value="2">固定佣金比例</option>\n' +
+            '                            <option value="3">固定佣金金额</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text"  name="settlevalue"class="form-control settlevalue">\n' +
+            '                    </div>\n' +
+            '                    <label class="col-sm-1 settleunit" style="color:#000;width: 30px">元</label>\n</div>';
+        str+='                <div class="col-sm-11 tipss" style="margin-top:5px">\n' +
+            '                    <label class="col-sm-2 control-label" >自动下线时间</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control tips endtime" name=""   placeholder="" >\n' +
+            '                    </div>\n' +
+            '                </div>\n' ;
+        str += '      <div class="col-sm-11 wdlimgdiv" style="margin-top:5px; display:none;">\n' +
+            '                    <label class="col-sm-2 control-label" >*商品图</label>\n' +
+            '                    <div class="col-sm-10 swimg" id="shiwu_'+wdlii+'">\n' +
+            '                    </div>\n' +
+            '                </div>\n' ;
+
+
+
+        str+= '      <img src="__PUBLIC__/Admin/images/u847.png"  class="del" alt="点击删除" style="float: right;position: absolute;right: -30px;height: 30px;top:-1px;cursor: pointer" />\n';
+        return str;
+    }
+    function createOneSpec() {
+        var str = '';
+        str=onestr();
+        console.log(str);
+        $("#content").append(str);
+        $("#content .endtime:last").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+        var servicetype = $('#serviceType').val();
+        newimgdiv(0,'') ; //实物图片
+
+        if( servicetype==5 ){
+            $('.wdlimgdiv').css('display','inline') ;
+            $('.tipss').css('display','none');
+        }else{
+            $('.wdlimgdiv').css('display','none') ;
+        }
+
+    }
+    /*添加一个规格*/
+    $("#add").click(function () {
+        createOneSpec();
+    })
+    //无规格
+    function nospec() {
+        $('.specname').prop('disabled', true);
+        $("#add").prop('disabled',true);
+        $("#content div").remove();
+        var str = onestr();
+        $("#content").html(str);
+
+        var servicetype = $('#serviceType').val();
+        if( servicetype==5 ){
+            $('.swimg').css('display','inline') ;
+            $('.tipss').css('display','none');
+        }else{
+            $('.swimg').css('display','none') ;
+        }
+
+
+    }
+
+    //有规格
+    function spec1() {
+        $('.specname').prop('disabled', false);
+        $("#add").prop('disabled',false);
+    }
+
+    $('#content').on('change','.settletype',function () {
+        var settletype = $(this).val();
+        $(this).parents('.settlecon').find('.settlevalue').val('');
+        if (settletype == 2) {
+            $(this).parents('.settlecon').find('.settleunit').text('%');
+        } else {
+            $(this).parents('.settlecon').find('.settleunit').text('元');
+        }
+    })
+    //删除一个规格
+    var delids = '';
+    $('#content').on('click', '.del', function () {
+        delids += $(this).data('id')+',';
+        $(this).parent().remove();
+    });
+
+    $("#spec").change(function () {
+        var spec = $(this).val();
+        var str = '';
+        console.log(spec);
+        if(spec==1){
+            spec1();
+        }else {
+            nospec();
+        }
+    })
+
+    $("#paystyle").change(function () {
+        var paystyle = $(this).val();
+        if(paystyle==1){
+            $(".pricetype option[value=1]").prop('selected', true);
+            $(".pricetype").prop('disabled', true);
+
+        }else {
+            $(".pricetype").prop('disabled',false);
+        }
+    })
+
+    //限购操作
+    $("#content").on('change','.limittype',function () {
+        var type =$(this).val();
+//        console.log('type' , type);
+        if (type ==1) {
+            $(this).parents('.onespec').find('.limitnum').val('').attr('disabled',true);
+        } else {
+            $(this).parents('.onespec').find('.limitnum').attr('disabled',false);
+
+        }
+    })
+
+
+    //提交编辑商品
+    $("#surebtn").click(function () {
+        var productid = "{$Think.get.productid}";
+        var goodid = "{$Think.get.goodid}";
+
+        var name = $("#name").val();
+        var getblen = function(info) {
+            if (info == null) return 0;
+            if (typeof info != "string"){
+                info += "";
+            }
+            return info.replace(/[^\x00-\xff]/g,"01").length/2;
+        }
+        var issubmit = 1;
+        var token = $("input[name='__hash__']").val();
+
+        if(name==''){
+            issubmit = 0;
+            alert("请输入商品名称")
+            return false;
+        }
+        if(getblen(name)>24){
+            issubmit = 0;
+            alert("商品名称最多输入24字");
+            return false;
+        }
+        var paystyle = $("#paystyle").val();
+        var spec = $("#spec").val();
+        var specinfo = [];
+        var issubmit = 1;
+
+        var type = $('#serviceType option:selected').val();
+        var isselecttime=$(".bookedTimeSelected:checked").val();
+        var caltype=$(".service-time-select:checked").val();
+        var advancetime='';
+        var xioashi=$('#tiqianyuding-day-val-time option:selected').val();
+        if(caltype==1){
+            var advancetime=$("#hour").val();
+        }else if(caltype==2){
+            var advancetime=$("#day").val()+','+xioashi;
+        }else{
+            advancetime='';
+        }
+
+        var booktime=$("#booktime").val();
+        var noservicetime=''
+        $(".selectItem").each(function(){
+            noservicetime+=$(this).attr('data-value')+'|';
+        })
+        noservicetime=noservicetime.substr(0,noservicetime.length-1);
+        var isselectstaff=$("#isselectstaff").val();
+        var staffgroup='';
+        $('.groupActive').each(function () {
+            staffgroup += $(this).data('id')+',';
+        })
+        staffgroup = staffgroup.substr(0,staffgroup.length-1)
+        if(type!=3){
+            isselecttime='';
+            caltype='';
+            advancetime='';
+            booktime='';
+            noservicetime='';
+            isselectstaff='';
+            staffgroup='';
+        }
+        if(isselecttime==0){
+            caltype='';
+        }
+        var temp = '';
+        $("#content .onespec").each(function () {
+            var id =$(this).find('.del').data('id');
+            if (id == undefined) {
+                id = 0;
+            }
+            var specname = $(this).find('.specname').val();
+            var price = $(this).find('.price').val();
+            var nums = $(this).find('.nums').val();
+            var limittype = $(this).find('.limittype').val();
+            var limitnum = $(this).find('.limitnum').val();
+            var status = $(this).find('.status').val();
+            var orginprice = $(this).find('.orginprice').val();
+            var minnum = $(this).find('.minnum').val();
+            var tips = $(this).find('.tips').val();
+            var stime=$(this).find('.stime').val();
+            var swimg=$(this).find('.swimg').attr('uploadpath'); //实物图片
+            var settletype = $(this).find('.settletype').val();
+            var settlevalue = $(this).find('.settlevalue').val();
+            var endtime = $(this).find('.endtime').val();
+            var remark = $(this).find('.remark').val();
+            if (endtime.length) {
+                endtime = endtime.replace(/-/g, '/');
+                var date = new Date(endtime);
+                console.log('date', new Date(endtime));
+                endtime = Date.parse(date) / 1000;
+                // endtime = String(endtime).substr(0,String(endtime).length-3);
+            }
+            console.log(swimg);
+            if( type==5 && spec==1 && (swimg == '' || swimg==undefined) ){
+                issubmit = 0;
+                alert( '请选择商品图片！'  )    ;
+                return false;
+            }
+
+            if( type!=5 && (swimg == '' || swimg==undefined) ){
+                swimg = '' ;
+            }
+            //        alert( swimg ) ;
+
+            console.log(swimg);
+
+            console.log(stime);
+            if (limittype !=1 && !limitnum) {
+                issubmit = 0;
+                alert("请输入限购量");
+                return false;
+            }
+            var reg =/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/;
+            var numsreg = /^[0-9]+$/;
+            var numsreg1 = /^[0-9]+$/;
+            if(!specname&& spec==1){
+                issubmit = 0;
+                alert("请输入规格名称");
+                return false;
+            } else if (specname.length>20) {
+                issubmit = 0;
+                alert("规格名称最大为20字");
+                return false;
+            } else if ( price == '') {
+                issubmit = 0;
+                alert("请输入价格");
+                return false;
+            } else if (price!=''&& !reg.test(price)) {
+                issubmit = 0;
+                alert("请输入正确的价格,可支持精确到分");
+                return false;
+            } else if (nums == '') {
+                issubmit = 0;
+                alert("请输入库存");
+                return false;
+            } else if (!numsreg.test(nums)) {
+                issubmit = 0;
+                alert("请输入库存为大于0的整数");
+                return false;
+            }  else if (limitnum && !numsreg1.test(limitnum)) {
+                issubmit = 0;
+                alert("请输入限购份数为大于0的整数");
+                return false;
+            } else if (orginprice && (!reg.test(orginprice) || orginprice <=0)) {
+                issubmit = 0;
+                alert("请输入正确的市场价,且必须大于0");
+                return false;
+            }else if(!minnum){
+                issubmit = 0;
+                alert("请填写起订份数");
+                return false;
+            }else if(!numsreg.test(minnum)|| minnum==0){
+                issubmit = 0;
+                alert("起订份数需为大于0的整数");
+                return false;
+            }  else if (type!=5 && !tips) {
+                issubmit = 0;
+                window.alert('tips不能为空');
+                return false;
+            } else if (type!=5 && tips.length>30){
+                issubmit = 0;
+                window.alert('tips最多30字');
+                return false;
+            }  else if((settletype == 1 || settletype == 3) && !reg.test(settlevalue)) {
+                issubmit = 0;
+                alert( '请输入正确的结算金额！'  )    ;
+                return false;
+            } else if (settletype == 2 &&(settlevalue>100 || !reg.test(settlevalue))) {
+                issubmit = 0;
+                alert( '请输入正确的结算比例！'  )    ;
+                return false;
+            } else if (!token) {
+                issubmit = 0;
+                window.alert('令牌失效，请刷新后重新提交');
+                return false;
+            }
+            else {
+                var tempspecinfo = [];
+                //temp ='specname:'+specname+'+-price:'+price+'+-nums:'+nums+'+-limittype:'+limittype+'+-limitnum:'+limitnum+'+-status:'+status+'+-specid:'+id+'+-orginprice:'+orginprice+'+-minnum:'+minnum+'+-tips:'+tips+'+-stime:'+stime+'+-swing:'+swimg+'+-settletype:'+settletype+'+-settlevalue:'+settlevalue+'+-endtime:'+endtime;
+                tempspecinfo.push(['specname',specname]);
+                tempspecinfo.push(['price',price])
+                tempspecinfo.push(['nums',nums])
+                tempspecinfo.push(['limitype',limittype])
+                tempspecinfo.push(['limitnum',limitnum])
+                tempspecinfo.push(['status',status])
+                tempspecinfo.push(['specid',id])
+                tempspecinfo.push(['orginprice',orginprice])
+                tempspecinfo.push(['minnum',minnum])
+                tempspecinfo.push(['tips',tips])
+                tempspecinfo.push(['stime',stime])
+                tempspecinfo.push(['swimg',swimg])
+                tempspecinfo.push(['settletype',settletype])
+                tempspecinfo.push(['settlevalue',settlevalue])
+                tempspecinfo.push(['endtime',endtime])
+                tempspecinfo.push(['remark',remark])
+                console.log('endtime1', endtime, $(this).find('.endtime'));
+                specinfo.push(tempspecinfo);
+                /*                specinfo+= temp+'{|}';*/
+            }
+        })
+        specinfo = JSON.stringify(specinfo);
+        console.log(specinfo);
+        /*        specinfo = specinfo.substr(0,specinfo.length-3);*/
+        var orderformat = '';
+        if (issubmit) {
+            orderformat = getFormatData();
+        }
+        if (delids) {
+            delids = delids.substr(0, delids.length-1);
+        }
+        var orderformat = getFormatData();
+        if (!orderformat) issubmit = 0;
+        if (issubmit) {
+            $.post(
+                "{:U('OperationGoods/saveGoods')}",{
+                    goodid:goodid,
+                    name:name,
+                    type:type,
+                    isselecttime:isselecttime,
+                    caltype:caltype,
+                    advancetime:advancetime,
+                    booktime:booktime,
+                    noservicetime:noservicetime,
+                    isselectstaff:isselectstaff,
+                    staffgroup:staffgroup,
+                    paystyle:paystyle,
+                    spec:spec,
+                    specinfo:specinfo,
+                    delids:delids,
+                    productid:productid,
+                    token:token,
+                    orderformat:orderformat
+                },function (data) {
+                    alert(data['msg']);
+                    if(data['state']==1){
+                        window.location.href="{:U('Operation/OperationGoods/goodsIndex')}?productid={$Think.get.productid}";
+                    }
+                },'json')
+        }
+
+    })
+
+    //自定义下单相关操作
+
+    //文本信息
+    function oneText(isinit,name,require,numtype) {
+        if (isinit==0 || isinit==undefined) {
+            var str=
+                '                <div class="form-group">\n' +
+                '                <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '                <div class="col-sm-3">\n' +
+                '                <input type="text" class="form-control name" name="" id="" placeholder="4个字以内">\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="type" class="form-control selecttype">\n' +
+                '                <option value="1" selected>文本</option>\n' +
+                '                <option value="2" >筛选项</option>\n' +
+                '                <option value="3">上传图片</option>\n' +
+                '                <option value="4">地址</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1">必填</option>\n' +
+                '                <option value="2">非必填</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control numtype">\n' +
+                '                <option value="0">填写份数</option>\n' +
+                '                <option value="1">1份</option>\n' +
+                '                <option value="2">多份</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                </div>\n' +
+                '            <img src="__PUBLIC__/Admin/images/u847.png"  class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-top:-2px;margin-left:15px;" />\n' +
+                '                </div>\n';
+        } else{
+            var str=
+                '                <div class="form-group">\n' +
+                '                <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '                <div class="col-sm-3">\n' +
+                '                <input type="text" class="form-control name" value="'+name+'" placeholder="4个字以内">\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="type" class="form-control selecttype">\n' +
+                '                <option value="1" selected>文本</option>\n' +
+                '                <option value="2" >筛选项</option>\n' +
+                '                <option value="3">上传图片</option>\n' +
+                '                <option value="4">地址</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1" '+(require==1?'selected':'')+'>必填</option>\n' +
+                '                <option value="2" '+(require==2?'selected':'')+'>非必填</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control numtype">\n' +
+                '                <option value="0">填写份数</option>\n' +
+                '                <option value="1" '+(numtype==1?'selected':'')+'>1份</option>\n' +
+                '                <option value="2" '+(numtype==2?'selected' :'')+'>多份</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                </div>\n' +
+                '            <img src="__PUBLIC__/Admin/images/u847.png"  class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-left:15px;margin-top:-2px" />\n' +
+                '                </div>\n';
+        }
+        return str;
+    }
+
+    // 筛选项信息
+    function oneFilter(isinit,name,require,numtype,extra) {
+        if (isinit==0 || isinit==undefined){
+            var str=
+                '                <div class="form-group">\n' +
+                '                    <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                        <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '                        <div class="col-sm-3">\n' +
+                '                            <input type="text" class="form-control name"  id="" placeholder="4个字以内">\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="type" class="form-control shaixuan selecttype">\n' +
+                '                               <option value="1" >文本</option>\n' +
+                '                               <option value="2" selected>筛选项</option>\n' +
+                '                               <option value="3">上传图片</option>\n' +
+                '                                <option value="4">地址</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1">必填</option>\n' +
+                '                <option value="2">非必填</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="" class="form-control numtype">\n' +
+                '                                <option value="0">填写份数</option>\n' +
+                '                                <option value="1">1份</option>\n' +
+                '                                <option value="2">多份</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <img src="__PUBLIC__/Admin/images/u847.png" data-type="filter" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-left:15px;margin-top:-2px" />\n' +
+                '                </div>\n' +
+                '<div class="oneselect">\n'+
+                '                <div class="form-group xuanxiang">\n' +
+                '                    <label for="" class="col-sm-2 control-label " ></label>\n' +
+                '                    <div class="col-sm-12">\n' +
+                '                        <label for="" class=" col-sm-1 control-label xuanxiangname">选项1</label>\n' +
+                '                        <div class="col-sm-3">\n' +
+                '                            <input type="text" class="form-control" name="" id="" placeholder="8个字以内">\n' +
+                '                        </div>\n' +
+                '                        <img src="__PUBLIC__/Admin/images/delsmall.png"  class="delsmall" alt="点击删除" style="position: absolute;margin-left:-16px;top:-1px;cursor: pointer" />\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                <div class="form-group xuanxiang">\n' +
+                '                    <label for="" class="col-sm-2 control-label"></label>\n' +
+                '                    <div class="col-sm-12">\n' +
+                '                        <label for="" class=" col-sm-1 control-label xuanxiangname">选项2</label>\n' +
+                '                        <div class="col-sm-3">\n' +
+                '                            <input type="text" class="form-control" name="" id="" placeholder="8个字以内">\n' +
+                '                        </div>\n' +
+                '                        <img src="__PUBLIC__/Admin/images/delsmall.png"  class="delsmall" alt="点击删除" style="position: absolute;margin-left:-16px;top:-1px;cursor: pointer" />\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+
+                '</div>\n' +
+                '                <div class="form-group">\n' +
+                '                    <label for="" class="col-sm-2 control-label"></label>\n' +
+                '                    <div class="col-sm-12">\n' +
+                '                        <label for="" class=" col-sm-1 control-label"></label>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <button type="button" name="addOneOption"   class="btn btn-primary addOneOption" style="width:80px;background:#777;border:0">添加选项</button>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n';
+        } else {
+            extra= extra.split(';');
+            var str=
+                '                <div class="form-group">\n' +
+                '                    <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                        <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '                        <div class="col-sm-3">\n' +
+                '                            <input type="text" class="form-control name"  value="'+name+'" placeholder="4个字以内">\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="type" class="form-control shaixuan selecttype">\n' +
+                '                               <option value="1" >文本</option>\n' +
+                '                               <option value="2" selected>筛选项</option>\n' +
+                '                               <option value="3">上传图片</option>\n' +
+                '                                <option value="4">地址</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1" '+(require==1?'selected':'')+'>必填</option>\n' +
+                '                <option value="2" '+(require==2?'selected':'')+'>非必填</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <select name="" class="form-control numtype">\n' +
+                '                                <option value="0">填写份数</option>\n' +
+                '                                <option value="1" '+(numtype==1?'selected':'')+'>1份</option>\n' +
+                '                                <option value="2" '+(numtype==2?'selected':'')+'>多份</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <img src="__PUBLIC__/Admin/images/u847.png" data-type="filter" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-top:-2px;margin-left:15px" />\n' +
+                '                </div>\n' +
+                '<div class="oneselect">\n';
+            for (var i=0;i<extra.length;i++) {
+                str+= '                <div class="form-group xuanxiang">\n' +
+                    '                    <label for="" class="col-sm-2 control-label " ></label>\n' +
+                    '                    <div class="col-sm-12">\n' +
+                    '                        <label for="" class=" col-sm-1 control-label xuanxiangname">选项'+(i+1)+'</label>\n' +
+                    '                        <div class="col-sm-3">\n' +
+                    '                            <input type="text" class="form-control" value="'+extra[i]+'" placeholder="8个字以内">\n' +
+                    '                        </div>\n' +
+                    '                        <img src="__PUBLIC__/Admin/images/delsmall.png"  class="delsmall" alt="点击删除" style="position: absolute;margin-left:-16px;top:-1px;cursor: pointer" />\n' +
+                    '                    </div>\n' +
+                    '                </div>\n';
+            }
+
+
+
+            str+= '</div>\n' +
+                '                <div class="form-group">\n' +
+                '                    <label for="" class="col-sm-2 control-label"></label>\n' +
+                '                    <div class="col-sm-12">\n' +
+                '                        <label for="" class=" col-sm-1 control-label"></label>\n' +
+                '                        <div class="col-sm-2">\n' +
+                '                            <button type="button" name="addOneOption"   class="btn btn-primary addOneOption" style="width:80px;background:#777;border:0">添加选项</button>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n';
+        }
+
+        return str;
+    }
+
+    //图片信息
+    function  oneImages(isinit,name,require,numtype,extra) {
+        if (isinit==0 || isinit==undefined) {
+            var str=
+                '                               <div class="form-group"> \n' +
+                '                                       <div class="col-sm-12" style="margin-top: 7px"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">名称</label> \n' +
+                '                                                <div class="col-sm-3"> \n' +
+                '                                                        <input type="text" class="form-control name" name="" id="" placeholder="4个字以内"> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="type" class="form-control selecttype" > \n' +
+                '                                                            <option value="1" >文本</option>\n' +
+                '                                                            <option value="2">筛选项</option>\n' +
+                '                                                            <option value="3"  selected>上传图片</option>\n' +
+                '                                                            <option value="4">地址</option>\n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="" class="form-control require"> \n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1">必填</option>\n' +
+                '                <option value="2">非必填</option>\n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="" class="form-control numtype"> \n' +
+                '                                                                <option value="0">填写份数</option> \n' +
+                '                                                                <option value="1">1份</option> \n' +
+                '                                                                <option value="2">多份</option> \n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                            </div> \n' +
+                '                                        <img src="__PUBLIC__/Admin/images/u847.png"  data-type="images" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-top:-2px;margin-left:15px;" /> \n' +
+                '                                    </div> \n' +
+                '                                <div class="form-group"> \n' +
+                '                                        <label for="" class="col-sm-2 control-label"></label> \n' +
+                '                                        <div class="col-sm-12"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">张数</label>\n' +
+                '                                                <div class="col-sm-3">\n' +
+                '                                                    <select name="type" class="form-control select" >\n' +
+                '                                                        <option value="1">1</option>\n' +
+                '                                                        <option value="2" selected>2</option>\n' +
+                '                                                        <option value="3">3</option>\n' +
+                '                                                        <option value="4">4</option>\n' +
+                '                                                    </select>\n' +
+                '                                                </div>\n' +
+                '                                            </div> \n' +
+                '                                    </div> \n' +
+                '                                <div class="form-group"> \n' +
+                '                                        <label for="" class="col-sm-2 control-label"></label> \n' +
+                '                                        <div class="col-sm-12"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '<div class="pics">\n' +
+                '</div>\n'
+            '                                        </div>\n' +
+            '                                    </div>\n';
+        } else {
+            extra = extra.split(';');
+            var length = extra.length;
+            var str=
+                '                               <div class="form-group"> \n' +
+                '                                       <div class="col-sm-12" style="margin-top: 7px"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">名称</label> \n' +
+                '                                                <div class="col-sm-3"> \n' +
+                '                                                        <input type="text" class="form-control name" value="'+name+'" placeholder="4个字以内"> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="type" class="form-control selecttype" > \n' +
+                '                                                            <option value="1" >文本</option>\n' +
+                '                                                            <option value="2">筛选项</option>\n' +
+                '                                                            <option value="3"  selected>上传图片</option>\n' +
+                '                                                            <option value="4">地址</option>\n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="" class="form-control require"> \n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1" '+(require==1?'selected':'')+'>必填</option>\n' +
+                '                <option value="2" '+(require==2?'selected':'')+'>非必填</option>\n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                                <div class="col-sm-2"> \n' +
+                '                                                        <select name="" class="form-control numtype"> \n' +
+                '                                                                <option value="0">填写份数</option> \n' +
+                '                                                                <option value="1" '+(numtype==1?'selected':'')+'>1份</option> \n' +
+                '                                                                <option value="2" '+(numtype==2?'selected':'')+'>多份</option> \n' +
+                '                                                            </select> \n' +
+                '                                                    </div> \n' +
+                '                                            </div> \n' +
+                '                                        <img src="__PUBLIC__/Admin/images/u847.png"  data-type="images" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-top:-2px;margin-left:15px" /> \n' +
+                '                                    </div> \n' +
+                '                                <div class="form-group"> \n' +
+                '                                        <label for="" class="col-sm-2 control-label"></label> \n' +
+                '                                        <div class="col-sm-12"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">张数</label>\n' +
+                '                                                <div class="col-sm-3">\n' +
+                '                                                    <select name="type" class="form-control select" >\n' +
+                '                                                        <option value="1" '+(length==1?'selected':'')+'>1</option>\n' +
+                '                                                        <option value="2" '+(length==2?'selected':'')+'>2</option>\n' +
+                '                                                        <option value="3" '+(length==3?'selected':'')+'>3</option>\n' +
+                '                                                        <option value="4" '+(length==4?'selected':'')+'>4</option>\n' +
+                '                                                    </select>\n' +
+                '                                                </div>\n' +
+                '                                            </div> \n' +
+                '                                    </div> \n' +
+                '                                <div class="form-group"> \n' +
+                '                                        <label for="" class="col-sm-2 control-label"></label> \n' +
+                '                                        <div class="col-sm-12"> \n' +
+                '                                                <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+                '<div class="pics">\n';
+            for(var i =0;i<extra.length;i++) {
+                str+='<div class="col-sm-2"><input type="text" class="form-control" value="'+extra[i]+'" ></div>';
+            }
+
+            str+=    '</div>\n'
+            '                                        </div>\n' +
+            '                                    </div>\n';
+        }
+
+        return str
+    }
+
+    //添加小图片名称
+    function createSmallPic(num) {
+        var result = '';
+        for (var i=0;i<num; i++) {
+            var name = '图'+(i+1);
+            result+='<div class="col-sm-2"><input type="text" class="form-control" value="'+name+'" ></div>';
+        }
+        return result;
+    }
+
+    //地址信息
+    function oneAddress(isinit,name,require) {
+        if (isinit==0 || isinit==undefined) {
+            var str =
+                '                <div class="form-group">\n' +
+                '                <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                <label for="" class=" col-sm-1 control-label">文本</label>\n' +
+                '                <div class="col-sm-3">\n' +
+                '                <input type="text" class="form-control name" name="" id="" placeholder="4个字以内">\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="type" class="form-control selecttype" >\n' +
+                '                    <option value="1" >文本</option>\n' +
+                '                    <option value="2">筛选项</option>\n' +
+                '                    <option value="3"  >上传图片</option>\n' +
+                '                   <option value="4" selected>地址</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1">必填</option>\n' +
+                '                <option value="2">非必填</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control numtype" disabled>\n' +
+                '                <option value="1" selected>1份</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                </div>\n' +
+                '                <img src="__PUBLIC__/Admin/images/u847.png" data-type="address" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-left:15px;marfin-top:-2px" />\n' +
+                '                </div>\n';
+        } else {
+            var str =
+                '                <div class="form-group">\n' +
+                '                <div class="col-sm-12" style="margin-top: 7px">\n' +
+                '                <label for="" class=" col-sm-1 control-label">文本</label>\n' +
+                '                <div class="col-sm-3">\n' +
+                '                <input type="text" class="form-control name" value="'+name+'" placeholder="4个字以内">\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="type" class="form-control selecttype" >\n' +
+                '                    <option value="1" >文本</option>\n' +
+                '                    <option value="2">筛选项</option>\n' +
+                '                    <option value="3"  >上传图片</option>\n' +
+                '                   <option value="4" selected>地址</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control require">\n' +
+                '                <option value="0">是否必填</option>\n' +
+                '                <option value="1" '+(require ==1?'selected':'')+'>必填</option>\n' +
+                '                <option value="2" '+(require==2?'selected':'')+'>非必填</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-2">\n' +
+                '                <select name="" class="form-control numtype" disabled>\n' +
+                '                <option value="1" selected>1份</option>\n' +
+                '                </select>\n' +
+                '                </div>\n' +
+                '                </div>\n' +
+                '                <img src="__PUBLIC__/Admin/images/u847.png" data-type="address" class="delButton" alt="点击删除" style="float: right;position: absolute;cursor: pointer;margin-top:-2px;margin-left:15px" />\n' +
+                '                </div>\n';
+        }
+        return str;
+    }
+
+    //添加小选项信息
+    function oneSmallPoint(i) {
+        var str='<div class="form-group xuanxiang">\n' +
+            '                <label for="" class="col-sm-2 control-label "></label>\n' +
+            '                <div class="col-sm-12">\n' +
+            '                    <label for="" class=" col-sm-1 control-label xuanxiangname">选项'+i+'</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control" name="" id="" placeholder="8个字以内">\n' +
+            '                    </div>\n' +
+            '                    <img src="__PUBLIC__/Admin/images/delsmall.png"  class="delsmall" alt="点击删除" style="position: absolute;margin-left:-16px;top:-1px;cursor: pointer" />\n' +
+            '                </div>\n' +
+            '            </div>';
+        return str;
+
+    }
+
+    function onecontainer(elemnt,id) {
+        var str = '<div class="col-sm-10 filter onecon element'+elemnt+'" data-num='+elemnt+' data-id="'+(id==undefined?0:id)+'"style="border: 1px solid #000;;margin-top:20px;margin-bottom:20px;width:975px;margin-left:180px"></div>';
+        return str;
+    }
+
+    function addOneText(elemnt) {
+        var str ='';
+        str=oneText();
+        $(''+elemnt).html(str);
+    }
+    function addFilter(elemnt) {
+        var str ='';
+        str=oneFilter();
+        $(''+elemnt).html(str);
+        $(''+elemnt).find('.addOneOption').click(function () {
+            console.log(elemnt);
+            var i = $(this).parents('.onecon').find('.xuanxiang').length+1;
+            $(''+elemnt).find('.oneselect').append(addSmallPoint(i));
+        })
+    }
+    function  addImages(elemnt) {
+        var str='';
+        str=oneImages();
+        $(''+elemnt).html(str);
+        var imagestr = createSmallPic(2);
+        $(''+elemnt).find('.pics').html(imagestr);
+        $(''+elemnt).find('.select').change(function () {
+            var num = $(this).val();
+            imagestr = createSmallPic(num);
+            $(''+elemnt).find('.pics').html(imagestr);
+        })
+    }
+
+    function addAddress(elemnt) {
+        var str='';
+        str=oneAddress();
+        $(''+elemnt).html(str);
+    }
+
+    /*添加一个小选项*/
+    function addSmallPoint(i) {
+        var str ='';
+        str=oneSmallPoint(i);
+        return str;
+    }
+    function addmoren(i,name,numtype,id, morentemp) {
+        var str = '<div class="form-group  onecon element'+i+'" data-num="'+i+'" data-id="'+id+'" id="'+((morentemp == 3 && i ==3)?'serviceAdress':'')+'">\n' +
+            '                <label for="" class="col-sm-2 control-label">'+(i==1?'*下单信息':'')+'</label>\n' +
+            '                <div class="col-sm-10" style="border: 1px solid #000;height: 50px;padding-top: 7px">\n' +
+            '                    <label for="" class=" col-sm-1 control-label">名称</label>\n' +
+            '                    <div class="col-sm-3">\n' +
+            '                        <input type="text" class="form-control name" name="name" id="" disabled value="'+name+'">\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-2">\n' +
+            '                        <select name="type" class="form-control selecttype" disabled>\n' +
+            '                            <option value="1" '+((morentemp == 3 && i ==3)?'':'selected')+'selected >文本</option>\n' +
+            '                            <option value="2">筛选项</option>\n' +
+            '                            <option value="3"  >上传图片</option>\n' +
+            '                            <option value="4" '+((morentemp == 3 && i ==3)?'selected':'')+' >地址</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-2" >\n' +
+            '                        <select name="" class="form-control require" disabled>\n' +
+            '                            <option value="0">是否必填</option>\n' +
+            '                            <option value="1" selected>必填</option>\n' +
+            '                            <option value="2">非必填</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-sm-2">\n' +
+            '                        <select name="" class="form-control numtype" '+((morentemp == 3 && i ==3)?'disabled':'')+'>\n' +
+            '                            <option value="0">填写份数</option>\n' +
+            '                            <option value="1" '+(numtype==1?'selected':'')+'>1份</option>\n' +
+            '                            <option value="2" '+(numtype==2?'selected':'')+'>多份</option>\n' +
+            '                        </select>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </div>';
+        return str;
+    }
+    var orderformat = '{$orderformat}';
+    var servicetype = '{$res.type}';
+    function getFormatData() {
+        var str = '';
+        var type = '';
+        var name = '';
+        var require = '';
+        var numtype = '';
+        var options = '';
+        var pics = '';
+        var isright = 1;
+        var j =1;
+        var id = 0;
+        $('.onecon').each(function () {
+            type = $(this).find('.selecttype').val();
+            name = $(this).find('.name').val();
+            require = $(this).find('.require').val();
+            numtype = $(this).find('.numtype').val();
+            id =$(this).data('id');
+            if (name.length>4) {
+                alert('名称最多4个字');
+                isright = 0;
+                return false;
+            }
+            if (j==1 || j ==2) {
+                if (!parseInt(numtype)) {
+                    alert('请选择下单信息中:'+name+'的份数');
+                    isright = 0;
+                    return false;
+                }
+            } else{
+                if (!name) {
+                    alert('请填写自定义下单中的名称');
+                    isright = 0;
+                    return false;
+                } else if (!parseInt(require)){
+                    alert('请选择自定义下单中必填类型');
+                    isright = 0;
+                    return false;
+                } else if (!parseInt(numtype))
+                {
+                    alert('请选择自定义下单中份数类型');
+                    isright = 0;
+                    return false;
+                }
+            }
+            if (type == 1){                 //文本
+                str+=name+','+type+','+require+','+numtype+',,'+j;
+            } else if (type == 2) {
+                options = '';
+                var isoptionright = 1;
+                $(this).find('.oneselect input').each(function () {
+                    if ($(this).val().length>8) {
+                        alert('选项最多8个字');
+                        isoptionright = 0;
+                        return false;
+                    } else if($(this).val().length == 0 ){
+                        alert('请填写选项');
+                        isoptionright = 0;
+                        return false;
+                    }
+                    options+=$(this).val()+';';
+                })
+                if (!isoptionright) {
+                    isright = 0;
+                    return false;
+                }
+                options = options.substr(0,options.length-1);
+                str+=name+','+type+','+require+','+numtype+','+options+','+j;
+            } else  if (type == 3) {
+                pics = '';
+                var ispicright = 1;
+                $(this).find('.pics input').each(function () {
+                    if ($(this).val().length == 0 ) {
+                        alert('请填写图片名称');
+                        ispicright = 0;
+                        return false;
+                    }
+                    pics += $(this).val()+';';
+                })
+                if (!ispicright) {
+                    isright = 0;
+                    return false;
+                }
+                pics = pics.substr(0, pics.length-1);
+                str+=name+','+type+','+require+','+numtype+','+pics+','+j;
+            } else if (type == 4) {
+                str+=name+','+type+','+require+','+numtype+',,'+j;
+            } else {
+                isright = 0;
+                return false;
+            }
+            str +=','+id+'|';
+            j++;
+        })
+        if (isright) {
+            str= str.substr(0,str.length-1);
+        } else {
+            str = '';
+        }
+        return str;
+    }
+
+
+    /*删除一个小选项*/
+    $("#selectCondition").on('click','.delsmall', function () {
+        var length =  $(this).parents('.onecon').find('.xuanxiang').length;
+        if(length>2){
+            var oneselect = $(this).parents('.oneselect');
+            $(this).parents('.xuanxiang').remove();
+            var j = 1;
+            console.log(oneselect)
+            console.log(oneselect.find('.xuanxiangname'));
+            oneselect.find('.xuanxiangname').each(function () {
+                console.log(j);
+                $(this).text('选项'+j);
+                j++;
+            })
+        }else {
+            alert("至少设置2个选项");
+        }
+
+    });
+
+
+    //删除所选项信息
+    $("#selectCondition").on('click','.delButton', function () {
+        $(this).parent().parent().remove();
+    });
+
+    var totalment = 3;
+    init();
+    function init() {
+        if(orderformat.length ==0) return;
+        orderformat = orderformat.split('|');
+        var moren = '';
+        var cont = '';
+        console.log(orderformat)
+        var morentemp = 2;
+        if (servicetype == 3) {
+            morentemp =3;
+        }
+        for (var i=0;i<orderformat.length;i++) {
+            var temp = orderformat[i].split(',');
+            var name = temp[0];
+            var type = temp[1];
+            var require = temp[2];
+            var numtype = temp[3];
+            var extra = temp[4];
+            var sort = temp[5];
+            var id = temp[6];
+            if (sort <=morentemp) {
+                moren+=addmoren(sort,name,numtype,id,morentemp);
+                if (sort==morentemp) {
+                    $('#morenCondition').html(moren);
+                }
+            } else {
+                cont = onecontainer(sort,id);
+                $('#selectCondition').append(cont);
+                if (type ==1) {
+                    var text = oneText(1,name,require,numtype);
+                    $('.element'+sort).html(text);
+                } else if (type==2) {
+                    var one =oneFilter(1,name,require,numtype,extra);
+                    console.log('sort is -----------------',sort);
+                    console.log('type 2');
+                    $('.element'+sort).html(one);
+                    let tempsort = sort;
+                    $('.element'+sort).find('.addOneOption').click(function () {
+
+                        var i = $(this).parents('.onecon').find('.xuanxiang').length+1;
+                        console.log('i is',i)
+                        console.log('nowsort is -----------------',tempsort)
+                        $('.element'+tempsort).find('.oneselect').append(addSmallPoint(i));
+                    })
+                } else if(type==3) {
+                    var one = oneImages(1,name,require,numtype,extra);
+                    $('.element'+sort).html(one);
+                    let tempsort = sort;
+                    console.log('t3', tempsort);
+                    $('.element'+sort).find('.select').change(function () {
+                        var num = $(this).val();
+                        var imagestr = createSmallPic(num);
+                        console.log('nowsort is -----------------',tempsort)
+                        $('.element'+tempsort).find('.pics').html(imagestr);
+                    })
+                } else if (type==4) {
+                    var one = oneAddress(1,name,require);
+                    $('.element'+sort).html(one);
+                }
+            }
+            console.log('sort',sort)
+        }
+        totalment = orderformat.length+1;
+    }
+    //默认添加文本
+
+    $('#typeButton').click(function () {
+        console.log('totalment', totalment);
+        var onecontainer1 = onecontainer(totalment);
+        $('#selectCondition').append(onecontainer1);
+        var text = oneText();
+        $('.element'+totalment).html(text);
+        totalment++;
+    })
+    $('#selectCondition').on('change','.selecttype',function () {
+        var numid =  $(this).parents('.onecon').data('num');
+        var type = $(this).val();
+        var str = '';
+        if (type == 1) {
+            addOneText('.element'+numid);  //文本
+        } else if (type == 2) {           //筛选
+            addFilter('.element'+numid);
+        } else if (type ==3) {          //图片
+            addImages('.element'+numid)
+        } else if (type == 4) {          //地址
+            addAddress('.element'+numid);
+        }
+    })
+
+
+
+    /*实物商品上传图片*/
+
+    var wdlii = {$wdlii} ;
+    wdlii++ ;
+    var uploadTicket = new Array() ;
+
+
+    for( var ii=1; ii<wdlii; ii++ ){
+
+        var img = $('#shiwu_'+ii ).attr('data') ;
+
+        newimgdiv( ii, img  ) ;
+
+    }
+    //================================================
+
+    function newimgdiv( idn , imgfn  ){
+
+//         uploadTicket[ wdlii ] = {policy: null,authorization: null,bucket: null} ; 
+
+        //     uploadTicket[ wdlii ] = ['policy': null,'authorization': null,'bucket': null ] ;
+
+        var servicetype = $('#serviceType').val();
+
+
+        if( servicetype==5 ){
+            $('.wdlimgdiv').css('display','inline') ;
+        }
+
+
+        $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+
+            //   uploadTicket[ wdlii ] = new Array ;
+
+            uploadTicket['policy'] = null ;
+            uploadTicket['authorization'] = null ;
+            uploadTicket['bucket'] = null ;
+
+            //        alert( 'wdlii-->'+wdlii ) ;
+
+            uploadTicket['policy'] = res.policy;
+            uploadTicket['authorization'] = res.authorization;
+            uploadTicket['bucket'] = res.bucket;
+
+            if( idn > 0 ){
+                var uploadcontainer2 = 'shiwu_'+idn;
+            }else{
+                var uploadcontainer2 = 'shiwu_'+wdlii;
+            }
+
+
+
+            var initpic2 = imgfn ;
+            createUploadStr(uploadcontainer2,1,initpic2);
+
+            if( idn <= 0 )  wdlii++ ;
+
+
+        }, 'json');
+
+    }
+
+
+
+    function strpic(url,oneimageclass) {
+        if(url.substr(0,4)=='http'){
+            xxurl=url;
+        }else{
+            xxurl='https://file.rose52.com'+url;
+        }
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'">'+
+            '<img   src="'+xxurl+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;">'+
+            '<div class="delimg" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+
+
+
+    // 删除
+    $(document).on('click','.delimg', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+
+
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket['bucket'], //服务器端的上传页面地址
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+
+            multipart: true,
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket['policy'],
+                'authorization': uploadTicket['authorization']
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum + uploader.files.length > maxPicNum) {
+                for(var i in files){
+                    uploader.removeFile(files[i].id);
+                }
+                alert('多做上传'+maxPicNum+'张');
+                return;
+            }
+            $("#parent"+uploadid).remove();
+            uploader.start();
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+
+</script>
+</body>

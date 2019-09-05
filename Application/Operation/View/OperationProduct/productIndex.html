@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap-select.min.css">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/bootstrap-select.min.js"></script>
+    <style>
+        #ceng {
+            padding: 20px;
+            position: relative;
+        }
+
+        .queding {
+            border: none;
+            position: absolute;
+            bottom: 20px;
+            right:35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao {
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .servicityclass .dropdown {
+            width: 120px !important;
+        }
+    </style>
+</head>
+
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品管理</a></li>
+    <li class="active">产品列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('productIndex')}" method="get" id="searchform">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control" id="type">
+                    <option value="2" <if condition ='$type eq 2'>selected</if>>产品名称</option>
+                    <option value="1" <if condition ='$type eq 1'>selected</if>>产品ID</option>
+                    <option value="3" <if condition ='$type eq 3'>selected</if>>管家名称</option>
+                    <option value="4" <if condition ='$type eq 4'>selected</if>>供应商</option>
+                    <option value="5" <if condition ='$type eq 5'>selected</if>>开普勒ID</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="datetime" class="form-control" name="condition" id="condition" placeholder="" value="{$condition}">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select  name="status"  class="form-control" id="status">
+                    <option value="0" <if condition ='$status eq 0'>selected</if>>状态</option>
+                    <option value="1" <if condition ='$status eq 1'>selected</if>>上线</option>
+                    <option value="2" <if condition ='$status eq 2'>selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select  name="ptype"  class="form-control">
+                    <option value="0" <if condition ='$producttype eq 0'>selected</if>>产品类型</option>
+                    <option value="1" <if condition ='$producttype eq 1'>selected</if>>其它服务</option>
+                    <option value="2" <if condition ='$producttype eq 2'>selected</if>>在线咨询</option>
+                    <option value="3" <if condition ='$producttype eq 3'>selected</if>>上门服务</option>
+                    <option value="4" <if condition ='$producttype eq 4'>selected</if>>到店服务</option>
+                    <option value="5" <if condition ='$producttype eq 5'>selected</if>>实物商品</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select  name="yiji" id="yiji" class="form-control">
+                    <option value="0">请选择一级分类</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select  name="erji" id="erji" class="form-control">
+                    <option value="0">请选择二级分类</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-1 servicityclass">
+                <!--<select class="js-example-basic-multiple col-sm-12" name="states[]" multiple="multiple">-->
+                <!--</select>-->
+                <select  name="servicity" id="servicity" class="form-control selectpicker col-sm-12" data-size="10" title="城市搜索" data-deselectAllText="Deselect All" data-live-search="true">
+                    <volist name="allcity" id="vo">
+                        <option value="{$vo.text}">{$vo.text}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="p" value="1">
+        <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:1" id="search"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+        <input type="hidden" name="isexcel" id="isexcel" value="0">
+        <button type="button" onclick="toexcel()" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right;margin-left: 12px; "><span class="glyphicon glyphicon-save"></span>&nbsp;导出&nbsp;</button>
+
+        <a href="{:U('addProduct')}">
+            <button type="button"  class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right"><span class="glyphicon glyphicon-open-file"></span>添加产品</button>
+        </a>
+
+    </form>
+    <table class="table new_table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">产品ID</th>
+            <th width="15%" align="center">产品名称</th>
+            <th width="10%" align="center">类型</th>
+            <th width="10%" align="center">分类</th>
+            <th width="15%" align="center">服务城市</th>
+            <!--<th width="5%" align="center">首页推荐</th>-->
+            <!--<th width="10%" align="center">管家信息</th>-->
+            <th width="15%" align="center">所属供应商</th>
+            <th width="5%" align="center">状态</th>
+            <th width="15%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>
+                    <p>{$vo.id}</p>
+                    <notempty name="vo.kpl_sku">
+                        <p>jd:{$vo.kpl_sku}</p>
+                    </notempty>
+                </td>
+                <td>{$vo.name}</td>
+                <td>
+                    <if condition="$vo.ptype eq 1">
+                        其它服务
+                        <elseif condition="$vo.ptype eq 2" />
+                        在线咨询
+                        <elseif condition="$vo.ptype eq 3" />
+                        上门服务
+                        <elseif condition="$vo.ptype eq 4" />
+                        到店服务
+                        <else/>
+                        实物商品
+                    </if>
+                </td>
+                <td>{$vo.categoryname}</td>
+                <!--<td>-->
+                <!--<if condition="$vo.isrecommend eq 1">-->
+                <!--<p>推荐</p>-->
+                <!--<p>排序值:{$vo.weight}</p>-->
+                <!--<p>{$vo.showstarttime}</p>-->
+                <!--<p>至</p>-->
+                <!--<p>{$vo.showendtime}</p>-->
+                <!--<else/>-->
+                <!--<p>不推荐</p>-->
+                <!--</if>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<p>{$vo.guanjianame}</p>-->
+                <!--<p>{$vo.guanjiaphone}</p>-->
+                <!--</td>-->
+                <td>{$vo.servicecity}</td>
+                <td>
+                    <p>{$vo.supplier}</p>
+                </td>
+                <td>
+                    <if condition="$vo.status eq 1">上线
+                        <else />下线
+                    </if>
+                </td>
+                <td align='left'>
+                    <a href="{:U('editProduct')}?id={$vo.id}">
+                        <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8;width:70px;">编辑</button>
+                    </a>
+                    <notempty name="vo.kpl_sku">
+                        <button type="button" class="bfL btn btn-success kplproduct" data-id="{$vo.kpl_sku}" id="kplproduct" style="background:#1AB394;border:0;opacity:0.8;width:70px;">刷新</button>
+                    </notempty>
+
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="background-color: #F9F9F9;">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<iframe src="" id="tmiframe" name="tmiframe" width="80%" marginwidth="0" height="100%" marginheight="0" align="middle" scrolling="auto"   style="display: none; "  >
+</iframe>
+
+
+</body>
+<script>
+
+
+    $(function () {
+
+        //城市选择
+        var servicity = '{$servicity}';
+        if (!servicity) {
+            servicity = '服务城市';
+        }
+
+        $('#servicity').selectpicker('val',servicity);
+        $('#servicity').selectpicker('refresh');
+        $('.js-example-basic-multiple').select2({
+            placeholder:'服务城市服服服丰富',
+            ajax: {
+                url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        param: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+
+
+
+        $("#status").change(function () {
+            var status = $(this).val();
+            if (status == 1) {
+                $("#endtime").prop('disabled',false);
+            } else {
+                $("#endtime").prop('disabled',true);
+                $("#endtime").val('');
+            }
+        })
+        /*是否推荐显示隐藏问题*/
+        $("#isTuijian").click(function () {
+            var isTuiJian = $("#isTuijian").val();
+            if(isTuiJian==1){
+                show();
+            }else {
+                hide();
+            }
+        })
+        function show() {
+            $("#showCeng").show();
+        }
+        function hide() {
+            $("#showCeng").hide();
+        }
+
+        $("#surebtn").click(function () {
+            var ptype=$("#stype").val();
+            var shijianduan_disp_option = $("input[name='service-time-select-radio']:checked").val();
+            if (shijianduan_disp_option === '1') {
+                var service_shijianduan_val = get_shijianduan_str();
+                if (!service_shijianduan_val) return;
+            } else {
+                var shijianduan_disp_option = ''
+            }
+
+            var getblen = function(info) {
+                if (info == null) return 0;
+                if (typeof info != "string"){
+                    info += "";
+                }
+                return info.replace(/[^\x00-\xff]/g,"01").length/2;
+            }
+            var name = $("#name").val();
+            var serviceinfo = '';
+            var isserveinforight = true;
+            var isserviceinfonull = true;
+            $('.serviceinfo').each(function () {
+                serviceinfo += $(this).val()+'+-';
+
+                if (getblen($(this).val())>40) isserveinforight = false;
+                if (getblen($(this).val()) == 0) isserviceinfonull = false;
+            })
+            serviceinfo= serviceinfo.substr(0,serviceinfo.length-2);
+            console.log(serviceinfo);
+
+
+            var numsreg = /^[0-9]+$/;
+            var isrecommend = $("#isTuijian").val();
+            // if(isrecommend==1){
+            //     var weight = $("#weight").val();
+            //     var showstarttime = $("#indexstart").val();
+            //     var showendtime = $("#indexend").val();
+            // }else {
+            //     var weight ='';
+            //     var showstarttime ='';
+            //     var showendtime='';
+            // }
+            var yijiname = $("#yiji option:selected").text();
+            var erjiname = $("#erji option:selected").text();
+            var categoryid = $("#erji").val();
+            var guanjiaid = $("#guanjia").val();
+            // var bdid = $("#bd").val();
+            var supplierid = $("#supplier option:selected").val();
+            var productinfo = productinfoEditor.getContent();
+            var notes = notesEditor.getContent();
+            var status = $("#status").val();
+            var endtime = $("#endtime").val();
+            var servicecity = '';
+            var servicecityData = $('.js-example-basic-multiple').select2('data');
+            var sortweight = $("#sortweight").val();
+            if (servicecityData.length > 0) {
+                for (var i=0; i<servicecityData.length;i++) {
+                    var text = servicecityData[i].text;
+                    var id = servicecityData[i].id;
+                    servicecity+=id+','+text+'|';
+                }
+                servicecity = servicecity.substr(0,servicecity.length-1);
+            }  else {
+                servicecity = '0,全国';
+            }
+            var productpic = $("#headpic").attr("uploadpath");
+            var facepic = $("#fengmian").attr('uploadpath');
+            var messagetype = $('.duanxin:checked').val();
+            var bookingtype = $('.flow:checked').val();
+            if (messagetype == 1) {
+                var message = $('#details').val();
+            } else {
+                var message = '';
+            }
+            console.log(messagetype);
+            console.log(bookingtype);
+            if (!name) {
+                window.alert('请输入产品名称');
+            } else if (getblen(name)>24) {
+                window.alert('产品名称最多输入24字');
+            } else if (!isserviceinfonull) {
+                window.alert('请输入服务亮点');
+            } else if (!isserveinforight) {
+                window.alert('服务亮点最多输入40字');
+            } else if (!facepic) {
+                window.alert('必须上传产品封面');
+            } else if (!productpic) {
+                window.alert('必须上传产品头图');
+            } else if (!yijiname) {
+                window.alert('请选择一级分类');
+            } else if (!erjiname) {
+                window.alert('请选择二级分类');
+            } else if (guanjiaid == 0) {
+                window.alert('请选择管家');
+            } else if (supplierid == 0) {
+                window.alert('请选择供应商');
+            } else if (!productinfo) {
+                window.alert('请输入产品介绍');
+            } else if (!notes) {
+                window.alert('请输入预订须知');
+            }  else if (message =='' && messagetype == 1) {
+                window.alert('请输入短信格式');
+            } else if(isrecommend == 1 && showstarttime > showendtime){
+                window.alert('请选择正确的推荐时间段');
+            } else {
+                $.post("{:U('saveProduct')}",
+                    {
+                        name: name,
+                        serviceinfo: serviceinfo,
+                        productpic: productpic,
+                        yijiname: yijiname,
+                        erjiname: erjiname,
+                        categoryid: categoryid,
+                        guanjiaid: guanjiaid,
+                        supplierid:supplierid,
+                        // bdid: bdid,
+                        productinfo: productinfo,
+                        notes: notes,
+                        status: status,
+                        endtime: endtime,
+                        servicecity: servicecity,
+                        facepic: facepic,
+                        type: 1,
+                        ptype:ptype,
+                        // isrecommend:isrecommend,
+                        // weight:weight,
+                        // showstarttime:showstarttime,
+                        // showendtime:showendtime,
+                        messagetype: messagetype,
+                        bookingtype:bookingtype,
+                        message: message,
+                        servicetime: service_shijianduan_val,
+                        sortweight:sortweight
+                    },
+                    function (res) {
+                        if (res.state == 1) {
+                            $("#goodlist").prop('disabled',false);
+                            $("#goodlist").css("background-color","#1AB394");
+                            var url = "{:U('OperationGoods/goodsIndex')}"
+                            url += "?productid="+res.data;
+                            $("#enterGoods").prop('href',url);
+                            alert(res.msg);
+                            // window.location.href="{:U('productIndex')}";
+                        } else {
+                            alert(res.msg);
+                        }
+
+                    },
+                    'json'
+                );
+            }
+        });
+    });
+    $('#search').click(function () {
+        $('#isexcel').val(0)
+        $('#searchform').submit()
+    })
+    function toexcel(){ //导出到 excel
+
+        $('#isexcel').val(1)
+        $('#searchform').submit()
+
+        //  window.location.href="{:U('OperationProduct/toexcel')}";
+
+    }
+
+
+    //刷新开普勒产品
+    $(".kplproduct").click(function(){
+        var sku=$(this).attr('data-id');
+        console.log(sku);
+        $.get(
+            "{:U('KeplerApi/KeplerApi/up_kpl')}",{
+                sku:sku,
+                is_online:1
+            },
+            function(message){
+                alert( message ) ;
+                console.log(message);
+                alert('刷新成功');
+            });
+
+    })
+
+
+
+
+    //弹出层的显示或隐藏
+
+    function show() {
+        var light = document.getElementById('bigceng');
+        light.style.display = 'block';
+    }
+
+    function hide() {
+        var light = document.getElementById('bigceng');
+        light.style.display = 'none';
+    }
+
+    $("#queding").click(function() {
+        var producttype=$('input:radio:checked').val();
+        if (producttype == 1) {
+
+            window.location.href="{:U('OperationProduct/addProduct')}";
+        } else {
+
+            window.location.href="{:U('OperationProduct/addProductExpress')}";
+        }
+
+    });
+    /*$(".drbb_btn").click(function() {
+        $("#zz_c").show();
+        $(".tc_timepick").show();
+    });*/
+
+
+
+
+
+    //产品分类
+    var selectyiji = "{$yiji}";
+    var selecterji = "{$erji}";
+    $.ajax( {
+        url:"{:U('OperationGuanJia/getCategory')}",
+        type:'get',
+        dataType:'json',
+        data:{type:2},
+        success:function(message) {
+            var str='<option value="0">请选择一级分类</option>';
+            $('#yiji').text('');
+            for(var i=0;i<message['data'].length;i++){
+                if (selectyiji && selectyiji == message['data'][i]['id'] ) {
+                    str+="<option value ="+message['data'][i]['id']+" selected>"+message['data'][i]['name']+"</option>";
+                } else {
+                    str+="<option value ="+message['data'][i]['id']+">"+message['data'][i]['name']+"</option>";
+                }
+
+            }
+            if (selectyiji) {
+                geterji(selectyiji,selecterji);
+            }
+            $('#yiji').html(str);
+        }
+    })
+
+    function geterji(id, selecterji) {
+
+        $.get(
+            "{:U('OperationGuanJia/getCategory')}",{
+                id:id,
+                type:2
+            },
+            function(message){
+                if(message['state']==1){
+                    var str = '<option value="0">请选择二级分类</option>';
+                    var data = message.data;
+                    console.log(message);
+                    for (var i=0;i<data.length;i++){
+                        if (selecterji && selecterji == data[i]['id']) {
+                            str+="<option value ="+data[i]['id']+" selected>"+data[i]['name']+"</option>";
+                        } else {
+                            str+="<option value ="+data[i]['id']+">"+data[i]['name']+"</option>";
+                        }
+                    }
+                    $("#erji").html(str);
+                } else{
+                    alert(message['msg']);
+                }
+            },'json');
+    }
+
+    $("#yiji").change(function(){
+        var id = $(this).val();
+        geterji(id, '');
+    })
+</script>
+</html>

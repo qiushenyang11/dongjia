@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" data-dpr="1" style="font-size: 41.4px;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="flexible" content="initial-dpr=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125783604-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-125783604-1');
+  </script>
+  <script src="https://m.jr.jd.com/crayfish/zui/bridge/1.0.7/bridge.js"></script>
+  <title>同方全球【康健一生】终生重大疾病保险</title>
+</head>
+<style>
+
+  * {
+    padding: 0;
+    margin: 0;
+    font-family: 'Microsoft Yahei', '\5FAE\8F6F\96C5\9ED1', Arial, 'Hiragino Sans GB', '\5B8B\4F53';
+  }
+
+  .desc-images {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  .desc-images img {
+    position: relative;
+    width: 100%;
+  }
+
+  .desc-images .reserve-now {
+    border-radius: 5px;
+    position: fixed;
+    bottom: 5px;
+    /*      right: 10px;   */
+    height: auto;
+    width: 100%;
+    background: #fff;
+    color: #333;
+    z-index: 2;
+    box-shadow: 1px 1px 15px #999999;
+
+  }
+
+  .desc-images .reserve-now .title {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 22px;
+  }
+
+  .desc-images .reserve-now .desc {
+    display: flex;
+    width: 75%;
+    height: 54%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    margin: auto;
+  }
+
+  .desc-images .reserve-now .desc input {
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border: 0;
+    border-bottom: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 100%;
+  }
+
+  .desc-images .reserve-now .desc button {
+    color: #fff;
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid #dcdfe6;
+    -webkit-appearance: none;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: 0;
+    margin: 0;
+    -webkit-transition: .1s;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 100%;
+    background-color: rgb(234, 77, 77);
+  }
+
+  @keyframes topDown {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+    to {
+      top: 0;
+      opacity: 1
+    }
+  }
+
+  /*模态框头部*/
+  .modal-header {
+    display: flex; /*采用flexbox布局*/
+    flex-direction: row; /*水平布局*/
+    align-items: center; /*内容垂直居中*/
+    justify-content: space-between;
+  }
+
+  .modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-body div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .modal-body div p {
+    font-size: 35px;
+  }
+
+  .modal-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .modal-footer a {
+    align-items: center;
+    border: 1px solid #888;
+    border-radius: 5px;
+    padding: 5px 40px;
+    font-size: 20px;
+  }
+
+  /*关闭X 样式*/
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .dialog-background {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
+  /*模态框内容*/
+  .modal-content {
+    display: flex; /*采用flexbox布局*/
+    flex-direction: column; /*垂直排列*/
+    position: relative;
+    background-color: #fefefe;
+    margin: 20% auto; /*距顶部15% 水平居中*/
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    animation: topDown 0.4s; /*自定义动画，从模态框内容上到下出现*/
+  }
+
+  .product_bottom_bar {
+    width: 100%;
+    height: 1.2rem;
+    background-color: #181818;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  .product_bottom_bar .reserve {
+    color: #fff;
+    font-size: 0.48rem;
+    text-align: center;
+    line-height: 1.2rem;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+</style>
+<body>
+<span id="user-jdpin" style="display: none;">{$user_jdpin}</span>
+<div class="dialog-background" style="display: none;" id="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2></h2>
+      <span id="closeBtn" class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div style="width: 100%;">
+        <img src="https://file.rose52.com/shrenshou/img/jddog.png" alt="" width="20%" height="20%"><p style="font-size: 25px;margin-left: 30px;" id="dialog-content"></p>
+      </div>
+    </div>
+    <div class="modal-footer" style="padding: 0 5px;" id="confirm-reserve-opt">
+      <a id="sure-op">确定</a>
+      <a id="cancel-op">取消</a>
+    </div>
+    <div class="modal-footer" style="justify-content: center;" id="reserve-success-opt">
+      <a id="close">关闭</a>
+    </div>
+  </div>
+</div>
+<div class="desc-images">
+  <img src="https://file.rose52.com/baoxian_lan/1@3x.jpg?ver=0828" alt="">
+  <img src="https://file.rose52.com/baoxian_lan/2@3x.jpg?ver=0828" alt="">
+  <img src="https://file.rose52.com/baoxian_lan/3@3x.jpg?ver=0828" alt="">
+  <img src="https://file.rose52.com/baoxian_lan/4.jpg?ver=0828" alt="">
+  <div style="height: 35px;"></div>
+  <div class="product_bottom_bar" style="display: flex;">
+    <button class="reserve" data-appointment="false" id="see-chart">查看利益演示</button>
+    <if condition="$isreserved eq 1">
+      <button class="reserve" data-appointment="false" id="cancel-leads">取消预约</button>
+      <else />
+      <button class="reserve" data-appointment="false" id="reserve-now">立即预约</button>
+    </if>
+  </div>
+
+</div>
+
+
+</body>
+<script src="__PUBLIC__/Admin/js/jquery.js"></script>
+<script src="__PUBLIC__/BaoXian/landingpage/common.js"></script>
+<script>
+  window.defer = jsBridgeV3.onReady();
+</script>
+<script>
+  window.surefun = {};
+  window.productname = '同方全球康健一生终生重大疾病保险';
+  window.closemodalfun = null;
+  window.productpage = 'h5blue';
+  window.cancelfun = function() {
+    $('#modal').hide();
+  };
+  $(document).ready(function () {
+    // 如果有localstorage提交后清除localstorage
+    // 设置金融app分享， 颜色
+    window.defer.then(function (res) {
+      this.jsToNaWeiXin({
+        isShow: true,
+        optionType: 1,
+        btnText: '分享',
+        jumpLiDate: {
+          isLogin: 0,
+          jumpLink: '',
+          isclose: false
+        },
+        jumpNaDate: {
+          type: 7,
+          productId: 71824013,
+          isclose: false
+        },
+        shareDate: {
+          appId: '',
+          img: '',
+          link: `${window.location.origin}${window.location.pathname}`,
+          desc: '在这里，您可以享受全方位的保障，最专业的服务！',
+          title: window.productname,
+          friendesc: '',
+          type: 3475734
+        },
+      });
+    });
+    if(isIphoneX()){
+      $('body').css('paddingBottom','15px');
+      $('.product_bottom_bar').css('paddingBottom','18px')
+    }
+    let reserve_data = window.localStorage.getItem('reserve_data');
+    if (reserve_data) {
+      reserve_data = window.JSON.parse(reserve_data);
+      let user_jdpin = $('#user-jdpin').text();
+      reserve_data.testself = window.JSON.stringify({userjdpin: user_jdpin});
+      submitReserveData(reserve_data);
+      window.localStorage.clear();
+    }
+    $('#reserve-now').click(function () {
+      // 点击立即预约
+      reserveSure(window.productname);
+    });
+    $('#cancel-leads').click(function () {
+      $('#dialog-content').html('是否取消预约您的保险规划师？');
+      $('#modal').show();
+      window.surefun = function() {
+        reserveCancel(window.productname);
+      };
+      $('#confirm-reserve-opt').show();
+      $('#reserve-success-opt').hide();
+    });
+
+    $('#see-chart').click(function () {
+      window.location.href = '/myWeb/BaoXian/BaoXianShRenshou/zhongji' + window.location.search;
+    });
+
+  })
+</script>
+</html>

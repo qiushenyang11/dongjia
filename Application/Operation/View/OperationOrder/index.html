@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/Admin/js/jquery.searchableSelect.js"></script>
+
+    <style>
+        .ceng {
+            padding: 20px;
+            position: relative;
+        }
+        .queding {
+            border: none;
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao {
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .quxiao3 {
+            position: absolute;
+            bottom: 60px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .queding3 {
+            border: none;
+            position: absolute;
+            bottom: 60px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .queding4 {
+            border: none;
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao4 {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">订单管理</a></li>
+    <li class="active">订单列表</li>
+</ol>
+
+<div id="confirm" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng" style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 150px;background: #FFFFFF;" class="ceng">
+        <h2 style="text-align: left;margin-top:0;font-size: 18px;font-weight:200" id="title">确认要取消该订单?</h2>
+        <h6 style="color: gray;margin-top:10px" id="note">请先于管家联系确认</h6>
+        <div class="quxiao" id="quxiao">取消</div>
+        <div class="queding" id="queding">确定</div>
+    </div>
+</div>
+<!--结算订单-->
+<div id="settle" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng2"
+         style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 180px;background: #FFFFFF;"
+         class="ceng">
+        <h2 style="text-align: center;margin-top:0;font-size: 18px;font-weight:200" id="title2">选择结算状态?</h2>
+        <div style="margin: 20px auto">
+            <div style="text-align:center;margin-bottom:15px">
+                <input type="radio" value="1" class="settle" name="settle1"><span style="margin-right:15px">未结算</span>
+                <input type="radio" value="2" class="settle" name="settle1">不结算
+            </div>
+            <div style="text-align:center">
+                <input type="radio" value="3" class="settle" name="settle1"><span style="margin-right:15px">结算中</span>
+                <input type="radio" value="4" class="settle" name="settle1">已结算
+            </div>
+        </div>
+        <div class="quxiao" id="quxiao2">取消</div>
+        <div class="queding" id="queding2">确定</div>
+    </div>
+</div>
+
+
+<!--申请退款-->
+<div id="refund" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng3" style=" margin:0 auto;margin-top: 3%; z-index: 9999; width: 300px;height: 500px;background: #FFFFFF;" class="ceng">
+        <h2 style="text-align: left;margin-bottom:10px;font-size: 18px;font-weight:700" font-weight:bold; id="title3">*请选择退款原因</h2>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="供应商无法提供服务(协议内)" class="refundreason" name="refund1"><span>供应商无法提供服务(协议内)</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="用户对服务质量不满意" class="refundreason" name="refund1"><span>用户对服务质量不满意</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="超出供应商服务区域" class="refundreason" name="refund1"><span> 超出供应商服务区域</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="误下单，重复下单" class="refundreason" name="refund1"><span> 误下单，重复下单；</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="用户不想使用该服务" class="refundreason" name="refund1"><span> 用户不想使用该服务；</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="系统测试订单" class="refundreason" name="refund1"><span> 系统测试订单</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="其他" class="refundreason" name="refund1"><span>  其他</span>
+        </div>
+        <h2 style="text-align: left;margin-top:10px;margin-bottom:5px;font-size: 18px;font-weight:700" font-weight:bold; id="title3">*退款原因说明</h2>
+        <div>
+            <textarea type="textarea" class="form-control refundinfo" id="extra"  name="refundinfo" placeholder="" style="height:100px;width:260px"></textarea>
+        </div>
+
+        <div class="quxiao3" id="quxiao3">取消</div>
+        <div class="queding3" id="queding3">确定</div>
+    </div>
+</div>
+
+
+<!--确认订单-->
+<div id="confirmresation" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng4" style=" margin:0 auto;margin-top: 3%; z-index: 9999; width: 300px;height: 550px;background: #FFFFFF;" class="ceng">
+        <div class="quxiao4" id="quxiao4">不可以服务</div>
+        <div class="queding4" id="queding4">可以服务</div>
+        <h2 style="text-align: left;margin-bottom:10px;font-size: 18px;font-weight:700;margin-top:50px" font-weight:bold; id="">*确定该订单是否能够提供服务?</h2>
+        <h6 style="color: gray;margin-top:10px;text-align: left;" id="">请先于管家联系确认</h6>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="供应商无法提供服务(协议内)" class="refundreason1" name="refund1"><span>供应商无法提供服务(协议内)</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="用户对服务质量不满意" class="refundreason1" name="refund1"><span>用户对服务质量不满意</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="超出供应商服务区域" class="refundreason1" name="refund1"><span> 超出供应商服务区域</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="误下单，重复下单" class="refundreason1" name="refund1"><span> 误下单，重复下单；</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="用户不想使用该服务" class="refundreason1" name="refund1"><span> 用户不想使用该服务；</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="系统测试订单" class="refundreason1" name="refund1"><span> 系统测试订单</span>
+        </div>
+        <div style="text-align:left;line-height:30px">
+            <input type="radio" value="其他" class="refundreason1" name="refund1"><span>  其他</span>
+        </div>
+        <h2 style="text-align: left;margin-top:10px;margin-bottom:20px;font-size: 18px;font-weight:700" font-weight:bold; id="title4">退款原因说明</h2>
+        <div>
+            <textarea type="textarea" class="form-control refundinfo1" id=""  name="refundinfo" placeholder="" style="height:100px;width:260px"></textarea>
+        </div>
+        <h6 style="color:red;text-align: left;margin-bottom:10px;margin-top:15px">*如选不可服务，请选择不可服务原因</h6>
+
+    </div>
+</div>
+
+
+
+
+<div id="confirminput" class="bgc"
+     style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng1"
+         style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 150px;background: #FFFFFF;"
+         class="ceng">
+        <h2 style="text-align: left;margin-top:0;font-size: 18px;font-weight:200" class="title" id="title1">
+            确认该订单已发货?</h2>
+        <div style="margin:15px 0;">
+            <span style="display: inline-block;margin-right: 5px">快递单号:</span><input type="text"
+                                                                                     style="display: inline-block"
+                                                                                     id="expressno">
+        </div>
+        <div class="quxiao" id="quxiao1">取消</div>
+        <div class="queding" id="queding1">确定</div>
+    </div>
+</div>
+
+<div id="container"></div>
+
+
+<div class="container-fluid" style="background-color:white;padding-top: 20px">
+    <form class="form-inline" action="{:U('OperationOrder/index')}" method="get" id="searchform">
+        <div class="form-group" style="margin-left: 20px;">
+            <label for="">下单时间</label>
+            <input type="text" class="form-control" name="starttime" id="starttime" placeholder="选择开始时间"
+                   value="{$starttime}">
+        </div>
+        <div class="form-group" style="margin-right: 20px;">
+            <label for="">至</label>
+            <input type="text" class="form-control" name="endtime" id="endtime" placeholder="选择结束时间" value="{$endtime}">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select name="type" class="form-control">
+                    <option value="2"
+                    <if condition="$type eq 2">selected</if>
+                    >产品名称</option>
+                    <option value="1"
+                    <if condition="$type eq 1">selected</if>
+                    >订单ID</option>
+                    <option value="3"
+                    <if condition="$type eq 3">selected</if>
+                    >商品名称</option>
+                    <option value="7"
+                    <if condition="$type eq 7">selected</if>
+                    >服务码</option>
+                    <option value="4"
+                    <if condition="$type eq 4">selected</if>
+                    >下单用户昵称</option>
+                    <option value="5"
+                    <if condition="$type eq 5">selected</if>
+                    >下单用户ID</option>
+                    <option value="6"
+                    <if condition="$type eq 6">selected</if>
+                    >联系人</option>
+                    <option value="8"
+                    <if condition="$type eq 8">selected</if>
+                    >联系电话</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <input type="datetime" class="form-control" name="typename" id="typename" placeholder=""
+                       value="{$typename}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select name="ordertype" class="form-control">
+                    <option value="0">订单类型</option>
+                    <option value="1"
+                    <if condition="$ordertype eq '1'">selected</if>
+                    >服务类</option>
+                    <option value="2"
+                    <if condition="$ordertype eq '2'">selected</if>
+                    >快递类</option>
+                </select>
+            </div>
+        </div>
+
+        <!--<div class="form-group">-->
+        <!--<div class="col-sm-1">-->
+        <!--<input type="text" class="form-control" name="totalprice" id="totalprice" placeholder="填写价格"-->
+        <!--value="{$totalprice}">-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div style="margin-top:20px">
+            <div class="form-group" style="margin-left:63px;">
+                <div class="col-sm-1" id="BDid">
+                    <select name="bdname" class="form-control" id="bdname">
+                        <option value="">负责BD</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1" id="guanjiaid">
+                    <select name="guanjianame" class="form-control" id="guanjianame">
+                        <option value="0">所属管家</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <select name="status" class="form-control">
+                        <option value="0">订单状态</option>
+                        <volist name="searchStatus" id="vo" key="k">
+                            <option value="{$k}" <if condition="$k eq $status">selected</if>>{$vo}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <select class="form-control" id="priceType" name="priceType">
+                        <option value="0" >是否付费</option>
+                        <option value="1" <if condition="$pricetype eq 1">selected</if>>付费订单</option>
+                        <option value="2" <if condition="$pricetype eq 2">selected</if>>免费订单</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-1">
+                    <select class="form-control" id="" name="settletype">
+                        <option value="0"  <if condition="$settletype eq '0'">selected</if>>结算状态</option>
+                        <option value="1"  <if condition="$settletype eq '1'">selected</if>>未结算</option>
+                        <option value="2" <if condition="$settletype eq '2'">selected</if>>不结算</option>
+                        <option value="3"  <if condition="$settletype eq '3'">selected</if>>结算中</option>
+                        <option value="4" <if condition="$settletype eq '4'">selected</if>>已结算</option>
+                    </select>
+                </div>
+            </div>
+
+
+
+            <input type="hidden" name="isexcel" value="0" id="isexcel">
+            <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:1" id="search"><span
+                    class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+            </button>
+            <button type="button" class="btn btn-success dclb" style="background:#1AB394; border:0;margin-left: 10px" id="export">导出报表</button>
+        </div>
+
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <div width="60%" style="margin-top:20px;">
+            <span>选中订单数:<span  class="ordernums" style="margin-right:5px;color:red;">0</span></span>
+            <span>GMV:<span class="gmvnums" style="color:red;">0</span></span>
+            <span style="color:blue;margin-left:15px" class="selectedSettle">设为已结算</span>
+        </div>
+        <tr>
+            <th width="5%"><input type="checkbox" class="selectall" name="interest" value="study"/>全选</th>
+            <th width="5%">订单ID</th>
+            <th width="8%">产品信息</th>
+            <th width="5%">商品信息</th>
+            <th width="5%">份数</th>
+            <th width="5%">总价</th>
+            <th width="5%">订单类型</th>
+            <th width="5%">下单用户</th>
+            <th width="10%">填单信息</th>
+            <th width="10%">下单时间</th>
+            <th width="7%">订单状态</th>
+            <th width="6%">新订单处理</th>
+            <th width="6%">结算状态</th>
+            <th width="18%">操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr class="oneorder">
+                <td><input  class="onebutton" type="checkbox" name=""  data-id="{$vo.id}" data-price="{$vo.totalprice}" value=""/></td>
+                <td><a href="{:U('OperationOrder/orderDetail')}?orderid={$vo.id}">{$vo.ordersn}</a></td>
+                <td>
+                    <p>{$vo.productname}</p>
+                    <p>({$vo.productid})</p>
+                </td>
+                <td>
+                    <notempty name="vo.goodname">
+                        {$vo.goodname}
+                        <notempty name="vo.specname">
+                            ({$vo.specname})
+                        </notempty>
+
+                        <else />
+                        <notempty name="vo.specname">
+                            {$vo.specname}
+                        </notempty>
+                    </notempty>
+
+                </td>
+                <td>{$vo.num}</td>
+                <td>
+                    <p>
+                        <empty name="vo.totalprice">
+                            免费
+                            <else />
+                            <span style="color:red">￥</span>
+                            <span class="selecttotalprice">
+                                {$vo.totalprice}
+                            </span>
+                        </empty>
+                    </p>
+                    <p>
+                        <if condition="$vo.paystyle eq 2">
+                            (定金)
+                        </if>
+                    </p>
+                </td>
+                <td>
+                    <if condition="$vo.type eq 1">服务类
+                        <else/>
+                        快递类
+                    </if>
+                </td>
+                <td>
+                    <p>{$vo.username}({$vo.userid})</p>
+                </td>
+                <td>
+                    <p>{$vo.addressname}</p>
+                    <p>{$vo.mobile}</p>
+                    <p>{$vo.province}{$vo.city}{$vo.ditrict}{$vo.address}</p>
+                </td>
+                <td>{$vo.addtime|date='Y-m-d H:i:s',###}</td>
+                <td>
+                    {$vo.orderstatus}
+                </td>
+                <td><if condition="$vo.handletype eq 1">待处理<elseif condition="$vo.handletype eq 2"/>已处理</if></td>
+                <td>{$vo.settletype}</td>
+                <td align='left'>
+                    <!--<div class="col-lg-12 col-md-12 col-sm-12">-->
+                    <if condition="$vo.cancelbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4 ">-->
+                        <button type="button" class="bfL btn btn-success cancelOrder" order="{$vo.ordersn}"
+                                cancel-type="{$vo.cancelbutton}" style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px"
+                                data-phone="">取消订单
+                        </button>
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.confirmbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+                        <button type="button" class="bfL btn btn-success confirmOrder" order="{$vo.ordersn}"
+                                confirm-type="{$vo.confirmbutton}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">确认订单
+                        </button>
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.confirmfinishbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4 ">-->
+                        <button type="button" class="bfL btn btn-success confirmFinishOrder"
+                                order="{$vo.ordersn}" confirmfinish-type="{$vo.confirmfinishbutton}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">确认完成
+                        </button>
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.confirmshippingbuttion gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+
+                        <button type="button" class="bfL btn btn-success confirmShippingOrder"
+                                order="{$vo.ordersn}" confirmshipping-type="{$vo.confirmshippingbuttion}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">确认发货
+                        </button>
+
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.confirmsignbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+
+                        <button type="button" class="bfL btn btn-success confirmSignOrder" order="{$vo.ordersn}"
+                                confirmsign-type="{$vo.confirmsignbutton}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">确认签收
+                        </button>
+
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.applyrefundbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+
+                        <button type="button" class="bfL btn btn-success applyRefundOrder" order="{$vo.ordersn}"
+                                applyrefund-type="{$vo.applyrefundbutton}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">申请退款
+                        </button>
+
+                        <!--</div>-->
+                    </if>
+                    <if condition="$vo.confirmrefundbutton gt 0">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+                        <button type="button" class="bfL btn btn-success confirmRefundOrder"
+                                order="{$vo.ordersn}" confirmrefund-type="{$vo.confirmrefundbutton}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">确认退款
+                        </button>
+                        <!--</div>-->
+                    </if>
+                    <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+                    <a href="{:U('orderDetail')}?orderid={$vo.id}">
+                        <button type="button" class="bfL btn btn-success" order="{$vo.ordersn}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">订单详情
+                        </button>
+                    </a>
+                    <!--</div>-->
+                    <if condition="$vo.handletype  eq 1">
+                        <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+                        <button type="button" class="bfL btn btn-success handleOrder"  handel-type="" order="{$vo.ordersn}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">处理订单
+                        </button>
+                        <!--</div>-->
+                    </if>
+                    <!--<div class="col-sm-4 col-md-4 col-lg-4">-->
+                    <if condition="$vo.settlenum gt 0">
+                        <button type="button" class="bfL btn btn-success  balanceOrder"  handel-type="" data-order="{$vo.ordersn}" data-type="{$vo.settlenum}"
+                                style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px" data-phone="">修改结算状态
+                        </button>
+                    </if>
+
+                    <!--</div>-->
+                    <!--</div>-->
+
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="margin-top:10px">
+            <td colspan='17' width="80" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    var floatObj = function() {
+
+        /*
+         * 判断obj是否为一个整数
+         */
+        function isInteger(obj) {
+            return Math.floor(obj) === obj
+        }
+
+        /*
+         * 将一个浮点数转成整数，返回整数和倍数。如 3.14 >> 314，倍数是 100
+         * @param floatNum {number} 小数
+         * @return {object}
+         *   {times:100, num: 314}
+         */
+        function toInteger(floatNum) {
+            var ret = {times: 1, num: 0}
+            var isNegative = floatNum < 0
+            if (isInteger(floatNum)) {
+                ret.num = floatNum
+                return ret
+            }
+            var strfi  = floatNum + ''
+            var dotPos = strfi.indexOf('.')
+            var len    = strfi.substr(dotPos+1).length
+            var times  = Math.pow(10, len)
+            var intNum = parseInt(Math.abs(floatNum) * times + 0.5, 10)
+            ret.times  = times
+            if (isNegative) {
+                intNum = -intNum
+            }
+            ret.num = intNum
+            return ret
+        }
+
+        /*
+         * 核心方法，实现加减乘除运算，确保不丢失精度
+         * 思路：把小数放大为整数（乘），进行算术运算，再缩小为小数（除）
+         *
+         * @param a {number} 运算数1
+         * @param b {number} 运算数2
+         * @param digits {number} 精度，保留的小数点数，比如 2, 即保留为两位小数
+         * @param op {string} 运算类型，有加减乘除（add/subtract/multiply/divide）
+         *
+         */
+        function operation(a, b, digits, op) {
+            var o1 = toInteger(a)
+            var o2 = toInteger(b)
+            var n1 = o1.num
+            var n2 = o2.num
+            var t1 = o1.times
+            var t2 = o2.times
+            var max = t1 > t2 ? t1 : t2
+            var result = null
+            switch (op) {
+                case 'add':
+                    if (t1 === t2) { // 两个小数位数相同
+                        result = n1 + n2
+                    } else if (t1 > t2) { // o1 小数位 大于 o2
+                        result = n1 + n2 * (t1 / t2)
+                    } else { // o1 小数位 小于 o2
+                        result = n1 * (t2 / t1) + n2
+                    }
+                    return result / max
+                case 'subtract':
+                    if (t1 === t2) {
+                        result = n1 - n2
+                    } else if (t1 > t2) {
+                        result = n1 - n2 * (t1 / t2)
+                    } else {
+                        result = n1 * (t2 / t1) - n2
+                    }
+                    return result / max
+                case 'multiply':
+                    result = (n1 * n2) / (t1 * t2)
+                    return result
+                case 'divide':
+                    result = (n1 / n2) * (t2 / t1)
+                    return result
+            }
+        }
+
+        // 加减乘除的四个接口
+        function add(a, b, digits) {
+            return operation(a, b, digits, 'add')
+        }
+        function subtract(a, b, digits) {
+            return operation(a, b, digits, 'subtract')
+        }
+        function multiply(a, b, digits) {
+            return operation(a, b, digits, 'multiply')
+        }
+        function divide(a, b, digits) {
+            return operation(a, b, digits, 'divide')
+        }
+
+        // exports
+        return {
+            add: add,
+            subtract: subtract,
+            multiply: multiply,
+            divide: divide
+        }
+    }();
+    /*全选操作*/
+    $('.selectall').click(function () {
+        if ($(this).is(':checked')) {
+            $('.oneorder .onebutton ').prop('checked', true);
+            var elemnt = $('.onebutton:checked');
+            var selectnums = elemnt.length;
+            var selectprices = 0;
+            elemnt.each(function () {
+                selectprices = floatObj.add(selectprices,parseFloat($(this).data('price')),2);
+            })
+            $('.ordernums').html(selectnums);
+            $('.gmvnums').html(selectprices);
+        }else {
+            $('.oneorder .onebutton ').prop('checked', false);
+            $('.ordernums').html(0);
+            $('.gmvnums').html(0);
+        }
+    })
+
+    //单选
+    $('.onebutton').click(function() {
+
+        var elemnt = $('.onebutton:checked');
+        var selectnums = elemnt.length;
+        var selectprices = 0;
+        elemnt.each(function () {
+            selectprices = floatObj.add(selectprices,parseFloat($(this).data('price')),2);
+        })
+        $('.ordernums').html(selectnums);
+        $('.gmvnums').html(selectprices);
+    })
+    /*导出excel*/
+    $("#export").click(function() {
+        $("#isexcel").val(1);
+        $("#searchform").submit();
+    })
+    $("#search").click(function () {
+        $("#isexcel").val('');
+        $("#searchform").submit();
+    })
+
+    //弹出层的显示或隐藏(1)
+    function show(msg, quedingname, quxiaoname, note) {
+        $("#title").text(msg);
+        $('#note').text(note);
+        $("#queding").text(quedingname);
+        $("#quxiao").text(quxiaoname);
+        $("#confirm").show();
+    }
+
+    function hide() {
+        $("#confirm").hide();
+    }
+
+    //弹出层的显示或隐藏(2)
+    function show1() {
+        $("#confirminput").show();
+    }
+
+    function hide1() {
+        $("#confirminput").hide();
+    }
+
+    var operationType = 0;
+
+    function ajaxOperationOrder(ordersn, expressno,refundreason,refundinfo) {
+        if (operationType == 0) return false;
+        $.post("{:U('orderOperation')}", {
+            ordersn: ordersn,
+            expressno: expressno,
+            operationType: operationType,
+            refundreason:refundreason,
+            refundinfo:refundinfo
+        }, function (res) {
+            if (res.state == 1) {
+                alert('操作成功');
+                window.location.reload();
+            } else {
+                alert(res.msg);
+                if (res.msg == '订单状态已更新') {
+                    window.location.reload();
+                }
+            }
+        }, 'json')
+    }
+    //处理结算状态
+    function ajaxHandleSettle(ordersn,type) {
+        $.post("{:U('setSettleType')}", {
+            ordersn: ordersn,
+            settletype:type
+        }, function (res) {
+            if (res.state == 1) {
+                alert('操作成功');
+                window.location.reload();
+            } else {
+                alert(res.msg);
+                window.location.reload();
+            }
+        }, 'json')
+    }
+    //处理订单
+    function agaxHandleorder(ordersn) {
+        $.post("{:U('handleOrder')}", {
+            ordersn: ordersn
+        }, function (res) {
+            if (res.state == 1) {
+                alert('操作成功');
+                window.location.reload();
+            } else {
+                alert(res.msg);
+                if (res.msg == '订单状态已更新') {
+                    window.location.reload();
+                }
+            }
+        }, 'json')
+    }
+
+
+    //取消订单
+    $(".cancelOrder").click(function () {
+        show('确认取消订单吗', '确认', '取消', '');
+        var cancelType = $(this).attr("cancel-type");
+        var ordersn = $(this).attr("order");
+        $('#queding').unbind().click(function () {
+            hide();
+            if (cancelType == 1) {
+                operationType = 1;
+            } else if (cancelType == 2) {
+                operationType = 3;
+            } else if (cancelType == 3) {
+                operationType = 4;
+            } else if (cancelType == 4) {
+                operationType = 5;
+            } else if (cancelType == 5) {
+                operationType = 6;
+            }
+            ajaxOperationOrder(ordersn, '','','');
+        })
+        $("#quxiao").click(function () {
+            hide();
+        })
+    })
+
+    //批量选择设置为已结算
+    https://test.dongrich.cn/myWeb/Operation/OperationOrder/settletype?idlist=2139,2135,2134,2133,4
+        $(".selectedSettle").click(function(){
+            show('是否将选中订单设为"已结算"? ', '确认', '取消', '');
+            $('#queding').click(function () {
+                var idlist='';
+                $('.onebutton:checked').each(function(){
+                    idlist+=$(this).data('id')+',';
+                })
+                idlist=idlist.substr(0,idlist.length-1);
+                console.log(idlist);
+                $.post("{:U('settletype')}", {
+                    idlist: idlist
+                }, function (res) {
+                    if (res.state == 1) {
+                        alert(res.msg);
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                }, 'json')
+            })
+
+            $("#quxiao").click(function () {
+                hide();
+            })
+        })
+
+
+
+    //确认订单
+    $(".confirmOrder").click(function () {
+        // show('确认该订单是否能够提供服务?', '可以服务', '不可以服务', '请先与管家联系确认');
+        $("#confirmresation").show();
+        var ordersn = $(this).attr("order");
+        $("#queding4").unbind().click(function () {
+
+            $("#confirmresation").hide();
+            operationType = 7;
+            ajaxOperationOrder(ordersn, '','','');
+        })
+        $("#quxiao4").unbind().click(function () {
+            var refundreason = $(".refundreason1:checked").val();
+            var refundinfo = $(".refundinfo1").val();
+            if(!refundreason){
+                window.alert("请选择以上不可服务原因");
+            }else{
+                $("#confirmresation").hide();
+                operationType = 2;
+                ajaxOperationOrder(ordersn, '',refundreason,refundinfo);
+            }
+
+        })
+    })
+
+    //确认已完成
+    $(".confirmFinishOrder").click(function () {
+        show('确认该订单已完成?', '确认', '取消', '');
+        var ordersn = $(this).attr("order");
+        $("#queding").unbind().click(function () {
+            hide();
+            operationType = 8;
+            ajaxOperationOrder(ordersn, '','','');
+        })
+        $("#quxiao").unbind().click(function () {
+            hide();
+        })
+    })
+
+    //确认已发货
+    $('.confirmShippingOrder').click(function () {
+        show1();
+        var settlename = $(this).text();
+        var ordersn = $(this).attr("order");
+        var expressno = $("#expressno").val();
+        $("#queding1").unbind().click(function () {
+            hide1();
+            operationType = 9;
+            ajaxOperationOrder(ordersn, expressno,'','');
+        })
+        $("#quxiao1").unbind().click(function () {
+            hide1();
+        })
+    })
+
+    //确认已签收
+    $('.confirmSignOrder').click(function () {
+        show('确认该订单已签收', '确认', '取消');
+        var ordersn = $(this).attr("order");
+        $("#queding").unbind().click(function () {
+            hide();
+            operationType = 10;
+            ajaxOperationOrder(ordersn, '','','');
+        })
+        $("#quxiao").unbind().click(function () {
+            hide();
+        })
+    })
+
+    //申请退款
+    // $('.applyRefundOrder').click(function () {
+    //     show("确认申请退款?", '确认', '取消');
+    //     var type = $(this).attr('applyrefund-type');
+    //     var ordersn = $(this).attr("order");
+    //     $("#queding").unbind().click(function () {
+    //         hide();
+    //         if (type == 1) {
+    //             operationType = 11;
+    //         } else if (type == 2) {
+    //             operationType = 12;
+    //         } else if (type == 3) {
+    //             operationType = 13;
+    //         }
+    //         ajaxOperationOrder(ordersn, '');
+    //     })
+    //     $("#quxiao").unbind().click(function () {
+    //         hide();
+    //     })
+    // })
+    $('.applyRefundOrder').click(function () {
+        var type = $(this).attr('applyrefund-type');
+        var ordersn = $(this).attr("order");
+        $("#refund").show();
+        $("#queding3").unbind().click(function () {
+            var refundreason = $(".refundreason:checked").val();
+            var refundinfo = $(".refundinfo").val();
+            console.log(refundreason)
+            console.log(refundinfo)
+            if(!refundreason){
+                window.alert("请选择退款原因");
+            }else{
+                $('#refund').hide();
+                if (type == 1) {
+                    operationType = 11;
+                } else if (type == 2) {
+                    operationType = 12;
+                } else if (type == 3) {
+                    operationType = 13;
+                }
+                ajaxOperationOrder(ordersn,'',refundreason,refundinfo);
+            }
+
+        })
+        $("#quxiao3").click(function () {
+            $('#refund').hide();
+        })
+    })
+
+
+
+    //确认已退款
+    $('.confirmRefundOrder').click(function () {
+        show('确认该订单已经退款', '确认', '取消', '请先与财务联系确认');
+        var type = $(this).attr('confirmrefund-type');
+        var ordersn = $(this).attr("order");
+        $("#queding").unbind().click(function () {
+            hide();
+            if (type == 1) {
+                operationType = 14;
+            } else if (type == 2) {
+                operationType = 15;
+            } else if (type == 3) {
+                operationType = 16;
+            }  else if (type == 4) {
+                operationType = 17;
+            } else if (type == 5) {
+                operationType = 18;
+            } else if (type == 6) {
+                operationType = 19;
+            }
+            ajaxOperationOrder(ordersn, '','','');
+        })
+        $("#quxiao").unbind().click(function () {
+            hide();
+        })
+
+    })
+
+    //处理订单
+    $('.handleOrder').click(function () {
+        show('是否确认已处理订单', '确认', '取消');
+        $("#note").text('');
+        var ordersn = $(this).attr("order");
+        $("#queding").unbind().click(function () {
+            hide();
+            agaxHandleorder(ordersn, '');
+        })
+        $("#quxiao").unbind().click(function () {
+            hide();
+        })
+    })
+
+    //结算订单
+    $('.balanceOrder').click(function(){
+        var ordersn = $(this).attr('data-order');
+        var type = $(this).attr('data-type');
+        $('.settle').prop('checked',false)
+        $(".settle[value='"+type+"']").prop('checked',true)
+        $("#settle").show();
+        $("#queding2").unbind().click(function () {
+            $("#settle").hide();
+            var type = $(".settle:checked").val();
+            ajaxHandleSettle(ordersn,type );
+        })
+        $("#quxiao2").unbind().click(function () {
+            $("#settle").hide();
+        })
+    })
+
+
+    var guanjianame = '{$guanjianame}';
+    var bdname = '{$bdname}';
+    $(function () {
+        $.get("{:U('getAllBdAndGuanjia')}", function (res) {
+            var bd = res.data.bd;
+            var guanjia = res.data.guanjia;
+            var str = '';
+            for (var i = 0; i < bd.length; i++) {
+                if (bd[i].name == bdname) {
+                    str += '<option value=' + bd[i].name + ' selected>' + bd[i].name + '</option>';
+                } else {
+                    str += '<option value=' + bd[i].name + ' >' + bd[i].name + '</option>';
+                }
+
+            }
+            $("#bdname").append(str);
+            str = '';
+            for (var i = 0; i < guanjia.length; i++) {
+                if (guanjia[i].guanjianame == guanjianame) {
+                    str += '<option value="' + guanjia[i].guanjianame + '" selected>' + guanjia[i].guanjianame + '</option>';
+                } else {
+                    str += '<option value="' + guanjia[i].guanjianame + '" >' + guanjia[i].guanjianame + '</option>';
+                }
+
+            }
+            $("#guanjianame").append(str);
+            $('#guanjiaid select').searchableSelect();
+            $("#BDid select").searchableSelect();
+        }, 'json');
+
+    });
+
+    //选择时间
+    $('#starttime').jeDate({
+        // isinitVal:true,
+        // initDate:[{hh:00,mm:00,ss:00},false],
+        showhis:['00','00','00'],
+        format:"YYYY-MM-DD hh:mm:ss",
+
+    })
+
+
+    $('#endtime').jeDate({
+        //isinitVal:true,
+        showhis:['23','59','59'],
+        format:"YYYY-MM-DD hh:mm:ss",
+
+
+    })
+
+
+</script>
+
+</body>
+</html>

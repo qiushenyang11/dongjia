@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加评价</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <style>
+        .defaultbtn{
+            margin-right:10px;
+            width:80px;
+            color: #FFFFFF;
+            background:#000000;
+            border:0
+        }
+        .extrebtn{
+            margin-right:10px;
+            width:80px;
+            color: #000000;
+            background:#D7D7D7;
+            border:0
+        }
+    </style>
+</head>
+
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">添加评价</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*选择产品</label>
+            <div class="col-sm-4" id="condition">
+                <select class="js-example-basic-multiple col-sm-12" placeholder="输入产品名称或ID" id="productselect" name="urltvalue" multiple="multiple"></select>
+            </div>
+        </div>
+        <div class="form-group" id="selectspec">
+
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*满意度</label>
+            <div class="col-sm-1">
+                <button type="button" value="" name="" id="onebutton" class="btn btn-primary defaultbtn" style="">非常满意</button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" name="" id="twobutton" class="btn btn-primary extrebtn">满意</button>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" name="" id="threebutton" class="btn btn-primary extrebtn">不满意</button>
+            </div>
+            <input type="text" value="3" style="display: none" id="manyidu">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*评价内容</label>
+            <div class="col-sm-4">
+                <textarea type="textarea" class="form-control" id="moreinfo"  name="moreinfo" placeholder="5-200字" style="height:100px"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*评价时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="commenttime" id="commenttime" placeholder="" value="{:Date('Y-m-d G:i:s')}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属用户</label>
+            <div class="col-sm-4">
+                <span><input id="olduser" class="commentuser" type="radio" value="0" checked name="isnewuser">选择已有用户</span>
+                <span><input id="newuser" class="commentuser" type="radio" value="1" name="isnewuser"> 新建用户</span>
+            </div>
+        </div>
+        <div id="userinfo">
+            <div class="form-group" style="margin-top: -10px">
+                <label for="" class="col-sm-2 control-label" ></label>
+
+                <div class="col-sm-3" id="usercondition">
+                </div>
+                <!--<div class="col-sm-3">-->
+                <!--<select name="" id="" class="form-control">-->
+                <!--<option value="0"> 选择已有用户</option>-->
+                <!--</select>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-offset-2 col-sm-10" style="margin-top: 30px">
+            <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+        </div>
+    </form>
+</div>
+<script>
+    /*满意度样式设置*/
+    $("#onebutton").click(function() {
+        $("#onebutton").css('color', '#ffffff');
+        $("#onebutton").css('background', '#000000');
+        $("#twobutton").css('color', '#000000');
+        $("#twobutton").css('background', '#D7D7D7');
+        $("#threebutton").css('color', '#000000');
+        $("#threebutton").css('background', '#D7D7D7');
+        $("#manyidu").val(3);
+    });
+    $("#twobutton").click(function() {
+        $("#twobutton").css('color', '#ffffff');
+        $("#twobutton").css('background', '#000000');
+        $("#onebutton").css('color', '#000000');
+        $("#onebutton").css('background', '#D7D7D7');
+        $("#threebutton").css('color', '#000000');
+        $("#threebutton").css('background', '#D7D7D7');
+        $("#manyidu").val(2);
+    });
+    $("#threebutton").click(function() {
+        $("#threebutton").css('color', '#ffffff');
+        $("#threebutton").css('background', '#000000');
+        $("#onebutton").css('color', '#000000');
+        $("#onebutton").css('background', '#D7D7D7');
+        $("#twobutton").css('color', '#000000');
+        $("#twobutton").css('background', '#D7D7D7');
+        $("#manyidu").val(1);
+    });
+
+    //所属用户显示模块
+    /*选择已有用户*/
+    function olduser() {
+        var str='<div class="form-group" style="margin-top: -10px">\n' +
+            '                <label for="" class="col-sm-2 control-label" ></label>\n' +
+            '                <div class="col-sm-3">\n' +
+            '<select class="js-example-basic-multiple1 col-sm-12" placeholder="" id="userselect" name="" multiple="multiple"></select>'
+        '                </div>\n' +
+        '            </div>';
+        return str;
+    }
+
+    function addolduser() {
+        var str='';
+        str=olduser();
+        $('#userinfo').append(str);
+        /*搜索选择已有用户*/
+        $('#userselect').select2({
+            placeholder:'选择已有用户',
+            ajax: {
+                url: "{:U('getSearchUser')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        key: params.term,
+                        type: ''
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    }
+    $("#olduser").click(function () {
+        $("#newuser").removeClass('haschecked');
+        $("#userinfo").html('');
+        addolduser();
+
+    })
+
+    /*新建用户*/
+    addolduser();
+    function newuser() {
+        var str='<div class="form-group">\n' +
+            '            <label for="" class="col-sm-2 control-label" >*昵称</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <input type="text" class="form-control"   name="name" placeholder="请输入用户名称" id="name">\n' +
+            '                </div>\n' +
+            '        </div>\n' +
+            '        <div class="form-group">\n' +
+            '            <label for="" class="col-sm-2 control-label" >*头像</label>\n' +
+            '            <div class="col-sm-4" id="headpic">\n' +
+            '            </div>\n' +
+            '        </div>';
+        return str;
+    }
+    function addnewuser() {
+        var str='';
+        str=newuser();
+        $('#userinfo').append(str);
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $('#newuser').click(function () {
+        if (!$(this).hasClass('haschecked')) {
+            $(this).addClass('haschecked');
+            $("#userinfo").html('');
+            addnewuser();
+            $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+                uploadTicket.policy = res.policy;
+                uploadTicket.authorization = res.authorization;
+                uploadTicket.bucket = res.bucket;
+                var uploadcontainer1 = 'headpic';
+                var initpic1 = '';
+                createUploadStr(uploadcontainer1,1,initpic1);
+
+            },'json');
+        }
+    })
+
+    /*选择规格*/
+    function selectspec() {
+        var str='<label for="" class="col-sm-2 control-label" >*选择规格</label>\n' +
+            '            <div class="col-sm-2">\n' +
+            '                <select name="goods" id="goods" class="form-control">\n' +
+            '                    <option value="0"> 选择商品</option>\n' +
+            '                </select>\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-2">\n' +
+            '                <select name="spec" id="spec" class="form-control">\n' +
+            '                    <option value="0"> 选择规格</option>\n' +
+            '                </select>\n' +
+            '            </div>';
+        return str;
+    }
+
+    function addselectspec() {
+        var str='';
+        str=selectspec();
+        $("#selectspec").html(str);
+    }
+
+    $(function () {
+        /*搜索选择产品*/
+        $('#productselect').select2({
+
+            placeholder:'输入产品名称或ID',
+            ajax: {
+                url: "{:U('getSerachProduct')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        key: params.term,
+                        type: 'product'
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+        $('#productselect').on('select2:select',function (e) {
+            var param = e.params.data;
+            var productid = param.id;
+            if(productid){
+                $.ajax({
+                    url:"{:U('getGoods')}",
+                    type:'post',
+                    dataType:'json',
+                    data:{productid:productid},
+                    success:function(message) {
+                        addselectspec();
+                        var str='<option value="0"> 选择商品</option>\n';
+                        for(var i=0;i<message['data'].length;i++){
+                            str+="<option value="+message['data'][i]['id']+" data-type='"+message['data'][i]['spec']+"'>"+message['data'][i]['name']+"</option>";
+                        }
+                        $("#goods").html(str);
+                    }
+                })
+
+            }
+        })
+        $("#productselect").on('select2:unselect',function (e) {
+            $('#selectspec').html('');
+        })
+    })
+
+    function getspec(goodid,type) {
+        if (type == 1) {
+            $("#spec").prop('disabled',false);
+            $.post(
+                "{:U('getSpec')}",{
+                    goodid:goodid
+                },
+                function(message){
+                    if(message['state']==1){
+                        var str = '<option value="0">选择规格</option>';
+                        var data = message.data;
+                        for (var i=0;i<data.length;i++){
+                            str+="<option value ="+data[i]['id']+">"+data[i]['specname']+"</option>";
+                        }
+                        $("#spec").html(str);
+                    } else{
+                        alert(message['msg']);
+                    }
+                },'json');
+        } else {
+            $("#spec").prop('disabled',true);
+        }
+
+    }
+    $(document).on('change','#goods',function () {
+        var type = $(this).find('option:selected').data("type");
+        console.log(type)
+        var goodid = $(this).val();
+        getspec(goodid,type);
+    })
+
+    //获取当前日期时间
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+    //日期插件
+    $("#commenttime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss"
+    })
+
+    //文件上传
+    //上传插件
+    // 文件保存的路径
+    function strpic(url,oneimageclass) {
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+
+    // 删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        console.log(path);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+            multipart: true,
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum + uploader.files.length > maxPicNum) {
+                for(var i in files){
+                    uploader.removeFile(files[i].id);
+                }
+                alert('多做上传'+maxPicNum+'张');
+                return;
+            }
+            $("#parent"+uploadid).remove();
+            uploader.start();
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+    /*提交评价信息*/
+    $('#surebtn').click(function () {
+        var productid = '';
+        var urltvalues = $('.js-example-basic-multiple').select2('data');
+        if (urltvalues.length > 0) {
+            productid=urltvalues[0].id;
+        }
+        var goodsid= parseInt($("#goods").val());
+        console.log('goodsid',goodsid);
+        var specid=parseInt($("#spec").val());
+        var spec='';
+        var spec = $("#goods option:selected").data("type");
+        console.log(spec);
+        var commentlevel=$("#manyidu").val();
+        var context=$("#moreinfo").val();
+        var addtime=$("#commenttime").val();
+        var isnewuser = $('.commentuser:checked').val();
+        console.log(isnewuser);
+        var userdate=$('.js-example-basic-multiple1').select2('data');
+        var vuserid='';
+        var name='';
+        var avatar=''
+        if(isnewuser==0){
+            if (userdate.length > 0) {
+                vuserid=userdate[0].id;
+            }
+        }else {
+            name=$("#name").val();
+            avatar = $("#headpic").attr('uploadpath');
+        }
+        if(!productid){
+            window.alert('请选择产品');
+        }else if(!goodsid){
+            window.alert('请选择商品');
+        }else if(spec==1 && !specid){
+            window.alert('请选择规格');
+        }else if(!context){
+            window.alert('评价内容不能为空');
+        }else if(context.length<5 || context.length>200){
+            window.alert('评价内容请录入5到200字');
+        }else if(isnewuser==0 && !vuserid){
+            window.alert('请录入所属用户');
+        }else if(isnewuser==1 && !name){
+            window.alert('请录入新建用户昵称');
+        }else if(isnewuser==1 && !avatar){
+            window.alert('请上传新建用户头像');
+        }else {
+            $.post("{:U('addOneComment')}",{
+                productid:productid,
+                goodsid:goodsid,
+                specid:specid,
+                commentlevel:commentlevel,
+                context:context,
+                addtime:addtime,
+                isnewuser:isnewuser,
+                vuserid:vuserid,
+                name:name,
+                avatar:avatar
+            },function (res) {
+                if(res.state){
+                    alert(res.msg);
+                    // window.location.href="{:U('index')}";
+                }else {
+                    alert(res.msg);
+                }
+            },'json')
+        }
+
+    })
+
+
+</script>
+</body>
+</html>

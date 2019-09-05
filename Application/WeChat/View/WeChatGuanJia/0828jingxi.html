@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>2折限量体验超精细保洁</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+      window.browser = {
+        versions: function () {
+          let u = navigator.userAgent;
+          return {
+            trident: u.indexOf('Trident') > -1,
+            presto: u.indexOf('Presto') > -1,
+            webKit: u.indexOf('AppleWebKit') > -1,
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            android: u.indexOf('Android') > -1,
+            iPhone: u.indexOf('iPhone') > -1,
+            iPad: u.indexOf('iPad') > -1,
+            jdjr: u.indexOf('JDJR-App') > -1,
+            webApp: u.indexOf('Safari') === -1,
+            wechat: u.indexOf('MicroMessenger') !== -1
+          };
+        }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+      };</script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      //      window.ga = function () {
+      //        console.log('ga', arguments)
+      //      };
+      window.ga('create', 'UA-115976658-1', 'auto');
+      function getRequest() {
+        var url = window.location.href;
+//                console.log(url);
+        if (url.indexOf('?') !== -1) {
+          var str = url.substr(url.indexOf('?') + 1);
+          var strs = str.split('&');
+          var result = {};
+          for (var temp in strs) {
+            var tp = strs[temp].split('=');
+            result[tp[0]] = tp[1];
+          }
+          return result;
+        } else {
+          return {};
+        }
+      }
+      function ajax() {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response)
+            } else {
+              ajaxData.error()
+            }
+          }
+        }
+      }
+      function createxmlHttpRequest() {
+        if (window.ActiveXObject) {
+          return new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+          return new XMLHttpRequest();
+        }
+      }
+      function convertData(data) {
+        if (typeof data === 'object') {
+          var convertResult = "";
+          for (var c in data) {
+            convertResult += c + "=" + data[c] + "&";
+          }
+          convertResult = convertResult.substring(0, convertResult.length - 1)
+          return convertResult;
+        } else {
+          return data;
+        }
+      }
+      var para = getRequest();
+      var GAStr;
+      var paraStr = '';
+
+      if (para.aid) {
+        paraStr = paraStr + '&aid=' + para.aid;
+      }
+      if (para.utm_medium) {
+        paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+      }
+      if (para.utm_source) {
+        paraStr = paraStr + '&utm_source=' + para.utm_source;
+      }
+      if (para.utm_campaign) {
+        paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+      }
+      if (paraStr.length > 1) {
+        paraStr = '?' + paraStr.substring(1);
+      }
+      //      GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+      GAStr = window.location.pathname + window.location.hash.substring(1);
+      window.ga('send', 'pageview', GAStr);
+      //ajax({
+      //    type:"POST",
+      //    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+      ////    dataType:"json",
+      //    data:{
+      //        channelId: para.utm_medium,
+      //        sgId: 13,
+      //        scenceId: para.utm_source,
+      //        status: 0
+      //    }
+      //})
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .mainapp .topArea {
+            width: 100vw;
+            height: 153.6vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/1.png');
+        }
+
+        .normal1{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale1@2x.png');
+            margin-right:2vw;
+        }
+        .get1{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale_disabled1@2x.png');
+            margin-right:2vw;
+        }
+        .out1{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale_disabled3@2x.png');
+            margin-right:2vw;
+        }
+        .normal2{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale2@2x.png');
+        }
+        .get2{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale_disabled2@2x.png');
+        }
+        .out2{
+            width: 43.2vw;
+            height: 29.6vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/0828jingxi/sale_disabled4@2x.png');
+        }
+
+
+        .mainapp img {
+            width: 100%;
+        }
+
+        .mainapp .abdmen {
+            margin-top: 2vw;
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .mainapp .abdmen img{
+            width: 49vw;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+    <div class="topArea">
+
+    <div id="coupon1" class="normal1" onclick="getCoupon1()"></div>
+    <div id="coupon2" class="normal2" onclick="getCoupon2()"></div>
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/0828jingxi/2.png">
+    <div class="abdmen">
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=96&">
+            <img src="https://file.rose52.com/guanjia/activity/0828jingxi/goods1@2x.png">
+        </a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=97&">
+            <img src="https://file.rose52.com/guanjia/activity/0828jingxi/goods2@2x.png">
+        </a>
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/0828jingxi/3.png">
+</div>
+<script>
+  let btn1 = document.getElementById('coupon1');
+  let btn2 = document.getElementById('coupon2');
+  const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}`;
+
+  let lock1 = false;
+  let lock2 = false;
+
+  const couponcode1 = 'CM20180827';  // 双人除螨体验券
+  const couponcode2 = 'WSJ20180827'; // 卫生间深度除螨
+
+  const couponName1 = '双人除螨体验券';
+  const couponName2 = '卫生间深度除螨';
+
+  let couponStatus = {
+    get: 1,
+    out: 3,
+    normal: 7
+  };
+  let coupon1Get = couponStatus.normal;
+  let coupon2Get = couponStatus.normal;
+
+  let getName = '';
+
+  function setStatus() {
+    let count = parseInt(coupon1Get);
+
+
+    if (parseInt(coupon1Get) === 1 || parseInt(coupon2Get) === 1) { // 领过其一，余一不再领
+      btn1.className = 'get1';
+      btn2.className = 'get2';
+      lock1 = false;
+      lock2 = false;
+    } else if (count >= 7) { // normal
+      btn1.className = 'normal1';
+      btn2.className = 'normal2';
+    } else if ( count >= 3) { // out
+      btn1.className = 'out1';
+      btn2.className = 'out2';
+    } else if ( count >= 0) { // get
+      btn1.className = 'get1';
+      btn2.className = 'get2';
+    }
+
+    if (parseInt(coupon1Get) === 1 || parseInt(coupon1Get) === 3) {
+      getName = couponName1;
+      lock1 = true;
+      lock2 = true;
+      btn1.className = 'get1';
+      btn2.className = 'get2';
+
+    }
+    if (parseInt(coupon2Get) === 1 || parseInt(coupon2Get) === 3) {
+      getName = couponName2;
+      lock1 = true;
+      lock2 = true;
+      btn1.className = 'get1';
+      btn2.className = 'get2';
+    }
+
+    return count;
+  }
+
+
+  function checkCoupon1() {
+    if (!lock1) {
+      lock1 = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            lock1 = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            lock1 = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon1Get = couponStatus.get;
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              lock1 = false;
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon1Get = couponStatus.out;
+            } else {
+              console.error(res);
+              lock1 = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+  function getCoupon1() {
+    console.log('getCoupon1');
+    if (!lock1) {
+      lock1 = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            coupon1Get = couponStatus.get;
+            getName = res.data.couponname;
+//            alert('领取成功');
+          }
+          else if (parseInt(res.state) === 3) {
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon1Get = couponStatus.get;
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon1Get = couponStatus.out;
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              lock1 = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    } else {
+//      alert(`您已经领取了${getName}`);
+    }
+  }
+
+  function checkCoupon2() {
+    console.log('getCoupon2');
+    if (!lock2) {
+      lock2 = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            lock2 = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            lock2 = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon2Get = couponStatus.get;
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              lock2 = false;
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon2Get = couponStatus.out;
+            } else {
+              console.error(res);
+              lock2 = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+  function getCoupon2() {
+    if (!lock2) {
+      lock2 = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            coupon2Get = couponStatus.get;
+            getName = res.data.couponname;
+//            alert('领取成功');
+          }
+          else if (parseInt(res.state) === 3) {
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon2Get = couponStatus.get;
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon2Get = couponStatus.out;
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              lock2 = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    } else {
+//      alert(`您已经领取了${getName}`);
+    }
+  }
+
+  checkCoupon1();
+  checkCoupon2();
+</script>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '2折限量体验超精细保洁',
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '任选1件深保服务，享59元超级体验价',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0828jingxi/share.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '2折限量体验超精细保洁', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0828jingxi/share.png',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+{$jdUnder}
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=UTF-8>
+  <title>私属医疗管家家庭优享卡</title>
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+  <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+  <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+  <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125783604-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-125783604-1');
+  </script>
+  <script>
+    window.browser = {
+      versions: function () {
+        let u = navigator.userAgent;
+        return {
+          trident: u.indexOf('Trident') > -1,
+          presto: u.indexOf('Presto') > -1,
+          webKit: u.indexOf('AppleWebKit') > -1,
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+          iPhoneX: /iphone/gi.test(u) && (screen.height == 812 &&screen.width == 375),
+          android: u.indexOf('Android') > -1,
+          iPhone: u.indexOf('iPhone') > -1,
+          iPad: u.indexOf('iPad') > -1,
+          jdjr: u.indexOf('JDJR-App') > -1,
+          webApp: u.indexOf('Safari') === -1,
+          wechat: u.indexOf('MicroMessenger') !== -1
+        };
+      }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };</script>
+  <script>
+    function ajax() {
+      var ajaxData = {
+        type: arguments[0].type || "GET",
+        url: arguments[0].url || "",
+        async: arguments[0].async || "true",
+        data: arguments[0].data || null,
+        dataType: arguments[0].dataType || "text",
+        contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+        beforeSend: arguments[0].beforeSend || function () {
+        },
+        success: arguments[0].success || function () {
+        },
+        error: arguments[0].error || function () {
+        }
+      };
+      ajaxData.beforeSend();
+      var xhr = createxmlHttpRequest();
+      xhr.responseType = ajaxData.dataType;
+      xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+      xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+      xhr.send(convertData(ajaxData.data));
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            ajaxData.success(xhr.response)
+          } else {
+            ajaxData.error()
+          }
+        }
+      }
+    }
+    function createxmlHttpRequest() {
+      if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+      } else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+      }
+    }
+    function convertData(data) {
+      if (typeof data === 'object') {
+        var convertResult = "";
+        for (var c in data) {
+          convertResult += c + "=" + data[c] + "&";
+        }
+        convertResult = convertResult.substring(0, convertResult.length - 1)
+        return convertResult;
+      } else {
+        return data;
+      }
+    }
+  </script>
+
+  <style type="text/css">
+    /* 主体 */
+    body {
+      background-color: #ffffff;
+      /* background-image: url('https://file.rose52.com/guanjia/activity/0928newdongjia/bg.jpg');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat; */
+    }
+    .mainapp {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .mainapp img {
+      width: 100%;
+    }
+
+    .mainapp .bottom {
+      position:fixed;
+      bottom:0px;
+      width: 100vw;
+      height: 12vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+    }
+    .mainapp .bottom .btn {
+      width: 100vw;
+      height: 12vw;
+      background-color: #c44848;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mainapp .bottom .dlbtn {
+      width: 50vw;
+      height: 12vw;
+      background-color: #c44848;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-right: solid 1px #9e3a3a
+    }
+
+    .mainapp .buy {
+      width: 100%;
+      font-size: 16px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      height: 12vw;
+      background-color: #eb8f44;
+      color: white;
+      flex-shrink: 0;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+      padding-left: 4.8vw;
+    }
+
+    .mainapp .haha {
+      width: 100%;
+      height: 13.3vw;
+      flex-shrink: 0;
+    }
+
+  </style>
+  <style>
+    /* 遮罩 协议 */
+    .masker {
+      display: none;
+      flex-shrink: 0;
+    }
+    .masker .maskbg {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 5000;
+    }
+
+    .masker .main {
+      width: 82.6vw;
+      height: 120vw;
+      margin-bottom :30px;
+      background-image: url('https://file.rose52.com/guanjia/ui2/pop_default@3x.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+    .masker .main .opera{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .masker .main .opera img{
+      width: 20px;
+      margin: 10px 10px 0 0
+    }
+    .masker .main .content{
+      margin-top: 7.2vw;
+      width: 105%;
+      height: 44vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      overflow-y: auto;
+
+    }
+    .masker .main .content ol{
+      margin-left: 14px;
+      width: 75%;
+      font-size: 14px;
+      color: #333333;
+    }
+    .masker .main .content ol li{
+      margin-bottom: 8px
+    }
+    .masker .main .button{
+      width: 24vw;
+      height: 8vw;
+      margin-bottom: 26px;
+      background-image: url('https://file.rose52.com/guanjia/ui2/pop_but_default@3x.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+  </style>
+  <style>
+    /* 模态框 */
+
+    /*模态框头部*/
+    .modal-header {
+      display: flex; /*采用flexbox布局*/
+      flex-direction: row; /*水平布局*/
+      align-items: center; /*内容垂直居中*/
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-body div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .modal-body div p {
+      font-size: 35px;
+    }
+
+    .modal-footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .modal-footer a {
+      align-items: center;
+      border: 1px solid #888;
+      border-radius: 5px;
+      padding: 5px 40px;
+      font-size: 20px;
+    }
+
+    /*关闭X 样式*/
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .dialog-background {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      flex-shrink: 0;
+    }
+
+    /*模态框内容*/
+    .modal-content {
+      display: flex; /*采用flexbox布局*/
+      flex-direction: column; /*垂直排列*/
+      position: relative;
+      background-color: #fefefe;
+      margin: 20% auto; /*距顶部15% 水平居中*/
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      animation: topDown 0.4s; /*自定义动画，从模态框内容上到下出现*/
+    }
+
+    .product-notice {
+      width: 90.4%;
+      margin-top: 30px;
+      background-color: #fff;
+      word-wrap: break-word;
+      word-break: normal;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-shrink: 0;
+    }
+
+    .product-notice .noticeInfo {
+      width: 100%;
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #333;
+      letter-spacing: 0;
+      line-height: 20px;
+    }
+
+    .buy-picker  {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      background: #fff;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .buy-spec {
+      margin-bottom: 21px;
+    }
+
+    .buy-picker-masker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0,0,0,0.5);
+      width: 100%;
+      height: 100%;
+      z-index: 888;
+    }
+
+    .buy-picker .buy-picker-main {
+      width: 93%;
+    }
+
+    /* 需知 notice */
+    .buy-picker .buy-picker-main .notice{
+      width: 100%;
+      position: relative;
+      margin-top: 19px;
+      background-color: #fff;
+      word-wrap: break-word;
+      word-break: normal;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-shrink: 0
+    }
+    .buy-picker .buy-picker-main .notice .noticeTop {
+      width: 100%;
+      font-family: PingFangSC-Medium;
+      font-size: 18px;
+      color: #2c2c2c;
+      letter-spacing: 1.56px;
+      margin-bottom: 15px;
+    }
+
+    .buy-picker .buy-picker-main .notice .close {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      padding: 5px;
+      background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTM5OTI4NTE2NzE2IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjE0NzgiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTgzLjE2OCA1MjMuNzc2TDk1OC40NjQgMTQ4LjQ4YzE4Ljk0NC0xOC45NDQgMTguOTQ0LTUwLjE3NiAwLTY5LjEybC0yLjA0OC0yLjA0OGMtMTguOTQ0LTE4Ljk0NC01MC4xNzYtMTguOTQ0LTY5LjEyIDBMNTEyIDQ1My4xMiAxMzYuNzA0IDc3LjMxMmMtMTguOTQ0LTE4Ljk0NC01MC4xNzYtMTguOTQ0LTY5LjEyIDBsLTIuMDQ4IDIuMDQ4Yy0xOS40NTYgMTguOTQ0LTE5LjQ1NiA1MC4xNzYgMCA2OS4xMmwzNzUuMjk2IDM3NS4yOTZMNjUuNTM2IDg5OS4wNzJjLTE4Ljk0NCAxOC45NDQtMTguOTQ0IDUwLjE3NiAwIDY5LjEybDIuMDQ4IDIuMDQ4YzE4Ljk0NCAxOC45NDQgNTAuMTc2IDE4Ljk0NCA2OS4xMiAwTDUxMiA1OTQuOTQ0IDg4Ny4yOTYgOTcwLjI0YzE4Ljk0NCAxOC45NDQgNTAuMTc2IDE4Ljk0NCA2OS4xMiAwbDIuMDQ4LTIuMDQ4YzE4Ljk0NC0xOC45NDQgMTguOTQ0LTUwLjE3NiAwLTY5LjEyTDU4My4xNjggNTIzLjc3NnoiIHAtaWQ9IjE0NzkiPjwvcGF0aD48L3N2Zz4=) 50% no-repeat;
+      background-size: 11px auto;
+    }
+
+    .buy-picker .buy-picker-main .notice .noticeInfo {
+      width: 100%;
+      font-family: PingFangSC-Regular;
+      font-size: 14px;
+      color: #333;
+      letter-spacing: 0;
+      line-height: 20px;
+    }
+
+    .operation-btn {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 13.3vw;
+      color: white;
+    }
+
+    .operation-btn div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .operation-btn .searchBtn {
+      background-color: #c44848;
+    }
+
+    .operation-btn .show-buy-picker {
+      background-color: #eb8f44;
+    }
+
+  </style>
+</head>
+<body>
+<div class="mainapp">
+  <img src="https://file.rose52.com/guanjia/activity/1112sishu/1.jpeg?v=1">
+  <!-- <img src="https://file.rose52.com/guanjia/activity/1016xinnuo/2.jpg?v=1019">
+  <img src="https://file.rose52.com/guanjia/activity/1016xinnuo/3.jpg?v=1022">
+  <img src="https://file.rose52.com/guanjia/activity/1016xinnuo/4.ddd?v=1019">
+  <img src="https://file.rose52.com/2018/10/17/upload_ikzfoha76x9jto3t.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_bmq5hq8ud07f2hxp.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_rd4xv1opxzk8g9gc.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_nigfuq2kr29gjrch.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_jo8in6y4pd6ob393.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_epmohgz95jbqe8o4.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_ibb5qjjvpkbsgxdm.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_3ov4ucq7tx2o9o8o.jpg">
+  <img src="https://file.rose52.com/2018/10/17/upload_w95m8dltpkawcum5.jpg"> -->
+  <div class="product-notice">
+    <div class="noticeTop">须知</div>
+    <div class="noticeInfo">
+      <p>服务须知及免责声明</p><p>1.	服务须知</p><p>1)	服务热线：400-820-2287，热线工作时间：周一至周五：09：00-18：00，周末及法定节假日除外。</p><p>2)	本产品需激活后方可使用，激活后服务有效期为一年。</p><p>a)	客户购买产品后可致电服务热线激活产品包含的服务。</p><p>b)	招商信诺的服务热线亦会主动拨打购买人电话，确认服务激活事项。</p><p>c)	激活服务时，客户需提供服务使用人的姓名、身份证明信息、性别、联系电话等信息，便于后续服务使用。</p><p>3)	本产品包含的服务须预约后方可使用， 预约是请拨打上述服务热线， 并根据产品服务手册中每项服务约定的时间要求，提前预约，确保服务可以顺利使用。</p><p>4)	本产品在购买后7个工作日内可提出退货申请，若服务已使用则不予退货。</p><p><br></p>
+    </div>
+  </div>
+
+  <div class="buy-picker-masker" style="display: none">
+  </div>
+  <div class="buy-picker" style="display: none">
+
+    <div class="buy-picker-main">
+      <div class="notice">
+        <i class="close" id="popupClose"></i>
+        <div class="noticeTop" style="color:#c44848;font-weight: bold;">选择规格</div>
+      </div>
+      <div class="buy-spec">
+        <div class="buy" data-id="1">单人服务&nbsp;(¥398)</div>
+        <div class="buy" data-id="2">家庭六人套装&nbsp;(¥998)</div>
+        <!-- <div class="buy" data-id="3">钻石卡&nbsp;(¥31888)</div> -->
+      </div>
+    </div>
+  </div>
+  <div class="haha"></div>
+  <div class="operation-btn">
+    <div class="searchBtn">一键咨询</div>
+    <div class="show-buy-picker">立刻购买</div>
+  </div>
+
+  <div class="masker" id="masker">
+    <div onclick="maskHide()" class="maskbg" v-show="display">
+      <div class="main">
+        <div class="opera">
+          <img onclick="maskHide()" src="https://file.rose52.com/guanjia/ui2/pop_icon_close_3@3x.png">
+        </div>
+        <div class="content">
+          <ol>
+            <li>招商信诺对本产品包含的服务中合作的医疗、体检等机构提供的治疗、检查效果不作保证，对任何治疗、检查形式所产生的后果，不负有任何责任。客户与医疗、体检机构产生的医疗纠纷，招商信诺免责并不参与协调。</li>
+            <li>如因客户个人原因（迟到、证件不足、患有传染性疾病等）而导致医院及体检等机构不接受看诊、入院、体检等服务，招商信诺对此所造成的损失，不予承担责任。</li>
+            <li>如因医院、体检等机构原因，如专家停诊、体检机构服务时间临时调整等特殊情况导致服务不能按时提供，以合作医院及机构最终安排的服务时间为准，招商信诺不承担此种情况下造成的任何损失。</li>
+            <li>本产品包含的服务不包含客户与医院及体检等机构所产生的诸如挂号费、治疗费、化验、检查、取药、体检加项费等相关费用。</li>
+          </ol>
+        </div>
+        <a id="sureBtn" href="javascript:;"><div class="button"></div></a>
+      </div>
+    </div>
+  </div>
+  <span id="user-jdpin" style="display: none;">{$user_jdpin}</span>
+  <div class="dialog-background" style="display: none;" id="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2></h2>
+        <span id="closeBtn" class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div style="width: 100%;">
+          <img src="https://file.rose52.com/shrenshou/img/jddog.png" alt="" style="width: 20vw"><p style="font-size: 25px;margin-left: 25px;" id="dialog-content"></p>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 0 5px;" id="confirm-reserve-opt">
+        <a id="sure-op">确定</a>
+        <a id="cancel-op">取消</a>
+      </div>
+      <div class="modal-footer" style="justify-content: center;" id="reserve-success-opt">
+        <a id="close">关闭</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+</script>
+<script>
+
+  function maskHide() {
+    masker.style.cssText = 'display:none;'
+  }
+
+  $(document).ready(function () {
+    // 如果有localstorage提交后清除localstorage
+
+    function isIphoneX() {
+      return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 &&screen.width == 375);
+    }
+    if(isIphoneX()){
+      $('body').css('paddingBottom','15px');
+      $('.searchBtn').css('paddingBottom','20px');
+      $('.show-buy-picker').css('paddingBottom','20px');
+      $('.buy-spec').css('marginBottom','41px');
+    }
+
+    window.surefun = {};
+    window.productname = '私属医疗管家家庭优享卡';
+    window.closemodalfun = null;
+    function reserveSure(productname) {
+      // 未登陆存localstorage跳转到登陆
+      let user_jdpin = $('#user-jdpin').text();
+      let testself_obj = {userjdpin: user_jdpin};
+      if (getQueryVariable('channel')) {
+        testself_obj.channel = getQueryVariable('channel');
+      }
+      let data = {
+        product_name: productname,
+        fromby: 'JDRICH_H5',
+        testself: window.JSON.stringify(testself_obj)
+      };
+
+      if (!user_jdpin) {
+        window.localStorage.setItem('reserve_data', window.JSON.stringify(data));
+        // 转去登陆
+        window.location.href = '/myWeb/BaoXian/BaoXianShRenshouReserve/jdLogin?productpage=xinnuo'
+      }
+      else {
+        submitReserveData(data);
+      }
+    }
+
+    function submitReserveData(data) {
+      $.ajax({
+        type: 'GET',
+        url: '/myWeb/BaoXian/BaoXianLeads/shrsLeads',
+        data: data,
+        success: function (data) {
+          var rs_arr = window.JSON.parse(data);
+          if (rs_arr.state == 1) {
+            $('#dialog-content').text('预约成功，您的顾问将尽快联系您');
+          } else {
+            $('#dialog-content').text(rs_arr.msg);
+          }
+          $('#modal').show();
+          $('#confirm-reserve-opt').hide();
+          $('#reserve-success-opt').show();
+          window.closemodalfun = function () {
+            window.location.reload();
+          }
+        }
+      });
+    }
+    function cancelReserveData(data) {
+      $.ajax({
+        type: 'GET',
+        url: '/myWeb/BaoXian/BaoXianLeads/cancelLeads',
+        data: data,
+        success: function (data) {
+          var rs_arr = window.JSON.parse(data);
+          if (rs_arr.state == 1) {
+            $('#dialog-content').text(rs_arr.data);
+          } else {
+            $('#dialog-content').text(rs_arr.msg);
+          }
+          $('#modal').show();
+          $('#confirm-reserve-opt').hide();
+          $('#reserve-success-opt').show();
+          window.closemodalfun = function () {
+            window.location.reload();
+          }
+        }
+      });
+    }
+    function getQueryVariable(variable)
+    {
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+      }
+      return(false);
+    }
+
+    let masker = document.getElementById('masker');
+    let sureBtn = document.getElementById('sureBtn');
+    let hrefList = ['javascript:;',
+      'https://djgjia.jd.com/servicesOrder/330/663/1197/1',
+      'https://djgjia.jd.com/servicesOrder/330/665/1199/1',
+    ];
+    function maskShow(index) {
+      sureBtn.setAttribute('href', hrefList[index]);
+      masker.style.cssText = 'display:block;'
+    }
+
+    if(window.browser.versions.iPhoneX){
+      $('body').css('paddingBottom','15px');
+      $('.haha').css('paddingBottom','18px')
+    }
+    let reserve_data = window.localStorage.getItem('reserve_data');
+    if (reserve_data) {
+      reserve_data = window.JSON.parse(reserve_data);
+      let user_jdpin = $('#user-jdpin').text();
+      reserve_data.testself = window.JSON.stringify({userjdpin: user_jdpin});
+      submitReserveData(reserve_data);
+      window.localStorage.clear();
+    }
+    $('.searchBtn').click(function () {
+      // 点击立即预约
+      reserveSure(window.productname);
+    });
+
+    $('.buy').click(function (e) {
+      maskShow(parseInt(e.target.getAttribute('data-id')));
+    });
+
+    $('#closeBtn').click(function () {
+      // 弹框右上角x按钮
+      $('#modal').hide();
+    });
+    $('#sure').click(function () {
+      // 对话框确认操作
+      window.surefun();
+    });
+    $('#cancel').click(function () {
+      // 对话框取消操作
+      window.cancelfun();
+    });
+    $('#close').click(function () {
+      // 正常关闭对话框
+      $('#modal').hide();
+      if (window.closemodalfun) {
+        window.closemodalfun();
+      }
+    });
+    $('.buy-picker-masker').click(function () {
+      $('.buy-picker-masker').hide();
+      $('.buy-picker').hide();
+    });
+    $('#popupClose').click(function () {
+      $('.buy-picker-masker').hide();
+      $('.buy-picker').hide();
+    });
+    $('.show-buy-picker').click(function () {
+      $('.buy-picker-masker').show();
+      $('.buy-picker').show();
+    })
+  })
+
+</script>
+</body>
+</html>

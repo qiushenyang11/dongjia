@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type='text/javascript' src='__PUBLIC__/Admin/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+</head>
+<body>
+<div style="width: 100px;height: 100px" id="test">
+    上传
+</div>
+</body>
+<script>
+    var  uploader = new plupload.Uploader({
+        browse_button : 'test', //触发文件选择对话框的按钮，为那个元素id
+        url : 'https://www.dservie.cn/myWeb/AjaxApi/Upyun/writeFile', //服务器端的上传页面地址
+        multipart: true,
+        flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+        silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+    });
+
+    //在实例对象上调用init()方法进行初始化
+    uploader.init();
+
+    //绑定各种事件，并在事件监听函数中做你想做的事
+    uploader.bind('FilesAdded',function(uploader,files){
+        console.log(files);
+        uploader.start();
+        //每个事件监听函数都会传入一些很有用的参数，
+        //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+    });
+
+    uploader.bind('FileUploaded',function (uploader,files,info) {
+    })
+</script>
+</html>

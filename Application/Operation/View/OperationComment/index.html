@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单评价</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <style>
+        .none{
+            display:none;
+        }
+        .tc_giveUp{position:fixed;padding:0 50px;z-index:9999;width:30%;top:50%;left:40%;margin-top:-80px;}
+        .tc_giveUp_detail{padding-top:50px;font-size:16px;color:#666;background:#fff;border-radius: 8px;}
+        .tc_giveUp_detail h1{padding:0 30px;margin-bottom:30px;text-align: center;font-size: 30px}
+        .sure_cancle{border-top:1px solid #dedede;background:#fff;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;}
+        .sure_cancle span{float:left;width: 50%;font-size:14px;color:#666;height:40px;line-height:40px;text-align: center;}
+        .sure_cancle span.redBtn{color:#fff;}
+        .qr,.sure_cancle .qr{border-right:1px solid #dedede;background:#333333;color:#fff;}
+        .qx,.sure_cancle .qx{border-right:1px solid #dedede;background:#999999;color:#fff;}
+        #zz_c{position:fixed;z-index:9998;background:rgba(0,0,0,0.6);top:0;left:0;bottom:0;right: 0;}
+        .ceng {
+            padding: 20px;
+            position: relative;
+        }
+        .queding {
+            border: none;
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao {
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="background-color:#F6F7FA;">
+<!--弹框-->
+
+<div id="zz_c" class="none"></div>
+
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">评价管理</a></li>
+    <li class="active">评价列表</li>
+</ol>
+
+<div id="confirm" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng"
+         style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 150px;background: #FFFFFF;"
+         class="ceng">
+        <h2 style="text-align: left;margin-top:0;font-size: 18px;font-weight:200" id="title">是否确认此操作</h2>
+        <div class="quxiao" id="quxiao">取消</div>
+        <div class="queding" id="queding">确定</div>
+    </div>
+</div>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get" >
+        <div class="form-group" style="margin-left: 20px;">
+            <label for="">评价时间</label>
+            <input type="text" class="form-control" name="starttime" value="{$starttime}" id="starttime" placeholder="选择开始时间"
+                   value="">
+        </div>
+        <div class="form-group" style="margin-right: 20px;">
+            <label for="">至</label>
+            <input type="text" class="form-control" name="endtime" id="endtime" placeholder="选择结束时间" value="{$endtime}">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select name="type" class="form-control">
+                    <option value="1" <if condition="$type eq 1">selected</if>>订单ID</option>
+                    <option value="2" <if condition="$type eq 2">selected</if>>产品ID</option>
+                    <option value="3" <if condition="$type eq 3">selected</if>>产品名称</option>
+                    <option value="4" <if condition="$type eq 4">selected</if>>填单手机号</option>
+                    <option value="5" <if condition="$type eq 5">selected</if>>填单人</option>
+                    <option value="6" <if condition="$type eq 6">selected</if>>用户ID</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="value" id="value" placeholder="" value="{$value}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select name="guanjiaid" class="form-control">
+                    <option value="0">所属管家</option>
+                    <volist name="guanjiainfo" id="vo">
+                        <option value="{$vo.id}" <if condition="$vo.id eq $guanjiaid">selected</if>>{$vo.guanjianame}</option>
+                    </volist>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select name="trueuser" class="form-control">
+                    <option value="">评价类型</option>
+                    <option value="1" <if condition="$trueuser eq 1">selected</if>>真实评价</option>
+                    <option value="0" <if condition="$trueuser eq 2">selected</if>>人工导入</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select name="isshow" class="form-control">
+                    <option value="0">状态</option>
+                    <option value="1" <if condition="$isshow eq 1">selected</if>>显示</option>
+                    <option value="2" <if condition="$isshow eq 2">selected</if>>隐藏</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <a href="{:U('addComment')}">
+            <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;"><span class="glyphicon glyphicon-open-file"></span>导入</button>
+        </a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">订单ID</th>
+            <th width="10%" align="center">满意度</th>
+            <th width="10%" align="center">评价内容</th>
+            <th width="10%" align="center">评价类型</th>
+            <th width="10%" align="center">产品ID</th>
+            <th width="10%" align="center">产品信息</th>
+            <th width="10%" align="center">产品分类</th>
+            <th width="10%" align="center">提交时间</th>
+            <th width="10%" align="center">状态</th>
+            <th width="10%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.orderid}</td>
+                <td>
+                    <if condition="$vo.commentlevel eq 3">非常满意
+                        <elseif condition="$vo.commentlevel eq 2" />满意
+                        <else/>不满意
+                    </if>
+                </td>
+                <td>{$vo.context}</td>
+                <td>
+                    <if condition="$vo.trueuser eq 1">真实评价<else />人工导入</if>
+                </td>
+
+                <td>{$vo.productid}</td>
+                <td>
+                    <p>{$vo.productname}</p>
+                    <p>{$vo.goodname}</p>
+                    <p>{$vo.specname}</p>
+                </td>
+                <td>{$vo.categoryname}</td>
+                <td>{$vo.addtime}</td>
+                <td><if condition="$vo.isshow eq 1">显示<else/>隐藏</if></td>
+                <td>
+                    <if condition="$vo.isshow eq 1"><button type="button" data-isshow="2" data-id="{$vo.id}" class="bfL btn btn-success  comment" style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px">隐藏评价</button><else/><button type="button" class="bfL btn btn-success comment" data-isshow="1" data-id="{$vo.id}" style="background:#1AB394;border:0;opacity:0.8;margin-bottom: 3px">显示评价</button></if>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='10' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+    //选择时间
+    $("#starttime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss"
+    });
+
+    $("#endtime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss"
+    })
+
+
+    //显示隐藏操作
+    var commentid = 0;
+    var isshow=0;
+    $('.comment').click(function () {
+        show();
+        commentid = $(this).data('id');
+        isshow=$(this).data('isshow')
+    })
+    $("#queding").click(function () {
+        $.post("{:U('hideOneComment')}",{commentid:commentid,isshow:isshow},function (res) {
+            if (res.state == 1) {
+                alert('操作成功');
+                window.location.reload();
+            } else {
+                alert('操作失败')
+            }
+            hide();
+        },'json')
+    })
+    $("#quxiao").click(function () {
+        hide();
+    })
+    function hide() {
+        $("#confirm").hide();
+    }
+    function show() {
+        $("#confirm").show();
+    }
+
+</script>
+</body>
+</html>

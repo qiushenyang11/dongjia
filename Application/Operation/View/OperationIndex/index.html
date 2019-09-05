@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link href="__PUBLIC__/Admin/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/Admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/Admin/css/lib/iconfont.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/Admin/css/style.css" rel="stylesheet" type="text/css" />
+		<title>后台首页</title>
+	</head>
+	<body>
+		<div class="nav">
+			<div class="logo">管家运营系统</div>
+			<div class="head">
+				<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td><img src="__PUBLIC__/Admin/images/headpic.jpg" alt=""></td>
+					</tr>
+				</table>
+			</div>
+			<div class="updatepass"><span class='sp2'></span> </div>
+			<div class="top_right">
+				<span style="font-size: 16px;font-weight: 600;margin-right: 10px">欢迎 {$uid} {$name}  </span>
+				<a href="{:U('OperationLogin/loginOut')}" class="right"><img src="__PUBLIC__/Admin/images/57.png" alt="" id="loginOut" ></a>
+            </div>
+		</div>
+		<aside class="Hui-aside" style="background: #1AB394;">
+			<input runat="server" id="divScrollValue" type="hidden" value="" />
+			<div class="menu_dropdown bk_2" style="color:#FFFFFF">
+				<!------------------------------------首页----------------------------------------->
+				<!--<dl>-->
+					<!--<dt class="active">-->
+                     <!--<i class="Hui-iconfont unique_attributes">&#xe625;</i>-->
+						<!--<a _href="" class="dt_a"  data-title="首页" style="display: inline-block;*zoom:1;*display:inline;width:130px;" onclick="location.reload()">首页</a>-->
+						<!--<i class="Hui-iconfont menu_dropdown-arrow"></i>-->
+					<!--</dt>-->
+				<!--</dl>-->
+                
+			{$menu_code}
+            
+            
+			</div>
+		</aside>
+		<div class="dislpayArrow">
+			<a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>
+		</div>
+		<section class="Hui-article-box">
+			<div id="Hui-tabNav" class="Hui-tabNav">
+				<div class="Hui-tabNav-wp">
+					<ul id="min_title_list" class="acrossTab cl">
+
+					</ul>
+				</div>
+				<div class="Hui-tabNav-more btn-group">
+					<a id="js-tabNav-prev" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i></a>
+					<a id="js-tabNav-next" class="btn radius btn-default size-S" href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i></a>
+				</div>
+			</div>
+			<div id="iframe_box" class="Hui-article">
+				<div class="show_iframe">
+					<div class="loading"></div>
+					<iframe scrolling="yes" frameborder="0" src="{:U('OperationBD/index')}" ></iframe>
+				</div>
+			</div>
+		</section>
+		<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Admin/js/H-ui.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/Admin/js/H-ui.admin.js"></script>
+		<script>
+            //退出登录
+            $("#loginOut").click(function () {
+            });
+
+
+            $(function() {
+                var
+                    $dt = $('dt'),
+                    $dta = $('.dt_a'),
+                    $dticonfont = $('.unique_attributes');
+                    $dt.click(function() {
+                    var Iindex = $(this).index('dt');
+                    $dticonfont.css({color: '#ffffff'}).eq(Iindex).css({color: '#1AB394'});
+                    $dt.css({background: '#1AB394',color: '#ffffff'}).eq(Iindex).css({background: '#ffffff',color: "#333333"});
+                    $dt.removeClass('active').eq(Iindex).addClass('active');
+                })
+            })
+
+
+		</script>
+	</body>
+
+</html>

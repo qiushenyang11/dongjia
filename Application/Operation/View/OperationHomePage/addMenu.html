@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>前台菜单</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <style>
+        input[type=checkbox], input[type=radio] {
+            margin: 4px 0 0;
+            margin-top: 1px\9;
+            line-height: normal;
+            margin-right: 8px;
+        }
+        .select2 select2-container select2-container--default{
+            width:457px;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">前台菜单</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+<!--添加二级菜单模态框开始-->
+    <div class="modal fade"  role="dialog" aria-labelledby="gridSystemModalLabel" id="addTwoMenu" style="top:20%">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:600px;height:400px;">
+                <div class="modal-body" style="padding-left: 30px; padding-right: 30px; padding-top: 25px;padding-bottom:0">
+                    <form class="form-horizontal" id="modalform">
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label" >*菜单名称</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control"   value="" name="name" placeholder="6字以内" id="twoName">
+                            </div>
+                            <label for="" class="col-sm-1 control-label" >*icon</label>
+                            <div class="col-sm-1" id="twoMenuPic">
+                            </div>
+                            <div class="col-sm-2" style="margin-top:10px;margin-left: 30px">
+                                <p style="width:80px;text-align:center;color:red" >*限60*60</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label" >*落地页</label>
+                            <div class="col-sm-3">
+                                <select name="" id="urltype" class="form-control">
+                                    <option value="4">产品</option>
+                                    <option value="3">管家</option>
+                                    <option value="2">二级分类</option>
+                                    <option value="1">链接</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6" id="condition">
+                                <select class="col-sm-12 form-control" id="productselect" name="urltvalue"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label" >*显示城市</label>
+                            <div class="col-sm-3" style="margin-top:5px">
+                                <input type="radio"  name="twoStatus" class="twoStatus" value="1" checked id="">白名单
+                            </div>
+                            <div class="col-sm-3" style="margin-top:5px">
+                                <input type="radio"  name="twoStatus" class="twoStatus" value="2"  id="">黑名单
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label" ></label>
+                            <div class="col-sm-6" >
+                                <select class="js-example-basic-multiple-two col-sm-12" name="" multiple="multiple">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-2 control-label" >*帧位</label>
+                            <div class="col-sm-3">
+                                <select  name=""  class="form-control" id="twoFrame">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                </select>
+                            </div>
+                            <label for="" class="col-sm-2 control-label" style="text-align: left;">*状态</label>
+                            <div class="col-sm-5">
+                                <select  name=""  class="form-control" id="twoIshow" style="margin-left:-49px">
+                                    <option value="1">在线</option>
+                                    <option value="2">下线</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border:0;text-align: right;padding-top:25px;padding-right:50px">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="backgroud-color:#E7505A;width:105px;height:36px;">取消</button>
+                    <button type="button" class="btn btn-primary" id="addInfo" style="width:130px;height:36px;background-color: #E7505A; border: 0;">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*一级菜单名称</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control"   value="{$res.title}" name="name" placeholder="5字以内" id="title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*显示城市</label>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio"  name="status" class="status" value="1" <neq name="res.city_type" value="2">checked</neq> id="">白名单
+            </div>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio"  name="status" class="status" value="2" <eq name="res.city_type" value="2">checked</eq>  id="">黑名单
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-2" id="wenan">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-4" class="twoCity">
+                <select class="js-example-basic-multiple col-sm-12" name="" multiple="multiple">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*帧位</label>
+            <div class="col-sm-2">
+                <select  name=""  class="form-control" id="frame">
+                    <?php for($j=1;$j<=5;$j++){ ?>
+                    <option value="{$j}" <?php if($j==$res['frame']){ ?>selected<?php }?>>{$j}</option>
+                    <?php }?>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <label for="" class="col-sm-1 control-label" >*状态</label>
+            <div class="col-sm-2">
+                <select  name=""  class="form-control" id="ishow">
+                    <option value="1" <neq name="res.is_show" value="2">selected</neq>>在线</option>
+                    <option value="2" <eq name="res.is_show" value="2">selected</eq>>下线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*二级菜单名称</label>
+            <div class="col-sm-2">
+                <button type="button"  data-toggle="modal" data-target="#addTwoMenu"  class="btn btn-primary" style="width:100px;background:#7f7f7f;border:0">添加二级菜单</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-8">
+                <table class="table" style="margin-top: 20px;text-align:center;">
+                    <thead  id="headinfo" style="height: 20px;background:#1AB394;color: white ">
+                    <notempty name="childsinfo">
+                        <tr>
+                        <td align="center">名称</td>
+                        <td align="center">icon</td>
+                        <td align="center">落地页</td>
+                        <td align="center">显示城市</td>
+                        <td align="center">帧位</td>
+                        <td align="center">状态</td>
+                        <td align="center">操作</td>
+                        </tr>
+                    </notempty>
+                    <!--<tr>-->
+                        <!--<td align="center">名称</td>-->
+                        <!--<td align="center">icon</td>-->
+                        <!--<td align="center">落地页</td>-->
+                        <!--<td align="center">显示城市</td>-->
+                        <!--<td align="center">帧位</td>-->
+                        <!--<td align="center">状态</td>-->
+                        <!--<td align="center">操作</td>-->
+                    <!--</tr>-->
+                    </thead>
+                    <tbody class="twomenuinfo">
+                    <volist name="childsinfo" id="vo" key="key">
+                        <if condition="$vo.is_show eq 1">
+                            <tr class="onetrinfo" id="tr_{$key-1}" data-id="{$vo.id}">
+                                <td class="twoname">{$vo.title}</td>
+                                <td class="twoPic">
+                                    <img class="twomenupicurl" src="<?php echo getshowImgUrl($vo['a_img']); ?>" alt="" data-url="{$vo.a_img}">
+
+                                <td class="luodiye" data-luodiyeInfotype="{$vo.a_name}" data-luodiyeInfovalue="{$vo.a_txt}" data-luodiyeInfoid="{$vo.a_id}">
+                                    <if condition="$vo.a_type eq 4">
+                                        产品:    {$vo.a_txt}({$vo.a_id})
+                                        <elseif condition="$vo.a_type eq 3" />
+                                        管家:    {$vo.a_txt}({$vo.a_id})
+                                        <elseif condition="$vo.a_type eq 2" />
+                                        二级分类:    {$vo.a_txt}({$vo.a_id})
+                                        <else />
+                                        链接:    {$vo.a_txt}
+                                    </if>
+
+                                </td>
+                                <td class="showcity" data-twoCityInfotype="{$vo.city_typename}" data-twoCityInfovalue="{$vo.cityname}" data-chenshi="{$vo.city_rang}">{$vo.city_name}</td>
+                                <td class="fream">{$vo.frame}</td>
+                                <td class="twoishow" style="color:#3366ff"><if condition="$vo.is_show eq 1">在线<else />下线</if></td>
+                                <td class="caozuo" style="color:#3366ff"><span   data-toggle="modal" data-target="#addTwoMenu"  class="editonemenu" style="margin-right:10px">编辑</span><span class="delonetwomenu">删除</span></td>
+
+
+                            </tr>
+                            <else />
+                            <tr style="color:#d4d4d4" class="onetrinfo" id="tr_{$key-1}" data-id="{$vo.id}">
+                                <td class="twoname">{$vo.title}</td>
+                                <td class="twoPic">
+                                    <img class="twomenupicurl" src="<?php echo getshowImgUrl($vo['a_img']); ?>" alt="" data-url="{$vo.a_img}">
+
+                                <td class="luodiye" data-luodiyeInfotype="{$vo.a_name}" data-luodiyeInfovalue="{$vo.a_txt}" data-luodiyeInfoid="{$vo.a_id}">
+                                    <if condition="$vo.a_type eq 4">
+                                        产品:    {$vo.a_txt}({$vo.a_id})
+                                        <elseif condition="$vo.a_type eq 3" />
+                                        管家:    {$vo.a_txt}({$vo.a_id})
+                                        <elseif condition="$vo.a_type eq 2" />
+                                        二级分类:    {$vo.a_txt}({$vo.a_id})
+                                        <else />
+                                        链接:    {$vo.a_txt}
+                                    </if>
+
+                                </td>
+                                <td class="showcity" data-twoCityInfotype="{$vo.city_typename}" data-twoCityInfovalue="{$vo.cityname}" data-chenshi="{$vo.city_rang}">{$vo.city_name}</td>
+                                <td class="fream">{$vo.frame}</td>
+                                <td class="twoishow" style="color:#3366ff"><if condition="$vo.is_show eq 1">在线<else />下线</if></td>
+                                <td class="caozuo" style="color:#3366ff"><span   data-toggle="modal" data-target="#addTwoMenu"  class="editonemenu" style="margin-right:10px">编辑</span><span class="delonetwomenu">删除</span></td>
+
+
+                            </tr>
+                        </if>
+
+                    </volist>
+                    <!--<tr>-->
+                        <!--<td class="twoname"></td>-->
+                        <!--<td class="twoPic">-->
+                            <!--<img src="" alt="">-->
+                        <!--</td>-->
+                        <!--<td class="luodiye"></td>-->
+                        <!--<td class="showcity"></td>-->
+                        <!--<td class="fream"></td>-->
+                        <!--<td class="twoishow"></td>-->
+                        <!--<td class="caozuo">-->
+                            <!--<span style="margin-right:20px">编辑</span><span>删除</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+var trii = $('.onetrinfo').length;
+var trid_now ='' ;
+var twoPic='';
+    //二级菜单上传图片
+    function strpic(url,oneimageclass) {
+        var str = '<div style="display:inline-block;height: 60px;width:60px;margin-bottom: -15px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="60" height="60" path="'+url+'" style="margin-top: -15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:-20px;margin-left:70px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        var uploadcontainer1 = 'twoMenuPic';
+        var initpic1 = twoPic;
+        createUploadStr(uploadcontainer1,1,initpic1);
+
+    },'json');
+    // 删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        console.log(path);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 60px;width:60px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="70" height="70" style="margin-top: -10px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+            multipart: true,
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0].getNative());
+            reader.onload = (function (e) {
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    if (this.width == 60 && this.height == 60) {
+                        if (nownum + uploader.files.length > maxPicNum) {
+                            for(var i in files){
+                                uploader.removeFile(files[i].id);
+                            }
+                            alert('多做上传'+maxPicNum+'张');
+                            return;
+                        }
+                        $("#parent"+uploadid).remove();
+                        uploader.start();
+                    } else {
+                        for(var i in files){
+                            uploader.removeFile(files[i].id);
+                        }
+                        alert('请上传60*60图片');
+                    }
+
+                };
+            });
+
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+    //初始化落地页信息
+    $(function(){
+        $('#productselect').select2({
+            placeholder:'请输入产品ID或名称',
+            width:'254px',
+            ajax: {
+                url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        value: params.term,
+                        type:'4'
+                    };
+                },
+                processResults: function (data) {
+                    console.log(data);
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    })
+
+    function initurltype(type,el,data) {
+
+        var inputstr = '';
+        if (type ==1) {
+            inputstr='<input type="text" class="form-control"  name="" id="urltvalue" placeholder="输入链接地址" style="height:28px">';
+        }else if(type==2){
+            inputstr='<select class="col-sm-12 form-control" id="two" name="urltvalue" ></select>';
+        }else if(type==3){
+            inputstr='<select class="col-sm-12 form-control" id="guanjiaselect" name="urltvalue"></select>';
+        }else{
+            inputstr='<select class="col-sm-12 form-control" id="productselect" name="urltvalue"></select>';
+        }
+        $("#"+el).html(inputstr);
+        if (type == 1 && data) {
+            $('#urltvalue').val(data)
+        } else {
+            selects(type,data)
+        }
+    }
+    //二级菜单落地页点击信息
+    $('#urltype').change(function () {
+        var type = $(this).val();
+        initurltype(type,'condition','')
+    })
+
+
+
+    function selects(type,initdata) {
+        if (initdata) {
+            var data1 = initdata[0];
+            var ids1 = initdata[1];
+            if (type == 2) {
+                $('#two').select2({
+                    placeholder:'请输入分类ID或名称',
+                    width:'254px',
+                    data : data1,
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'2'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                }).val(ids1).trigger("change");
+            } else if(type == 3) {
+                $('#guanjiaselect').select2({
+                    placeholder:'请输入管家ID或名称',
+                    width:'254px',
+                    data:data1,
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'3'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                }).val(ids1).trigger("change");
+            }else if(type == 4) {
+                $('#productselect').select2({
+                    placeholder:'请输入产品ID或名称',
+                    width:'254px',
+                    data:data1,
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'4'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                }).val(ids1).trigger("change");
+            }
+        } else {
+            if (type == 2) {
+                $('#two').select2({
+                    placeholder:'请输入分类ID或名称',
+                    width:'254px',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'2'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            } else if(type == 3) {
+                $('#guanjiaselect').select2({
+                    placeholder:'请输入管家ID或名称',
+                    width:'254px',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'3'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            }else if(type == 4) {
+                $('#productselect').select2({
+                    placeholder:'请输入产品ID或名称',
+                    width:'254px',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'4'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            }
+        }
+    }
+
+
+
+    //添加二级菜单信息
+    function twomenuInfo(){
+
+        trid_now = 'tr_'+trii ;
+        var str='<tr class="onetrinfo" id="'+trid_now+'" data-id="0"></tr>';
+         trii++;
+        return str;
+    }
+
+    function addtwomenuInfo(){
+        var str='';
+        str=twomenuInfo();
+        $(".twomenuinfo").append(str);
+    }
+
+
+
+    /*添加头部信息*/
+    function headinfo(){
+        var str='<tr>\n' +
+            '                        <td  width="10%" align="center">名称</td>\n' +
+            '                        <td width="20%" align="center">icon</td>\n' +
+            '                        <td width="30%" align="center">落地页</td>\n' +
+            '                        <td width="20%" align="center">显示城市</td>\n' +
+            '                        <td width="5%" align="center">帧位</td>\n' +
+            '                        <td width="5%" align="center">状态</td>\n' +
+            '                        <td width="10%" align="center">操作</td>\n' +
+            '                    </tr>';
+        return str;
+    }
+    function addheadinfo(){
+        var str='';
+        str=headinfo();
+        $("#headinfo").html(str);
+}
+
+//保存二级菜单信息
+    $("#addInfo").click(function(){
+            var type = $(this).attr('data-type')
+
+             var twoName = $('#twoName').val();
+             var twoMenuPics =$('#twoMenuPic').attr('uploadpath');
+             var twoMenuPic ='https://file.rose52.com'+ $('#twoMenuPic').attr('uploadpath');
+             console.log(twoMenuPic);
+             var urltype = $("#urltype").val();
+             var urltypename = '';
+             var condition_id='';
+             var condition_txt='';
+             var luodiyeInfo='';
+             var urltyperight = 1;
+             if(urltype==2){
+                 urltypename='二级分类';
+                 var urltvalues = $('#two').select2('data')[0];
+                 if (urltvalues) {
+                     var u = urltvalues.id ;
+                     condition_id = u.substring(0, u.indexOf(",")) ;
+                     condition_txt=urltvalues.text;
+                 } else {
+                     urltyperight = 0;
+                 }
+             }else if(urltype==3){
+                 urltypename='管家';
+                 var urltvalues = $('#guanjiaselect').select2('data')[0];
+                 if (urltvalues) {
+                     var u = urltvalues.id ;
+                     condition_id = u.substring(0, u.indexOf(",")) ;
+                     condition_txt=urltvalues.text;
+                 } else {
+                     urltyperight = 0;
+                 }
+             }else if(urltype==4){
+                 urltypename='产品';
+                 var urltvalues = $('#productselect').select2('data')[0];
+                 if (urltvalues) {
+                     var u = urltvalues.id ;
+                     condition_id = u.substring(0, u.indexOf(",")) ;
+                     condition_txt=urltvalues.text;
+                 } else {
+                     urltyperight = 0;
+                 }
+             }else{
+                 urltypename='链接';
+                 condition_txt = $("#urltvalue").val();
+                 if (!condition_txt) urltyperight = 0;
+             }
+             if (urltype != 1) {
+                 luodiyeInfo=urltypename+':'+condition_txt+'('+condition_id+')';
+             } else {
+                 luodiyeInfo=urltypename+':'+condition_txt;
+             }
+
+             var twoStatus=$(".twoStatus:checked").val();
+             if(twoStatus==1){
+                 twoStatus='白名单';
+             }else{
+                 twoStatus='黑名单';
+             }
+             var twoCity=$('.js-example-basic-multiple-two').select2('data');
+             console.log('okokkk');
+             console.log(twoCity);
+             var twoCitys='';
+             var twoCityInfo='';
+             var chengshis = '';
+             if (twoCity.length > 0) {
+                 for (var i=0; i<twoCity.length;i++) {
+                     var text = twoCity[i].text;
+                     twoCitys+=text+',';
+                     chengshis+=twoCity[0].id+','+text+"|";
+                 }
+                 twoCitys = twoCitys.substr(0,twoCitys.length-1);
+                 chengshis = chengshis.substr(0,chengshis.length-1);
+             }  else {
+                 twoCitys = '';
+             }
+             twoCityInfo=twoStatus+':'+twoCitys;
+             var twoFrame=$("#twoFrame").val();
+             var twoIshow=$("#twoIshow option:selected").text();
+             console.log(twoName);
+             console.log(twoMenuPic);
+             console.log(luodiyeInfo);
+             console.log(twoStatus);
+             console.log(twoCitys);
+             console.log(twoCityInfo);
+             console.log(twoFrame);
+             console.log(twoIshow);
+             if(!twoName){
+                 window.alert("请录入菜单名称");
+             }else if(twoName.length>5){
+                 window.alert("名称最多录入5个字");
+             }else if(!twoMenuPics){
+                 window.alert("请上传icon");
+             }else if(!urltyperight){
+                 window.alert("请输入正确的落地页");
+             }else if(!twoCitys){
+                 window.alert("请选择城市");
+             }else if(!twoFrame){
+                 window.alert("请选择帧位");
+             } else {
+                 var temptr = '';
+                 if (type == 'modify') {
+                     temptr = $(this).attr('data-tr');
+                 } else {
+                     addtwomenuInfo();
+                     console.log(trid_now);
+                     if(trid_now=='tr_0'){
+                         addheadinfo();
+                     }
+                     temptr = trid_now
+
+                 }
+                 if(twoIshow=='下线'){
+                     var tdstr=
+                         '                        <td class="twoname" style="color:#d4d4d4;">'+twoName+'</td>\n' +
+                         '                        <td class="twoPic">\n' +
+                         '                            <img class="twomenupicurl" src="'+twoMenuPic+'" alt="" data-url="'+twoMenuPics+'">\n' +
+                         '                        </td>\n' +
+                         '                        <td class="luodiye"  style="color:#d4d4d4;" data-luodiyeInfotype="'+urltypename+'" data-luodiyeInfovalue="'+condition_txt+'" data-luodiyeInfoid="'+condition_id+'">'+luodiyeInfo+'</td>\n' +
+                         '                        <td class="showcity" style="color:#d4d4d4;"  data-twoCityInfotype="'+twoStatus+'" data-twoCityInfovalue="'+twoCitys+'" data-chenshi="'+chengshis+'">'+twoCityInfo+'</td>\n' +
+                         '                        <td class="fream" style="color:#d4d4d4;">'+twoFrame+'</td>\n' +
+                         '                        <td class="twoishow" style="color:#d4d4d4;">'+twoIshow+'</td>\n' +
+                         '                        <td class="caozuo" style="color:#d4d4d4;"><span   data-toggle="modal" data-target="#addTwoMenu"  class="editonemenu" style="margin-right:10px">编辑</span><span class="delonetwomenu">删除</span></td>\n' +
+                         '                   ';
+                 }else{
+                     var tdstr=
+                         '                        <td class="twoname">'+twoName+'</td>\n' +
+                         '                        <td class="twoPic">\n' +
+                         '                            <img class="twomenupicurl" src="'+twoMenuPic+'" alt="" data-url="'+twoMenuPics+'">\n' +
+                         '                        </td>\n' +
+                         '                        <td class="luodiye" data-luodiyeInfotype="'+urltypename+'" data-luodiyeInfovalue="'+condition_txt+'" data-luodiyeInfoid="'+condition_id+'">'+luodiyeInfo+'</td>\n' +
+                         '                        <td class="showcity" data-twoCityInfotype="'+twoStatus+'" data-twoCityInfovalue="'+twoCitys+'" data-chenshi="'+chengshis+'">'+twoCityInfo+'</td>\n' +
+                         '                        <td class="fream">'+twoFrame+'</td>\n' +
+                         '                        <td class="twoishow" style="color:#3366ff">'+twoIshow+'</td>\n' +
+                         '                        <td class="caozuo" style="color:#3366ff"><span   data-toggle="modal" data-target="#addTwoMenu"  class="editonemenu" style="margin-right:10px">编辑</span><span class="delonetwomenu">删除</span></td>\n' +
+                         '                   ';
+                 }
+
+                 $('#'+temptr).html( tdstr ) ;
+                 $('#addTwoMenu').modal('hide');
+             }
+
+
+    })
+//删除一个二级菜单
+$(".twomenuinfo").on('click','.delonetwomenu',function () {
+    if($('.onetrinfo').length>1){
+        $(this).parents('.onetrinfo').remove();
+    }else{
+        window.alert('至少保留一条二级菜单信息');
+    }
+
+})
+//编辑一个二级菜单
+$(".twomenuinfo").on('click','.editonemenu',function () {
+    $('#addInfo').text('修改').attr('data-type','modify');
+    $('#addInfo').attr('data-tr',$(this).parents('tr').attr('id'));
+    var twoname=$(this).parents('tr').find('.twoname').text();
+    var twoPic= $(this).parents('tr').find('.twomenupicurl').attr('data-url');
+    var luodiyetype=$(this).parents('tr').find('.luodiye').attr('data-luodiyeInfotype');
+    var luodiyeInfovalue=$(this).parents('tr').find('.luodiye').attr('data-luodiyeInfovalue');
+    var luodiyeInfoid=$(this).parents('tr').find('.luodiye').attr('data-luodiyeInfoid');
+    var chengshi = $(this).parents('tr').find('.showcity').data('chenshi');
+    // var showcity=$(this).parents('tr').find('.showcity').text();
+    var twoCityInfotype=$(this).parents('tr').find('.showcity').attr('data-twoCityInfotype');
+    var twoCityInfovalue=$(this).parents('tr').find('.showcity').attr('data-twoCityInfovalue');
+    var fream=$(this).parents('tr').find('.fream').text();
+    var twoishow=$(this).parents('tr').find('.twoishow').text();
+    $("#twoName").val(twoname);
+    //图片清空
+    var uploadcontainer1 = 'twoMenuPic';
+    var initpic1 = twoPic;
+    $('#'+uploadcontainer1).html('')
+    createUploadStr(uploadcontainer1,1,initpic1);
+
+    if(luodiyetype=='产品'){
+        $("#urltype").find("option[value='4']").prop("selected",true);
+        var data =[{id: luodiyeInfoid+','+luodiyeInfovalue, text:luodiyeInfovalue }];
+        var ids = [luodiyeInfoid+','+luodiyeInfovalue];
+        initurltype(4,'condition',[data,ids])
+    }else if(luodiyetype=='管家'){
+        $("#urltype").find("option[value='3']").prop("selected",true);
+        var data =[{id: luodiyeInfoid+','+luodiyeInfovalue, text:luodiyeInfovalue }];
+        var ids = [luodiyeInfoid+','+luodiyeInfovalue];
+        initurltype(3,'condition',[data,ids])
+    }else if(luodiyetype=='二级分类'){
+        $("#urltype").find("option[value='2']").prop("selected",true);
+        var data =[{id: luodiyeInfoid+','+luodiyeInfovalue, text:luodiyeInfovalue }];
+        var ids = [luodiyeInfoid+','+luodiyeInfovalue];
+        initurltype(2,'condition',[data,ids])
+    }else{
+        $("#urltype").find("option[value='1']").prop("selected",true);
+        initurltype(1,'condition',luodiyeInfovalue)
+    }
+
+    if(twoCityInfotype=='白名单'){
+        $(".twoStatus[value='1']").prop("checked",true);
+    }else{
+        $(".twoStatus[value='2']").prop("checked",true);
+    }
+
+    var data= [];
+    var ids = [];
+    chengshi = chengshi.split('|');
+    for (var i=0;i<chengshi.length;i++) {
+        var temp = chengshi[i].split(',');
+        data.push({id:temp[0],text:temp[1]})
+        ids.push(temp[0])
+    }
+    $('.js-example-basic-multiple-two').select2({
+        placeholder:'请选择输入服务城市',
+        width:'254px',
+        data:data,
+        ajax: {
+            url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    param: params.term,
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; },
+        minimumInputLength: 1
+    }).val(ids).trigger("change");
+
+    $('#twoFrame option[value="'+fream+'"]').prop('selected',true)
+
+    if (twoishow == '在线') {
+        $('#twoIshow option[value="1"]').prop('selected',true)
+    } else {
+        $('#twoIshow option[value="2"]').prop('selected',true)
+    }
+
+
+})
+
+//清空模态框数据
+    $('body').on('hidden.bs.modal', '.modal', function () {
+        $('#addInfo').text('保存').attr('data-type','add')
+        $('#addInfo').attr('data-tr','')
+        $('#twoName').val('');
+        //图片清空
+        var uploadcontainer1 = 'twoMenuPic';
+        var initpic1 = '';
+        $('#'+uploadcontainer1).html('')
+        createUploadStr(uploadcontainer1,1,initpic1);
+
+        $('#urltype option[value="4"]').prop("selected",true);
+        initurltype(4,'condition','')
+
+        $('.twoStatus[value="1"]').prop('checked',true)
+        $('.js-example-basic-multiple-two').select2({
+            placeholder:'请选择输入服务城市',
+            width:'457px',
+            ajax: {
+                url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        param: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        }).val(null).trigger("change");
+
+        $('#twoFrame option[value="1"]').prop('selected',true);
+
+        $('#twoIshow option[value="1"]').prop('selected',true);
+
+
+    });
+
+
+
+    //一级菜单搜索城市操作
+    var cityrange = "{$res.city_rang}";
+    var citytemp = '';
+    var tempdata = [];
+    var tempids = [];
+    if (cityrange) {
+        cityrange = cityrange.split('|');
+        for (var k=0;k<cityrange.length;k++) {
+            citytemp = cityrange[k].split(',');
+            tempdata.push({id:citytemp[0]+','+citytemp[1],text:citytemp[1]})
+            tempids.push(citytemp[0]+','+citytemp[1]);
+        }
+    }
+    $('.js-example-basic-multiple').select2({
+        placeholder:'请选择输入服务城市',
+        width:'457px',
+        data:tempdata,
+        ajax: {
+            url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    param: params.term,
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; },
+        minimumInputLength: 1
+    }).val(tempids).trigger("change");
+
+    //二级菜单搜索城市操作
+    $('.js-example-basic-multiple-two').select2({
+        placeholder:'请选择输入服务城市',
+        width:'254px',
+        ajax: {
+            url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    param: params.term,
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; },
+        minimumInputLength: 1
+    });
+
+
+
+
+
+    //提交一级菜单信息
+    $("#surebtn").click(function(){
+        var savetype='menu';
+        var title = $("#title").val();
+        var city_type=$('.status:checked').val();
+        var city_rangdata=$('.js-example-basic-multiple').select2('data');
+        var city_rang='';
+        if (city_rangdata.length > 0) {
+            for (var i=0; i<city_rangdata.length;i++) {
+                var text = city_rangdata[i].text;
+                var id = city_rangdata[i].id;
+                city_rang+=id+','+text+'|';
+            }
+            city_rang = city_rang.substr(0,city_rang.length-1);
+        }  else {
+            city_rang = '';
+        }
+        var frame = $("#frame").val();
+        var ishow = $("#ishow").val();
+        var list = [];
+        $('.onetrinfo').each(function () {
+            var id = $(this).data('id')
+            var title1 = $(this).find('.twoname').text()
+            var a_img = $(this).find('.twomenupicurl').data("url");
+            var a_type =$(this).find('.luodiye').data('luodiyeinfotype');
+            if (a_type == '产品') {
+                a_type = 4;
+            } else if (a_type == '管家') {
+                a_type = 3;
+            } else if (a_type == '二级分类') {
+                a_type = 2;
+            } else {
+                a_type = 1;
+            }
+            var a_id = $(this).find('.luodiye').data('luodiyeinfoid');
+            var a_txt = $(this).find('.luodiye').data('luodiyeinfovalue');
+            var city_rang1 = $(this).find('.showcity').data('chenshi')
+            var city_type1 = $(this).find('.showcity').data('twocityinfotype')
+            if (city_type1 == '白名单') {
+                city_type1 = 1;
+            } else {
+                city_type1 = 2;
+            }
+            var frame1 = $(this).find('.fream').text()
+            var twoishow = $(this).find('.twoishow').text()
+            if (twoishow == '在线') {
+                twoishow = 1;
+            } else {
+                twoishow = 2;
+            }
+            list.push({id:id,title:title1,a_img:a_img,a_type:a_type,a_id:a_id,a_txt:a_txt,city_rang:city_rang1,city_type:city_type1,frame:frame1,is_show:twoishow})
+        })
+
+        // alert(list);
+        if(!title){
+            window.alert('请录入菜单名称');
+        }else if(title.length>5){
+            window.alert('名称最多录入5个字');
+        }else if(!city_type || !city_rang){
+            window.alert('未选择城市');
+        }else if(!frame){
+            window.alert('请选择帧位');
+        }else if(list.length<1){
+            window.alert('请添加二级菜单');
+        }else{
+            var id = "{$Think.get.id}";
+            list = JSON.stringify(list);
+            $.post("{:U('OperationHomePage/save_submit')}",{savetype:savetype,title:title,city_type:city_type,city_rang:city_rang,frame:frame,is_show:ishow,list:list,id:id},function (res) {
+                if (res.state) {
+                    alert(res.msg);
+                    window.location.href="{:U('menu')}";
+                } else {
+                    alert(res.msg);
+                }
+            },'json')
+        }
+    })
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BD列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">BD管理</a></li>
+    <li class="active">BD列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="post">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="1" <if condition="$type eq 1">selected</if>>员工ID</option>
+                    <option value="2" <if condition="$type eq 2">selected</if>>员工姓名</option>
+                    <option value="3" <if condition="$type eq 3">selected</if>>手机号</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="p" value="1">
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="datetime" class="form-control" value="{$condition}" name="condition" id="end_time" placeholder="请输入搜索条件">
+        </div>
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <a href="{:U('addBD')}">
+            <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right"><span class="glyphicon glyphicon-open-file"></span>添加BD</button>
+        </a>
+    </form>
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="25%" align="center">ID</th>
+            <th width="25%" align="center">BD姓名</th>
+            <th width="25%" align="center">手机号</th>
+            <th width="25%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.phone}</td>
+                <td align='center'>
+                    <div class="clearfix">
+                        <a href="{:U('editBD')}?id={$vo.id}">
+                            <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8;width:70px;">编辑</button>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

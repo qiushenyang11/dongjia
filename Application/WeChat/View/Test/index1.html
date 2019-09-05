@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+<body>
+<input type="button" value="登入" onclick="login()">
+</body>
+<script>
+    function login() {
+        //window.location.href='https://plogin.m.jd.com/user/login.action?appid=422&returnurl=http://djgj.jd.com/myWeb/WeChat/Test/aa';
+        var url = 'https://www.dservie.cn/myWeb/WeChat/Test/aa/#/aa/nn';
+        url = encodeURI(url);
+        window.location.href='https://www.dservie.cn/myWeb/WeChat/Test/shouquan?appid=422&returnurl='+url;
+    }
+</script>
+</html>

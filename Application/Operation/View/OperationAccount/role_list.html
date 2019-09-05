@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>管家信息</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">角色列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get">
+
+        <input type="hidden" name="p" value="1">
+
+        <a href="{:U('role_edit')}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;">添加角色</button></a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="16%" align="center">ID</th>
+            <th width="16%" align="center">角色</th>
+            <th width="16%" align="center">操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.rolename}</td>
+                <td align="center">
+                    <a href="{:U('role_edit')}?id={$vo.id}">
+<button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">配置权限</button> 
+                   </a>
+                    <a href="javascript:void(0)">
+<button type="button" class="bfL btn btn-success" onclick="xzdel({$vo.id});" style="background:#1AB394;border:0;opacity:0.8">删除角色</button> 
+                   </a>
+                </td>                
+                
+                
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script>
+
+    function  xzdel( id ){ //删除处理
+
+      if( confirm( '您确定删除这个角色？（这可能导致菜单无法显示）'  ) ){
+       
+        $.post("{:U('OperationAccount/role_del')}",{id:id},function (res) {
+            if (res.state) {
+                alert(res.msg);
+                window.location.href="{:U('role_list')}";
+            } else {
+                alert(res.msg);
+            }
+        },'json')
+
+    }
+    
+    }
+    
+</script>
+</body>
+</html>

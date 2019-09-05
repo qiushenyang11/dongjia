@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>优惠券列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">优惠券管理</a></li>
+    <li class="active">优惠券列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get" id="searchform">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="selecttype"  class="form-control">
+                    <option value="1" >批次ID</option>
+                    <option value="2" >优惠券名称</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="text" class="form-control"  value="" name="condition" id="" placeholder="请输入搜索条件">
+        </div>
+        <input type="hidden" name="p" value="1">
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">
+            <span class="glyphicon glyphicon-search">
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <a href="{:U('addCoupon')}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;">新建</button></a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">批次ID</th>
+            <th width="15%" align="center">优惠券名称</th>
+            <th width="10%" align="center">金额</th>
+            <th width="10%" align="center">介绍</th>
+            <th width="10%" align="center">份数</th>
+            <th width="10%" align="center">领取份数</th>
+            <th width="10%" align="center">使用份数</th>
+            <th width="10%" align="center">状态</th>
+            <th width="15%" align="left">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.couponname}</td>
+                <td>{$vo.jinger}</td>
+                <td>{$vo.couponinfo}</td>
+                <td>{$vo.count}</td>
+                <td><?php echo $vo['hasPicked']+$vo['hasUsed']?></td>
+                <td>{$vo.hasUsed}</td>
+                <td>{$vo.status}</td>
+                <td align="left">
+                    <if condition="$vo['count'] eq  $vo['hasPicked']">
+                        <a href="{:U('editCoupon')}?id={$vo.id}">
+                            <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">编辑</button>
+                        </a>
+                      <else />
+                        <a href="{:U('editCoupon')}?id={$vo.id}">
+                            <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">编辑</button>
+                        </a>
+                    </if>
+                    <if condition="$vo.code eq 1">
+                        <a href="{:U('OperationCoupon/excelCode')}?id={$vo.id}" >
+                        <button type="button" data-id="{$vo.id}" class="bfL btn btn-success del" style="background:#1AB394;border:0;opacity:0.8" id="export">导出优惠码</button>
+                       </a>
+                    </if>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+</script>
+</body>
+</html>

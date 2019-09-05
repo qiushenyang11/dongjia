@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑客户信息</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">理财师管理</a></li>
+    <li class="active">编辑客户</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*姓名</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="name"  value="{$res.name}" name="name"  placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*京东Pin</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="jdaccount"  name="jdaccount"  value="{$res.jdaccount}" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*理财师京东Pin</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="licashiaccount"  name="licashiaccount" value="{$res.licashiaccount}" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="surebtn" class="btn btn-success" style="width:100px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $("#surebtn").click(function () {
+        var id="{$Think.get.id}";
+        var name=$("#name").val();
+        var jdaccount=$("#jdaccount").val();
+        var licashiaccount=$("#licashiaccount").val();
+        var myreg = /^1\d{10}$/;
+        if(name==''){
+            alert("请输入客户姓名");
+            return false;
+        }else if(!jdaccount){
+            alert('请输入京东账号！');
+            return false;
+        }else if(!licashiaccount){
+            alert('输入理财师京东Pin');
+            return false;
+        }else {
+            $.post(
+                "{:U('OperationLCS/saveKeHu')}",{
+                    id:id,
+                    jdaccount:jdaccount,
+                    name:name,
+                    licashiaccount:licashiaccount
+                },
+                function(data) {
+                    if(data['state']==1){
+                        alert(data['msg']);
+                        window.location.href="{:U('index')}";1
+                    }else {
+                        alert(data['msg'])
+                    }
+                },'json');
+        }
+
+    })
+</script>
+</body>
+</html>

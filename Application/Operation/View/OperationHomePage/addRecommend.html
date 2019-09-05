@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品推荐</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">产品推荐</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"   name="name" placeholder="输入名称，8字以内，会在前端显示" id="title" value="{$res.title}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*落地页</label>
+            <div class="col-sm-2" id="" style="z-index: 10000">
+                <select  name=""  class="form-control" id="urltype">
+                    <option value="2">二级分类</option>
+                </select>
+            </div>
+            <div class="col-sm-3" id="condition">
+                <select name="" id="two" class="form-control" style="height:34px"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*显示城市</label>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio" name="status" class="status" value="1" checked <if condition="$res.city_type eq 1">checked</if> id="">白名单
+            </div>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio" name="status" class="status" value="2" <if condition="$res.city_type eq 2">checked</if> id="">黑名单
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-2" id="wenan">
+                <!--<if condition="$res.city_type eq 1">-->
+                    <!--<span style="color:#d4d4d4">*只在以下城市显示</span>-->
+                    <!--<else />-->
+                    <!--<span style="color:#d4d4d4">*不在以下城市显示</span>-->
+                <!--</if>-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-4">
+                <select class="js-example-basic-multiple col-sm-12" name="states[]" multiple="multiple">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*在线时间</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showstarttime"  name="goodname" placeholder="选择开始时间" value="{$res.show_start}">
+            </div>
+            <div class="col-sm-1 control-label" style="text-align: center;margin-left: -47px;margin-right: -47px;">
+                一
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showendtime"  name="goodname" placeholder="选择结束时间" value="{$res.show_end}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*帧数</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="frame">
+                    <option value="1" <if condition="$res.frame eq '1'">selected</if>>1</option>
+                    <option value="2" <if condition="$res.frame eq '2'">selected</if>>2</option>
+                    <option value="3" <if condition="$res.frame eq '3'">selected</if>>3</option>
+                    <option value="4" <if condition="$res.frame eq '4'">selected</if>>4</option>
+                    <option value="5" <if condition="$res.frame eq '5'">selected</if>>5</option>
+                    <option value="6" <if condition="$res.frame eq '6'">selected</if>>6</option>
+                    <option value="7" <if condition="$res.frame eq '7'">selected</if>>7</option>
+                    <option value="8" <if condition="$res.frame eq '8'">selected</if>>8</option>
+                    <option value="9" <if condition="$res.frame eq '9'">selected</if>>9</option>
+                    <option value="10" <if condition="$res.frame eq '10'">selected</if>>10</option>
+                    <option value="11" <if condition="$res.frame eq '11'">selected</if>>11</option>
+                    <option value="12" <if condition="$res.frame eq '12'">selected</if>>12</option>
+                    <option value="13" <if condition="$res.frame eq '13'">selected</if>>13</option>
+                    <option value="14" <if condition="$res.frame eq '14'">selected</if>>14</option>
+                    <option value="15" <if condition="$res.frame eq '15'">selected</if>>15</option>
+                    <option value="16" <if condition="$res.frame eq '16'">selected</if>>16</option>
+                    <option value="17" <if condition="$res.frame eq '17'">selected</if>>17</option>
+                    <option value="18" <if condition="$res.frame eq '18'">selected</if>>18</option>
+                    <option value="19" <if condition="$res.frame eq '19'">selected</if>>19</option>
+                    <option value="20" <if condition="$res.frame eq '20'">selected</if>>20</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="ishow">
+                    <option value="1" <if condition="$res.is_show eq '1'">selected</if>>在线</option>
+                    <option value="2" <if condition="$res.is_show eq '2'">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+    <script>
+
+        //黑白名单文案显示操作
+        var status = $('.status:checked').val();
+        if(status==2){
+            var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }else{
+            var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }
+
+
+
+        $('.status').click(function(){
+            var status = $('.status:checked').val();
+            console.log(status);
+            if(status==2){
+                var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }else{
+                var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }
+        })
+
+        var id = '{$Think.get.id}';
+        $(function () {
+            if (!id) {
+
+            $('#two').select2({
+                placeholder:'请输入分类ID或名称',
+                ajax: {
+                    url: "<?php echo U('CouponApi/Coupon/serachValeByType'); ?>",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            value: params.term,
+                            type: 2
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            });
+         } else {
+                var data1 = [];
+                var ids1 = [];
+                var a_txt = "{$res.a_txt}";
+                var a_id = "{$res.a_id},{$res.a_txt}";
+                data1.push({id:a_id,text:a_txt})
+                ids1.push(a_id);
+                $('#two').select2({
+                    placeholder:'请输入产品ID或名称',
+                    data : data1,
+                    ajax: {
+                        url: "<?php echo U('CouponApi/Coupon/serachValeByType'); ?>",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type: 2
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                }).val(ids1).trigger("change");
+        }
+        });
+        //获取当前日期时间
+        var newDate = new Date();
+        Date.prototype.format = function(format) {
+            var date = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S+": this.getMilliseconds()
+            };
+            if (/(y+)/i.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            for (var k in date) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                        ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+                }
+            }
+            return format;
+        }
+
+        var nowdate = newDate.format('yyyy-MM-dd');
+        nowdate+=' 00:00:00';
+        //日期插件
+        $("#showstarttime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+        $("#showendtime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+            if (!id) {
+                $('.js-example-basic-multiple').select2({
+                    placeholder: '请选择输入服务城市',
+                    ajax: {
+                        url: "<?php echo U('Operation/OperationGuanJia/getAllCity'); ?>",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                param: params.term,
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    minimumInputLength: 1
+                });
+            } else {
+                var data2 = [];
+                var ids2 = [];
+                var city_rang = "{$res.city_rang}";
+                city_rang = city_rang.split('|');
+                var temp = '';
+                for (var i = 0; i < city_rang.length; i++) {
+                    temp = city_rang[i];
+                    temp = temp.split(',')
+                    data2.push({id: temp[0], text: temp[1]});
+                    ids2.push(temp[0]);
+                }
+                $('.js-example-basic-multiple').select2({
+                    placeholder: '请选择输入服务城市',
+                    data: data2,
+                    ajax: {
+                        url: "<?php echo U('Operation/OperationGuanJia/getAllCity'); ?>",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                param: params.term,
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    minimumInputLength: 1
+                }).val(ids2).trigger("change");
+            }
+
+        //提交推荐产品信息
+        $('#surebtn').click(function () {
+            var savetype = 'recommend';
+            var title = $("#title").val();
+            var a_type = $("#urltype").val();
+            var a_id = '';
+            var a_txt='';
+            var urltvalues = $('#two').select2('val');
+            console.log(urltvalues)
+            if (urltvalues) {
+                data = urltvalues.split(',')
+                a_id=data[0];
+                a_txt=data[1];
+            }
+
+            var  city_type=$('.status:checked').val();
+            var city_rangdata=$('.js-example-basic-multiple').select2('data');
+            var city_rang='';
+            if (city_rangdata.length > 0) {
+                for (var i=0; i<city_rangdata.length;i++) {
+                    var text = city_rangdata[i].text;
+                    var id = city_rangdata[i].id;
+                    city_rang+=id+','+text+'|';
+                }
+                city_rang = city_rang.substr(0,city_rang.length-1);
+            }  else {
+                city_rang = '';
+            }
+
+            var show_start = $("#showstarttime").val();
+            var show_end = $("#showendtime").val();
+            var frame = $("#frame").val();
+            var ishow = $("#ishow").val();
+
+            if(!title){
+                window.alert('请输入名称');
+            }else if(title.length>8){
+                window.alert('名字8字以内');
+            }else if(!a_txt){
+                window.alert('请选择落地页');
+            }else if(!city_type){
+                window.alert('请选择城市类型');
+            }else if(!city_rang){
+                window.alert("请选择城市");
+            }else if(!show_start || !show_end){
+                window.alert("请选择在线时间");
+            }else if(show_start>show_end){
+                window.alert("结束时间必须大于开始时间");
+            }else if(!frame){
+                window.alert("请选择帧位");
+            } else {
+                $.post("{:U('save_submit')}",{
+                    id:"{$res.id}",
+                    savetype:savetype,
+                    title:title,
+                    a_type:a_type,
+                    a_id:a_id,
+                    a_txt:a_txt,
+                    city_type:city_type,
+                    city_rang:city_rang,
+                    show_start:show_start,
+                    show_end:show_end,
+                    frame:frame,
+                    is_show:ishow
+                },function (res) {
+                    if(res.state==1){
+                        alert(res.msg);
+                        window.location.href="{:U('recommend')}";
+                    }else {
+                        alert(res.msg);
+                    }
+                },'json')
+            }
+        })
+
+
+    </script>
+
+</div>
+</body>
+</html>

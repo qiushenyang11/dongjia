@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>极“净”新品，享8折优惠</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+      window.browser = {
+        versions: function () {
+          let u = navigator.userAgent;
+          return {
+            trident: u.indexOf('Trident') > -1,
+            presto: u.indexOf('Presto') > -1,
+            webKit: u.indexOf('AppleWebKit') > -1,
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            android: u.indexOf('Android') > -1,
+            iPhone: u.indexOf('iPhone') > -1,
+            iPad: u.indexOf('iPad') > -1,
+            jdjr: u.indexOf('JDJR-App') > -1,
+            webApp: u.indexOf('Safari') === -1,
+            wechat: u.indexOf('MicroMessenger') !== -1
+          };
+        }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+      };</script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      //      window.ga = function () {
+      //        console.log('ga', arguments)
+      //      };
+      window.ga('create', 'UA-115976658-1', 'auto');
+      function getRequest() {
+        var url = window.location.href;
+//                console.log(url);
+        if (url.indexOf('?') !== -1) {
+          var str = url.substr(url.indexOf('?') + 1);
+          var strs = str.split('&');
+          var result = {};
+          for (var temp in strs) {
+            var tp = strs[temp].split('=');
+            result[tp[0]] = tp[1];
+          }
+          return result;
+        } else {
+          return {};
+        }
+      }
+      function ajax() {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response)
+            } else {
+              ajaxData.error()
+            }
+          }
+        }
+      }
+      function createxmlHttpRequest() {
+        if (window.ActiveXObject) {
+          return new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+          return new XMLHttpRequest();
+        }
+      }
+      function convertData(data) {
+        if (typeof data === 'object') {
+          var convertResult = "";
+          for (var c in data) {
+            convertResult += c + "=" + data[c] + "&";
+          }
+          convertResult = convertResult.substring(0, convertResult.length - 1)
+          return convertResult;
+        } else {
+          return data;
+        }
+      }
+      var para = getRequest();
+      var GAStr;
+      var paraStr = '';
+
+      if (para.aid) {
+        paraStr = paraStr + '&aid=' + para.aid;
+      }
+      if (para.utm_medium) {
+        paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+      }
+      if (para.utm_source) {
+        paraStr = paraStr + '&utm_source=' + para.utm_source;
+      }
+      if (para.utm_campaign) {
+        paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+      }
+      if (paraStr.length > 1) {
+        paraStr = '?' + paraStr.substring(1);
+      }
+      //      GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+      GAStr = window.location.pathname + window.location.hash.substring(1);
+      window.ga('send', 'pageview', GAStr);
+      //ajax({
+      //    type:"POST",
+      //    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+      ////    dataType:"json",
+      //    data:{
+      //        channelId: para.utm_medium,
+      //        sgId: 13,
+      //        scenceId: para.utm_source,
+      //        status: 0
+      //    }
+      //})
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .mainapp .top {
+            width: 100vw;
+            height: 127.74vw;
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/20180726保洁上新_01.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .mainapp .top div{
+            width:40vw;
+            height:61.3vw;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .mainapp .top div:first-child{
+            margin-right: 8vw;
+        }
+
+        .normal1{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/8折@2x.png');
+        }
+        .normal2{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/9折@2x.png');
+        }
+        .get1{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/8折已领取@2x.png');
+        }
+        .get2{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/9折已领取@2x.png');
+        }
+        .out1{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/8折已领完@2x.png');
+        }
+        .out2{
+            background-image: url('https://file.rose52.com/guanjia/activity/0801jijing/9折已领完@2x.png');
+        }
+
+        .mainapp img {
+            width: 100%;
+        }
+
+        .mainapp .abdmen {
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .mainapp .abdmen img{
+            width: 44.6vw;
+            margin-bottom: 8vw;
+        }
+        .mainapp .abdmen .right26{
+            margin-right: 2.6vw;!important;
+        }
+
+        .mainapp .abdmen .nobottom {
+            margin-bottom: 0;!important;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+    <div class="top">
+        <div id="8zhe" class="normal1" onclick="getCoupon1()"></div>
+        <div id="9zhe" class="normal2" onclick="getCoupon2()"></div>
+
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/0801jijing/20180726保洁上新_02.jpg">
+    <a href="/myWeb/WeChat/WeChatGuanJia/product?id=93&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img src="https://file.rose52.com/guanjia/activity/0801jijing/20180726保洁上新_03.jpg"></a>
+    <img src="https://file.rose52.com/guanjia/activity/0801jijing/20180726保洁上新_04.jpg">
+    <div class="abdmen">
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=19&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img class="right26" src="https://file.rose52.com/guanjia/activity/0801jijing/1@2x.png"></a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=89&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img src="https://file.rose52.com/guanjia/activity/0801jijing/2@2x.png"></a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=20&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img class="right26" src="https://file.rose52.com/guanjia/activity/0801jijing/3@2x.png"></a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=22&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img src="https://file.rose52.com/guanjia/activity/0801jijing/4@2x.png"></a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=21&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img class="nobottom right26" src="https://file.rose52.com/guanjia/activity/0801jijing/5@2x.png"></a>
+        <a href="/myWeb/WeChat/WeChatGuanJia/product?id=24&utm_campaign=internal&utm_medium=jdjr&utm_source=banner"><img class="nobottom" src="https://file.rose52.com/guanjia/activity/0801jijing/6@2x.png"></a>
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/0801jijing/20180726保洁上新_05.jpg">
+</div>
+<script>
+  let btn1 = document.getElementById('8zhe');
+  let btn2 = document.getElementById('9zhe');
+  const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}?aid=14`;
+
+  let lock1 = false;
+  let lock2 = false;
+
+  let couponcode1 = 'XEJIAQING180731';
+  let couponcode2 = 'EJIAQING180731';
+
+  function checkCoupon1() {
+    if (!lock1) {
+      lock1 = true;
+      let url = '/myWeb/index.php/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          console.log('check', res);
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            lock1 = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            lock1 = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              btn1.className = 'get1';
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              lock1 = false;
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              btn1.className = 'out1';
+            } else {
+              console.error(res);
+              lock1 = false;
+            }
+          }
+        }
+      })
+    }
+  }
+  function getCoupon1() {
+    if (!lock1) {
+      lock1 = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            btn1.className = 'get1';
+//            alert('领取成功');
+          }
+          else if (parseInt(res.state) === 3) {
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              btn1.className = 'get1';
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              btn1.className = 'out1';
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              lock1 = false;
+            }
+          }
+        }
+      })
+    }
+  }
+
+  function checkCoupon2() {
+    if (!lock2) {
+      lock2 = true;
+      let url = '/myWeb/index.php/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          console.log('check', res);
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            lock2 = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            lock2 = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              btn2.className = 'get2';
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              lock2 = false;
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              btn2.className = 'out2';
+            } else {
+              console.error(res);
+              lock2 = false;
+            }
+          }
+        }
+      })
+    }
+  }
+  function getCoupon2() {
+    if (!lock2) {
+      lock2 = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            btn2.className = 'get2';
+//            alert('领取成功');
+          }
+          else if (parseInt(res.state) === 3) {
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              btn2.className = 'get2';
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              btn2.className = 'out2';
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              lock2 = false;
+            }
+          }
+        }
+      })
+    }
+  }
+
+  checkCoupon1();
+  checkCoupon2();
+</script>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '极“净”新品，享8折优惠',
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '京东东家严选服务，匠人级日式保洁',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0801jijing/share.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '极“净”新品，享8折优惠', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0801jijing/share.png',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+{$jdUnder}
+</body>
+</html>

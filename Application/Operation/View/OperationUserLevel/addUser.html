@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">用户管理</a></li>
+    <li class="active">添加用户</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*京东Pin</label>
+            <div class="col-sm-4">
+            <input type="text" class="form-control" id="jdaccount"  name="phjdaccountone" value="" placeholder="输入京东Pin账号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*用户层级</label>
+            <div class="col-sm-4">
+                <select  name="level" id="level" class="form-control">
+                    <option value="1">体验</option>
+                    <option value="2">普通</option>
+                    <option value="3">贞级</option>
+                    <option value="4">利级</option>
+                    <option value="5">亨级</option>
+                    <option value="6">元级</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="surebtn" class="btn btn-success" style="width:100px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    /*添加用户信息*/
+    $("#surebtn").click(function () {
+        var jdaccount=$("#jdaccount").val();
+        var level = $('#level option:selected').val();
+        $.post(
+            "{:U('OperationUserLevel/addDataUser')}",{
+                jdaccount:jdaccount,
+                level:level
+            },
+            function(data) {
+                if(data['state']==1){
+                    alert(data['msg']);
+                    window.location.href="{:U('index')}";
+                }else {
+                    alert(data['msg'])
+                }
+            },'json');
+
+    })
+
+</script>
+</body>
+</html>

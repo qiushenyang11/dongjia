@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加产品</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <!--<script src="__PUBLIC__/Admin/js/jquery.js"></script>-->
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <!--<script  type="text/javascript" src="__PUBLIC__/Admin/js/bootstrapValidator.min.js"></script>-->
+    <!--<link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrapValidator.css">-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.tagsinput.js"></script>
+    <script type='text/javascript' src='__PUBLIC__/Admin/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/quickEditor.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery.tagsinput.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/quickEditor.css" />
+    <link href="__PUBLIC__/Admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/Admin/js/jquery.searchableSelect.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品管理</a></li>
+    <li class="active">新建产品</li>
+</ol>
+<div class="form-group" style="margin-top: 20px">
+    <button type="button" class="btn btn-success" style="background:#1AB394;margin: 0 20px; border:0;opacity:0.8;float: left;">基础信息</button>
+    <a href="" id="enterGoods">
+        <button type="button" class="btn btn-success " disabled id="goodlist"  style="background:darkgray; border:0;opacity:0.8;float: left">商品列表</button>
+    </a>
+</div>
+<div class="container row" style="background-color:white;padding-top:50px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"   name="name" placeholder="输入产品名称,24字以内" id="name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label" >*服务亮点</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  name="serviceinfo" id="serviceinfo" placeholder="一句话介绍服务亮点，最多20字 ">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*封面</label>
+            <div class="col-sm-4" id="fengmian">
+                <!--    <input name="goodpic" type="file" id="file"  style="display: none" multiple="multiple">-->
+               <!-- <img src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" id="fenmianimage" style="margin-top: 15px">-->
+            </div>
+            <label class="col-sm-4" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品头图</label>
+            <div class="col-sm-4" id="headpic">
+                <!--    <input name="goodpic" type="file" id="file"  style="display: none" multiple="multiple">-->
+<!--
+                <img src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" id="image" style="margin-top: 15px">
+-->
+            </div>
+
+            <!-- <div class="col-sm-4">
+                 <span id="upload">上传</span>
+             </div>-->
+            <label class="col-sm-4" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品分类</label>
+            <div class="col-sm-2">
+                <select  name="yiji"  class="form-control" id="yiji" >
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select   class="form-control" id="erji" name="erji">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >服务城市</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="servicecity"  name="servicecity" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属管家</label>
+            <div class="col-sm-4" id="guanjiaid" style="z-index: 10000">
+                <select  name=""  class="form-control" id="guanjia">
+                    <option value="0">选择管家</option>
+                    <volist name="guanjiainfo" id="vo">
+                        <option value="{$vo.guanjiaid}">{$vo.guanjianame}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属BD</label>
+            <div class="col-sm-4" id="bdid">
+                <select  name=""  class="form-control" id="bd">
+                    <option value="0">选择BD
+                        <volist name="bdinfo" id="vo">
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品介绍</label>
+            <div class="col-sm-6">
+                <div class="quickEditor" id="quickEditor" data-id="quickEditor"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*预订须知</label>
+            <div class="col-sm-6">
+                <textarea type="textarea" class="form-control" id="notes"  name="notes" placeholder="" style="height:100px"></textarea>
+            </div>
+            <!-- <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>-->
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="status">
+                    <option value="1">上线</option>
+                    <option value="2">下线</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >自动停售时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="endtime"  name="goodname" placeholder=" 选择时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:80px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    $('#guanjiaid select').searchableSelect();
+    $("#bdid select").searchableSelect();
+    var qe;
+    $(document).ready(()=>{
+        qe = quickEditor();
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        let policy = res.policy;
+        let authorization = res.authorization;
+        let bucket = res.bucket;
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        uploadTicket.deleteUrl = "{:U('AjaxApi/Upyun/deleteFile')}";
+        qe.setUploadTicket(uploadTicket);
+    },'json');
+    });
+    //获取当前日期时间
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+    $('#servicecity').tagsInput({
+        width: 'auto',
+        height: '47px',
+        defaultText:'',
+        autocomplete_url:"{:U('Operation/OperationGuanJia/getAllCity')}" //jquery.autocomplete (not jquery ui)
+    });
+    //日期插件
+    $("#endtime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+    $(function () {
+
+        $("#status").change(function () {
+            var status = $(this).val();
+            if (status == 1) {
+                $("#endtime").prop('disabled',false);
+            } else {
+                $("#endtime").prop('disabled',true);
+                $("#endtime").val('');
+            }
+        })
+        $("#surebtn").click(function () {
+            var name = $("#name").val();
+            var serviceinfo = $("#serviceinfo").val();
+            var yijiname = $("#yiji option:selected").text();
+            var erjiname = $("#erji option:selected").text();
+            var categoryid = $("#erji").val();
+            var guanjiaid = $("#guanjia").val();
+            var bdid = $("#bd").val();
+            var productinfo = qe.getContent();
+            console.log(productinfo);
+            var notes = $("#notes").val();
+            var status = $("#status").val();
+            var endtime = $("#endtime").val();
+            var servicecity = '';
+            $("#servicecity_tagsinput .tag span").each(function () {
+                servicecity+=$(this).text().replace(/\s/g,'')+',';
+            })
+            servicecity = servicecity.substring(0,servicecity.length-1);
+            if (!servicecity) {
+                servicecity = '全国';
+            }
+            var productpic = $("#headpic").attr("uploadpath");
+            var facepic = $("#fengmian").attr('uploadpath');
+            if (!name) {
+                alert('请输入产品名称');
+            }else if(name.length>24){
+                alert('产品名称最多输入24字');
+            }else if(!serviceinfo){
+                alert('请输入服务亮点');
+            }else if(serviceinfo.length>20){
+                alert('服务亮点最多输入20字');
+            }else if(!facepic){
+                alert('必须上传产品封面');
+            }else if(!productpic){
+                alert('必须上传产品头图');
+            }else if(!yijiname){
+                alert('请选择一级分类');
+            }else if(!erjiname){
+                alert('请选择二级分类');
+            }else if(guanjiaid == 0){
+                alert('请选择管家');
+            }else if(bdid == 0){
+                alert('请选择BD');
+            }else if(!productinfo){
+                alert('请输入产品介绍');
+            }else if(!notes){
+                alert('请输入预订须知');
+            }
+            else {
+
+                $.post("{:U('saveProduct')}",
+                    {
+                        name:name,
+                        serviceinfo:serviceinfo,
+                        productpic:productpic,
+                        yijiname:yijiname,
+                        erjiname:erjiname,
+                        categoryid:categoryid,
+                        guanjiaid:guanjiaid,
+                        bdid:bdid,
+                        productinfo:productinfo,
+                        notes:notes,
+                        status:status,
+                        endtime:endtime,
+                        servicecity:servicecity,
+                        facepic:facepic,
+                        type:1
+                    },
+                    function (res) {
+                        if (res.state==1) {
+                            $("#goodlist").prop('disabled',false);
+                            $("#goodlist").css("background-color","#1AB394");
+                            var url = "{:U('OperationGoods/goodsIndex')}"
+                            url += "?productid="+res.data;
+                            $("#enterGoods").prop('href',url);
+                            alert(res.msg);
+                            window.location.href="{:U('productIndex')}";
+                        } else {
+                            alert(res.msg);
+
+                        }
+
+                    },
+                    'json'
+                )
+            }
+
+        })
+    });
+
+    //上传插件
+    // 文件保存的路径
+
+    function strpic(url,oneimageclass) {
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        var uploadcontainer1 = 'headpic';
+        var initpic1 = '';
+        var uploadcontainer2 = 'fengmian';
+        var initpic2 = '';
+        createUploadStr(uploadcontainer1,9,initpic1);
+        createUploadStr(uploadcontainer2,1,initpic2);
+    },'json');
+    //删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        if (nowpath == '') {
+            var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+    
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+    
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+    
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            multipart: true,
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum + uploader.files.length > maxPicNum) {
+                for(var i in files){
+                    uploader.removeFile(files[i].id);
+                }
+                alert('多做上传'+maxPicNum+'张');
+                return;
+            }
+            $("#parent"+uploadid).remove();
+            uploader.start();
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+        
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+    //产品分类
+    $.ajax( {
+        url:"{:U('OperationGuanJia/getCategory')}",
+        type:'get',
+        dataType:'json',
+        data:{type:2},
+        success:function(message) {
+            var str='';
+            $('#yiji').text('');
+            for(var i=0;i<message['data'].length;i++){
+                str+="<option value ="+message['data'][i]['id']+">"+message['data'][i]['name']+"</option>";
+            }
+            var firstid =message['data'][0]['id'];
+            geterji(firstid);
+            $('#yiji').html(str);
+        }
+    })
+
+    function geterji(id) {
+
+        $.get(
+            "{:U('OperationGuanJia/getCategory')}",{
+                id:id,
+                type:2
+            },
+            function(message){
+                if(message['state']==1){
+                    var str = '';
+                    var data = message.data;
+                    console.log(message);
+                    for (var i=0;i<data.length;i++){
+                        str+="<option value ="+data[i]['id']+">"+data[i]['name']+"</option>";
+                    }
+                    $("#erji").html(str);
+                } else{
+                    alert(message['msg']);
+                }
+            },'json');
+    }
+
+    $("#yiji").change(function(){
+        var id = $(this).val();
+        geterji(id);
+    })
+</script>
+
+
+</body>
+</html>

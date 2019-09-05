@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=UTF-8>
+  <title>11·11品质生活大放价</title>
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <link rel=stylesheet type=text/css href='__PUBLIC__/Admin/css/reset.css?is=1'>
+  <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+  <script type=text/javascript src="__PUBLIC__/Admin/js/jweixin-1.3.2.js"></script>
+  <script>
+    window.browser = {
+      versions: function () {
+        let u = navigator.userAgent;
+        return {
+          trident: u.indexOf('Trident') > -1,
+          presto: u.indexOf('Presto') > -1,
+          webKit: u.indexOf('AppleWebKit') > -1,
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+          android: u.indexOf('Android') > -1,
+          iPhone: u.indexOf('iPhone') > -1,
+          iPad: u.indexOf('iPad') > -1,
+          jdjr: u.indexOf('JDJR-App') > -1,
+          webApp: u.indexOf('Safari') === -1,
+          wechat: u.indexOf('MicroMessenger') !== -1
+        };
+      }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };</script>
+  <script>
+    function ajax() {
+      var ajaxData = {
+        type: arguments[0].type || "GET",
+        url: arguments[0].url || "",
+        async: arguments[0].async || "true",
+        data: arguments[0].data || null,
+        dataType: arguments[0].dataType || "text",
+        contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+        beforeSend: arguments[0].beforeSend || function () {
+        },
+        success: arguments[0].success || function () {
+        },
+        error: arguments[0].error || function () {
+        }
+      };
+      ajaxData.beforeSend();
+      var xhr = createxmlHttpRequest();
+      xhr.responseType = ajaxData.dataType;
+      xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+      xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+      xhr.send(convertData(ajaxData.data));
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            ajaxData.success(xhr.response)
+          } else {
+            ajaxData.error()
+          }
+        }
+      }
+    }
+    function promiseAjax() {
+      return new Promise((resolve, reject) => {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response);
+              resolve(xhr.response);
+            } else {
+              ajaxData.error();
+              reject();
+            }
+          }
+        }
+      });
+    }
+    function createxmlHttpRequest() {
+      if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+      } else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+      }
+    }
+    function convertData(data) {
+      if (typeof data === 'object') {
+        var convertResult = "";
+        for (var c in data) {
+          convertResult += c + "=" + data[c] + "&";
+        }
+        convertResult = convertResult.substring(0, convertResult.length - 1)
+        return convertResult;
+      } else {
+        return data;
+      }
+    }
+  </script>
+
+  <style type="text/css">
+    body {
+      background-color: #e13f42;
+    }
+
+    .mainapp {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .head {
+      width: 100vw;
+      height: 173.6vw;
+      background-color: #e13f42;
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/tab@3x.png');
+      background-position: top;
+      background-size: contain;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .head #coupon1{
+      flex-shrink: 0;
+      width: 93.3vw;
+      height: 40.8vw;
+      background-position: top;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .head .normal#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/yhq_1@3x.png');
+    }
+    .head .get#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/yhq_2@3x.png');
+    }
+    .head .out#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/yhq_3@3x.png');
+    }
+    .smwz{
+      width: 57.86vw;
+      height: 15.2vw;
+    }
+
+    .pingzhibaokuan {
+      width: 94.6vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 23px;
+      margin-bottom: 5.06vw;
+    }
+    .pingzhibaokuan .item{
+      width: 46.6vw;
+      height: 72.8vw;
+      margin-bottom: 1vw;
+    }
+    .btn1{
+      width: 48vw;
+      height: 8.8vw;
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/btn@3x.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-bottom: 27px;
+    }
+    .btn1 a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .btn2{
+      width: 94.6vw;
+      height: 18.6vw;
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/bd_1@3x.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .btn2 a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .info {
+      width: 100%;
+      margin-top: 5px;
+    }
+    .float {
+      display: block;
+      width: 18.24vw;
+      height: 19.624vw;
+      background-image: url('https://file.rose52.com/guanjia/activity/1112shj/fc@3x.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+    }
+  </style>
+</head>
+<body>
+<div class="mainapp">
+  <div class="head">
+    <div id="coupon1" class="normal" onclick="getCouponList(0);"></div>
+  </div>
+  <img class="smwz" src="https://file.rose52.com/guanjia/activity/1112shj/smwz@3x.png">
+  <div class="pingzhibaokuan">
+    <a href="https://djgjia.jd.com/servicesDetail/124"><img alt="都市白领小屋日常保洁" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_1@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/126"><img alt="厨房灶台清晰" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_2@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/282"><img alt="家庭房屋日常保洁" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_3@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/283"><img alt="油烟机深度清洗" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_4@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/96"><img alt="家庭双人床深度除螨" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_5@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/97"><img alt="卫生间深度保洁" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_6@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/19"><img alt="匠人家庭日常保洁" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_7@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/89"><img alt="全屋保洁PLUS套餐" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_8@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/311"><img alt="拜博牙齿基础清洁" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_9@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/269"><img alt="美年优选体检套餐" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_10@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/270"><img alt="美年核心体检套餐" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_11@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/67"><img alt="日本签证" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_12@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/71"><img alt="美国十年签证" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_13@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/323"><img alt="亲子滑雪套餐" class="item" src="https://file.rose52.com/guanjia/activity/1112shj/sp_14@3x.png"></a>
+  </div>
+  <div class="btn1"><a href="https://djgjia.jd.com"></a></div>
+  <div class="btn2"><a href="https://pro.m.jd.com/mall/active/VB7jLpPSP8EyxKdZLvzvV2HCQaX/index.html"></a></div>
+  <img class="info" src="https://file.rose52.com/guanjia/activity/1112shj/hdsm@3x.png">
+
+  <a href="https://djgjia.jd.com/myCenter" class="float"></a>
+</div>
+<script>
+  /**
+   * couponList (Array)
+   * couponList.list.status: -1(领完), 0(未领), 1(已领)
+   *
+   */
+
+    // todo 若用户已经领取，并且优惠券领完了用户会显示优惠券已领完不是去使用优惠券
+
+  var packageListProd = [
+      { name: '直减券包',
+        id: 'coupon1',
+        locked: false,
+        list: [
+          {name: '券1', code: 'DJGJS11HXCOUPON', locked: false, status: 0},
+          {name: '券2', code: 'DJGJJS11MNTJCOUPON', locked: false, status: 0},
+          {name: '券3', code: 'DJGJS1BJBJCOUPON', locked: false, status: 0},
+          {name: '券4', code: 'DJGJS11BJQXCOUPON', locked: false, status: 0},
+          {name: '券5', code: 'DJGJS11SHBJCOUPON', locked: false, status: 0},
+          {name: '券6', code: 'DJGJS11SHBJCOUPON2', locked: false, status: 0},
+          {name: '券7', code: 'DJGJS11SHBJCOUPON3', locked: false, status: 0},
+        ]
+      },
+    ];
+
+  var packageList = packageListProd;
+  const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}`;
+
+  function checkPackage() {
+    for (let packageItem of packageList) {
+      if (!packageItem.locked) {
+        checkCouponList(packageItem);
+      }
+    }
+  }
+
+  function checkCouponList(CouponPackage){
+    let promiseList = [];
+    CouponPackage.locked = true;
+    for (let item of CouponPackage.list) {
+      let temp = checkCoupon(item);
+      if (temp) {
+        promiseList.push(temp);
+      }
+    }
+    Promise.all(promiseList).then((posts) => {
+      console.log('promiseAll', posts);
+      if (posts.includes(0)) {
+        document.getElementById(CouponPackage.id).className = 'normal';
+        CouponPackage.locked = false;
+
+        if (localStorage.getItem('shj1010') !== null) {
+          getCouponList(localStorage.getItem('shj1010'));
+          localStorage.removeItem('shj1010');
+        }
+      } else if (posts.includes(1)) {
+        document.getElementById(CouponPackage.id).className = 'get';
+        CouponPackage.locked = true;
+      } else if (posts.includes(-1)) {
+        document.getElementById(CouponPackage.id).className = 'out';
+        CouponPackage.locked = false;
+      }
+    });
+  }
+
+  function checkCoupon(item) {
+    if (!item.locked) {
+      item.locked = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      return promiseAjax({
+        type:"POST",
+        url: url,
+        data:{
+          code: item.code
+        }
+      }).then((res) => {
+        item.locked = true;
+        res = JSON.parse(res);
+        console.log(res);
+        if (parseInt(res.state) === 1) {
+          // wait (๑˙ー˙๑)
+          item.locked = false;
+        }
+        else if (parseInt(res.state) === 3) {
+          // wait (๑˙ー˙๑)
+          item.status = 0;
+          item.locked = false;
+        }
+        else {
+          if (res.msg === '该优惠券已经被兑换') {
+            // 一个兑换那么一组都标识为兑换状态
+            item.status = 1;
+            item.locked = true;
+          } else if (res.msg === '可以领取') {
+            // wait (๑˙ー˙๑)
+            item.status = 0;
+            item.locked = false;
+          } else if (res.msg === '您来晚了，优惠券已兑完') {
+            item.status = -1;
+            item.locked = false;
+          } else {
+            console.error(res);
+            item.status = -1;
+            item.locked = false;
+          }
+        }
+        return item.status;
+      });
+    } else {
+      // locked为true剩余优惠券码不再检查。
+      return false;
+    }
+  }
+
+  function getCouponList(index){
+    // 由用户点击coupon触发兑换卡包
+    let promiseList = [];
+    let CouponPackage = packageList[index];
+
+    if (CouponPackage.locked === true) {
+      // 去使用优惠券
+      window.location.href = '/coupon';
+      return false;
+    }
+
+    for (let item of CouponPackage.list) {
+      // item.code = 'JIANJING080915';
+      let temp = getCoupon(item, index); // 返回false直接去coupon页面
+      if (temp) {
+        promiseList.push(temp);
+      }
+    }
+
+
+    // 查询全部优惠码状态
+    Promise.all(promiseList).then((posts) => {
+      console.log('promiseAll', posts);
+      if (posts.includes(0)) {
+        document.getElementById(CouponPackage.id).className = 'normal';
+        CouponPackage.locked = false;
+      } else if (posts.includes(1)) {
+        document.getElementById(CouponPackage.id).className = 'get';
+        CouponPackage.locked = true;
+      } else if (posts.includes(-1)) {
+        document.getElementById(CouponPackage.id).className = 'out';
+        CouponPackage.locked = false;
+      }
+    });
+  }
+
+  function getCoupon(item, index) {
+    // 兑换优惠券
+    if (!item.locked) {
+      item.locked = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      return promiseAjax({
+        type:"POST",
+        url: url,
+        data:{
+          code: item.code
+        }
+      }).then((res) => {
+        item.status = 1;
+        item.locked = true;
+        res = JSON.parse(res);
+        if (parseInt(res.state) === 1) {
+          item.status = 1;
+          item.locked = true;
+        }
+        else if (parseInt(res.state) === 3) {
+          // 去登陆
+          localStorage.setItem('shj1010', index);
+          window.location.href = authurl;
+        }
+        else {
+          if (res.msg === '该优惠券已经被兑换') {
+            item.status = 1;
+            item.locked = true;
+          } else if (res.msg === '您来晚了，优惠券已兑完') {
+            item.status = -1;
+            item.locked = false;
+          } else {
+            console.error(res);
+            item.status = -1;
+            item.locked = false;
+          }
+        }
+        return item.status;
+      });
+    } else {
+      // 跳转coupon页面
+      return false;
+    }
+  }
+
+  checkPackage();
+</script>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '11·11品质生活大放价', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '甄选品质生活服务，1000元红包任性送',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/1010shj/share@3x.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '11·11品质生活大放价', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: '甄选品质生活服务，1000元红包任性送',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <meta charset=UTF-8>
+  <title>京东金融双11钜惠活动</title>
+  <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <link rel=stylesheet type=text/css href='__PUBLIC__/Admin/css/reset.css?is=1'>
+  <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+  <script type=text/javascript src="__PUBLIC__/Admin/js/jweixin-1.3.2.js"></script>
+  <script>
+    window.browser = {
+      versions: function () {
+        let u = navigator.userAgent;
+        return {
+          trident: u.indexOf('Trident') > -1,
+          presto: u.indexOf('Presto') > -1,
+          webKit: u.indexOf('AppleWebKit') > -1,
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+          android: u.indexOf('Android') > -1,
+          iPhone: u.indexOf('iPhone') > -1,
+          iPad: u.indexOf('iPad') > -1,
+          jdjr: u.indexOf('JDJR-App') > -1,
+          webApp: u.indexOf('Safari') === -1,
+          wechat: u.indexOf('MicroMessenger') !== -1
+        };
+      }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+    };</script>
+  <script>
+    function ajax() {
+      var ajaxData = {
+        type: arguments[0].type || "GET",
+        url: arguments[0].url || "",
+        async: arguments[0].async || "true",
+        data: arguments[0].data || null,
+        dataType: arguments[0].dataType || "text",
+        contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+        beforeSend: arguments[0].beforeSend || function () {
+        },
+        success: arguments[0].success || function () {
+        },
+        error: arguments[0].error || function () {
+        }
+      };
+      ajaxData.beforeSend();
+      var xhr = createxmlHttpRequest();
+      xhr.responseType = ajaxData.dataType;
+      xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+      xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+      xhr.send(convertData(ajaxData.data));
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            ajaxData.success(xhr.response)
+          } else {
+            ajaxData.error()
+          }
+        }
+      }
+    }
+    function promiseAjax() {
+      return new Promise((resolve, reject) => {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response);
+              resolve(xhr.response);
+            } else {
+              ajaxData.error();
+              reject();
+            }
+          }
+        }
+      });
+    }
+    function createxmlHttpRequest() {
+      if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+      } else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+      }
+    }
+    function convertData(data) {
+      if (typeof data === 'object') {
+        var convertResult = "";
+        for (var c in data) {
+          convertResult += c + "=" + data[c] + "&";
+        }
+        convertResult = convertResult.substring(0, convertResult.length - 1)
+        return convertResult;
+      } else {
+        return data;
+      }
+    }
+  </script>
+
+  <style type="text/css">
+    body {
+      background-color: #ffffff;
+    }
+
+    .mainapp {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .head {
+      width: 100vw;
+      height: 191.3vw;
+      background-color: #ffffff;
+      background-image: url('https://file.rose52.com/guanjia/activity/1030shj/tab@3x.png');
+      background-position: top;
+      background-size: contain;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .head .hd {
+      width: 100%;
+    }
+    .head #coupon1{
+      flex-shrink: 0;
+      width: 86.8vw;
+      height: 32.1vw;
+      background-position: top;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-bottom: 8.93vw;
+    }
+    .head .normal#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1030shj/qb_1@3x.png');
+    }
+    .head .get#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1030shj/qb_2@3x.png');
+    }
+    .head .out#coupon1{
+      background-image: url('https://file.rose52.com/guanjia/activity/1030shj/qb_3@3x.png');
+    }
+
+    .qingSheBaokuan {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .qingSheBaokuan .item{
+      width: 100%;
+      margin-top: 5.2vw;
+    }
+    .qingSheBaokuan .item1{
+      width: 94.6vw;
+      margin-top: 5.2vw;
+    }
+    .ouZhouFengQing {
+      width: 100%;
+    }
+    .ouZhouFengQing .title{
+      width: 100%;
+      margin-top: 9.86vw;
+    }
+    .ouZhouFengQing .item{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    .ouZhouFengQing .tp{
+      width: 100%;
+      margin-top: 8vw;
+      margin-bottom: 4.26vw;
+    }
+    .ouZhouFengQing .sp{
+      width: 80vw;
+      height: 33.3vw;
+    }
+    .chuXingBiBei {
+      width: 100%;
+      margin-top: 11.2vw;
+    }
+    .chuXingBiBei .item{
+      width: 100%;
+    }
+    .shenquan {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 5.2vw;
+    }
+    .shenquan .item{
+      width: 94.6vw;
+      height: 18.8vw;
+    }
+    .qianZhengWuYou {
+      width: 100%;
+      margin-top: 8.2vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .qianZhengWuYou .title {
+      width: 57.3vw;
+      height: 17.6vw;
+      margin-bottom: 9.73vw;
+    }
+    .qianZhengWuYou .product {
+      width: 92vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 5.06vw;
+    }
+    .qianZhengWuYou .product .item{
+      width: 44.6vw;
+      height: 53.3vw;
+      margin-bottom: 4.13vw;
+    }
+    .zhuti {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 3.73vw;
+    }
+    .zhuti .item{
+      width: 94.6vw;
+      height: 18.8vw;
+    }
+    .zhutiArea {
+      width: 92vw;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 3.6vw;
+    }
+    .zhutiArea .item {
+      width: 44.6vw;
+      height: 27.86vw;
+    }
+    .info {
+      width: 100%
+    }
+    .float {
+      width: 18.24vw;
+      height: 19.624vw;
+      background-image: url('https://file.rose52.com/guanjia/activity/1030shj/float@3x.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: fixed;
+      bottom: 0px;
+      right: 0px;
+    }
+  </style>
+</head>
+<body>
+<div class="mainapp">
+  <div class="head">
+    <div id="coupon1" class="normal" onclick="getCouponList(0);"></div>
+    <a><img alt="私人海岛" class="hd" src="https://file.rose52.com/guanjia/activity/1030shj/hd_bt@3x.png"></a>
+  </div>
+  <div class="qingSheBaokuan">
+    <a href="https://djgjia.jd.com/servicesDetail/303"><img alt="歌谣岛" class="item1" src="https://file.rose52.com/guanjia/activity/1030shj/hd_sp_1@3x.png"></a>
+    <a href="https://djgjia.jd.com/servicesDetail/304"><img alt="珍贝岛" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/hd_sp_2@3x.png"></a>
+  </div>
+  <div class="ouZhouFengQing">
+    <img alt="" class="title" src="https://file.rose52.com/guanjia/activity/1030shj/ou_bt@3x.png">
+    <img alt="" class="tp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_tp_1@3x.png">
+    <a href="https://djgjia.jd.com/servicesDetail/305" class="item">
+      <img alt="瑞士法国" class="sp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_sp_1@3x.png">
+    </a>
+    <img alt="" class="tp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_tp_2@3x.png">
+    <a href="https://djgjia.jd.com/servicesDetail/306" class="item">
+      <img alt="意大利" class="sp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_sp_2@3x.png">
+    </a>
+    <img alt="" class="tp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_tp_3@3x.png">
+    <a href="https://djgjia.jd.com/servicesDetail/307" class="item">
+      <img alt="捷奥德" class="sp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_sp_3@3x.png">
+    </a>
+    <img alt="" class="tp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_tp_4@3x.png">
+    <a href="https://djgjia.jd.com/servicesDetail/308" class="item">
+      <img alt="芬兰" class="sp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_sp_4@3x.png">
+    </a>
+    <img alt="" class="tp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_tp_5@3x.png">
+    <a href="https://djgjia.jd.com/servicesDetail/309" class="item">
+      <img alt="摩洛哥" class="sp" src="https://file.rose52.com/guanjia/activity/1030shj/ou_sp_5@3x.png">
+    </a>
+  </div>
+  <div class="shenquan">
+    <a href="https://pro.m.jd.com/mall/active/VB7jLpPSP8EyxKdZLvzvV2HCQaX/index.html"><img alt="读书" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/bd_2@3x.png"></a>
+  </div>
+  <div class="qianZhengWuYou">
+    <img alt="私人海岛" class="title" src="https://file.rose52.com/guanjia/activity/1030shj/qz_bt@3x.png">
+    <div class="product">
+      <a href="https://djgjia.jd.com/servicesDetail/71"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_1@3x.png"></a>
+      <a href="https://djgjia.jd.com/servicesDetail/67"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_2@3x.png"></a>
+      <a href="https://djgjia.jd.com/servicesDetail/310"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_3@3x.png"></a>
+      <a href="https://djgjia.jd.com/servicesDetail/78"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_4@3x.png"></a>
+      <a href="https://djgjia.jd.com/servicesDetail/74"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_5@3x.png"></a>
+      <a href="https://djgjia.jd.com/servicesDetail/79"><img alt="" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/qz_sp_6@3x.png"></a>
+    </div>
+  </div>
+  <div class="zhuti">
+    <a href="https://m.jr.jd.com/flowh5/2018/10/grab-ticket/index.html?channel=jr&source=dongjia"><img alt="主会场" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/bd_3@3x.png"></a>
+  </div>
+  <!--<div class="zhutiArea">-->
+  <!--<a href="/servicesDetail/265"><img alt="私人海岛" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/bd_4@3x.png"></a>-->
+  <!--<a href="/servicesDetail/265"><img alt="私人海岛" class="item" src="https://file.rose52.com/guanjia/activity/1030shj/bd_5@3x.png"></a>-->
+  <!--</div>-->
+  <img class="info" src="https://file.rose52.com/guanjia/activity/1030shj/info_bottom@3x.png">
+
+  <a href="https://m.jr.jd.com/activity/promotion/finance.html" class="float"></a>
+</div>
+<script>
+  /**
+   * couponList (Array)
+   * couponList.list.status: -1(领完), 0(未领), 1(已领)
+   *
+   */
+
+    // todo 若用户已经领取，并且优惠券领完了用户会显示优惠券已领完不是去使用优惠券
+
+  var packageListProd = [
+      { name: '直减券包',
+        id: 'coupon1',
+        locked: false,
+        list: [
+          {name: '券1', code: 'DJGJS11LVCOUPON1112', locked: false, status: 0}
+        ]
+      },
+    ];
+
+  var packageList = packageListProd;
+  const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}`;
+
+  function checkPackage() {
+    for (let packageItem of packageList) {
+      if (!packageItem.locked) {
+        checkCouponList(packageItem);
+      }
+    }
+  }
+
+  function checkCouponList(CouponPackage){
+    let promiseList = [];
+    CouponPackage.locked = true;
+    for (let item of CouponPackage.list) {
+      let temp = checkCoupon(item);
+      if (temp) {
+        promiseList.push(temp);
+      }
+    }
+    Promise.all(promiseList).then((posts) => {
+      console.log('promiseAll', posts);
+      if (posts.includes(0)) {
+        document.getElementById(CouponPackage.id).className = 'normal';
+        CouponPackage.locked = false;
+
+        if (localStorage.getItem('shj1010') !== null) {
+          getCouponList(localStorage.getItem('shj1010'));
+          localStorage.removeItem('shj1010');
+        }
+      } else if (posts.includes(1)) {
+        document.getElementById(CouponPackage.id).className = 'get';
+        CouponPackage.locked = true;
+      } else if (posts.includes(-1)) {
+        document.getElementById(CouponPackage.id).className = 'out';
+        CouponPackage.locked = false;
+      }
+    });
+  }
+
+  function checkCoupon(item) {
+    if (!item.locked) {
+      item.locked = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      return promiseAjax({
+        type:"POST",
+        url: url,
+        data:{
+          code: item.code
+        }
+      }).then((res) => {
+        item.locked = true;
+        res = JSON.parse(res);
+        console.log(res);
+        if (parseInt(res.state) === 1) {
+          // wait (๑˙ー˙๑)
+          item.locked = false;
+        }
+        else if (parseInt(res.state) === 3) {
+          // wait (๑˙ー˙๑)
+          item.status = 0;
+          item.locked = false;
+        }
+        else {
+          if (res.msg === '该优惠券已经被兑换') {
+            // 一个兑换那么一组都标识为兑换状态
+            item.status = 1;
+            item.locked = true;
+          } else if (res.msg === '可以领取') {
+            // wait (๑˙ー˙๑)
+            item.status = 0;
+            item.locked = false;
+          } else if (res.msg === '您来晚了，优惠券已兑完') {
+            item.status = -1;
+            item.locked = false;
+          } else {
+            console.error(res);
+            item.status = -1;
+            item.locked = false;
+          }
+        }
+        return item.status;
+      });
+    } else {
+      // locked为true剩余优惠券码不再检查。
+      return false;
+    }
+  }
+
+  function getCouponList(index){
+    // 由用户点击coupon触发兑换卡包
+    let promiseList = [];
+    let CouponPackage = packageList[index];
+
+    if (CouponPackage.locked === true) {
+      // 去使用优惠券
+      window.location.href = '/coupon';
+      return false;
+    }
+
+    for (let item of CouponPackage.list) {
+      // item.code = 'JIANJING080915';
+      let temp = getCoupon(item, index); // 返回false直接去coupon页面
+      if (temp) {
+        promiseList.push(temp);
+      }
+    }
+
+
+    // 查询全部优惠码状态
+    Promise.all(promiseList).then((posts) => {
+      console.log('promiseAll', posts);
+      if (posts.includes(0)) {
+        document.getElementById(CouponPackage.id).className = 'normal';
+        CouponPackage.locked = false;
+      } else if (posts.includes(1)) {
+        document.getElementById(CouponPackage.id).className = 'get';
+        CouponPackage.locked = true;
+      } else if (posts.includes(-1)) {
+        document.getElementById(CouponPackage.id).className = 'out';
+        CouponPackage.locked = false;
+      }
+    });
+  }
+
+  function getCoupon(item, index) {
+    // 兑换优惠券
+    if (!item.locked) {
+      item.locked = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      return promiseAjax({
+        type:"POST",
+        url: url,
+        data:{
+          code: item.code
+        }
+      }).then((res) => {
+        item.status = 1;
+        item.locked = true;
+        res = JSON.parse(res);
+        if (parseInt(res.state) === 1) {
+          item.status = 1;
+          item.locked = true;
+        }
+        else if (parseInt(res.state) === 3) {
+          // 去登陆
+          localStorage.setItem('shj1010', index);
+          window.location.href = authurl;
+        }
+        else {
+          if (res.msg === '该优惠券已经被兑换') {
+            item.status = 1;
+            item.locked = true;
+          } else if (res.msg === '您来晚了，优惠券已兑完') {
+            item.status = -1;
+            item.locked = false;
+          } else {
+            console.error(res);
+            item.status = -1;
+            item.locked = false;
+          }
+        }
+        return item.status;
+      });
+    } else {
+      // 跳转coupon页面
+      return false;
+    }
+  }
+
+  checkPackage();
+</script>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '11·11品质出行大放价', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '甄选品质出行服务，1000元红包任性送，更有签证服务5折起哟',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/1010shj/share@3x.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '11·11品质出行大放价', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: '甄选品质出行服务，1000元红包任性送，更有签证服务5折起哟',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+</body>
+</html>

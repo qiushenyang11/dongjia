@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑产品</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/product.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.tagsinput.js"></script>
+    <script type='text/javascript' src='__PUBLIC__/Admin/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery.tagsinput.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery-ui.css" />
+    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <link href="__PUBLIC__/Admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/Admin/js/jquery.searchableSelect.js"></script>
+</head>
+<body>
+<style>
+    .selector-ctl {
+        background: url("data:image/svg+xml;charset=UTF-8,%3csvg width='14' height='14' fill='%233D464F' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z'/%3e%3c/svg%3e") no-repeat right .75rem center,-webkit-gradient(linear,left top,left bottom,from(#fff),to(#f5f5f5));
+    }
+</style>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品管理</a></li>
+    <li class="active">编辑产品</li>
+</ol>
+<div class="form-group" style="margin-top: 20px">
+    <button type="button" class="btn btn-success" style="background:#1AB394;margin: 0 20px; border:0;opacity:0.8;float: left;">基础信息</button>
+    <a href="{:U('OperationGoods/goodsIndex')}?productid={$result.id}" id="enterGoods">
+        <button type="button" class="btn btn-success "  id="goodlist"  style="background:#1AB394; border:0;opacity:0.8;float: left">商品列表</button>
+    </a>
+</div>
+<div class="container row" style="background-color:white;padding-top:50px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >产品类型</label>
+            <!--<button type="button" class="btn btn-success" style="background:#555;margin: 0 25px; border:0;opacity:0.8;float: left;">服务类</button>-->
+            <div class="col-sm-2">
+                <select  class="form-control" id="stype" name="stype">
+                    <option value="1" <if condition="$result.ptype eq 1">selected</if>>其它服务</option>
+                    <option value="2" <if condition="$result.ptype eq 2">selected</if>>在线咨询</option>
+                    <option value="3" <if condition="$result.ptype eq 3">selected</if>>上门服务</option>
+                    <option value="5" <if condition="$result.ptype eq 5">selected</if>>实物商品</option>
+                    <option value="4" <if condition="$result.ptype eq 4">selected</if>>到店服务</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label" >*产品名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$result.name}"  name="name" placeholder="输入产品名称,24字以内" id="name">
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+        <!--<label for="serviceinfo" class="col-sm-2 control-label" >*服务亮点</label>-->
+        <!--<div class="col-sm-4">-->
+        <!--<input type="text" class="form-control" value="{$result.serviceinfo}"  name="serviceinfo" id="serviceinfo" placeholder="一句话介绍服务亮点，最多20字 ">-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label" >*服务亮点</label>
+            <div class="">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control serviceinfo"  name="serviceinfo"  placeholder="一句话介绍服务亮点，最多40字 " value="{$result['serviceinfo'][0]}">
+                </div>
+                <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">
+                    <span class="addInfoButton" >+</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="morePoint">
+            <volist name="result.serviceinfo" id="vo">
+                <if condition="$key neq 0">
+                    <div class="form-group liangdian">
+                        <label for="phone" class="col-sm-2 control-label" ></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control serviceinfo"  name="serviceinfo" id="" placeholder="一句话介绍服务亮点，最多40字 " value="{$vo}">
+                        </div>
+                        <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">
+                            <span class="delInfoButton">-</span>
+                        </div>
+                    </div>
+                </if>
+            </volist>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >排序值</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control " id="sortweight"  name="sortweight"  placeholder="默认排序值0" value="{$result.sortweight}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*封面</label>
+            <div class="col-sm-4" id="fengmian">
+
+            </div>
+            <label class="col-sm-4" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品头图</label>
+            <div class="col-sm-4"  id="headpic">
+
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="yiji" class="col-sm-2 control-label" >*产品分类</label>
+            <div class="col-sm-2">
+                <select  name="yiji"  class="form-control" id="yiji" >
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select   class="form-control" id="erji" name="erji">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="guanjia" class="col-sm-2 control-label" >*所属管家</label>
+            <div class="col-sm-4" id="guanjiaid" style="z-index: 10000">
+                <select  name=""  class="form-control" id="guanjia">
+                    <option value="0">选择管家</option>
+                    <volist name="guanjiainfo" id="vo">
+                        <option value="{$vo.guanjiaid}" <if condition="$result.guanjiaid eq $vo['guanjiaid']">selected</if>>{$vo.guanjianame}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="bd" class="col-sm-2 control-label" >*所属供应商</label>
+            <div class="col-sm-4" id="supplier">
+                <select  name=""  class="form-control" id="supplier">
+                    <option value="0">选择供应商</option>
+                    <volist name="suppliers" id="vo">
+                        <option value="{$vo.id}" <if condition="$result['supplierid'] eq $vo['id']">selected</if>>{$vo.supplier}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="productinfo" class="col-sm-2 control-label" >*产品介绍</label>
+            <div class="col-sm-6">
+                <div class="col-sm-12 row" id="productinfoparent">
+                    <script type="text/plain" id="productinfo" style="width:375px;min-height: 200px"></script>
+                    </div>
+                    </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="notes" class="col-sm-2 control-label">*预订须知</label>
+                        <div class="col-sm-6">
+                        <script type="text/plain" id="notes"  name="notes" style="width:375px;min-height:200px"></script>
+                </div>
+            </div>
+            <!--服务时间段-->
+
+            <!--<div class="form-group">-->
+                <!--<label for="" class="col-sm-2 control-label">*首页列表</label>-->
+                <!--<div class="col-sm-5">-->
+                    <!--<select  name=""  class="form-control" id="isTuijian">-->
+                        <!--<option value="1" <if condition="$result.isrecommend eq 1">selected</if>>推荐</option>-->
+                        <!--<option value="0" <if condition="$result.isrecommend eq 0">selected</if>>不推荐</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div id="showCeng" style="<if condition="$result.isrecommend eq 0">display:none</if>" >-->
+            <!--<div class="form-group">-->
+                <!--<label for="" class="col-sm-2 control-label"></label>-->
+                <!--<div class="">-->
+                    <!--<label for="" class="col-sm-1 control-label">排序值</label>-->
+                    <!--<div class="col-sm-4">-->
+                        <!--<input type="text" class="form-control"  name="" value="{$result.weight}" id="weight" placeholder="输入排序值,排序值越大排序越靠前">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="" class="col-sm-2 control-label"></label>-->
+                <!--<div class="">-->
+                    <!--<label for="" class="col-sm-1 control-label">排序时间</label>-->
+                    <!--<div class="col-sm-2">-->
+                        <!--<input type="text" class="form-control" id="indexstart"  value="{$result.showstarttime}" name="goodname" placeholder="选择开始时间">-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">-->
+                        <!--至-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-2">-->
+                        <!--<input type="text" class="form-control" id="indexend"  value="{$result.showendtime}" name="goodname" placeholder="选择结束时间">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*预订短信</label>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="messageType" class="duanxin" value="0" id="moren" >
+                <span>默认短信</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">
+                <input type="radio" name="messageType" class="duanxin" value="1" id="zidingyi" >
+                <span>自定义预订成功短信</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="messageType" class="duanxin" value="2" id="default">
+                <span>不发送</span>
+            </div>
+        </div>
+        <div id="messageType">
+        </div>
+        <div class="form-group" id="messageDetails">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">*预订流程</label>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="bookingtype" class="flow" value="1"  id="guanjiasure" >
+                <span>需要供应商确认</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;margin-left: -50px" >
+                <input type="radio" name="bookingtype" class="flow" value="2" id="successsure">
+                <span>预订后直接成功</span>
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: -15px" id="documents">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >服务城市</label>
+            <div class="col-sm-4">
+                <!--<input type="text" class="form-control" id="servicecity"  name="servicecity" placeholder="">-->
+                <select class="js-example-basic-multiple col-sm-12" name="states[]" multiple="multiple">
+                    <volist name="result.servicecity" id="vo">
+                        <option value="{$vo}">{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="status">
+                    <option value="1" <if condition="$result.status eq 1">selected</if>>上线</option>
+                    <option value="2" <if condition="$result.status eq 2">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="endtime" class="col-sm-2 control-label" >自动停售时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$result.endtime}" id="endtime"  name="goodname" placeholder=" 选择时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="submit" id="surebtn" class="btn btn-primary" style="width:80px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 配置文件 -->
+<!-- 配置文件 -->
+<script type="text/javascript">
+    let cssPath = '__PUBLIC__/Admin/css';
+</script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/ueditorX.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/custom/service_shijianduan.js"></script>
+<script>
+
+    /*选择实物商品相关操作*/
+    $("#stype").change(function(){
+        var stype=$("#stype").val();
+
+        if(stype==5){
+            $("#default").prop('checked',true);
+            $("#moren").prop('checked',false);
+            $("#moren").prop('disabled',true)
+            $("#zidingyi").prop('disabled',true);
+            $("#guanjiasure").prop('checked',true);
+            $("#successsure").prop('disabled',true);
+            $("#messageType").html('');
+            $("#messageDetails").html('');
+        } else {
+            $("#moren").prop('disabled',false)
+            $("#zidingyi").prop('disabled',false);
+            $("#successsure").prop('disabled',false);
+        }
+    })
+
+
+    /*实物商品选中供应商操作*/
+    function shiwu(){
+        var stype=$("#stype").val();
+        console.log(stype);
+        if(stype==5){
+            $("#guanjiasure").prop('checked',true);
+            $("#successsure").prop('disabled',true);
+        }
+    }
+    shiwu();
+
+
+    /*不发送短信操作*/
+    $("#default").click(function(){
+        $("#zidingyi").removeClass('haschecked');
+        $('#messageType').html('');
+        $("#messageDetails").html('');
+    })
+    /*预订流程文案*/
+    function guanjiadocument() {
+        var str='<label for="" class="col-sm-2 control-label"></label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <span style="font-size: 12px;color:#999999">下单后订单状态为"待确认"</span>\n' +
+            '                </div>';
+        return str;
+    }
+    function adddefaultdocument() {
+        var str='';
+        str=guanjiadocument();
+        $('#documents').append(str);
+    }
+    $("#guanjiasure").click(function () {
+        $("#successsure").removeClass('haschecked');
+        $('#documents').html('');
+        adddefaultdocument();
+    })
+
+    function successdocument() {
+        var str='<label for="" class="col-sm-2 control-label"></label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <span style="font-size: 12px;color:#999999">下单后订单状态为"预订成功"</span>\n' +
+            '                </div>';
+        return str;
+    }
+    function addsuccessdocument() {
+        var str='';
+        str=successdocument();
+        $('#documents').append(str);
+    }
+    $("#successsure").click(function () {
+        if (!$(this).hasClass('haschecked')) {
+            $(this).addClass('haschecked');
+            $("#documents").html('');
+            addsuccessdocument();
+        }
+    })
+
+    /*初始化预订流程信息*/
+    initdocument();
+    function initdocument() {
+        var bookingtype = "{$result.bookingtype}";
+        if (bookingtype==2) {
+            $("#successsure").attr('checked',true);
+            addsuccessdocument();
+        } else {
+            $("#guanjiasure").attr('checked',true);
+            adddefaultdocument();
+        }
+    }
+
+    $(document).ready(() => {
+        console.log( `{$result.productinfo}`);
+        console.log(9999);
+        window.ueditorXsetContent({
+        productinfo: `{$result.productinfo}`,
+        notes: `{$result.notes}`
+    });
+    select_time_render();
+    render_server_data();
+
+    });
+    // 获取当前日期时间
+    var yiji = '{$result.yiji}';
+    var erji = '{$result.erji}';
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            'M+': this.getMonth() + 1,
+            'd+': this.getDate(),
+            'h+': this.getHours(),
+            'm+': this.getMinutes(),
+            's+': this.getSeconds(),
+            'q+': Math.floor((this.getMonth() + 3) / 3),
+            'S+': this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp('(' + k + ')').test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length === 1
+                    ? date[k] : ('00' + date[k]).substr(('' + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+
+    $('#guanjiaid select').searchableSelect();
+    $("#supplier select").searchableSelect();
+
+    var nowdate = newDate.format('yyyy-MM-dd 00:00:00');
+    // 日期插件
+    $('#endtime').jeDate({
+        format: 'YYYY-MM-DD hh:mm:ss',
+         minDate: nowdate
+    })
+    $("#indexstart").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+    $("#indexend").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+
+
+    /*是否推荐显示隐藏问题*/
+    $("#isTuijian").click(function () {
+        var isTuiJian = $("#isTuijian").val();
+        if(isTuiJian==1){
+            show();
+        }else {
+            hide();
+        }
+    })
+    function show() {
+        $("#showCeng").show();
+    }
+    function hide() {
+        $("#showCeng").hide();
+    }
+
+    $(function () {
+        var citys = '{$result.servicecity}';
+        var citys = citys.split('|');
+        var data = [];
+        var ids = [];
+        console.log(citys);
+        for (var i = 0;i<citys.length;i++){
+            var temp = citys[i].split(',');
+            data.push({id:temp[0],text:temp[1]});
+            ids.push(temp[0]);
+        }
+        $('.js-example-basic-multiple').select2({
+            placeholder:'请选择输入服务城市',
+            data:data,
+            ajax: {
+                url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        param: params.term,
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        }).val(ids).trigger("change");
+        $('#status').change(function () {
+            var status = $(this).val();
+            if (parseInt(status) === 1) {
+                $('#endtime').prop('disabled', false);
+            } else {
+                $('#endtime').prop('disabled', true);
+                $('#endtime').val('');
+            }
+        })
+
+        /*服务亮点操作*/
+        function onePoint() {
+            var str='<div class="form-group liangdian">\n' +
+                '            <label for="phone" class="col-sm-2 control-label" ></label>\n' +
+                '                <div class="col-sm-4">\n' +
+                '                    <input type="text" class="form-control serviceinfo"  name="serviceinfo" id="" placeholder="一句话介绍服务亮点，最多40字 ">\n' +
+                '                </div>\n' +
+                '                <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">\n' +
+                '                    <span class="delInfoButton">-</span>\n' +
+                '                </div>\n' +
+                '        </div>';
+
+            return str;
+        }
+
+        function addPoint(){
+            var str='';
+            str=onePoint();
+            $("#morePoint").append(str);
+        }
+
+        $(".addInfoButton").click(function () {
+            var length = $(".liangdian").length;
+            if(length>=3){
+                alert("服务亮点最多录入4条")
+            }else {
+                addPoint();
+            }
+        })
+
+        $("#morePoint").on('click','.delInfoButton',function () {
+            $(this).parents('.liangdian').remove();
+        })
+
+        //显示自定义信息
+        function message() {
+            var str=' <div class="form-group">\n' +
+                '                    <div class="col-sm-8 messageinfo" style="margin-right:50px;float: right">\n' +
+                '                        <input type="checkbox"  checked name="itemType" class="onetype"  value="1" data-name="产品名称">\n' +
+                '                        <span class="itemType">产品名称</span>\n' +
+                '                        <input type="checkbox" checked  name="itemType" class="onetype" value="1" data-name="服务码">\n' +
+                '                        <span class="itemType">服务码</span>\n' +
+                '                        <input type="checkbox" checked name="itemType" class="onetype" class="itemType" value="1" data-name="客服电话">\n' +
+                '                        <span class="itemType">客服电话</span>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                <div class="form-group" >\n' +
+                '                    <div class="col-sm-8" style="margin-right:50px;float: right" >\n' +
+                '                        <input type="checkbox" name="itemType"class="onetype"  value="1" data-name="供应商电话">\n' +
+                '                        <span class="itemType">供应商电话</span>\n' +
+                '                        <input type="checkbox" name="itemType" class="onetype" value="1" data-name="供应商简称">\n' +
+                '                        <span class="itemType">供应商简称</span>\n' +
+                '                    </div>\n' +
+                '                </div>';
+            return str;
+        }
+        function defaltmessagedetails() {
+            var str='<div class="col-sm-7" style="float: right;margin-right: 295px;margin-bottom: 20px;">\n' +
+                '                    <textarea type="textarea" class="form-control" id=""  name="" placeholder="" style="height: 100px" disabled>{$message}</textarea>\n' +
+                '                </div>';
+            return str;
+        }
+        function zidiyingmessagedetails() {
+            var str=' <div class="col-sm-7" style="float: right;margin-right: 295px;margin-bottom: 20px;">\n' +
+                '                    <textarea type="textarea" class="form-control" id="details"  name="" placeholder="" style="height: 100px">{$zidiyimessage}</textarea>\n' +
+                '                </div>';
+            return str;
+        }
+        function addDefalt() {
+            var str='';
+            str=defaltmessagedetails();
+            $("#messageDetails").append(str);
+        }
+
+        function addzidingyi() {
+            var str='';
+            str=zidiyingmessagedetails();
+            console.log(str);
+            $("#messageDetails").append(str);
+        }
+        function addMessage() {
+            var str='';
+            str=message();
+            $("#messageType").append(str);
+        }
+
+        $("#zidingyi").click(function () {
+            if (!$(this).hasClass('haschecked')) {
+                $(this).addClass('haschecked');
+                $("#messageDetails").html('');
+                initzidiyi();
+            }
+        })
+        $("#moren").click(function () {
+            $("#zidingyi").removeClass('haschecked');
+            $('#messageType').html('');
+            $("#messageDetails").html('');
+            addDefalt();
+        })
+        init();
+        function initzidiyi() {
+            $("#zidingyi").addClass('haschecked');
+            var list = [
+                '产品名称',
+                '服务码',
+                '客服电话',
+                '供应商电话',
+                '供应商简称'
+            ];
+            addMessage()
+            addzidingyi();
+            var text = '{$zidiyimessage}';
+            var temp = '';
+            for (var i = 0; i<list.length; i++)
+            {
+                if (text.search(temp)  === -1)
+                {
+                    console.log('name:'+list[i]+'is null')
+                    $("input:checkbox[name='itemType'][data-name='"+list[i]+"']").prop('checked',false);
+                } else {
+                    $("input:checkbox[name='itemType'][data-name='"+list[i]+"']").prop('checked',true);
+                }
+            }
+        }
+        function init() {
+            var messagetype = "{$messagetype}";
+            if (messagetype == 1) {
+                $("#zidingyi").attr('checked',true);
+                initzidiyi();
+            }else if(messagetype == 2){
+                $("#default").attr('checked',true);
+                $("#moren").prop('disabled',true)
+                $("#zidingyi").prop('disabled',true);
+                $("#messageDetails").html('');
+            } else {
+                $("#moren").attr('checked',true);
+                addDefalt();
+            }
+        }
+        $("#messageDetails").on('click','#details',function () {
+            var list = [
+                '产品名称',
+                '服务码',
+                '客服电话',
+                '供应商电话',
+                '供应商简称'
+            ];
+            var that = this;
+            $(this).keyup(function () {
+                var text = $(that).val();
+                var temp = '';
+                for (var i = 0; i<list.length; i++)
+                {
+                    temp = "{{"+list[i]+"}}";
+                    if (text.search(temp)  === -1)
+                    {
+                        console.log('name:'+list[i]+'is null')
+                        $("input:checkbox[name='itemType'][data-name='"+list[i]+"']").prop('checked',false);
+                    } else {
+                        $("input:checkbox[name='itemType'][data-name='"+list[i]+"']").prop('checked',true);
+                    }
+                }
+
+            })
+        })
+
+        $("#messageType").on('click','.onetype',function () {
+            var text = $(this).data('name');
+            var html = $('#details').val();
+            text = "{{"+text+"}}";
+            if ($(this).is(':checked')) {
+                html+=text;
+                $("#details").val(html);
+            } else {
+                var reg = new RegExp(text,'g');
+                html = html.replace(reg,'')
+                $("#details").val(html);
+            }
+
+        })
+
+
+
+
+
+        $('#surebtn').click(function () {
+            var ptype=$("#stype").val();
+            var shijianduan_disp_option = $("input[name='service-time-select-radio']:checked").val();
+            if (shijianduan_disp_option === '1') {
+                var service_shijianduan_val = get_shijianduan_str();
+                if (!service_shijianduan_val) return;
+            } else {
+                var shijianduan_disp_option = ''
+            }
+
+            var getblen = function(info) {
+                if (info == null) return 0;
+                if (typeof info != "string"){
+                    info += "";
+                }
+                return info.replace(/[^\x00-\xff]/g,"01").length/2;
+            }
+            var name = $('#name').val();
+            var serviceinfo = '';
+            var isserveinforight = true;
+            var isserviceinfonull = true;
+            $('.serviceinfo').each(function () {
+                serviceinfo += $(this).val()+'+-';
+
+                if (getblen($(this).val())>40) isserveinforight = false;
+                if (getblen($(this).val()) == 0) isserviceinfonull = false;
+            })
+            serviceinfo= serviceinfo.substr(0,serviceinfo.length-2);
+            var numsreg = /^[0-9]+$/;
+            var isrecommend = $("#isTuijian").val();
+            // if(isrecommend==1){
+            //     var weight = $("#weight").val();
+            //     var showstarttime = $("#indexstart").val();
+            //     var showendtime = $("#indexend").val();
+            // }else {
+            //     var weight ='';
+            //     var showstarttime ='';
+            //     var showendtime='';
+            // }
+            // console.log(isrecommend);
+            // console.log(weight);
+            // console.log(showstarttime);
+            // console.log(showendtime);
+            var productpic = '';
+            var facepic = '';
+            var yijiname = $('#yiji option:selected').text();
+            var erjiname = $('#erji option:selected').text();
+            var categoryid = $('#erji').val();
+            var guanjiaid = $('#guanjia').val();
+            // var bdid = $('#bd').val();
+            var supplierid = $("#supplier option:selected").val();
+            var productinfo = productinfoEditor.getContent();
+            var notes = notesEditor.getContent();
+            var status = $('#status').val();
+            var endtime = $('#endtime').val();
+            var servicecity = '';
+            var productid = '{$Think.get.id}';
+            var servicecity = '';
+            var servicecityData = $('.js-example-basic-multiple').select2('data');
+            if (servicecityData.length > 0) {
+                for (var i=0; i<servicecityData.length;i++) {
+                    var text = servicecityData[i].text;
+                    var tempid = servicecityData[i].id;
+                    servicecity+=tempid+','+text+'|';
+                }
+                servicecity = servicecity.substr(0,servicecity.length-1);
+            }  else {
+                servicecity = '0,全国';
+            }
+
+            productpic = $('#headpic').attr('uploadpath');
+            facepic = $('#fengmian').attr('uploadpath');
+            var messagetype = $('.duanxin:checked').val();
+            var bookingtype = $('.flow:checked').val();
+            var sortweight = $("#sortweight").val();
+            if (messagetype == 1) {
+                var message = $('#details').val();
+            } else {
+                var message = '';
+            }
+            if (!name) {
+                window.alert('请输入产品名称');
+            } else if (getblen(name) > 24) {
+                window.alert('产品名称最多输入24字');
+            } else if (!isserviceinfonull) {
+                window.alert('请输入服务亮点');
+            } else if (!isserveinforight) {
+                window.alert('服务亮点最多输入40字');
+            } else if (!facepic) {
+                window.alert('必须上传产品封面');
+            } else if (!productpic) {
+                window.alert('必须上传产品头图');
+            } else if (!yijiname) {
+                window.alert('请选择一级分类');
+            } else if (!erjiname) {
+                window.alert('请选择二级分类');
+            } else if (guanjiaid == 0) {
+                window.alert('请选择管家');
+            } else if (supplierid == 0) {
+                window.alert('请选择供应商');
+            } else if (!productinfo) {
+                window.alert('请输入产品介绍');
+            } else if (!notes) {
+                window.alert('请输入预订须知');
+            }else if (isrecommend == 1 && !weight) {
+                window.alert('请填写排序值');
+            } else if (message =='' && messagetype == 1) {
+                window.alert('请输入短信格式');
+            }else {
+                $.post("{:U('saveProduct')}",
+                    {
+                        id: productid,
+                        name: name,
+                        serviceinfo: serviceinfo,
+                        productpic: productpic,
+                        yijiname: yijiname,
+                        erjiname: erjiname,
+                        categoryid: categoryid,
+                        guanjiaid: guanjiaid,
+                        supplierid: supplierid,
+                        productinfo: productinfo,
+                        notes: notes,
+                        status: status,
+                        endtime: endtime,
+                        servicecity: servicecity,
+                        facepic: facepic,
+                        // isrecommend:isrecommend,
+                        // weight:weight,
+                        // showstarttime:showstarttime,
+                        // showendtime:showendtime,
+                        messagetype: messagetype,
+                        bookingtype:bookingtype,
+                        message: message,
+                        servicetime: service_shijianduan_val,
+                        sortweight:sortweight,
+                        type :1,
+                        ptype:ptype
+                    },
+                    function (res) {
+                        if (parseInt(res.state) === 1) {
+                            window.alert(res.msg);
+                        } else {
+                            window.alert(res.msg);
+                        }
+                    },
+                    'json'
+                );
+            }
+        });
+    });
+
+
+    // else if(isrecommend == 1 && !numsreg.test(weight)){
+    //     window.alert('请输入不小于0的整数');
+    // }else if(isrecommend == 1 &&!showstarttime){
+    //     window.alert('请选择推荐开始时间');
+    // }else if(isrecommend == 1 && !showendtime){
+    //     window.alert('请选择推荐结束时间');
+    // }else if(isrecommend == 1 && showstarttime > showendtime){
+    //     window.alert('请选择正确的推荐时间段');
+    // }
+    // 上传插件
+    // 文件保存的路径
+    function strpic(url,oneimageclass) {
+        if( url.substr(0,4) =='http'){
+            xxurl=url;
+        }else {
+            xxurl = 'https://file.rose52.com' + url;
+        }
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="'+xxurl+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        setUploadTicket(uploadTicket);
+        var uploadcontainer1 = 'headpic';
+        var initpic1 = '{$result.productpicstr}';
+        var uploadcontainer2 = 'fengmian';
+        var initpic2 = '{$result.facepicstr}';
+        createUploadStr(uploadcontainer1,9,initpic1);
+        createUploadStr(uploadcontainer2,1,initpic2);
+    },'json');
+    // 删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        console.log(path);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            multipart: true,
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum + uploader.files.length > maxPicNum) {
+                for(var i in files){
+                    uploader.removeFile(files[i].id);
+                }
+                alert('多做上传'+maxPicNum+'张');
+                return;
+            }
+            $("#parent"+uploadid).remove();
+            uploader.start();
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+    // 产品分类
+    $.ajax({
+        url: `{:U('OperationGuanJia/getCategory')}`,
+        type: 'get',
+        dataType: 'json',
+        data: {type: 2},
+        success: function(message) {
+            var str = '';
+            var selectid = 0;
+            $('#yiji').text('');
+            for (var i = 0; i < message['data'].length; i++) {
+                if (yiji == message['data'][i]['name']) {
+                    str += `<option value ="${message['data'][i]['id']}" selected>${message['data'][i]['name']}</option>`;
+                    selectid = message['data'][i]['id'];
+                } else {
+                    str += `<option value ="${message['data'][i]['id']}" >${message['data'][i]['name']}</option>`;
+                }
+            }
+
+            geterji(selectid, erji);
+            $('#yiji').html(str);
+        }
+    })
+
+    function geterji(id, erji) {
+
+        $.get(
+            "{:U('OperationGuanJia/getCategory')}", {
+                id: id,
+                type: 2
+            },
+            function(message){
+                if (message['state']==1) {
+                    var str = '';
+                    var data = message.data;
+                    console.log(message);
+                    for (var i = 0; i < data.length; i++) {
+                        if (erji && erji == data[i]['name'] ) {
+                            str += `<option value ="${data[i]['id']}" selected>${data[i]['name']}</option>`;
+                        } else {
+                            str += `<option value ="${data[i]['id']}">${data[i]['name']}</option>`;
+                        }
+                    }
+                    $('#erji').html(str);
+                } else {
+                    window.alert(message['msg']);
+                }
+            }, 'json');
+    }
+
+    $('#yiji').change(function(){
+        var id = $(this).val();
+        geterji(id, 0);
+    });
+</script>
+</body>
+</html>

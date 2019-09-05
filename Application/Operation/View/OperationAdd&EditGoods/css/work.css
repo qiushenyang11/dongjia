@@ -1,0 +1,145 @@
+* { margin: 0; padding: 0 }
+dl, dt, dd, ul, ol, li { list-style: none }
+table { border-collapse: collapse }
+.clear { clear: both; font-size: 0; height: 0; overflow: hidden }
+img { border: 0 }
+body { color: #68696c; font-size:12px; font-family: Arial, 'Microsoft Yahei'; -webkit-text-size-adjust: none;  background-color: #fff; -webkit-overflow-scrolling: touch; } /*behavior: url("csshover.htc");*/
+select, input { font-size: 1em; vertical-align: middle; _vertical-align: baseline }
+h1, h2, h3, h4, h4, h5, h6 { font-size: 1em; font-weight: normal }
+a { color: #575757; text-decoration: none; outline:0 none; -webkit-tap-highlight-color: transparent; }
+a:hover { text-decoration: none; color:#575757; }
+a:active {background-color:inherit;}
+input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"]>input[type="button"]::-moz-focus-inner {
+border:0 none;
+padding:0
+}
+p{line-height:20px;}
+button, input, optgroup, select, textarea { color: inherit; font: inherit; margin: 0; }
+button { overflow: visible; }
+button, select { text-transform: none; }
+button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: none; cursor: pointer; }
+button[disabled], html input[disabled],textarea[disabled] { cursor: default; color:#999; background-color:#f1f1f1;}
+button::-moz-focus-inner, input::-moz-focus-inner {
+border: 0;
+padding: 0;
+}
+.clearfix { zoom: 1 }
+.clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden }
+input { line-height: normal; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+height: auto;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+html {overflow-x:hidden;}
+textarea { resize: none; outline: 0 }
+*html { background-image: url(about:blank); background-attachment: fixed }
+ul li{
+	float:left}
+.main{
+	position: absolute;
+	top:0;left:0;bottom: 0;right: 0;
+	background:url(../images/login_bg.jpg);
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+	-webkit-background-size:100% 100%;
+	}
+.right{
+	position:absolute;
+	top:0;
+	bottom: 0;
+	right: 0px;
+	width: 350px;
+	background:url(../images/bg_p.png) repeat;
+	padding:0 35px;
+	}
+.login{
+	margin-top:65%;
+	}
+.u1{
+	width:100%;
+	color:#D8DCE6;
+	font-size:25px;
+	list-style:none}
+.u1 li{
+	width:98%;text-align:center;height: 40px;line-height: 40px;cursor: pointer;color:#1642e5;margin-bottom: 20px;
+	}
+.login_wrap {margin-top: 30px;}
+.login_wrap table{width: 100%;}
+.login_wrap tr td{height:45px;}
+.login_wrap tr td:first-child{width:80px;font-size:16px;color:#000;text-align: right;padding-right: 15px;}
+.login_wrap tr td:last-child{padding-right:30px;}
+.login_wrap tr td input{border:0 none;outline: 0 none;width:100%;height:30px;line-height: 30px;font-size:13px;padding:0 10px;box-sizing: border-box;}
+.login_btn{margin-top:15px;padding: 0 30px;}
+.login_btn input {width:100%;height:35px;background:#587EE3;color:white;text-align:center;font-size:14px;border:none;border-radius:5px;-webkit-border-radius:5px;}
+.remember_forget{padding: 0 30px;}
+.remember_forget li,.remember_forget li a{color:#1642e5;}
+.logo_wrap {
+    background: url(../images/logo.png) no-repeat 0 0;
+    background-size: 100%;
+    height: 150px;
+    width: 285px;
+    position: absolute;
+    left: 80px;
+    top: 50px;
+}
+
+.u2{
+	width:250px;
+	height:25px;
+	background:#1642e5;
+	list-style:none;
+	font-size:15px;
+	border-bottom:1px solid  #3A3535;
+	margin-bottom:35px;
+	margin-left:25px;
+	}
+.u3{
+	width:100%;
+	border:none;
+	list-style:none;
+	font-size:12px;
+	color:#1642e5;
+	margin-top:5px}
+
+@media screen and (max-width: 1400px) {
+	.login{
+		margin-top:60%;
+	}
+}
+
+
+.login_wrap tr 	td select{
+	border: 0 none;
+	outline: 0 none;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 13px;
+	padding: 0 10px;
+	box-sizing: border-box;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

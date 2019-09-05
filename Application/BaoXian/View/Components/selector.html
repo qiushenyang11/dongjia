@@ -1,0 +1,108 @@
+<div class="col-lg-12 col-xl-4 offset-xl-2">
+    <!-- .card -->
+    <section id="input-group" class="card">
+        <!-- .card-body -->
+        <div class="card-body" id="selector-vm">
+            <!-- .form -->
+            <form>
+                <!-- .fieldset -->
+                <fieldset>
+                    <legend id="operaTitle">筛选产品</legend>
+                    <volist id="vo" name="product" key="outIndex">
+                        <div class="form-group">
+                            <label class="control-label">{$vo.name}</label>
+                            <div class="media">
+                                <div class="col-6">
+                                    <img src="{$vo.pic}" class="col-12" alt="User Avatar">
+                                </div>
+
+                                <div class="col-6 baoxian-selector">
+                                    <if condition="($vo.name eq '同方全球「传世荣耀」保险产品计划')">
+                                        <div class="rongyao-area">
+                                            <template v-for="(people, index) in Object.keys(form_rongyao.people)">
+                                                <div class="selector">
+                                                    <label class="control-label" style="width: 30%">{{ form.rongyao.people[people].label }}</label>
+                                                    <el-input-number @change="handleChunxiangChange(people, $event)" v-model="form.rongyao.people[people].baozhang.shengu" size="small" :min="0" :max="9000" label="保额"></el-input-number>万
+                                                    </el-select>
+                                                </div>
+                                                <div class="selector">
+                                                    <label class="control-label" style="width: 30%">交费时长</label>
+                                                    <el-select v-model="form_rongyao.people[people].baofei.year" placeholder="请选择">
+                                                        <el-option
+                                                                v-for="item in form_rongyao.year_choose_opts"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                                <p>每年保费：{{ form_rongyao.people[people].baofei.amount }}元</p>
+                                            </template>
+                                        </div>
+                                        <elseif condition="$vo.name eq '招商 醇享人生'"/>
+                                        <div class="core-medical">
+                                            <label class="control-label">核心医疗保障</label>
+                                            <el-select v-model="form_chunxiang.core_medical_insurance.value" placeholder="请选择">
+                                                <el-option
+                                                        v-for="item in form_chunxiang.core_medical_insurance.options"
+                                                        :key="item.value"
+                                                        :label="item.label"
+                                                        :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                        <div class="ext-medical">
+                                            <label class="control-label">非公立医院自付比例（可选）</label>
+                                            <el-select v-model="form_chunxiang.ext_medical_insurance.value" placeholder="请选择">
+                                                <el-option
+                                                        v-for="(ext_m_value, ext_m_index) in form_chunxiang.ext_medical_insurance.options"
+                                                        :label="ext_m_value.label"
+                                                        :value="ext_m_value.value">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                        <div class="dental-care">
+                                            <label class="control-label">综合牙科保障（可选）</label>
+                                            <el-select v-model="form_chunxiang.dental_care.value" placeholder="请选择">
+                                                <el-option
+                                                        v-for="(dental_m_value, dental_m_index) in form_chunxiang.dental_care.options"
+                                                        :label="dental_m_value.label"
+                                                        :value="dental_m_value.value">
+                                                </el-option>
+                                            </el-select>
+                                        </div>
+                                        <elseif condition="$vo.name eq '泰康尊享计划'"/>
+                                        <div class="taikang-area">
+                                            <template v-for="(people, index) in Object.keys(form_taikang.people)">
+                                                <p>年交保费</p>
+                                                <div class="selector">
+                                                    <label class="control-label">{{ form.taikang.people[people].label }}</label>
+                                                    <el-input-number @change="handleTaikangChange(people, $event)" v-model="form.taikang.people[people].baofei.amount" size="small" :min="0" :max="1000000" label="保费"></el-input-number>元
+                                                    </el-select>
+                                                </div>
+                                                <label class="control-label" style="width: 30%">交费时长</label>
+                                                <el-select v-model="form_taikang.people[people].baofei.year" placeholder="请选择">
+                                                    <el-option
+                                                            v-for="item in form_taikang.year_choose_opts"
+                                                            :key="item.value"
+                                                            :label="item.label"
+                                                            :value="item.value">
+                                                    </el-option>
+                                                </el-select>
+                                            </template>
+                                            <el-button type="primary" @click="handleTaikangChange">更新结果</el-button>
+                                        </div>
+                                    </if>
+                                </div>
+                            </div>
+                        </div>
+                    </volist>
+                </fieldset>
+                <!-- /.fieldset -->
+            </form>
+            <!-- /.form -->
+        </div>
+        <!-- /.card-body -->
+    </section>
+    <!-- /.card -->
+</div>

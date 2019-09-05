@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>管家信息</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">菜单设置</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get">
+
+        <input type="hidden" name="p" value="1">
+
+        <a href="{:U('menu_set')}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;">添加一级菜单</button></a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">ID</th>
+            <th width="10%" align="center">菜单级别</th>
+            <th width="5%"  align="center">排序</th>
+            <th width="16%" align="center">菜单文字</th>
+            <th width="16%" align="center">菜单链接</th>
+            <th width="16%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.layer}</td>
+                <td><input />   {$vo.row_sort}</td>
+                <td>{$vo.menu_name}</td>
+                <td>{$vo.url}</td>
+                
+                <td align="center" id="m_{$vo.id}" >
+                   <a href="{:U('menu_edit')}?id={$vo.id}">
+                        <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">修改</button> 
+                   </a>
+                   <a href="{:U('menu_edit')}?id={$vo.id}">
+                        <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">添加下级菜单</button> 
+                   </a>
+                   
+                </td>                
+                
+            </tr>
+        </volist>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>

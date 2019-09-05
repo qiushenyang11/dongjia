@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>东家VIP权益限量发放</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+      window.browser = {
+        versions: function () {
+          let u = navigator.userAgent;
+          return {
+            trident: u.indexOf('Trident') > -1,
+            presto: u.indexOf('Presto') > -1,
+            webKit: u.indexOf('AppleWebKit') > -1,
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            android: u.indexOf('Android') > -1,
+            iPhone: u.indexOf('iPhone') > -1,
+            iPad: u.indexOf('iPad') > -1,
+            jdjr: u.indexOf('JDJR-App') > -1,
+            webApp: u.indexOf('Safari') === -1,
+            wechat: u.indexOf('MicroMessenger') !== -1
+          };
+        }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+      };</script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      //      window.ga = function () {
+      //        console.log('ga', arguments)
+      //      };
+      window.ga('create', 'UA-115976658-1', 'auto');
+      function getRequest() {
+        var url = window.location.href;
+//                console.log(url);
+        if (url.indexOf('?') !== -1) {
+          var str = url.substr(url.indexOf('?') + 1);
+          var strs = str.split('&');
+          var result = {};
+          for (var temp in strs) {
+            var tp = strs[temp].split('=');
+            result[tp[0]] = tp[1];
+          }
+          return result;
+        } else {
+          return {};
+        }
+      }
+      function ajax() {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response)
+            } else {
+              ajaxData.error()
+            }
+          }
+        }
+      }
+      function createxmlHttpRequest() {
+        if (window.ActiveXObject) {
+          return new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+          return new XMLHttpRequest();
+        }
+      }
+      function convertData(data) {
+        if (typeof data === 'object') {
+          var convertResult = "";
+          for (var c in data) {
+            convertResult += c + "=" + data[c] + "&";
+          }
+          convertResult = convertResult.substring(0, convertResult.length - 1)
+          return convertResult;
+        } else {
+          return data;
+        }
+      }
+      var para = getRequest();
+      var GAStr;
+      var paraStr = '';
+
+      if (para.aid) {
+        paraStr = paraStr + '&aid=' + para.aid;
+      }
+      if (para.utm_medium) {
+        paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+      }
+      if (para.utm_source) {
+        paraStr = paraStr + '&utm_source=' + para.utm_source;
+      }
+      if (para.utm_campaign) {
+        paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+      }
+      if (paraStr.length > 1) {
+        paraStr = '?' + paraStr.substring(1);
+      }
+      //      GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+      GAStr = window.location.pathname + window.location.hash.substring(1);
+      window.ga('send', 'pageview', GAStr);
+      //ajax({
+      //    type:"POST",
+      //    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+      ////    dataType:"json",
+      //    data:{
+      //        channelId: para.utm_medium,
+      //        sgId: 13,
+      //        scenceId: para.utm_source,
+      //        status: 0
+      //    }
+      //})
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #161415;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+    <img src="//m.360buyimg.com/mobilecms/jfs/t23656/282/778579179/169947/292cea4a/5b42f878N5d45306e.jpg" style="width:100%;height:auto;">
+    <div class="docp" style="width:100%;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+        <div style="width:70.6%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;">
+            <div class="info" style="width:71.7%;height:30px;border:solid 1px #fada97;border-radius:3px;color:#fada97;font-size:18px;display:flex;flex-direction:row;justify-content:center;align-items:center;margin-right:10px;">
+                <span style="font-size:16px;">微信号：</span>guanjiamark
+            </div>
+            <div class="noinput"></div>
+            <button class="copyBtn" type="button" style="width:24.1%;height:32px;border:solid 1px #fada97;border-radius:3px;color:#161415;background-color:#fada97;font-size:12px;" onclick="var a=document.createElement('input');var b=document.querySelector('.noinput');a.setAttribute('readonly','readonly');a.setAttribute('value','guanjiamark');b.appendChild(a);a.focus();a.setSelectionRange(0,11);console.log(a.setSelectionRange(0,11));if(document.execCommand('copy')){document.execCommand('copy');alert('复制成功');};b.removeChild(a);">点击复制</button>
+        </div>
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/0726quanyi/03.jpg" style="width:100%;height:auto;">
+    <img src="//m.360buyimg.com/mobilecms/jfs/t23551/365/779968032/182872/8cb85b4/5b42f74aN0147f966.jpg" style="width:100%;height:auto;">
+    <img src="//m.360buyimg.com/mobilecms/jfs/t24049/58/778951540/163354/b69a4927/5b42f74aNa40217fb.jpg" style="width:100%;height:auto;">
+    <img src="//m.360buyimg.com/mobilecms/jfs/t21034/312/2048022302/31877/aef73679/5b42f749N0cec53a5.jpg" onclick="window.location.href='/myWeb/WeChat/WeChatGuanJia/index?#/index';" style="width:100%;height:auto;">
+    <img src="https://file.rose52.com/guanjia/activity/0726quanyi/07.jpg" style="width:100%;height:auto;">
+    <div style="width:100%;display:flex;flex-direction:row;justify-content:center;align-items:center;">
+        <div class="noinput1">
+        </div>
+        <img src="https://file.rose52.com/guanjia/activity/0726quanyi/08.png" onclick="var c=document.createElement('input');var d=document.querySelector('.noinput1');c.setAttribute('readonly','readonly');c.setAttribute('value','guanjiamark');d.appendChild(c);c.focus();c.setSelectionRange(0,11);if(document.execCommand('copy')){document.execCommand('copy');alert('复制成功');};d.removeChild(c);" style="width:60%;height:auto;">
+        <img src="https://file.rose52.com/guanjia/activity/0726quanyi/right.png" style="width:40%;height:auto;" >
+    </div>
+    <img src="//m.360buyimg.com/mobilecms/jfs/t19906/282/2410891953/37518/4b796e4/5b42f894Nad22e369.jpg" style="width:100%;height:auto;">
+</div>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '东家VIP权益限量发放',
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '首单减100、终身折扣，送限量京东JOY公仔',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0726quanyi/share.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '东家VIP权益限量发放', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/0726quanyi/share.png',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+{$jdUnder}
+</body>
+</html>

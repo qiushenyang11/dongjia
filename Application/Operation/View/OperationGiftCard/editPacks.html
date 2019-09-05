@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑卡包</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+    <style>
+        .baseinfo{padding-left:50px;font-weight:900;font-size:18px}
+        .main{background-color:white;padding-top:20px}
+        .redioType{margin-top:7px;}
+        .redioTypeLeft{margin-top:7px;margin-left: -50px}
+        .priceNum{margin-left:-55px}
+        .wenzi{margin-top:8px}
+        .saleNum{margin-left:-30px}
+        #idcards{
+            display: flex;
+            flex-direction: row;
+            max-width: 700px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .selectItem {
+            margin-left: 15px;
+            background-color:#E6E6E6;
+            min-width: 50px;
+            min-height: 28px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            line-height: 28px;
+        }
+        .selectItem span {
+            cursor: pointer;
+            padding-left: 10px;
+            font-size: 26px;
+            color: #446C94;
+            font-weight: 900;
+            line-height: 24px;
+            display: block;
+        }
+        .outcolor{
+            color:#cccccc;
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 35px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 35px;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">卡包管理</a></li>
+    <li class="active">编辑卡包</li>
+</ol>
+
+<div class="container row main">
+    <form action="" method="post" class="form-horizontal">
+        <div class="form-group col-sm-12 baseinfo">基础信息</div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*卡包名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"   value="{$res.name}" name="name" placeholder="" id="name">
+            </div>
+        </div>
+
+        <div class="form-group" id="discountInfo">
+            <label for="" class="col-sm-2 control-label outcolor">*发行份数</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control outcolor"  value="{$res.num}"  name="name" placeholder="" id="count" disabled>
+            </div>
+            <div class="col-sm-1 wenzi outcolor">份</div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*卡包有效期</label>
+            <div class="col-sm-2">
+                <input type="text" name=""  value="{$res.time}" class="form-control" value="" id="packsdata" placeholder="选择卡包有效期">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*绑定礼品卡</label>
+            <div class="col-sm-3" id="">
+                <select name="" id="serachvalue" class="form-control"></select>
+            </div>
+            <div class="col-sm-1">
+                <button type="button" name="" id="addButton" class="btn btn-primary saveButton" style="width:60px;background:#1AB394;border:0">添加</button>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div id="idcards">
+                <volist name="res.cardlist" id="vo">
+                    <div class="item selectItem" data-id="{$vo.id}" data-name="{$vo.name}" data-tag="{$vo.id}">{$vo.id}:{$vo.name} <span class="delButton">×</span></div>
+                </volist>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >卡包状态</label>
+            <div class="col-sm-2 redioType">
+                <input type="radio" name="status" class="status" value="1"  id=""  <if condition="$res.status eq '1'">checked</if>>
+                <span>可以绑定</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input type="radio" name="status" class="status" value="0" id="" <if condition="$res.status eq '0'">checked</if>>
+                <span>停止绑定</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary saveButton" style="width:150px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    // 添加选择的礼品卡
+    //选择礼品卡
+    $(function () {
+        $('#serachvalue').select2({
+
+            placeholder:'请输入礼品卡ID或名称',
+            ajax: {
+                url: "{:U('CardApi/Card/searchCard')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        key: params.term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    })
+
+    $("#addButton").click(function(){
+        var data = $('#serachvalue').select2('val');
+        console.log(1111);
+        var str = '';
+        var type = 0;
+        var name = '';
+        var id = 0;
+        if (data) {
+            data = data.split(',')
+            id = data[0];
+            name = data[1];
+            var tag = id;
+            var str = id+':'+name;
+            var length = $(".selectItem[data-tag='"+tag+"']").length
+            if (!length) {
+                str='<div class="item selectItem" data-id="'+id+'" data-name="'+name+'" data-tag="'+tag+'">'+str+' <span class="delButton">×</span></div>';
+                $("#idcards").append(str);
+            }
+        }
+        $('#urltype').empty();
+    })
+
+    /*删除一个礼品卡条件*/
+    $("#idcards").on('click','.delButton',function(){
+        $(this).parents('.selectItem').remove();
+    })
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+    }
+    var newDate = new Date();
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+
+    $("#packsdata").jeDate({
+        format: "YYYY-MM-DD",
+        minDate:nowdate
+    })
+    $("#surebtn").click(function(){
+        var fenshu =/^[1-9]*[1-9][0-9]*$/;
+        var name=$("#name").val();
+        var num = $("#count").val();
+        var timetype=1;
+        var time=$("#packsdata").val();
+        var cardlists=''
+        $('.selectItem').each(function(){
+            cardlists+=$(this).attr('data-id')+';'+$(this).attr('data-name')+',';
+        })
+        var cardlist=cardlists.substr(0,cardlists.length-1);
+        var status = $(".status:checked").val();
+        if(!name){
+            window.alert('请输入卡包名称');
+        }else if(!num){
+            window.alert('请输入发行份数');
+        }else if(!time){
+            window.alert('请输入卡包有效期');
+        }else if(!fenshu.test(num)){
+            window.alert('请输入正确的发行份数');
+        }else if(!cardlist){
+            window.alert('请绑定礼品卡');
+        }else if(!status){
+            window.alert('请选择礼品卡包状态');
+        }else{
+            $.post("{:U('CardApi/Card/updateCard')}",
+                {
+                    id:'{$res.id}',
+                    parent:1,
+                    name:name,
+                    num:num,
+                    timetype:timetype,
+                    time:time,
+                    cardlist:cardlist,
+                    status:status
+                },
+                function(res){
+                    if(res.state==1){
+                        alert(res.msg);
+                        window.location.href="{:U('OperationGiftCard/packsIndex')}";
+                    }else{
+                        alert(res.msg);
+                    }
+                },
+                'json'
+            );
+        }
+    })
+
+</script>
+</body>
+</html>

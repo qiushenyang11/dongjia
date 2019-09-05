@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <!-- End Required meta tags -->
+    <title> Sign In | Looper - Bootstrap 4 Admin Theme </title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/BaoXian/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="__PUBLIC__/BaoXian/assets/favicon.ico">
+    <meta name="theme-color" content="#3063A0">
+    <!-- BEGIN BASE STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/fontawesome/css/fontawesome.all.css">
+    <!-- END BASE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/main.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/custom.css">
+    <!-- END THEME STYLES -->
+
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/jd.css">
+    <style>
+        .form-group .icon {
+            width: 100px
+        }
+        .productImg {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+<!-- .auth -->
+<main class="auth">
+    <div class="wrapper col-12">
+        <div class="page">
+            <div class="page-inner">
+                <!-- grid row -->
+                <div class="row col-12">
+                    <!-- grid column -->
+                    <div class="col-lg-12 col-xl-8 offset-xl-2">
+                        <!-- .card -->
+                        <div class="card card-fluid">
+                            <header class="card-header d-flex align-items-center" id="sampleTitle"></header>
+                            <!-- grid row -->
+                            <div class="row no-gutters">
+                                <!-- grid column -->
+                                <div class="col-lg-8 order-lg-4">
+                                    <!-- .card-body -->
+                                    <div class="card-body border-left">
+                                        <canvas id="canvas-achievement" class="chartjs"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /grid column -->
+                                <!-- grid column -->
+                                <div class="col-lg-4 order-lg-1">
+                                    <div class="list-group list-group-flush list-group-bordered" id="sampleDetail"></div>
+                                </div>
+                                <!-- /grid column -->
+                            </div>
+                            <!-- /grid row -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /grid column -->
+
+                </div>
+                <!-- /grid row -->
+                <!-- grid row -->
+                <div class="row col-12">
+                    <!-- grid column -->
+                    <div class="col-lg-12 col-xl-4 offset-xl-2">
+                        <!-- .card -->
+                        <section id="input-group" class="card">
+                            <!-- .card-body -->
+                            <div class="card-body">
+                                <!-- .form -->
+                                <form>
+                                    <!-- .fieldset -->
+                                    <fieldset>
+                                        <legend id="operaTitle">筛选产品</legend>
+                                    </fieldset>
+                                    <!-- /.fieldset -->
+                                </form>
+                                <!-- /.form -->
+                            </div>
+                            <!-- /.card-body -->
+                        </section>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /grid column -->
+                    <!-- .col -->
+                    <div class="col-lg-12 col-xl-4">
+                        <!-- .card -->
+                        <section class="card">
+                            <!-- .card-body -->
+                            <div class="card-body">
+                                <canvas id="canvas-polar-area" style="height:400px" class="chartjs"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                            <!-- .card-footer -->
+                            <div class="card-footer">
+                                <div class="card-footer-item">总价：<span id="totalCount">0</span>万元</div>
+                            </div>
+                            <!-- /.card-footer -->
+                        </section>
+                        <!-- /.card -->
+                        <!-- .card -->
+                        <section class="card">
+                            <!-- .card-body -->
+                            <div class="card-body" style="height:480px">
+                                <canvas id="canvas-bar" class="chartjs"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                        </section>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /grid row -->
+            </div>
+
+        </div>
+    </div>
+</main>
+<!-- /.auth -->
+<!-- BEGIN PLUGINS JS -->
+<script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/popper.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/stacked-menu/stacked-menu.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/chart.js/Chart.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/javascript/pages/chartjs-bar-demo.js"></script>
+<script>
+  let productList = [];
+  var chartjsOtherDemo = {
+    chartObj: Object,
+    config: Object,
+    init: function init(product) {
+
+      this.bindUIActions(product);
+    },
+    bindUIActions: function bindUIActions(product) {
+      // turn off aspect ratio to get better mobile view
+      Chart.defaults.global.maintainAspectRatio = false;
+
+      // event handlers
+      this.polarAreaChart(product);
+    },
+    colors: function colors() {
+      return {
+        red: '#B76BA3',
+        orange: '#EC935E',
+        yellow: '#F7C46C',
+        green: '#A7C796',
+        teal: '#00A28A',
+        blue: '#346CB0',
+        purple: '#5F4B8B',
+        gray: '#BEC1C4'
+      };
+    },
+    getColor: function getColor(color) {
+      return this.colors()[color];
+    },
+    colorNames: function colorNames(color) {
+      return Object.keys(this.colors());
+    },
+    randomScalingFactor: function randomScalingFactor() {
+      return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+    },
+    randomScaling: function randomScaling() {
+      return Math.round(Math.random() * 100);
+    },
+    months: function months() {
+      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    },
+    polarAreaChart: function polarAreaChart(product) {
+      var self = this;
+      let nameList = [];
+      let totalList = [];
+      for (let item of product) {
+        nameList.push(item.name);
+        totalList.push(item.total);
+      }
+      self.config = {
+        data: {
+          datasets: [{
+            data: totalList,
+            backgroundColor: [Chart.helpers.color(self.getColor('red')).alpha(0.5).rgbString(), Chart.helpers.color(self.getColor('purple')).alpha(0.5).rgbString(), Chart.helpers.color(self.getColor('yellow')).alpha(0.5).rgbString(), Chart.helpers.color(self.getColor('teal')).alpha(0.5).rgbString(), Chart.helpers.color(self.getColor('blue')).alpha(0.5).rgbString()],
+            label: 'My dataset' // for legend
+          }],
+          labels: nameList
+        },
+        options: {
+          responsive: true,
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: 'Polar Area Chart'
+          },
+          scale: {
+            ticks: {
+              beginAtZero: true
+            },
+            reverse: false
+          },
+          animation: {
+            animateRotate: false,
+            animateScale: true
+          }
+        }
+        // init chart polar area
+      };
+
+      var canvas = $('#canvas-polar-area')[0].getContext('2d');
+      self.chartObj = Chart.PolarArea(canvas, self.config);
+    },
+    update: function update(product) {
+      let totalList = [];
+      for (let item of product) {
+        totalList.push(item.total);
+      }
+      this.config.data.datasets[0].data = totalList;
+      this.chartObj.update(this.config);
+    }
+  };
+</script>
+<script>
+  let operaTitle = $('#operaTitle');
+  let spinner3;
+  let totalCount = $('#totalCount');
+  var getProductInfo = () => {
+    let lastIndex = -1;
+    let output = [];
+    let temp = {};
+    spinner3.each((e) => {
+      let index = spinner3.eq(e).data('group');
+      let price = parseInt(spinner3.eq(e).val());
+      let tag = spinner3.eq(e).data('tag');
+      let product = spinner3.eq(e).data('product');
+
+      if (tag.indexOf('孩子') !== -1) {
+        tag = 'child' + tag.split('孩子')[1];
+      }
+
+      if (tag.indexOf('配偶') !== -1) {
+        tag = 'fere' + tag.split('配偶')[1];
+      }
+
+      if (parseInt(index) !== parseInt(lastIndex)) {
+        if (parseInt(lastIndex) !== -1) {
+          output.push(temp);
+        }
+        lastIndex = index;
+        temp = {name: product};
+      }
+      temp[tag] = price;
+
+    });
+    output.push(temp);
+    return output;
+  };
+  var spinnerDemo = {
+    init: function init(sample) {
+
+      this.bindUIActions(sample);
+    },
+    bindUIActions: function bindUIActions(sample) {
+
+      // event handlers
+      let self = this;
+      $.ajax({
+        url: '/myWeb/BaoXian/BaoXianSB/getInsuranceProduct',
+        type: 'post',
+        data: {},
+        success(data) {
+          let product = JSON.parse(data).data;
+          self.handleSpinners(product, sample);
+        }
+      });
+    },
+    handleSpinners: function handleSpinners(product, sample) {
+      let content = '';
+      let nowSample = sample.nowSample;
+      let inputCount = [sample.nowSample.name];
+
+      for (let i = 1; i <= parseInt(nowSample.child); i++) {
+        inputCount.push(`孩子${i}`);
+      }
+      if (parseInt(sample.nowSample.marry)) {
+        inputCount.push(`配偶`);
+      }
+      for(let [outIndex, item] of product.entries()) {
+        productList.push({name: item.name, total: 0});
+        let input = '';
+        for(let value of inputCount) {
+          input += `${value}<input type="text" value="0" class="spinner3" data-product="${item.name}" data-tag="${value}" data-group="${outIndex}">`;
+        }
+        content += `<div class="form-group"><label class="control-label">${item.name}</label><div class="media"><div class="col-6"><img src="${item.pic}" class="col-12" alt="User Avatar"></div><div class="col-6">${input}</div></div></div>`;
+      }
+      operaTitle.eq(0).after(content);
+      spinner3 = $('.spinner3');
+      // With prefix
+      spinner3.TouchSpin({
+        buttondown_class: 'btn btn-secondary',
+        buttonup_class: 'btn btn-secondary',
+        min: 0,
+        max: 1000000000,
+        stepinterval: 50,
+        maxboostedstep: 10000000,
+        postfix: '万元'
+      }).on('touchspin.on.startspin', function () {
+//        chartjsOtherDemo.init();
+      });
+      chartjsOtherDemo.init(productList);
+      spinner3.change(() => {
+        let lastIndex = -1;
+        let index;
+        let count = 0;
+        spinner3.each((e) => {
+          index = spinner3.eq(e).data('group');
+          count += parseInt(spinner3.eq(e).val());
+
+          if (productList[index]) {
+            if (index != lastIndex) {
+              productList[index].total = 0;
+              lastIndex = index;
+            }
+            productList[index].total += parseInt(spinner3.eq(e).val());
+          }
+        });
+        totalCount.text(count);
+        chartjsOtherDemo.update(productList);
+      });
+    }
+  };
+</script>
+<script>
+  let sampleInfo = {};
+  let sampleDetail = $('#sampleDetail');
+  let sampleTitle = $('#sampleTitle');
+
+  function setDetail(data) {
+    let content = '';
+    for (let index in data) {
+      let value = data[index];
+      content += `<div class="list-group-item justify-content-between"><span class="text-muted">${index}</span><strong>${value}</strong></div>`
+    }
+
+    sampleDetail.html(content);
+  }
+  function setTitle(id, total) {
+    sampleTitle.html(`<span class="mr-auto">${id} <span class="text-muted">(总共${total}个)</span></span>`);
+  }
+  function setDetailInfo(sample) {
+    setTitle(sample.nowSample.name, sample.allSampleCount);
+    setDetail({
+      '样本版本': sample.nowSample.sampleversion,
+      '年龄': sample.nowSample.age,
+      '孩子': `${sample.nowSample.child}个孩子`,
+      '收入': sample.nowSample.income + '万',
+      '婚姻状况': parseInt(sample.nowSample.marry) === 1 ? '已婚' : '未婚',
+      '性别': parseInt(sample.nowSample.sex) ? '男' : '女'
+    });
+  }
+  var dashboardDemo = {
+    init: function init() {
+
+      this.bindUIActions();
+    },
+    bindUIActions: function bindUIActions() {
+      // turn off aspect ratio to get better mobile view
+      Chart.defaults.global.maintainAspectRatio = false;
+      let self = this;
+      let sample = JSON.parse(`{"allSampleCount":"488","readySample":"0","nowSample":{"id":"489","name":"\\u6837\\u672c\\u7528\\u62370","sex":"1","marry":"1","age":"38","child":"1","investhistory":"100:1528214400;150:1528214410;200:1528214100;300:1528314400","income":"200","sampleversion":"1531119722"}}`);
+      // event handlers
+      if (window.location.origin === 'http://www.runtest.test') {
+        self.handleTasksChart(sample);
+        self.handleFlatpickr();
+        spinnerDemo.init(sample);
+      } else {
+        $.ajax({
+          url: '/myWeb/index.php/BaoXian/BaoXianSB/getSample',
+          type: 'post',
+          data: {
+            id: 1
+          },
+          success(data) {
+            sample = JSON.parse(data).data;
+            sampleInfo = sample;
+            self.handleTasksChart(sample);
+            self.handleFlatpickr();
+            spinnerDemo.init(sample);
+          }
+        });
+      }
+    },
+    colors: function colors() {
+      return {
+        red: '#B76BA3',
+        orange: '#EC935E',
+        yellow: '#F7C46C',
+        green: '#A7C796',
+        teal: '#00A28A',
+        blue: '#346CB0',
+        purple: '#5F4B8B',
+        gray: '#BEC1C4'
+      };
+    },
+    getColor: function getColor(color) {
+      return this.colors()[color];
+    },
+    colorNames: function colorNames(color) {
+      return Object.keys(this.colors());
+    },
+    randomScalingFactor: function randomScalingFactor() {
+      return 5 * Math.round(Math.random() * 100);
+    },
+    handleTasksChart: function handleTasksChart(sample) {
+      var self = this;
+      var investhistory = sample.nowSample.investhistory.split(';');
+      var labels = [];
+      var labelsData = [];
+
+      setDetailInfo(sample);
+
+      labels.push('更早');
+      labelsData.push(0);
+
+      for (let i of investhistory) {
+        let temp = i.split(':');
+        let time = new Date(parseInt(temp[1]) * 1000);
+        labels.push(`${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`);
+        labelsData.push(parseInt(temp[0]));
+      }
+      var data = {
+        labels: labels,
+        datasets: [{
+          backgroundColor: self.getColor('blue'),
+          borderColor: self.getColor('blue'),
+          borderWidth: 1,
+          data: labelsData
+        }]
+        // init chart bar
+      };
+      var canvas = $('#canvas-achievement')[0].getContext('2d');
+      var chart = new Chart(canvas, {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          legend: { display: false },
+          title: { display: false },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: true,
+                drawBorder: false,
+                drawOnChartArea: false
+              },
+              ticks: {
+                maxRotation: 0,
+                maxTicksLimit: 3
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true,
+                drawBorder: false
+              },
+              ticks: {
+                beginAtZero: true,
+                stepSize: 100
+              }
+            }]
+          }
+        }
+      });
+    },
+    handleFlatpickr: function handleFlatpickr() {
+      flatpickr('#flatpickr', {
+        inline: true,
+        disableMobile: true,
+        mode: 'range',
+        dateFormat: 'Y-m-d'
+      });
+
+      $('#flatpickr').next().on('click', function (e) {
+        e.stopPropagation();
+      });
+    }
+  };
+
+  dashboardDemo.init();
+</script>
+<!-- END PLUGINS JS -->
+</body>
+</html>

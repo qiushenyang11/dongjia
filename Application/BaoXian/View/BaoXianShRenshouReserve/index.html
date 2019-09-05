@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125783604-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-125783604-1');
+    </script>
+    <title>京东金融稳赢一生年金保险</title>
+</head>
+<style>
+
+    * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Microsoft Yahei','\5FAE\8F6F\96C5\9ED1',Arial,'Hiragino Sans GB','\5B8B\4F53';
+    }
+
+    .desc-images {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .desc-images img {
+        position: relative;
+        width: 100%;
+        margin-top: -4px;
+    }
+
+    .desc-images .reserve-now {
+        border-radius: 5px;
+        position: fixed;
+        bottom: 35px;
+        right: 10px;
+        height: 160px;
+        width: 300px;
+        background: #fff;
+        color: #333;
+        z-index: 2;
+        box-shadow: 1px 1px 15px #999999;
+
+    }
+
+    .desc-images .reserve-now .title {
+        display: flex;
+        margin-top: 20px;
+        margin-left: 10px;
+        font-size: 25px;
+    }
+
+    .desc-images .reserve-now .desc {
+        display: flex;
+        width: 75%;
+        height: 54%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+        margin: auto;
+    }
+
+    .desc-images .reserve-now .desc input {
+        -webkit-appearance: none;
+        background-color: #fff;
+        background-image: none;
+        border: 0;
+        border-bottom: 1px solid #dcdfe6;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: #606266;
+        display: inline-block;
+        font-size: inherit;
+        height: 40px;
+        line-height: 40px;
+        outline: 0;
+        padding: 0 15px;
+        -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        width: 100%;
+    }
+
+    .desc-images .reserve-now .desc button {
+        color: #fff;
+        display: inline-block;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid #dcdfe6;
+        -webkit-appearance: none;
+        text-align: center;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: 0;
+        margin: 0;
+        -webkit-transition: .1s;
+        transition: .1s;
+        font-weight: 500;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        padding: 12px 20px;
+        font-size: 14px;
+        border-radius: 4px;
+        width: 100%;
+        background-color: rgb(234, 77, 77);
+    }
+
+    .dialog-background {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    /*模态框内容*/
+    .modal-content {
+        display: flex; /*采用flexbox布局*/
+        flex-direction: column; /*垂直排列*/
+        position: relative;
+        background-color: #fefefe;
+        margin: 15% auto; /*距顶部15% 水平居中*/
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        animation: topDown 0.4s; /*自定义动画，从模态框内容上到下出现*/
+    }
+
+    @keyframes topDown {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+    }
+
+    /*模态框头部*/
+    .modal-header {
+        display: flex; /*采用flexbox布局*/
+        flex-direction: row; /*水平布局*/
+        align-items: center; /*内容垂直居中*/
+        justify-content: space-between;
+    }
+
+    .modal-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-body div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-body div p {
+        font-size: 35px;
+    }
+
+    /*关闭X 样式*/
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+</style>
+<body style="background-color: #fff" >
+<span id="user-jdpin" style="display: none;">{$current_jdpin}</span>
+<div class="dialog-background" style="display: none;" id="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2></h2>
+            <span id="closeBtn" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div style="width: 55%;">
+                <img src="https://file.rose52.com/shrenshou/img/jddog.png" alt="" width="20%" height="20%"><p style="font-size: 25px;margin-left: 30px;" id="dialog-content">预约成功!</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+<div class="desc-images">
+    <div class="reserve-now">
+        <div class="title">
+            <div class="img">
+                <img src="https://file.rose52.com/shrenshou/img/jddog.png" alt="" style="height: 40px;width: 50px;">
+            </div>
+            <div style="margin-left: 30px;">立即预约</div>
+        </div>
+        <div class="desc">
+            <button id="goto-chart" style="margin: auto;">查看利益演示</button>
+            <button id="reserve-now" style="margin: auto;">立刻预约</button>
+        </div>
+    </div>
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_01.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_02.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_03.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_04.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_05.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_06.jpg?ver=0827" alt="">
+    <img src="https://file.rose52.com/shrenshou/img/pc_wenyin_07.jpg?ver=0827" alt="">
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+  $(document).ready(function () {
+    $('#reserve-now').click(function () {
+      let data = {
+        fromby: 'JDRICH_PC',
+        testself: window.JSON.stringify({userjdpin: $('#user-jdpin').text()})
+      };
+      $.ajax({
+        type: 'GET',
+        url: '/myWeb/BaoXian/BaoXianLeads/shrsLeads' ,
+        data: data ,
+        success: function (data) {
+          var rs_arr = window.JSON.parse(data);
+          if (rs_arr.state == 1) {
+            $('#dialog-content').text(rs_arr.data);
+          } else {
+            $('#dialog-content').text(rs_arr.msg);
+          }
+          $('#modal').show();
+        }
+      });
+    });
+    $('#closeBtn').click(function () {
+      $('#modal').hide();
+    })
+    $('#goto-chart').click(function () {
+      window.location.href = '/myWeb/BaoXian/BaoXianShRenshou/home_new'
+    })
+  })
+</script>
+
+</html>

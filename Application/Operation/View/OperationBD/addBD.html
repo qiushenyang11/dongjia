@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加BD</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">BD管理</a></li>
+    <li class="active">新建BD</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">基础信息:</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*姓名</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="name"  name="name" placeholder="输入BD姓名">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*手机号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="phone"  name="phone" placeholder="请输入11位手机号">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="surebtn" class="btn btn-success" style="width:100px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    //*新建BD用户*/
+    $("#surebtn").click(function () {
+        var name = $("#name").val();
+        var phone =$("#phone").val();
+        var type=3;
+        console.log(name);
+        console.log(phone);
+        console.log(type);
+        var myreg = /^1\d{10}$/;
+        if(name==''){
+           alert("请输入BD姓名");
+           return false;
+        }else if(phone==''){
+            alert("请输入手机号!");
+            return false;
+        }else if(phone.length!=11){
+            alert("请输入有效的手机号码，需是11位！");
+            return false;
+        }else if(!myreg.test(phone)){
+            alert('请输入有效的手机号码！');
+            return false;
+        }else {
+            $.post(
+                "{:U('OperationBD/newBD')}",{
+                    name:name,
+                    phone:phone,
+                    type:type
+                },
+                function(data) {
+
+                    if(data['state']==1){
+                        window.location.href="{:U('OperationBD/index')}";
+                        alert(data['msg']);
+
+                    }else {
+                        alert(data['msg'])
+                    }
+                },'json');
+        }
+
+    })
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商品</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">拍卖管理</a></li>
+    <li class="active">添加商品</li>
+</ol>
+<div class="tc_timepick">
+    <h4><input type="file" id="file1" name="file" /></h4>
+    <div class="tc_btn clearfix">
+        <div class="btn_wrap"><input type="" value="取消" class="qx" /></div>
+        <div class="btn_wrap"><input type="button" value="导入" class="qr" id="export" /></div>
+    </div>
+</div>
+<div id="zz_c"></div>
+<div class="container row" style="background-color:white;padding-top:50px" >
+    <form action="#" method="post" class="form-horizontal" >
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">商品名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="goodname"  name="goodname" placeholder="">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label" style="color:#697a9c">商品简介</label>
+            <div class="col-sm-4">
+                <textarea type="text" class="form-control" id="introduction" name="introduction" placeholder=""></textarea>
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">商品价格</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="price"  name="price" placeholder="">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">商品图片</label>
+            <div class="col-sm-4">
+                <input name="goodpic" type="file" id="file">
+                <img src="__PUBLIC__/Admin/images/xiangji.png" alt="" width="170" height="113" id="image" style="margin-top: 15px">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">开始时间</label>
+            <div class="col-sm-4">
+                <!--<input type="text" id="starttime" class="form-control"  placeholder="选择开始时间" name="starttime">-->
+                <input type="text" class="jeinput" name="starttime" id="starttime" placeholder="选择年月日时分秒">
+
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">结束时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="jeinput" id="endtime"  name="endtime" placeholder="选择年月日时分秒">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">累加价</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="oneprice"  name="oneprice" placeholder="">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-danger" style="width:80px;background:#1AB394;border:0">取消</button>
+                <button type="button" id="surebtn" class="btn btn-success" style="width:80px;background:#1AB394;border:0">确认</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    //选择时间
+    $("#starttime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss"
+    });
+
+    $("#endtime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss"
+    })
+
+    // 文件保存的路径
+    var imageurl = '';
+       $("#file").change(function () {
+        var upFileName = $("#file").val();
+        var index1=upFileName.lastIndexOf(".");
+        var index2=upFileName.length;
+        var suffix=upFileName.substring(index1+1,index2);//后缀名
+
+        $.getJSON("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}?suffix="+suffix, function (data) {
+            var uploadData = new FormData();
+            uploadData.append('policy', data.policy);
+            uploadData.append('authorization', data.authorization);
+            uploadData.append('file',$("#file")[0].files[0]);
+            console.log($("#file")[0].files[0]);
+            $.ajax({
+                url: 'https://v0.api.upyun.com/gjfile',
+                type: 'POST',
+                data: uploadData,
+                cache: false,
+                processData: false,
+                contentType: false,
+            }).done(function(data, textStatus) {
+                var data = $.parseJSON(data);
+                var serverName = 'https://file.rose52.com/';
+                var url = serverName+data.url;
+                $("#image").attr("src",url);
+                imageurl  = data.url;
+            }).fail(function(res, textStatus, error) {
+                try {
+                    var body = JSON.parse(res.responseText);
+                    alert('error: ' + body.message);
+                } catch(e) {
+                    console.error(e);
+                }
+            });
+        });
+    })
+
+    console.log(imageurl);
+    /*提交*/
+    $("#surebtn").click(function(){
+        var goodname = $("#goodname").val();
+        var introduction = $("#introduction").val();
+        var price = $("#price").val();
+        var goodpic = imageurl;
+        var endtime = $("#endtime").val();
+        var starttime = $("#starttime").val();
+        var oneprice = $("#oneprice").val();
+        console.log( goodname);
+        console.log(introduction);
+        console.log(price);
+        console.log(goodpic);
+        console.log(endtime);
+        $.post(
+            "{:U('AjaxApi/Auction/addAuctionGoods')}",{
+                goodname:goodname,
+                introduction:introduction,
+                price:price,
+                goodpic:goodpic,
+                endtime:endtime,
+                starttime:starttime,
+                oneprice:oneprice
+            },
+            function(data){
+                if(data['state']==1){
+                    alert(data['msg']);
+                    window.location.href="{:U('OperationAuctionGoods/index')}";
+                } else{
+                    alert(data['msg']);
+                }
+            },'json');
+    })
+
+
+
+</script>
+</body>
+</html>

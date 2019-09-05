@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>历史超低价体验家庭保洁</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+      window.browser = {
+        versions: function () {
+          let u = navigator.userAgent;
+          return {
+            trident: u.indexOf('Trident') > -1,
+            presto: u.indexOf('Presto') > -1,
+            webKit: u.indexOf('AppleWebKit') > -1,
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            android: u.indexOf('Android') > -1,
+            iPhone: u.indexOf('iPhone') > -1,
+            iPad: u.indexOf('iPad') > -1,
+            jdjr: u.indexOf('JDJR-App') > -1,
+            webApp: u.indexOf('Safari') === -1,
+            wechat: u.indexOf('MicroMessenger') !== -1
+          };
+        }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+      };</script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      //      window.ga = function () {
+      //        console.log('ga', arguments)
+      //      };
+      window.ga('create', 'UA-115976658-1', 'auto');
+      function getRequest() {
+        var url = window.location.href;
+//                console.log(url);
+        if (url.indexOf('?') !== -1) {
+          var str = url.substr(url.indexOf('?') + 1);
+          var strs = str.split('&');
+          var result = {};
+          for (var temp in strs) {
+            var tp = strs[temp].split('=');
+            result[tp[0]] = tp[1];
+          }
+          return result;
+        } else {
+          return {};
+        }
+      }
+      function ajax() {
+        var ajaxData = {
+          type: arguments[0].type || "GET",
+          url: arguments[0].url || "",
+          async: arguments[0].async || "true",
+          data: arguments[0].data || null,
+          dataType: arguments[0].dataType || "text",
+          contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+          beforeSend: arguments[0].beforeSend || function () {
+          },
+          success: arguments[0].success || function () {
+          },
+          error: arguments[0].error || function () {
+          }
+        };
+        ajaxData.beforeSend();
+        var xhr = createxmlHttpRequest();
+        xhr.responseType = ajaxData.dataType;
+        xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+        xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+        xhr.send(convertData(ajaxData.data));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              ajaxData.success(xhr.response)
+            } else {
+              ajaxData.error()
+            }
+          }
+        }
+      }
+      function createxmlHttpRequest() {
+        if (window.ActiveXObject) {
+          return new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+          return new XMLHttpRequest();
+        }
+      }
+      function convertData(data) {
+        if (typeof data === 'object') {
+          var convertResult = "";
+          for (var c in data) {
+            convertResult += c + "=" + data[c] + "&";
+          }
+          convertResult = convertResult.substring(0, convertResult.length - 1)
+          return convertResult;
+        } else {
+          return data;
+        }
+      }
+      var para = getRequest();
+      var GAStr;
+      var paraStr = '';
+
+      if (para.aid) {
+        paraStr = paraStr + '&aid=' + para.aid;
+      }
+      if (para.utm_medium) {
+        paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+      }
+      if (para.utm_source) {
+        paraStr = paraStr + '&utm_source=' + para.utm_source;
+      }
+      if (para.utm_campaign) {
+        paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+      }
+      if (paraStr.length > 1) {
+        paraStr = '?' + paraStr.substring(1);
+      }
+      GAStr = window.location.pathname + window.location.hash.substring(1);
+      window.ga('send', 'pageview', GAStr);
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #fff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .normal{
+            width: 85.2vw;
+            height: 29.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhsrc_1@2x.png');
+        }
+        .get{
+            width: 85.2vw;
+            height: 29.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhsrc_2@2x.png');
+        }
+        .out{
+            width: 85.2vw;
+            height: 29.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhsrc_3@2x.png');
+        }
+
+        .normal2{
+            width: 85.2vw;
+            height: 29.2vw;
+            margin-top: 17px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhwsj_1@2x.png');
+        }
+        .get2{
+            width: 85.2vw;
+            height: 29.2vw;
+            margin-top: 17px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhwsj_2@2x.png');
+        }
+        .out2{
+            width: 85.2vw;
+            height: 29.2vw;
+            margin-top: 17px;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhwsj_3@2x.png');
+        }
+
+
+        .mainapp img {
+            width: 100%;
+        }
+
+        .mainapp .coupons {
+          width: 100vw;
+          height: 64.6vw;
+          background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/清洁体验_联通2_03.jpg');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .tc {
+          display: none;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          position: fixed;
+          background-color: rgba(0, 0, 0, 0.4);
+          width: 100vw;
+          height: 100vh;
+          top: 0;
+          left: 0;
+        }
+
+        .tc .tc-main {
+          width: 79.5vw;
+          height: 85.5vw;
+          overflow: hidden;
+          border-radius: 4px;
+          background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/tc_bj@2x.png');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .tc .tc-top {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        .tc .tc-top .tc-opera {
+          width: 100%;
+          margin-top: 13px;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-end;
+          align-items: center;
+        }
+        .tc .tc-top .tc-opera img{
+          margin-right: 13px;
+          width: 15px;
+          height: 15px;
+        }
+        .tc .tc-top .tc-title {
+          margin-top: 2.1vw;
+          font-size: 5.3vw;
+          color: #333;
+        }
+        .tc .tc-top .tc-coupon1 {
+          width: 66.8vw;
+          height: 29.2vw;
+          margin-top: 44px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhsrc_4@2x.png');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+        .tc .tc-top .tc-coupon2 {
+          width: 66.8vw;
+          height: 29.2vw;
+          margin-top: 44px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/yhwsj_4@2x.png');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+        .tc .tc-btn {
+          margin-bottom: 20px;
+          width: 62.6vw;
+          height: 9.3vw;
+          background-image: url('https://file.rose52.com/guanjia/activity/chinaunicom0910/btn@2x.png');
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+  <img src="https://file.rose52.com/guanjia/activity/chinaunicom0910/清洁体验_联通2_01.jpg">
+  <img src="https://file.rose52.com/guanjia/activity/chinaunicom0910/清洁体验_联通2_02.jpg">
+  <div class="coupons">
+    <div class="out" id="coupon1" onclick="getCoupon1()"></div>
+    <div class="out2" id="coupon2" onclick="getCoupon2()"></div>
+  </div>
+  <img src="https://file.rose52.com/guanjia/activity/chinaunicom0910/清洁体验_联通2_04.jpg">
+</div>
+<div class="tc" id="tc">
+  <div class="tc-main">
+    <div class="tc-top">
+        <div class="tc-opera">
+            <img src="https://file.rose52.com/guanjia/activity/chinaunicom0910/close@2x.png" onclick="tcHide()">
+        </div>
+        <div class="tc-title">领取成功</div>
+        <div class="tc-coupon1" id="tcCoupon"></div>    
+    </div>
+    <div class="tc-btn" onclick="toProduct()"></div>
+  </div>
+</div>
+<script>
+  let btn1 = document.getElementById('coupon1');
+  let btn2 = document.getElementById('coupon2');
+  let tc = document.getElementById('tc');
+  let tccpn = document.getElementById('tcCoupon');
+  const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}`;
+
+  let couponStatus = {
+    get: 1,
+    out: 3,
+    normal: 7
+  };
+
+  let coupon1 = {
+    code: 'EJIAQING201809140921',
+    status: couponStatus.normal,
+    lock: false,
+    element: btn1
+  };
+
+  let coupon2 = {
+    code: 'EWEISHENGJIAN09110920',
+    status: couponStatus.normal,
+    lock: false,
+    element: btn2
+  };
+
+  let couponcode1 = coupon1.code; // 中国联通
+  let couponcode2 = coupon2.code;
+
+  let nowCoupon = 0;
+
+  function setStatus() {
+    console.log(coupon1.status, coupon2.status);
+
+    if (coupon1.status === 7) {
+      coupon1.element.className = 'normal';
+      coupon1.lock = false;
+    }
+
+    if (coupon2.status === 7) {
+      coupon2.element.className = 'normal2';
+      coupon2.lock = false;
+    }
+
+    if (coupon1.status === 1) {
+      coupon1.element.className = 'get';
+      coupon2.element.className = 'out2';
+      coupon1.lock = true;
+      coupon2.lock = true;
+    }
+
+    if (coupon2.status === 1) {
+      coupon2.element.className = 'get2';
+      coupon1.element.className = 'out';
+      coupon1.lock = true;
+      coupon2.lock = true;
+    }
+
+    if (coupon1.status === 3) {
+      coupon1.element.className = 'normal';
+      coupon1.lock = true;
+    }
+
+    if (coupon2.status === 3) {
+      coupon2.element.className = 'normal2';
+      coupon2.lock = true;
+    }
+
+  }
+
+  function checkCoupon1() {
+    if (coupon1.status === 7 && !coupon1.lock) {
+      coupon1.lock = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          console.log('check', res);
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            coupon1.lock = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            coupon1.lock = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon1.status = couponStatus.get;
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              coupon1.lock = false;
+              if (localStorage.getItem('chinaunicom') !== null) {
+                localStorage.removeItem('chinaunicom');
+                getCoupon1();
+              }
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon1.status = couponStatus.out;
+            } else {
+              console.error(res);
+              coupon1.lock = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+  function getCoupon1() {
+    if (coupon1.status === 1) {
+      tcShow(1);
+    }
+    else if (coupon1.status === 7 && !coupon1.lock) {
+      coupon1.lock = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode1
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            coupon1.status = couponStatus.get;
+            tcShow(1);
+          }
+          else if (parseInt(res.state) === 3) {
+            localStrage.setItem('chinaunicom', 'c1');
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon1.status = couponStatus.get;
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon1.status = couponStatus.out;
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              coupon1.lock = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+
+  function checkCoupon2() {
+    if (coupon2.status === 7 && !coupon2.lock) {
+      coupon2.lock = true;
+      let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          console.log('check', res);
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            // wait (๑˙ー˙๑)
+            coupon2.lock = false;
+          }
+          else if (parseInt(res.state) === 3) {
+            // wait (๑˙ー˙๑)
+            coupon2.lock = false;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon2.status = couponStatus.get;
+            } else if (res.msg === '可以领取') {
+              // wait (๑˙ー˙๑)
+              coupon2.lock = false;
+              if (localStorage.getItem('chinaunicom') !== null) {
+                localStorage.removeItem('chinaunicom');
+                getCoupon2();
+              }
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon2.status = couponStatus.out;
+            } else {
+              console.error(res);
+              coupon2.lock = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+  function getCoupon2() {
+    if (coupon2.status === 1) {
+      tcShow(2);
+    }
+    else if (coupon2.status === 7 && !coupon2.lock) {
+      coupon2.lock = true;
+      let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+      ajax({
+        type:"POST",
+        url: url,
+        data:{
+          code: couponcode2
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            coupon2.status = couponStatus.get;
+            tcShow(2);
+          }
+          else if (parseInt(res.state) === 3) {
+            localStrage.setItem('chinaunicom', 'c2');
+            window.location.href = authurl;
+          }
+          else {
+            if (res.msg === '该优惠券已经被兑换') {
+              coupon2.status = couponStatus.get;
+//              alert(res.msg);
+            } else if (res.msg === '您来晚了，优惠券已兑完') {
+              coupon2.status = couponStatus.out;
+//              alert(res.msg);
+            } else {
+              console.error(res);
+//              alert('网络异常，请稍候重试');
+              coupon2.lock = false;
+            }
+          }
+
+          setStatus();
+        }
+      })
+    }
+  }
+
+  checkCoupon1();
+  checkCoupon2();
+
+  function tcShow(id) {
+    console.log(id, id === 1, id === 2);
+    if (id === 1) {
+      tccpn.setAttribute('class', 'tc-coupon1');
+      nowCoupon = 1;
+    }
+    if (id === 2) {
+      tccpn.setAttribute('class', 'tc-coupon2');
+      nowCoupon = 2;
+    }
+    tc.style.cssText = 'display:flex;'
+  }
+  function tcHide() {
+    tc.style.cssText = 'display:none;'
+  }
+  function toProduct() {
+    let url = '';
+    if (nowCoupon === 1) {
+      url = '/servicesDetail/7/96';
+    }
+    if (nowCoupon === 2) {
+      url = '/servicesDetail/7/97';
+    }
+
+    window.location.replace(url);
+  }
+</script>
+<script>
+  function setShare() {
+    if (window.browser.versions.wechat) {
+      let optionsWx = {
+        url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+        type: 'POST',
+        data: {
+          url: encodeURIComponent(window.location.href)
+        },
+        success(res) {
+          res = JSON.parse(res);
+          if (parseInt(res.state) === 1) {
+            let data = res.data;
+            if (!data.gjEnable) {
+              wx.config(data);
+              wx.ready(() => {
+                wx.onMenuShareAppMessage({
+                  title: '历史超低价体验家庭保洁',
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  desc: '京东金融旗下生活服务平台，家庭保洁、深度除螨体验券限量领取',
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/chinaunicom0910/share.png',
+                  success: function() {
+//                    alert('分享成功');
+                  }
+                });
+                wx.onMenuShareTimeline({
+                  title: '历史超低价体验家庭保洁', // 分享标题
+                  link: `${window.location.origin}${window.location.pathname}`,
+                  imgUrl: 'https://file.rose52.com/guanjia/activity/chinaunicom0910/share.png',
+                  success: function () {
+                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                  },
+                  cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                  }
+                });
+              });
+              wx.error((res) => {
+                console.error(res);
+//                alert('网络异常，请稍候重试');
+              });
+            }
+
+          }
+        }
+      };
+
+      ajax(optionsWx);
+    }
+  }
+  setShare();
+
+</script>
+{$jdUnder}
+</body>
+</html>

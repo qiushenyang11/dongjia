@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta  charset="UTF-8">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <title>订单详情</title>
+    <style>
+        .title{
+            font-weight:600;
+        }
+    </style>
+    <style>
+        .ceng {
+            padding: 20px;
+            position: relative;
+        }
+        .queding {
+            border: none;
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao {
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .zhiFuInfo{
+            margin-bottom:15px;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">订单管理</a></li>
+    <li style="color: blue"><a href="#">订单列表</a></li>
+    <li class="active">订单详情</li>
+</ol>
+<div class="row col-sm-12">
+    <div class="container-fluid  col-sm-9" style="background-color:white;padding-top: 20px">
+        <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">基础信息</div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4 ">
+                <span class="title">订单ID:</span>{$res.ordersn}
+            </div>
+            <div class="col-sm-4">
+                <span class="title"> 订单状态:</span>
+                {$res.status}
+            </div>
+            <notempty name="res.expressno">
+                <div class="col-sm-4">
+                    <span class="title"> 快递单号:</span>
+                    {$res.expressno}
+                </div>
+            </notempty>
+        </div>
+        <div class="form-group  col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">产品ID:</span>{$res.productid}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">产品名称:</span>{$res.productname}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">产品分类:</span>{$res.producttype}
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">商品名称:</span>{$res.goodname}
+            </div>
+            <div class="col-sm-4">
+                <if condition="$res.specname eq null"> <span class="title">规格名称:</span> \
+                    <else />
+                    <span class="title">规格名称:</span>{$res.specname}
+                </if>
+            </div>
+            <div class="col-sm-4">
+                <span class="title">商品类型:</span>
+                <if condition="$res.type eq 1">
+                    服务类
+                    <else />
+                    快递类
+                </if>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <if condition="$res.price eq  0"> <span class="title">商品单价:</span>免费
+                    <else/><span class="title">商品单价:</span>{$res.price}<if condition="$res.paytype eq 2">(定金)</if>
+                </if>
+            </div>
+            <div class="col-sm-4">
+                <span class="title">购买份数:</span>{$res.num}
+            </div>
+            <div class="col-sm-4">
+                <if condition="$res.totalprice eq 0"><span class="title">订单总价:</span> 免费
+                    <else /> <span class="title">订单总价:</span>{$res.totalprice}
+                </if>
+            </div>
+        </div>
+
+
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">SKU备注:</span>{$res.sku_remark}
+
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">填单信息</div>
+        <if condition="$res.type eq 1">             <!--服务特殊显示-->
+
+            <?php foreach($txtdata as $key1=>$one){ ?>
+            <div class="form-group col-sm-12" style="font-size:15px;font-weight: 500">客户<?php echo $key1+1;?></div>
+            <div class="form-group col-sm-12 container-fluid " >
+                <volist name="one" key="key2" id="vo">
+                    <div class="form-group col-sm-4">
+                        <span class="title">{$vo.name}:</span>{$vo.value}
+                    </div>
+                </volist>
+
+            </div>
+            <?php if(isset($imagedata[$key1])){
+
+                foreach($imagedata[$key1] as $row) {?>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-1">
+                    <span class="title"><?php echo $row['name']; ?>:</span>
+                </div>
+                <?php foreach($row['value'] as $k=> $onepic){ ?>
+                <div class="col-sm-2">
+                    <img src="<?php echo $onepic;?>" alt="" style="width: 100px;height: 65px;background-color: gray">
+                    <div style="width: 100px;text-align: center;margin-top: 10px;"><?php echo $row['extra'][$k];?></div>
+                </div>
+
+                <?php }?>
+
+            </div>
+            <?php }}}?>
+
+            <else />
+            <div class="form-group col-sm-12">
+                <div class="col-sm-4">
+                    <span class="title">姓名:</span>{$res.addressname}
+                </div>
+                <div class="col-sm-4">
+                    <span class="title">手机号:</span>{$res.mobile}
+                </div>
+                <if condition="$res.type eq 2">
+                    <div class="col-sm-4">
+                        <span class="title">地址:</span>{$res.province}{$res.city}{$res.district}{$res.address}
+                    </div>
+                </if>
+            </div>
+        </if>
+        <notempty name="res.servicetime">
+            <div class="form-group col-sm-12">
+                <div class="col-sm-4">
+                    <span class="title">服务时间:</span>{$res.servicetime}
+                </div>
+            </div>
+        </notempty>
+
+        <!--<notempty name="staffdata">-->
+        <!--<volist name="staffdata" id="vo">-->
+        <!--<div class="form-group col-sm-12">-->
+        <!--<span class="">{$vo}</span>-->
+        <!--</div>-->
+        <!--</volist>-->
+        <!--</notempty>-->
+
+        <div class="form-group col-sm-12" style="margin-top:30px;border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">服务信息</div>
+        <volist name="staffdata" id="vo">
+            <div class="form-group col-sm-12" style="font-size:15px;font-weight: 500">服务{$vo.id}</div>
+            <div  class="form-group col-sm-12">
+                <div class="col-sm-4">
+                    <span class="title">服务人员:</span>{$vo.staff}
+                </div>
+                <div class="col-sm-4">
+                    <span class="title">服务时间:</span>{$vo.time}
+                </div>
+                <div class="col-sm-4">
+                    <span class="title">服务状态:</span>{$vo.status}
+                </div>
+            </div>
+        </volist>
+        <div class="form-group col-sm-12" style="margin-top:30px;border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">下单用户</div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">用户ID:</span>{$res.userid}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">用户名称:</span>{$res.username}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">手机号:</span>{$res.userphone}
+            </div>
+        </div>
+        <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">联系人信息</div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">所属BD:</span>{$res.bdname}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">BD手机号:</span>{$res.bdphone}
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-4">
+                <span class="title">管家名称:</span>{$res.guanjianame}
+            </div>
+            <div class="col-sm-4">
+                <span class="title">管家手机号:</span>{$res.guanjiaphone}
+            </div>
+        </div>
+
+        <if condition="$res.totalprice gt 0">
+            <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">支付信息</div>
+            <empty name="res.payrecordsn">
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-4">
+                        <span class="title">支付时间:</span>\
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">支付渠道:</span>\
+
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">支付流水号:</span>\
+                    </div>
+                </div>
+                <else />
+                <div class="form-group col-sm-12">
+                    <div class="col-sm-4">
+                        <span class="title">支付时间:</span>{$res.paytime}
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">支付渠道:</span>
+                        <?php if($res['paystyle'] == 1){ ?>
+                        微信支付
+                        <?php } elseif($res['paystyle'] == 2) {?>
+                        京东支付
+                        <?php } else { ?>
+                        其他
+                        <?php }?>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">支付流水号:</span>{$res.payrecordsn}
+                    </div>
+                </div>
+            </empty>
+            <div class="container-fluid">
+                <div class="col-sm-4 zhiFuInfo">
+                    <span class="title">实际支付:</span>{$res.payrealprice}元
+                </div>
+                <notempty name="res.coin">
+                    <div class="col-sm-4 zhiFuInfo">
+                        <span class="title">东家银子抵扣:</span>{$res.coinprice}元({$res.coin}个东家银子)
+                    </div>
+                </notempty>
+                <notempty name="res.couponmoney">
+                    <div class="col-sm-4 zhiFuInfo">
+                        <span class="title">优惠券抵扣:</span>{$res.couponmoney}元({$res.couponid}:{$res.couponname})
+                    </div>
+                </notempty>
+                <notempty name="cardinfo">
+                    <div class="col-sm-4 zhiFuInfo">
+                        <span class="title">礼品卡抵扣:</span>{$cardinfo['cardprice']}元
+                    </div>
+                </notempty>
+                <notempty name="res.refundreason">
+                    <div class="col-sm-4 zhiFuInfo">
+                        <span class="title">退款原因:</span>{$res.refundreason}
+                    </div>
+                    <div class="col-sm-4 zhiFuInfo">
+                        <span class="title">退款说明:</span>{$res.refundinfo}
+                    </div>
+                </notempty >
+            </div>
+        </if>
+        <if condition="$res.settlenum gt 0">
+            <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">结算信息</div>
+            <div class="form-group col-sm-12">
+                <notempty name="settles">
+                    <div class="col-sm-4">
+                        <span class="title">结算方式:{$settles.settlename}</span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">
+                            <if condition="$settles.settletype eq 1">
+                                结算规则:每份结算{$settles.settlevalue}元
+                                <elseif condition="$settles.settletype eq 2" />
+                                结算规则:收取{$settles.settlevalue}%佣金
+                                <else />
+                                结算规则:每份{$settles.settlevalue}元佣金
+                            </if>
+
+                        </span>
+                    </div>
+                    <div class="col-sm-4">
+                        <span class="title">应结金额:{$settles.allvalue}元</span>
+                    </div>
+                </notempty>
+                <div class="col-sm-4">
+                    <span class="title">结算状态:{$res.settletype}</span>
+                    <span class="title" style="color: blue;cursor: pointer;padding-left: 10px" id="settleSet">设置</span>
+                </div>
+
+            </div>
+        </if>
+        <notempty name="jdorderinfo">
+            <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">京东信息</div>
+            <div class="form-group col-sm-12">
+                <div class="col-sm-4">
+                    <span class="title">订单号: {$jdorderinfo.jdorder}</span>
+                </div>
+                <div class="col-sm-4">
+                    <span class="title">订单状态: {$jdorderinfo.jdstatus}</span>
+                </div>
+                <div class="col-sm-4">
+                    <span class="title">物流状态:{$jdorderinfo.track}</span>
+                </div>
+            </div>
+        </notempty>
+        <div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px">备注信息</div>
+        <div class="form-group col-sm-12">
+            <div class="col-sm-8">
+                <textarea type="textarea" class="form-control" id="descinfo" name="descinfo" style="height: 100px"></textarea>
+            </div>
+            <div class="col-sm-4" style="padding-top:60px;">
+                <button type="button" class="bfL btn btn-success "  data-id="{$res.id}"  style="background:gray;border:0;opacity:0.8;width:70px;float: left;">添加备注</button>
+            </div>
+        </div>
+        <volist name="descinfo" id="vo">
+            <div class="form-group col-sm-8" style="margin-bottom:15px" >
+                <p>{$vo.name}  添加于{$vo.addtime|date='Y.m.d G.i.s',###}</p>
+                <p>{$vo.descinfo}</p>
+            </div>
+        </volist>
+    </div>
+    <div class=" container-fluid col-sm-3" style="margin-top:50px;">
+        <p style="font-size:16px;line-height: 30px;">订单日志</p>
+        <volist name="record" id="vo">
+            <div style="margin-bottom: 20px">
+                <p>{$vo.addtime}</p>
+                <p>{$vo.extra}
+
+                </p>
+            </div>
+        </volist>
+    </div>
+</div>
+<div id="settle" class="bgc"
+     style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng2"
+         style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 180px;background: #FFFFFF;"
+         class="ceng">
+        <h2 style="text-align: center;margin-top:0;font-size: 18px;font-weight:200" id="title2">选择结算状态?</h2>
+        <div style="margin: 20px auto">
+            <div style="text-align:center;margin-bottom:15px">
+                <input type="radio" value="1" class="settle" name="settle1"><span style="margin-right:15px">未结算</span>
+                <input type="radio" value="2" class="settle" name="settle1">不结算
+            </div>
+            <div style="text-align:center;margin-bottom:15px">
+                <input type="radio" value="3" class="settle" name="settle1"> <span style="margin-right:15px">结算中</span>
+                <input type="radio" value="4" class="settle" name="settle1">已结算
+            </div>
+        </div>
+
+        <!--<div class="col-sm-2" style="margin-top:7px;">-->
+        <!--<input type="radio" name="" class="" value="0"  id="">-->
+        <!--<span>不结算</span>-->
+        <!--</div>-->
+        <!--<div class="col-sm-2" style="margin-top:7px;margin-left: -50px">-->
+        <!--<input type="radio" name="" class="" value="1" id="">-->
+        <!--<span>未结算</span>-->
+        <!--</div>-->
+        <div class="quxiao" id="quxiao2">取消</div>
+        <div class="queding" id="queding2">确定</div>
+    </div>
+</div>
+<script>
+    //处理结算状态
+    function ajaxHandleSettle(ordersn,type) {
+        $.post("{:U('setSettleType')}", {
+            ordersn: ordersn,
+            settletype:type
+        }, function (res) {
+            if (res.state == 1) {
+                alert('操作成功');
+                window.location.reload();
+            } else {
+                alert(res.msg);
+                window.location.reload();
+            }
+        }, 'json')
+    }
+    //保存添加备注信息
+    $(".bfL").click(function () {
+        var orderid = "{$Think.get.orderid}";
+        var descinfo = $("#descinfo").val();
+        console.log(orderid);
+        console.log(descinfo);
+        if(descinfo==''){
+            alert("请输入备注信息")
+            return false;
+        }
+        $.post("{:U('OperationOrder/saveDesc')}"
+            ,{
+                orderid:orderid,
+                descinfo:descinfo
+            },
+            function (data) {
+                if(data['state']==1){
+                    alert(data['msg']);
+                    window.location.reload();
+
+                }else{
+                    alert(data['msg']);
+                }
+            },'json')
+    })
+    $("#settleSet").click(function () {
+        var ordersn = "{$res.ordersn}";
+        var type = "{$res.settlenum}";
+        $('.settle').prop('checked',false)
+        $(".settle[value='"+type+"']").prop('checked',true)
+        $("#settle").show();
+        $("#queding2").unbind().click(function () {
+            $("#settle").hide();
+            var type = $(".settle:checked").val();
+            ajaxHandleSettle(ordersn,type );
+        })
+        $("#quxiao2").unbind().click(function () {
+            $("#settle").hide();
+        })
+    })
+
+    //结算订单
+
+</script>
+</body>
+</html>

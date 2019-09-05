@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑优惠劵</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+    <style>
+        .baseinfo{padding-left:50px;font-weight:900;font-size:18px}
+        .main{background-color:white;padding-top:20px}
+        .redioType{margin-top:7px;}
+        .redioTypeLeft{margin-top:7px;margin-left: -50px}
+        .priceNum{margin-left:-55px}
+        .wenzi{margin-top:8px}
+        .saleNum{margin-left:-30px}
+        .selectCondition{display: flex; flex-direction: row;max-width:700px;justify-content: flex-start;align-items: flex-center;flex-wrap: wrap;}
+        .selectItem{margin-left:5px;border:1px solid #ff7f00;min-width: 50px;height: 28px;margin-right: 15px;margin-bottom: 15px; padding: 0 10px;display: flex;flex-direction: row;justify-content: center align-items: center;font-size: 14px;line-height:28px}
+        .selectItem span{ cursor:pointer;padding-left:10px;font-size:26px;color:#446C94;font-weight:900;line-height: 24px;display:block}
+        .Immutable{color:#cccccc}
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 35px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 35px;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">优惠劵管理</a></li>
+    <li class="active">编辑优惠劵</li>
+</ol>
+
+<div class="container row main">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group col-sm-12 baseinfo">基础信息</div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*优惠劵名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"   value="{$res.couponname}" name="" placeholder="输入优惠劵名称" id="couponname">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label Immutable" >*优惠方式</label>
+            <div class="col-sm-2 redioType"  >
+                <input type="radio" <if condition="$res.coupontype eq 1">checked</if> disabled name="coupontype" class="coupontype " value="1"  id="manJianType">
+                <span class="Immutable">满减劵</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input type="radio" <if condition="$res.coupontype eq 2">checked</if> disabled name="coupontype" class="coupontype" value="2" id="daZheType">
+                <span  class="Immutable">打折劵</span>
+            </div>
+        </div>
+
+        <div class="form-group" id="discountInfo">
+            <if condition="$res.coupontype eq 1">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-1 wenzi Immutable">金额</div>
+            <div class="col-sm-2 priceNum"><input type="text" class="form-control" value="{$res.discountprice}" disabled  name="" placeholder="" id="discountprice"></div>
+            <div class="col-sm-1 wenzi Immutable">元</div>
+                <else/>
+                <label for="" class="col-sm-2 control-label" ></label>
+                <div class="col-sm-1 wenzi Immutable">折扣系数</div>
+                <div class="col-sm-2 saleNum"><input type="text"  value="{$res.discountrate}" disabled class="form-control"   name="" placeholder="" id="discountrate"></div>
+                <div class="col-sm-5">
+                    <sapn>*输入大于0小于1的数字，精确到小数点后两位，如0.8表示8折</sapn>
+                </div>
+            </if>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label Immutable" >*发行份数</label>
+            <div class="col-sm-2">
+                <input type="text"  value="{$res.count}"disabled class="form-control"   name="" placeholder="输入大于1的整数" id="count">
+            </div>
+            <div class="col-sm-1 wenzi Immutable">份</div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label Immutable" >*使用条件</label>
+            <div class="col-sm-1 wenzi Immutable">满</div>
+            <div class="col-sm-2 priceNum">
+                <input type="text" disabled class="form-control"  value="{$res.usecondition}" name="" placeholder="" id="usecondition">
+            </div>
+            <div class="col-sm-1 wenzi Immutable">元可用</div>
+        </div>
+        <div class="form-group">
+
+            <label for="" class="col-sm-2 control-label" >*有效期</label>
+            <div class="col-sm-2 redioType"  >
+                <input type="radio" <if condition="$res.usetype eq 0 ">checked</if> name="timetype" class="usetype" value="0"  id="fixed">
+                <span>固定日期</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input type="radio"  <if condition="$res.usertype eq 1 ">checked</if> name="timetype" class="usetype" value="1" id="nNums">
+                <span>领取后N天</span>
+            </div>
+        </div>
+        <div class="form-group" id="valid">
+            <if condition="$res.usertype eq 0 ">
+                <label for="" class="col-sm-2 control-label" ></label>
+                            <div class="col-sm-2">
+                                <input type="text" value="{$res.canuserbegin}" class="form-control" id="canuserbegin"  name="" placeholder="选择开始时间">
+                            </div>
+                           <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                                至
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="text"  value="{$res.canuserend}" class="form-control" id="canuserend"  name="" placeholder="选择结束时间">
+                            </div>
+                          <div class="col-sm-2">
+                           <sapn>*结束日期的当天可用</sapn>
+                           </div>
+                <else />
+                <label for="" class="col-sm-2 control-label" ></label>
+                           <div class="col-sm-1 wenzi">领取后</div>
+                           <div class="col-sm-2 priceNum">
+                             <input type="text" class="form-control"   value="{$res.canuserduring}" name="" placeholder="" id="canuserduring">
+                            </div>
+                            <div class="col-sm-1 wenzi">天</div>
+             </if>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*优惠劵描述</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$res.couponinfo}"  name="" placeholder="50字以内" id="couponinfo">
+            </div>
+            <div class="col-sm-4">
+                <span>*描述在前台用户可见</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*优惠劵用途</label>
+            <div class="col-sm-4">
+                <textarea type="textarea" class="form-control"   name="" placeholder="" id="couponuseage">{$res.couponuseage}</textarea>
+            </div>
+            <div class="col-sm-4">
+                <span>*系统内可见，不对用户显示</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >跳转链接</label>
+            <div class="col-sm-2" id="" style="z-index: 10000">
+                <select  name=""  class="form-control" id="couponurltype">
+                    <option value="1" <if condition="$couponurl.type eq 1">selected</if>>无</option>
+                    <option value="2" <if condition="$couponurl.type eq 2">selected</if>>首页</option>
+                    <option value="3" <if condition="$couponurl.type eq 3">selected</if>>管家页</option>
+                    <option value="4" <if condition="$couponurl.type eq 4">selected</if>>产品页</option>
+                    <option value="5" <if condition="$couponurl.type eq 5">selected</if>>链接</option>
+                </select>
+            </div>
+            <div class="col-sm-3" id="condition">
+                <input type="text" class="form-control"  name="" id="indexselect" placeholder="无需输入任何内容" style="height:35px">
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12 baseinfo">优惠码</div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label Immutable" >*使用场景</label>
+            <div class="col-sm-2 redioType"  >
+                <input disabled type="radio" name="secnetype"  <if condition="$res.scence eq 0">checked</if> class="scence" value="0"  id="userType">
+                <span class="Immutable">用户兑换</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input disabled <if condition="$res.scence eq 1">checked</if> type="radio" name="secnetype" class="scence" value="1" id="systemType">
+                <span class="Immutable">系统发放</span>
+            </div>
+        </div>
+        <div class="form-group" id="systeminfo" style="display:none">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-4">
+                <span>*系统发放的优惠卷无需生成优惠码</span>
+            </div>
+        </div>
+        <div class="sceneInfo" id="sceneInfo" >
+            <if condition="$res.scence eq 0">
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label Immutable" >*优惠码类型</label>
+                <div class="col-sm-2 redioType"  >
+                    <input type="radio" disabled <if condition="$res.code eq 0">checked</if> name="type" class="code" value="0" checked id="moreType">
+                    <span class="Immutable">一码兑多劵</span>
+                </div>
+                <div class="col-sm-2 redioTypeLeft">
+                    <input type="radio" disabled  <if condition="$res.code eq 1">checked</if> name="type" class="code" value="1" id="oneType">
+                    <span class="Immutable">一码兑一劵</span>
+                </div>
+            </div>
+            <div id="codeInfo">
+                <if condition="$res.code eq 0">
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label" ></label>
+                        <div class="col-sm-2 redioType">
+                            <input type="radio" name="" class="limit" value="1"  checked >
+                            <span style="color:#cccccc">单用户仅领取一份</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label Immutable" >*自定义优惠码</label>
+                        <div class="col-sm-4">
+                            <input type="text"  disabled class="form-control" value="{$res.codeexchange}"  name="" placeholder="" id="codeexchange"></input>
+                        </div>
+                    </div>
+                    <else />
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label" ></label>
+                        <span style="margin-left:13px;color:#cccccc">*优惠码有系统自动生成</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label Immutable" >*领用限制</label>
+                        <div class="col-sm-2 redioType">
+                            <input disabled type="radio" name="" class="limit" value="0"  checked id="oneType">
+                            <span>不限制</span>
+                        </div>
+                    </div>
+                </if>
+            </div>
+                <else />
+
+            </if>
+        </div>
+        <div class="form-group col-sm-12 baseinfo">可用产品</div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*选择可用产品</label>
+            <div class="col-sm-2 redioType"  >
+                <input type="radio" name="producttype"  <if condition="$res.isall eq 1">checked</if> class="isall" value="1" checked id="allProduct">
+                <span>所有产品</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input type="radio" name="producttype"   <if condition="$res.isall eq 0">checked</if> class="isall" value="0" id="sectionProduct">
+                <span>部分产品</span>
+            </div>
+        </div>
+        <div id="productInfomation">
+            <if condition="$res.isall eq 0">
+                <div class="form-group" >
+                                <label for="" class="col-sm-2 control-label" ></label>
+                                <div class="col-sm-2">
+                                       <select  name="type"  class="form-control" id="selecttype">
+                                                <option value="1">一级分类</option>
+                                               <option value="2">二级分类</option>
+                                                <option value="3">管家</option>
+                                               <option value="4">产品</option>
+                                            </select>
+                                    </div>
+                                <div class="col-sm-3">
+                                        <select name="" id="serachvalue" class="form-control"></select>
+                                    </div>
+                                <div class="col-sm-1">
+                                        <button type="button" name="" id="addButton" class="btn btn-primary sureButton" style="width:50px;background:#1AB394;border:0">添加</button>
+                                    </div>
+                            </div>
+                             <label for="" class="col-sm-2 control-label" ></label>
+                            <div class="selectCondition" id="selectCondition">
+                                <volist name="result" id="vo">
+                                    <div class="item selectItem" data-id="{$vo.id}" data-name="" data-type="{$vo.type}" data-tag="{$vo.type}-{$vo.id}"> {$vo.name}<span class="delButton">×</span></div>
+                                </volist>
+                            </div>
+            </if>
+
+        </div>
+
+        <div class="form-group col-sm-12 baseinfo">优惠劵发放</div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*优惠券发放</label>
+            <div class="col-sm-2 redioType"  >
+                <input <if condition="$res.status eq 1">checked</if> type="radio" name="usetype" class="operationstatus" value="1" checked id="">
+                <span>可以发放或兑换</span>
+            </div>
+            <div class="col-sm-2 redioTypeLeft">
+                <input <if condition="$res.status eq 0">checked</if> type="radio" name="usetype" class="operationstatus" value="0" id="">
+                <span>暂停领取或兑换</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary saveButton" style="width:150px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    var coupontype = "{$couponurl.type}"
+    var coupontvalue = "{$couponurl.value}"
+    var urlid = "{$couponurl.id}"
+    init(coupontype, coupontvalue,urlid)
+    function init(type, value,urlid) {
+        var inputstr = '';
+        if (type ==1) {
+            inputstr='<input type="text" class="form-control"  name="" id="indexselect" placeholder="无需输入任何内容" style="height:35px">';
+        } else if (type == 2) {
+            inputstr='<input type="text" class="form-control"  name="" id="indexselect" placeholder="无需输入任何内容" style="height:35px">';
+        }else if(type==3){
+            inputstr='<select class="col-sm-12" id="guanjiaselect" name="urltvalue"></select>';
+        }else if(type==4){
+            inputstr='<select class="col-sm-12" id="productselect" name="urltvalue"></select>';
+        }else if (type == 5) {
+            inputstr='<input type="text" class="form-control"  name="" id="url"  style="height:35px" placeholder="输入链接地址" value="'+value+'">';
+        }
+        $("#condition").html(inputstr);
+        selects(type,value,urlid)
+    }
+    function selects(type,value,id) {
+        var data = [];
+        var ids= [];
+        data.push({id:id,text:value});
+        ids.push(id)
+        console.log(ids)
+        if (type == 4) {
+            $('#productselect').select2({
+                placeholder:'请输入产品id或名称',
+                data:data,
+                ajax: {
+                    url: "{:U('OperationGiftCard/chooseAll')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            key: params.term,
+                            type:type
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            }).val(ids).trigger("change");
+        } else if(type == 3) {
+            $('#guanjiaselect').select2({
+                placeholder:'请输入管家id或名称',
+                data:data,
+                ajax: {
+                    url: "{:U('OperationGiftCard/chooseAll')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            key: params.term,
+                            type:type
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            }).val(ids).trigger("change");
+        }
+
+    }
+    function selects1(type) {
+        if (type == 4) {
+            $('#productselect').select2({
+                placeholder:'请输入产品id或名称',
+                ajax: {
+                    url: "{:U('OperationGiftCard/chooseAll')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            key: params.term,
+                            type:type
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            });
+        } else if(type == 3) {
+            $('#guanjiaselect').select2({
+                placeholder:'请输入管家id或名称',
+                ajax: {
+                    url: "{:U('OperationGiftCard/chooseAll')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            key: params.term,
+                            type:type
+                        };
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            });
+        }
+
+    }
+    $('#couponurltype').change(function () {
+        var type = $(this).val();
+        var inputstr = '';
+        if (type ==1) {
+            inputstr='<input type="text" class="form-control"  name="" id="indexselect" placeholder="无需输入任何内容">';
+        } else if (type == 2) {
+            inputstr='<input type="text" class="form-control"  name="" id="indexselect" placeholder="无需输入任何内容">';
+        }else if(type==3){
+            inputstr='<select class="col-sm-12" id="guanjiaselect" name="urltvalue"></select>';
+        }else if(type==4){
+            inputstr='<select class="col-sm-12" id="productselect" name="urltvalue"></select>';
+        }else if (type == 5) {
+            inputstr='<input type="text" class="form-control"  name="" id="url" placeholder="输入链接地址">';
+        }
+        $("#condition").html(inputstr);
+        selects1(type)
+    })
+
+</script>
+<script>
+    /*选择可用产品*/
+    function productinfomation(){
+        var str='<div class="form-group" >\n' +
+            '            <label for="" class="col-sm-2 control-label" ></label>\n' +
+            '            <div class="col-sm-2">\n' +
+            '                <select  name="type"  class="form-control" id="selecttype">\n' +
+            '                    <option value="1">一级分类</option>\n' +
+            '                    <option value="2">二级分类</option>\n' +
+            '                    <option value="3">管家</option>\n' +
+            '                    <option value="4">产品</option>\n' +
+            '                </select>\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-3">\n' +
+            '                <select name="" id="serachvalue" class="form-control"></select>\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-1">\n' +
+            '                <button type="button" name="" id="addButton" class="btn btn-primary sureButton" style="width:50px;background:#1AB394;border:0">添加</button>\n' +
+            '            </div>\n' +
+            '        </div>\n' +
+            '        <label for="" class="col-sm-2 control-label" ></label>\n' +
+            '            <div class="selectCondition" id="selectCondition">\n' +
+            '           </div>';
+        return str;
+    }
+    <?php if(!$res.isall){?>
+        $('#serachvalue').select2({
+            placeholder:'',
+            ajax: {
+                url: "<?=U('CouponApi/Coupon/serachValeByType') ?>",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        value: params.term,
+                        type:$("#selecttype").val()
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    <?php }?>
+    function addproductinfomation(){
+        var str='';
+        str=productinfomation();
+        $("#productInfomation").html(str);
+        $('#serachvalue').select2({
+            placeholder:'',
+            ajax: {
+                url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        value: params.term,
+                        type:$("#selecttype").val()
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function (markup) { return markup; },
+            minimumInputLength: 1
+        });
+    }
+    $("#sectionProduct").click(function(){
+        addproductinfomation();
+    })
+
+    $("#allProduct").click(function(){
+        $("#productInfomation").html('');
+    })
+
+    $("#productInfomation").on('click','#addButton',function(){
+        var data = $('#serachvalue').select2('val');
+        var str = '';
+        var type = 0;
+        var name = '';
+        var id = 0;
+        if (data) {
+            data = data.split(',')
+            id = data[0];
+            name = data[1];
+            type = data[2];
+            var tag = type+'-'+id;
+            var length = $(".selectItem[data-tag='"+tag+"']").length
+            if (!length) {
+                str += $("#selecttype option[value='"+type+"']").text()+':'+name;
+                str='<div class="item selectItem" data-id="'+id+'" data-name="'+name+'" data-type="'+type+'" data-tag="'+tag+'">'+str+' <span class="delButton">×</span></div>';
+                $("#selectCondition").append(str);
+            }
+            $("#serachvalue").empty();
+        }
+
+    })
+
+    /*删除一个筛选产品条件*/
+    $("#productInfomation").on('click','.delButton',function(){
+        $(this).parents('.selectItem').remove();
+    })
+
+    /*满减劵和打折劵选择*/
+    function manJianInfo(){
+        var str='<label for="" class="col-sm-2 control-label" ></label>\n' +
+            '           <div class="col-sm-1 wenzi">金额</div>\n' +
+            '           <div class="col-sm-2 priceNum"><input type="text" class="form-control"   name="" placeholder="" id="discountprice"></div>\n' +
+            '           <div class="col-sm-1 wenzi">元</div>';
+        return str;
+    }
+
+    function addmanJianInfo(){
+        var str='';
+        str=manJianInfo();
+        $('#discountInfo').append(str);
+    }
+
+    $("#manJianType").click(function () {
+        $("#daZheType").removeClass('haschecked');
+        $('#discountInfo').html('');
+        addmanJianInfo();
+    })
+
+    function daZheInfo(){
+        var str=' <label for="" class="col-sm-2 control-label" ></label>\n' +
+            '            <div class="col-sm-1 wenzi Immutable">折扣系数</div>\n' +
+            '            <div class="col-sm-2 saleNum"><input type="text"  disabled class="form-control"   name="" placeholder="" id="discountrate"></div>\n' +
+            '            <div class="col-sm-5">\n' +
+            '            <sapn>*输入大于0小于1的数字，精确到小数点后两位，如0.8表示8折</sapn>\n' +
+            '            </div>';
+        return str;
+    }
+    function addDaZheInfo(){
+        var str='';
+        str=daZheInfo();
+        $('#discountInfo').append(str);
+    }
+
+    $("#daZheType").click(function(){
+        if(!$(this).hasClass('haschecked')){
+            $(this).addClass('haschecked');
+            $('#discountInfo').html('');
+            addDaZheInfo();
+        }
+    })
+
+
+
+    /*有效期选择*/
+
+
+
+    function fixedInfo(){
+        var str='<label for="" class="col-sm-2 control-label" ></label>\n' +
+            '            <div class="col-sm-2">\n' +
+            '                <input type="text" class="form-control" id="canuserbegin"  name="" placeholder="选择开始时间">\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">\n' +
+            '                至\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-2">\n' +
+            '                <input type="text" class="form-control" id="canuserend"  name="" placeholder="选择结束时间">\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-2">\n' +
+            '            <sapn>*结束日期的当天可用</sapn>\n' +
+            '            </div>';
+        return str;
+    }
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+    //addFixedInfo();
+    <?php if(!$res.usetype){?>
+        $("#valid #canuserbegin").jeDate({
+            format: "YYYY-MM-DD",
+            minDate:nowdate
+        })
+        $("#valid #canuserend").jeDate({
+            format: "YYYY-MM-DD",
+            minDate:nowdate
+        })
+    <?php }?>
+    function addFixedInfo(){
+        var str='';
+        str=fixedInfo();
+        $("#valid").html(str);
+
+        $("#valid #canuserbegin").jeDate({
+            format: "YYYY-MM-DD",
+            minDate:nowdate
+        })
+        $("#valid #canuserend").jeDate({
+            format: "YYYY-MM-DD",
+            minDate:nowdate
+        })
+    }
+    $("#fixed").click(function(){
+        $("#nNums").removeClass('haschecked');
+        $('#valid').html('');
+        addFixedInfo();
+    })
+
+
+
+
+    function nNumsInfo(){
+        var str=' <label for="" class="col-sm-2 control-label" ></label>\n' +
+            '            <div class="col-sm-1 wenzi">领取后</div>\n' +
+            '            <div class="col-sm-2 priceNum">\n' +
+            '                <input type="text" class="form-control"   name="" placeholder="" id="canuserduring">\n' +
+            '            </div>\n' +
+            '            <div class="col-sm-1 wenzi">天</div>';
+        return str;
+    }
+    function addNumsInfo(){
+        var str='';
+        str=nNumsInfo();
+        $("#valid").append(str);
+    }
+
+    $("#nNums").click(function(){
+        if(!$(this).hasClass('haschecked')){
+            $(this).addClass('haschecked');
+            $('#valid').html('');
+            addNumsInfo();
+        }
+    })
+
+    /*选择使用场景*/
+    function show(){
+        $("#sceneInfo").show();
+    }
+    function hide(){
+        $("#sceneInfo").hide();
+    }
+    $("#systemType").click(function(){
+        hide();
+        $("#systeminfo").show();
+    })
+    $("#userType").click(function(){
+        show();
+        $("#systeminfo").hide();
+    })
+    /*选择优惠码类型*/
+    function moreInfo(){
+        var str='<label for="" class="col-sm-2 control-label" >*自定义优惠码</label>\n' +
+            '                <div class="col-sm-4">\n' +
+            '                    <input type="text" class="form-control"   name="" placeholder="" id="codeexchange"></input>\n' +
+            '                </div>';
+        return str;
+    }
+
+    function addMoreInfo(){
+        var str='';
+        str=moreInfo();
+        $("#codeInfo").append(str);
+    }
+    $("#moreType").click(function(){
+        $("#oneType").removeClass('haschecked');
+        $("#codeInfo").html('');
+        addMoreInfo();
+    })
+
+
+    function oneInfo(){
+        var str='<label for="" class="col-sm-2 control-label" >*领用限制</label>\n' +
+            '                <div class="col-sm-2 redioType">\n' +
+            '                    <input type="radio" name="" class="limit" value="0"  checked id="oneType">\n' +
+            '                    <span>不限制</span>\n' +
+            '                </div>';
+        return str;
+    }
+
+    function addOneInfo(){
+        var str='';
+        str=oneInfo();
+        $("#codeInfo").append(str);
+    }
+    $("#oneType").click(function(){
+        if(!$(this).hasClass('haschecked')){
+            $(this).addClass('haschecked');
+            $("#codeInfo").html('');
+            addOneInfo();
+        }
+    })
+
+    //编辑优惠券信息
+    $("#surebtn").click(function(){
+        var couponloopid="{$Think.get.id}";
+        var couponname=$("#couponname").val();
+        var isall=$(".isall:checked").val();
+        var couponinfo = $("#couponinfo").val();
+        var couponuseage = $("#couponuseage").val();
+        var category='';
+        var guanjiaid='';
+        var productid='';
+        $('.selectItem').each(function(){
+            var type = $(this).attr('data-type');
+            if(type==1 || type==2){
+                category+=$(this).attr('data-id')+',';
+            }else if(type==3){
+                guanjiaid+=$(this).attr('data-id')+',';
+            }else{
+                productid+=$(this).attr('data-id')+',';
+            }
+        })
+        category=category.substr(0,category.length-1);
+        guanjiaid=guanjiaid.substr(0,guanjiaid.length-1);
+        productid=productid.substr(0,productid.length-1);
+        var couponurltype = $("#couponurltype").val();
+        var couponcondition='';
+        var couponurl = '';
+        if(couponurltype==3){
+            var couponconditions = $('#guanjiaselect').select2('data')[0];
+            if(couponconditions){
+                couponcondition = couponconditions.id ;
+            }
+            couponurl=couponurltype+';'+couponcondition;
+        }else if(couponurltype==4){
+            var couponconditions = $('#productselect').select2('data')[0];
+            if(couponconditions){
+                couponcondition = couponconditions.id ;
+            }
+            couponurl=couponurltype+';'+couponcondition;
+        }else if(couponurltype==1 || couponurltype==2){
+            couponcondition='';
+            couponurl=couponurltype+';'+couponcondition;
+        }else if(couponurltype==5){
+            couponcondition = $('#url').val();
+            couponurl=couponurltype+';'+couponcondition;
+        }
+        console.log('ok');
+        console.log(couponurl);
+        var usetype = $('.usetype:checked').val();
+        var canuserbegin = $("#canuserbegin").val();
+        var canuserend = $("#canuserend").val();
+        var canuserduring = $("#canuserduring").val();
+        var operationstatus = $(".operationstatus:checked").val();
+        var parnt = /^[1-9]\d*(\.\d+)?$/;
+        var smallNums = /^0\.([0-9]){1,2}$/;
+        // var fenshu = /^[0-9]*[1-9][0-9]*$/;
+        var fenshu = /^[2-9]{1}\d*$/;
+        if(!couponname){
+            window.alert('请输入优惠券名称');
+        }else if(usetype==0 && !canuserbegin && !canuserend){
+            window.alert('请选择有效时间段');
+        }else if(usetype==0 && canuserbegin>canuserend){
+            window.alert('结束时间不能小于开始时间');
+        }else if(!couponinfo){
+            window.alert('请输入优惠券描述');
+        }else if(couponinfo.length>50){
+            window.alert('请输入正确的优惠券描述');
+        }else if(!couponuseage){
+            window.alert('请输入优惠券用途');
+        }else if(isall==0 && (!category && !guanjiaid && !productid)){
+            window.alert('请选择可用产品');
+        }else{
+            $.post("{:U('CouponApi/Coupon/updateCouponLoop')}",
+                {
+                    couponloopid:couponloopid,
+                    couponname:couponname,
+                    usetype:usetype,
+                    canuserbegin:canuserbegin,
+                    canuserend:canuserend,
+                    canuserduring:canuserduring,
+                    couponinfo:couponinfo,
+                    couponuseage:couponuseage,
+                    category:category,
+                    guanjiaid:guanjiaid,
+                    productid:productid,
+                    isall:isall,
+                    operationstatus:operationstatus,
+                    couponurl:couponurl
+                },
+                function(res){
+                    if(res.state==1){
+                        alert(res.msg);
+                        window.location.href="{:U('OperationCoupon/index')}";
+                    }else{
+                        alert(res.msg);
+                    }
+                },
+                'json'
+            );
+        }
+
+    })
+</script>
+</body>
+</html>

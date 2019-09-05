@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开普勒产品列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <style>
+        .activeGoods{
+            background-color: #f2dede;
+        }
+    </style>
+</head>
+
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品管理</a></li>
+    <li class="active">开普勒产品列表</li>
+</ol>
+
+<!--产品介绍模态框开始-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="goodsInfo" style="top:2%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:800px;min-height:140px">
+            <div class="modal-body" style="padding-left: 30px; padding-right: 30px; padding-top: 25px;padding-bottom:0">
+                    <div class="goodsintroduct" style="max-height:700px;overflow-y:scroll;">
+                    </div>
+            </div>
+            <div class="modal-footer" style="border:0;text-align: right;padding-top:0;margin-top: 20px;">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="backgroud-color:#E7505A;width:105px;height:36px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('kplProduct')}" method="get">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="1" >商品编号</option>
+                    <option value="2" >商品名称</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="datetime" class="form-control" name="condition" id="condition" placeholder="" value="">
+        </div
+        <input type="hidden" name="p" value="1">
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1"><span class="glyphicon glyphicon-search"></span>&nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;</button>
+
+        <button class="btn btn-success" style="background:#1AB394; border:0;opacity:1" onclick="getkpl();" > 刷新开普勒商品池 </button>
+   <!--     
+        <button class="btn btn-success" style="background:#1AB394; border:0;opacity:1" onclick="getkplup();" > 导入开普勒商品 </button>
+        <button class="btn btn-success" style="background:#1AB394; border:0;opacity:1" onclick="up_kpl_info();" > 刷新产品表中的开普勒产品介绍 </button>
+     -->  
+   </form>
+   
+   
+   
+    <table class="table new_table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="5%" align="center">商品编号</th>
+            <th width="10%" align="center">商品名称</th>
+            <th width="5%" align="center">是否导入</th>
+            
+            <th width="5%" align="center">京东价</th>
+            <th width="5%" align="center">协议价</th>
+            
+            <th width="10%" align="center">品牌</th>
+            <th width="10%" align="center">产地</th>
+            <th width="10%" align="center">条形码</th>
+            <th width="10%" align="center">分类码</th>
+            <th width="10%" align="center">商品池编码</th>
+            <th width="10%" align="center">上下架状态</th>
+            <th width="10%" align="center">商品介绍</th>
+            <th width="10%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr class="activeTr">
+                <td class="sku">{$vo.sku}</td>
+                <td>{$vo.name}</td>
+                <td id="onGoods_{$vo.sku}" class="onGoods">
+                <if condition="$vo.is_online eq 0">否
+                    <else />是
+                </if>
+                </td>
+                
+                
+                <td>{$vo.jdprice}</td>
+                <td>{$vo.price}</td>
+                
+                <td>{$vo.brandname}</td>
+                <td>{$vo.productarea}</td>
+                <td>{$vo.upc}</td>
+                <td>{$vo.category}</td>
+                <td>{$vo.page_num}</td>
+                <td>
+                    <if condition="$vo.state eq 1"> 上架
+                    <else />下架
+                </if>
+                </td>
+                <td>
+                    <button type="button" data-id="{$vo.sku}" class="bfL btn btn-success goodsIntfo"  style="background:#1AB394;border:0;opacity:0.8;width:70px;">查看介绍</button>
+                </td>
+                <td>
+                    <input type="checkbox"  data-id="{$vo.sku}" data-isonline="{$vo.is_online}" data-num="{$vo.page_num}"  data-name="{$vo.page_name}" class="goodsSelected">
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+        <tr style="background-color: #F9F9F9;">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+    //刷新开普勒商品池
+     function getkpl(){
+        
+      if( confirm('商品池数据比较多，可能需要很长时间! 是否继续？') ){
+        
+        var kplurl = "{:U('KeplerApi/KeplerApi/save_kpllist_goods')}" ; 
+         
+            window.open( kplurl ) ;  
+      }else{
+        
+        
+      }
+
+     }
+     
+     
+     
+     
+     
+    //导入开普勒商品
+     function getkplup(){
+      
+      if( confirm('直接将开普勒商品导入管家产品表中，可能需要很长时间! 是否继续？') ){
+        
+        var kplurl = "{:U('KeplerApi/KeplerApi/up_product')}" ; 
+         
+            window.open( kplurl ) ;  
+      }else{
+        
+        
+      }
+
+     }
+     
+     
+     
+
+    //商品初始化样式
+     function goodsinit(){
+         $('.activeTr').each(function(){
+             var is_online=$(this).find('.onGoods').text();
+             if($.trim(is_online)=="是"){
+                 $(this).addClass('activeGoods');
+                 $(this).find('.goodsSelected').prop('checked',true);
+             }else{
+                 // $(this).find('.tr').removeClass('activeGoods');
+             }
+         })
+     }
+    goodsinit();
+
+    //挑中的商品操作
+    var now_sku=0 ;
+/*    $(".goodsSelected").click(function(){
+        var sku=$(this).attr('data-id');
+        var name=$(this).attr('data-name');
+        var num=$(this).attr('data-num');
+        now_sku = sku ;
+        var isonline=$("#onGoods_"+now_sku).text();
+        console.log(isonline);
+        console.log(999);
+         if($.trim(isonline)=='否'){
+             isonline=1;
+         }else{
+             isonline=0;
+         }
+        if(!$(this).is(":checked")){
+            $(this).parent().parent().removeClass('activeGoods');
+        }else{
+            $(this).parent().parent().addClass('activeGoods');
+        }
+
+
+        $.get(
+            "{:U('KeplerApi/KeplerApi/up_kpl')}",{
+                sku:sku,
+                page_num:num,
+                page_name:name,
+                is_online:isonline
+            },
+            function(message){
+                // console.log(message);
+                if(message=='import_ok!'){
+                    // console.log(11111111);
+                    $("#onGoods_"+now_sku).html('是');
+                }else{
+                    $("#onGoods_"+now_sku).html('否');
+                }
+            });
+
+
+    })
+*/
+
+
+
+    $(".goodsIntfo").click(function(){
+        $('#goodsInfo').modal('show');
+        var sku=$(this).attr('data-id');
+        console.log(sku);
+        $.post(
+            "{:U('kplGoodsInfo')}",{
+                sku:sku
+            },
+            function(message){
+                console.log(message);
+                 $(".goodsintroduct").html(message);
+            });
+
+    })
+</script>
+</body>
+</html>

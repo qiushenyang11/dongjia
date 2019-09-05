@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新建供应商</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+    <style>
+        #container img{
+            width: 100px;
+            height: 100px;
+        }
+        .selectedType{
+            padding:0 15px;
+        }
+        #selectCondition{
+            display: flex;
+            flex-direction: row;
+            max-width: 700px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+        .selectItem {
+            margin-left: 15px;
+            background-color:#E6E6E6;
+            min-width: 50px;
+            height: 28px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            line-height: 28px;
+        }
+        .selectItem span {
+            cursor: pointer;
+            padding-left: 10px;
+            font-size: 26px;
+            color: #446C94;
+            font-weight: 900;
+            line-height: 24px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">供应商管理</a></li>
+    <li class="active">新建供应商</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:10px" >
+    <form action="#" method="post" class="form-horizontal">
+    
+    <input type="hidden" id="supplierid"  name="supplierid" value="{$res.id}" />
+    
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">基本信息：</label>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" >*供应商简称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="suppliershort"  value="{$res.suppliershort}" name="suppliershort" placeholder="输入供应商简称，会在前端显示">
+            </div>
+            
+            <label for="" class="col-sm-2 control-label" >*供应商全称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="supplier"  name="supplier"  value="{$res.supplier}" placeholder="输入供应商全称">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="contactname"  name="contactname" value="{$res.contactname}" placeholder="请输入联系人">
+            </div>
+            <label class="col-sm-2 control-label" style="">*联系方式</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="contactphone"  name="contactphone" value="{$res.contactphone}" placeholder="输入11位手机号">
+            </div>
+           
+        </div>        
+        
+        <div class="form-group">
+        
+            <label class="col-sm-2 control-label" >*负责BD</label>
+            <div class="col-sm-4">
+                <select  name="userid"  class="form-control" id="userid">
+
+                </select>
+            </div>
+        
+        </div>  
+        
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">客户咨询：</label>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-2 control-label" >*客户咨询</label>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="customertype" class="customertype" <eq name="res.customertype" value="1">checked</eq> value="1"> 
+                <span>使用东家客服</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="customertype" class="customertype" <eq name="res.customertype" value="2">checked</eq> value="2" >
+                <span>使用供应商客服</span>
+            </div>
+            
+             <div class="col-sm-4" >
+                <input type="text" class="form-control" id="customerphone"  name="customerphone" value="{$res.customerphone}" placeholder="输入供应商客服电话，固定请加区号">
+            </div>
+           
+            
+        </div>        
+        
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">合同信息：</label>
+        </div>
+        <div class="form-group">
+
+            <label class="col-sm-2 control-label" >*是否签署</label>
+            <div class="col-sm-4" >
+                <select  name="issign"  class="form-control" id="issign">
+                    <option value="0" <eq name="res.issign" value="0">selected</eq> >未签署</option>
+                    <option value="1" <eq name="res.issign" value="1">selected</eq> >已签署</option>
+                </select>
+            </div>
+            
+            <label class="col-sm-2 control-label" style="">合同编号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="contractid"  name="contractid" value="{$res.contractid}" placeholder="">
+            </div>
+            
+        </div>  
+        
+        <div class="form-group" id="valid">
+           <label for="" class="col-sm-2 control-label" >合同有效期</label>
+        
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="contractstarttime"  value="{$res.contractstarttime_d}" name="contractstarttime" placeholder="选择开始时间" >
+                        </div>
+                        <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                            至
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="contractendtime"    value="{$res.contractendtime_d}"  name="contractendtime"    placeholder="选择结束时间" >
+                        </div>
+                        <div class="col-sm-2">
+                        <sapn></sapn>
+                        </div>
+         
+        </div>
+              
+        
+        <div class="form-group">
+
+            <label class="col-sm-2 control-label" >合同上传</label>
+              <div class="col-sm-10"  style="margin-top:7px;"  id="headpic" >
+                    
+              </div>
+ 
+        </div>        
+ 
+        
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">账户信息：</label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >开户行所在地</label>
+            <div class="col-sm-2">
+                <select  name="bankprovince"  class="form-control" id="province">
+                    <option value="">选择省</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select  name="areaid"  class="form-control" id="city">
+                </select>
+            </div>
+            <label class="col-sm-2 control-label" style="">开户行</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="bank"  name="bank" value="{$res.bank}" placeholder="开户行">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="bankbrance"  name="bankbrance" value="{$res.bankbrance}" placeholder="开户支行">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >账户名</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="bankaccount"  name="bankaccount" value="{$res.bankaccount}" placeholder="开户账户名">
+            </div>
+            <label for="" class="col-sm-2 control-label" >开户卡号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="bankid"  name="bankid" value="{$res.bankid}" placeholder="填写开户卡号">
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">管家助手账号</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >账号</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="phone"  name="phone" value="{$res.phone}" placeholder="请输入账号">
+            </div>
+            <label class="col-sm-2 control-label" style="">密码</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="code"  name="code" value="{$res.code}" placeholder="请填写密码">
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">提供服务类型</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <span class="selectedType">
+                <input type="checkbox" name="stype" <?php if(in_array(1,$res['stype'])){?>checked<?php }?> class="stype" value="1" data-type="1">
+                <span class="">其它服务</span>
+            </span>
+            <span  class="selectedType">
+                <input type="checkbox" name="stype"  <?php if(in_array(2,$res['stype'])){?>checked<?php }?> class="stype" value="2" data-type="2">
+                <span class="">在线咨询</span>
+            </span>
+            <span class="selectedType">
+                <input type="checkbox" name="stype" <?php if(in_array(3,$res['stype'])){?>checked<?php }?> class="stype" value="3" data-type="3">
+                <span class="">上门服务</span>
+            </span>
+            <span class="selectedType">
+                <input type="checkbox" name="stype" <?php if(in_array(5,$res['stype'])){?>checked<?php }?> class="stype" value="5" data-type="5">
+                <span class="">实物商品</span>
+            </span>
+            <span  class="selectedType">
+                <input type="checkbox" name="stype" <?php if(in_array(4,$res['stype'])){?>checked<?php }?> class="stype" value="4" data-type="4">
+                <span class="">到店服务</span>
+            </span>
+        </div>
+        <?php if(in_array(3,$res['stype'])){?>
+        <div id="goDoorInfo"  style="display:black">
+            <div class="form-group" id="">
+                <label for="" class="col-sm-2 control-label" >*上门时间</label>
+                <div class="col-sm-2">
+                    <select  name=""  class="form-control" id="startTime">
+                    </select>
+                </div>
+                <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                    至
+                </div>
+                <div class="col-sm-2">
+                    <select  name=""  class="form-control" id="endTime">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle=""  id="addTimeDuan" data-target="" style="width:80px;background:#1AB394;border:0">添加</button>
+                </div>
+            </div>
+            <div  class="form-group">
+                <label for="" class="col-sm-2 control-label" ></label>
+                <div id="selectCondition">
+                    <volist name="res.stime" id="vo">
+                        <div class="item selectItem" data-value="{$vo[0]}-{$vo[1]}">{$vo[0]}-{$vo[1]}<span class="delButton">×</span></div>
+                    </volist>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" >*接单间隔</label>
+                <div class="col-sm-2">
+                    <select  name="sinterval"  class="form-control" id="sinterval">
+                        <option value="15" <if condition="$res.sinterval eq 15">selected</if>>15分钟</option>
+                        <option value="30" <if condition="$res.sinterval eq 30">selected</if>>30分钟</option>
+                        <option value="60" <if condition="$res.sinterval eq 60">selected</if>>60分钟</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" >*人员在途时间</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="waytime"  name="waytime" value="<?=$res['waytime']?>" placeholder="">
+                </div>
+                <span>小时</span>
+            </div>
+        </div>
+        <?php }else{?>
+        <div id="goDoorInfo"  style="display:none">
+            <div class="form-group" id="">
+                <label for="" class="col-sm-2 control-label" >*上门时间</label>
+                <div class="col-sm-2">
+                    <select  name=""  class="form-control" id="startTime">
+                    </select>
+                </div>
+                <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                    至
+                </div>
+                <div class="col-sm-2">
+                    <select  name=""  class="form-control" id="endTime">
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle=""  id="addTimeDuan" data-target="" style="width:80px;background:#1AB394;border:0">添加</button>
+                </div>
+            </div>
+            <div  class="form-group">
+                <label for="" class="col-sm-2 control-label" ></label>
+                <div id="selectCondition">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" >*接单间隔</label>
+                <div class="col-sm-2">
+                    <select  name="sinterval"  class="form-control" id="sinterval">
+                        <option value="15">15分钟</option>
+                        <option value="30">30分钟</option>
+                        <option value="60">60分钟</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label" >*人员在途时间</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="waytime"  name="waytime" value="" placeholder="">
+                </div>
+                <span>小时</span>
+            </div>
+        </div>
+        <?php }?>
+
+
+        <div class="form-group" style="margin-top:20px;">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">结算信息：</label>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label" for="" >佣金比例</label>
+            <div class="col-sm-2">
+                <input type="number"  min="0" max="100"  step="0.01"  class="form-control" id="commissionrate" value="{$res.commissionrate}"  name="commissionrate" placeholder="">
+            
+            </div>
+            
+            <div class="col-sm-2 control-label" style="text-align: left;padding-left: 0px;">
+                ％
+            </div>
+             
+          <label class="col-sm-2 control-label" style="">结算时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="settletime"  name="settletime" value="{$res.settletime}" placeholder="">
+            </div>
+          
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">备注信息：</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label">备注</label>
+            <div class="col-sm-10">
+                <textarea type="textarea" class="form-control" id="extra"  name="extra" placeholder="" style="height:100px">{$res.extra}</textarea>
+
+            </div>
+            <!-- <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>-->
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <!--<button type="reset" class="btn btn-danger" style="width:80px;background:#1AB394;border:0">取消</button>-->
+                <button type="button" id="surebtn" class="btn btn-success" style="width:100px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    let cssPath = '__PUBLIC__/Admin/css';
+</script>
+
+<script type="text/javascript" src="__PUBLIC__/Admin/js/ueditorX.js"></script>
+
+<script>
+
+    /*上门服务信息是否显示操作*/
+    $(".stype[data-type='3']").click(function(){
+        if($(this).is(':checked')){
+            $('#goDoorInfo').show();
+        }else{
+            $('#goDoorInfo').hide();
+        }
+    })
+
+
+   /*上门时间选择*/
+   selectTimeDoor();
+   function  selectTimeDoor() {
+       // 输出时间
+       var template = ' <option value="%value">%time</option>';
+       console.log(1)
+       for (let i = 0; i <= 47; i++) {
+           let hour;
+           if (i < 20) {
+               hour = '0' + parseInt(i / 2);
+           } else {
+               hour = parseInt(i / 2);
+           }
+           let str = hour + ':' + (i % 2 ? '30' : '00')
+           let dom_str = template.replace('%time', str);
+           dom_str = dom_str.replace('%value', str);
+           $('#startTime').append(dom_str);
+           $('#endTime').append(dom_str);
+       }
+   }
+
+
+
+       // 是否选择服务
+       // $(".service-time-select").change(function(){
+       //     var option = $("input[name='service-time-select-radio']:checked").val();
+       //     if (option ==='1') {
+       //         $('#service-time-select-area').show();
+       //     } else {
+       //         $('#service-time-select-area').hide();
+       //     }
+       // });
+
+
+
+   function addTimeStr(serciceTime) {
+       var str = '';
+       var str='<div class="item selectItem" data-value="'+serciceTime+'">\n' +serciceTime+
+           '           <span class="delButton">×</span></div>';
+       $('#selectCondition').append(str);
+   }
+
+   $('#addTimeDuan').click(function(){
+       var startTime=$('#startTime option:selected').val();
+       var endTime=$('#endTime option:selected').val();
+       var serciceTime=startTime+'-'+endTime;
+       var temp = '';
+       var istrue = true;
+       if(startTime>=endTime){
+           window.alert('请选择正确的上门时间');
+           istrue = false;
+       }
+       console.log(istrue);
+        if (istrue) {
+            $('.selectItem').each(function () {
+                temp = $(this).data('value');
+                temp = temp.split('-');
+                if (!(startTime >=temp[1] || endTime <= temp[0])) {
+                    istrue = false;
+                    return;
+                }
+            })
+            if (!istrue) {
+                window.alert('上门时间段不能有重复值');
+                istrue = false;
+            }
+        }
+
+       if (istrue) addTimeStr(serciceTime);
+   })
+
+   $("#selectCondition").on('click','.delButton',function () {
+       $(this).parent().remove();
+   })
+
+
+    $(document).ready(()=>{
+        var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+      //  setUploadTicket(uploadTicket);
+        var uploadcontainer1 = 'headpic';
+        var initpic1 = '{$res.contracturl}' ; // '/2018/07/05/upload_p5vsvjv0u433mami.docx||榜单发布03月.docx,/2018/07/05/upload_s02d29fi6kkiogby.docx||榜单发布04月.docx,/2018/07/05/upload_yz44k6ugpa8h0yd1.docx||榜单发布05月.doc';
+        createUploadStr(uploadcontainer1,10,initpic1);
+        function strpic(url,oneimageclass, oldname) {
+     //       var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><div alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;">'+url+'</div><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">删除</div></div>';
+
+    var str = '<h5 data-oldn="'+oldname+'" data-path="'+url+'" class="'+oneimageclass+'" style="margin-bottom:10px;">'+oldname+'<button  type="button" class="del btn btn-danger btn-xs" style="margin-left: 15px;"  path="'+url+'" >删除</button><button  type="button" class="btn btn-info btn-xs" style="margin-left: 15px;" onclick=" f_download(\''+url+'\' ); " >下载</button>   </h5>' ; 
+            return str;
+        }
+
+        // 删除
+        $(document).on('click','.del', function () {
+            var path = $(this).attr('path');
+            var uploadcontainer = $(this).parent().parent().attr('id');
+            var nowimgNum = $("."+uploadcontainer).length;
+            $(this).parent().remove();
+            var nowpath = uploadpathstr(uploadcontainer);
+            console.log(path);
+            var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+            if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            } else if(maxPicNum == nowimgNum){
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            }
+
+        })
+
+        function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+            var timestamp = Date.parse(new Date());
+            var uploadid = uploadcontainer+timestamp;  //var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+            
+            var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: auto;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><button  id="'+uploadid+'"  type="button" class="btn btn-primary btn-sm" style="margin-bottom:10px;">合同文件上传</button><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+
+            $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+            if (initpic != '' && initpic != undefined) {
+                $("#"+uploadcontainer).attr('uploadpath',initpic);
+                initpic = initpic.split(',');
+                var tempstr = '';
+                for (var i = 0; i < initpic.length; i++) {
+                    
+                    var fn = initpic[i].split('||');
+                    
+                    tempstr += strpic(initpic[i], uploadcontainer, fn[1]);
+                }
+                $("#"+uploadcontainer).append(tempstr);
+                if (initpic.length < maxPicNum) {
+                    $("#"+uploadcontainer).append(imgstr);
+                    createPuoload(uploadcontainer,uploadid,maxPicNum);
+                }
+            } else {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+
+        }
+
+        function uploadpathstr(uploadcontainer) {
+            var nowpath = '';
+            $("."+uploadcontainer).each(function () {
+                var path = $(this).attr('data-path');
+                nowpath +=path+",";
+            })
+            nowpath = nowpath.substr(0,nowpath.length-1);
+            $("#"+uploadcontainer).attr('uploadpath', nowpath);
+            return nowpath;
+        }
+
+        function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+            var  uploader = new plupload.Uploader({
+                browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+                url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+                filters: {
+                    mime_types: [
+                        {title: 'Image files', extensions: 'pdf,docx,doc'}
+                    ],
+                    prevent_duplicates: true // 不允许选取重复文件
+                },
+                multipart: true,
+                multipart_params: {
+                    'Filename': '${random}', // adding this to keep consistency across the runtimes
+                    'Content-Type': '',
+                    'policy': uploadTicket.policy,
+                    'authorization': uploadTicket.authorization
+                    /*'signature': '<?php echo $signature; ?>' */
+                },
+                flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+                silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+            });
+
+            //在实例对象上调用init()方法进行初始化
+            uploader.init();
+
+            //绑定各种事件，并在事件监听函数中做你想做的事
+            uploader.bind('FilesAdded',function(uploader,files){
+                var nownum = $("."+uploadcontainer).length;
+                if (nownum + uploader.files.length > maxPicNum) {
+                    for(var i in files){
+                        uploader.removeFile(files[i].id);
+                    }
+                    alert('最多上传'+maxPicNum+'个');
+                    return;
+                }
+                $("#parent"+uploadid).remove();
+                uploader.start();
+                //每个事件监听函数都会传入一些很有用的参数，
+                //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+            });
+
+            uploader.bind('FileUploaded',function (uploader,files,info) {
+                
+           //  alert( files.name )   ;
+                
+                var response = JSON.parse(info.response);
+                var url = response.url+'||'+files.name;
+                var str = strpic(url,uploadcontainer ,files.name );
+                uploader.removeFile(files.id);
+                $("#"+uploadcontainer).append(str);
+            })
+
+            uploader.bind('UploadComplete', function (uploader, files) {
+                var nownum = $("."+uploadcontainer).length;
+                if (nownum <maxPicNum) {
+                    createUploadStr(uploadcontainer,maxPicNum);
+                }
+                uploadpathstr(uploadcontainer);
+                uploader.destroy();
+            })
+        }
+    },'json');
+    });
+
+
+
+
+                        //获取省份
+                        var selectProvinceid = "{$areas['provinceid']}";
+                        var selectCityid     = "{$areas['cityid']}";
+                        $.ajax( {
+                            url:"{:U('OperationGuanJia/getAreas')}",
+                            type:'post',
+                            dataType:'json',
+                            success:function(message) {
+
+                                var str='<option value="0">选择省</option>';
+                                $('#province').text('');
+                                for(var i=0;i<message['data'].length;i++){
+                                    if (message['data'][i]['areaid'] == selectProvinceid) {
+                                        str+="<option value ="+message['data'][i]['areaid']+" selected>"+message['data'][i]['areaname']+"</option>";
+                                    } else {
+                                        str+="<option value ="+message['data'][i]['areaid']+" >"+message['data'][i]['areaname']+"</option>";
+                                    }
+
+                                }
+                                getCity(selectProvinceid, selectCityid);
+                                $('#province').html(str);
+                            }
+                        })
+
+                        //获取城市
+                        function getCity(areaid,selectid) {
+                            $.get(
+                                "{:U('OperationGuanJia/getAreas')}",{
+                                    areaid:areaid
+                                },
+                                function(message){
+                                    if(message['state']==1){
+                                        var str = '<option value="0">选择市</option>';
+                                        var data = message.data;
+
+                                        for (var i=0;i<data.length;i++){
+                                            if (selectid && message['data'][i]['areaid'] == selectid) {
+                                                str+="<option value ="+data[i]['areaid']+" selected>"+data[i]['areaname']+"</option>";
+                                            } else {
+                                                str+="<option value ="+data[i]['areaid']+">"+data[i]['areaname']+"</option>";
+                                            }
+                                        }
+
+                                        $("#city").html(str);
+                                    } else{
+                                        alert(message['msg']);
+                                    }
+                                },'json');
+                        }
+
+                        $("#province").change(function(){
+                            var areaid = $(this).val();
+                            getCity(areaid, 0);
+                        })
+
+
+    //获取BD列表
+      var bdid = '{$res.userid}' ;
+    
+    $.ajax({
+        url:"{:U('Operation/OperationSupplier/getAllBD')}",
+        type:"post",
+        dataType:'json',
+        success:function (message) {
+            var str = '<option value="">请选择BD</option>';
+            for(var i=0;i<message['data'].length;i++){
+                if(bdid == message['data'][i].id) {
+                   str+="<option value="+message['data'][i].id+" selected>"+message['data'][i].name+"</option>";
+                } else {
+                   str+="<option value="+message['data'][i].id+">"+message['data'][i].name+"</option>";
+                }
+            }
+            $("#userid").html(str);
+        }
+
+    })
+
+    //提交供应商信息
+    $("#surebtn").click(function () {
+
+        var myreg = /^1\d{10}$/;
+
+        var contracturl   = $("#headpic").attr('uploadpath');
+
+        var supplierid    = $("#supplierid").val();
+
+        var supplier      = $("#supplier").val();
+        var suppliershort = $("#suppliershort").val();
+        
+        var contactname   = $("#contactname").val();
+        var contactphone  = $("#contactphone").val();
+        
+        var userid        = $("#userid").val();
+        
+        var customertype  = $('.customertype:checked').val();
+        var customerphone = $("#customerphone").val();
+        
+        var contractid        = $("#contractid").val();
+        
+        var contractstarttime = $("#contractstarttime").val();
+        var contractendtime   = $("#contractendtime").val();
+        
+ //  alert( contractstarttime+' -- '+contractendtime ) ;      
+        
+        var issign     = $("#issign").val();
+ 
+        var areaid     = $("#city").val();
+        var bankbrance = $("#bankbrance").val();
+        var bank       = $("#bank").val();
+        var bankaccount= $("#bankaccount").val();
+        var bankid     = $("#bankid").val();
+        
+        var commissionrate = $("#commissionrate").val();
+        var settletime     = $("#settletime").val();
+        
+        var extra          = $("#extra").val();
+
+        var phone=$('#phone').val();
+        var code=$("#code").val();
+        var stype='';
+        var hasthree = false;
+        $('.stype:checked').each(function(){
+             stype += $(this).attr('data-type')+',';
+             if ($(this).attr('data-type') == 3) hasthree = true;
+        })
+        stype=stype.substr(0,stype.length-1);
+        var stime='';
+        var sinterval='';
+        var waytime='';
+         if(!hasthree){
+             stime='';
+             sinterval='';
+             waytime='';
+         }else{
+             $('.selectItem').each(function(){
+                 stime+=$(this).attr('data-value')+',';
+             })
+             console.log(stime);
+             stime=stime.substr(0,stime.length-1);
+              sinterval=$("#sinterval option:selected").val();
+              waytime=$('#waytime').val();
+         }
+        var myreg = /^1\d{10}$/;
+        console.log(phone);
+        console.log(code);
+        console.log(stype);
+        console.log(stime);
+        console.log(sinterval);
+        console.log(waytime);
+        if(supplier==''){
+            alert("请输入供应商全称");
+        }else if(suppliershort==''){
+            alert("请输入供应商简称");
+            return false;
+        }else if(contactname==''){
+            alert("请输入联系人");
+            return false;
+        }else if(contactphone==''){
+            alert("请输入联系方式");
+            return false;
+        }else if(!myreg.test(contactphone)){
+            alert('请输入有效的联系手机号码！');
+            return false;
+        }else if(!userid){
+            alert('请选择BD');
+            return false;
+        } else if(customertype==''){
+            alert("请选择客户咨询类型");
+            return false;
+        } else if(customerphone==''&& customertype==2){
+            alert("请输入客服电话");
+            return false;
+        } else if(phone && !myreg.test(phone)){
+            alert('请输入有效的手机号码！');
+        }else if(code && (code.length>16 || code.length<6)){
+            alert('请输入密码6-16位,区分大小写，可输入数字、字母、符号');
+        }else if(!stype){
+            alert('请选择服务类型');
+        }else if(stype==3 && !stime){
+            alert('请选择上门时间');
+        }else if(stype==3 && !sinterval){
+            alert('请选择接单间隔');
+        }else if(stype==3 && !waytime){
+            alert('请输入人员在途时间');
+        }else if(stype==3 && isNaN(waytime)){
+            alert('请输入正确的人员在途时间');
+        }else {
+          var yjbl = parseFloat( commissionrate ) ; 
+          if( yjbl > 100 ){
+            alert("佣金比例必须在100以内。");
+            return false;
+          }
+          
+          if( contractstarttime!='' && contractendtime!='' ){
+             if( contractstarttime > contractendtime ){
+                  alert("合同开始时间 不能大于 结束时间。");
+            return false;
+             }
+          }
+      
+            $.post(
+                "{:U('OperationSupplier/save')}",{
+                      supplierid:supplierid,
+                     contracturl:contracturl,    
+                        supplier:supplier,      
+                   suppliershort:suppliershort, 
+                     contactname:contactname,   
+                    contactphone:contactphone, 
+                          userid:userid,        
+                    customertype:customertype,  
+                   customerphone:customerphone, 
+                      contractid:contractid,        
+               contractstarttime:contractstarttime, 
+                 contractendtime:contractendtime,   
+                          issign:issign, 
+                          areaid:areaid,     
+                      bankbrance:bankbrance, 
+                            bank:bank,       
+                     bankaccount:bankaccount,
+                          bankid:bankid,     
+                  commissionrate:commissionrate,
+                      settletime:settletime,
+                           extra:extra,
+                           phone:phone,
+                            code:code,
+                           stype:stype,
+                           stime:stime,
+                    sinterval:sinterval,
+                          waytime:waytime
+                },
+                function(data){
+                    if(data['state']==1){
+                        alert(data['msg']);
+                        window.location.href="{:U('OperationSupplier/index')}";
+                    } else {
+                        alert(data['msg']);
+                    }
+                },
+                'json');
+        }
+
+    })
+
+
+
+
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+    
+             addFixedInfo();
+
+    
+    function addFixedInfo(){
+
+        $("#valid #contractstarttime").jeDate({
+            format: "YYYY-MM-DD",
+         //   minDate:nowdate
+        })
+        
+        $("#valid #contractendtime").jeDate({
+            format: "YYYY-MM-DD",
+           // minDate:nowdate
+        })
+        
+        $("#settletime").jeDate({
+            format: "YYYY-MM-DD",
+          //  minDate:nowdate
+        })
+        
+    }
+    
+    function f_download( fn ){
+        
+        window.open("{:U('Operation/OperationSupplier/download')}"+'?furl='+fn  );
+        
+    }
+    
+    
+    
+
+
+</script>
+</body>
+</html>

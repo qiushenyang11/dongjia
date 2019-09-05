@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加文章</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <link href="__PUBLIC__/Admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/jquery.searchableSelect.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">文章管理</a></li>
+    <li class="active">新建文章</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*文章名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"   name="title" placeholder="输入文章名称,24字以内" id="title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*头图</label>
+            <div class="col-sm-4" id="headpic">
+            </div>
+            <label class="col-sm-4" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*内容详情</label>
+            <div class="col-sm-6">
+                <div class="col-sm-12 row" id="productinfoparent">
+                    <script type="text/plain" id="productinfo" style="width:375px;min-height: 200px"></script>
+                    </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label form-inline" >*所属管家</label>
+            <div class="col-sm-4" id="guanjiainfolist">
+                <select  name="guanjiaid"  class="form-control" id="guanjianame">
+                    <option value="0">选择管家</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name="status"  class="form-control" id="status">
+                    <option value="1">上线</option>
+                    <option value="2">下线</option>
+                    <option value="3">主推</option>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:80px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        let cssPath = '__PUBLIC__/Admin/css';
+    </script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/ueditorX.js"></script>
+    <script>
+
+
+
+        $(document).ready(()=>{
+
+        var uploadTicket = {policy:null,authorization:null,bucket:null};
+        $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+            let policy = res.policy;
+            let authorization = res.authorization;
+            let bucket = res.bucket;
+            uploadTicket.policy = res.policy;
+            uploadTicket.authorization = res.authorization;
+            uploadTicket.bucket = res.bucket;
+            uploadTicket.deleteUrl = "{:U('AjaxApi/Upyun/deleteFile')}";
+            setUploadTicket(uploadTicket);
+        },'json');
+        });
+
+        //获取管家
+        $(function () {
+
+            $.get("{:U('OperationOrder/getAllBdAndGuanjia')}",function (res) {
+                var guanjia = res.data.guanjia;
+                console.log(guanjia);
+                var str = '';
+                for(var i=0;i<guanjia.length;i++){
+                    str+='<option value='+guanjia[i].guanjiaid+'>'+guanjia[i].guanjianame+'</option>'
+                }
+                $("#guanjianame").append(str);
+                $('#guanjiainfolist select').searchableSelect();
+            },'json');
+
+
+        });
+
+
+
+        //文件上传
+        //上传插件
+        // 文件保存的路径
+        function strpic(url,oneimageclass) {
+            var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+            return str;
+        }
+        var uploadTicket = {policy:null,authorization:null,bucket:null};
+        $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+            uploadTicket.policy = res.policy;
+            uploadTicket.authorization = res.authorization;
+            uploadTicket.bucket = res.bucket;
+            var uploadcontainer1 = 'headpic';
+            var initpic1 = '';
+            createUploadStr(uploadcontainer1,1,initpic1);
+
+        },'json');
+        // 删除
+        $(document).on('click','.del', function () {
+            var path = $(this).attr('path');
+            var uploadcontainer = $(this).parent().parent().attr('id');
+            var nowimgNum = $("."+uploadcontainer).length;
+            $(this).parent().remove();
+            var nowpath = uploadpathstr(uploadcontainer);
+            console.log(path);
+            var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+            if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            } else if(maxPicNum == nowimgNum){
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            }
+
+        })
+
+        function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+            var timestamp = Date.parse(new Date());
+            var uploadid = uploadcontainer+timestamp;
+            var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+            $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+            if (initpic != '' && initpic != undefined) {
+                $("#"+uploadcontainer).attr('uploadpath',initpic);
+                initpic = initpic.split(',');
+                var tempstr = '';
+                for (var i = 0; i < initpic.length; i++) {
+                    tempstr += strpic(initpic[i], uploadcontainer);
+                }
+                $("#"+uploadcontainer).append(tempstr);
+                if (initpic.length < maxPicNum) {
+                    $("#"+uploadcontainer).append(imgstr);
+                    createPuoload(uploadcontainer,uploadid,maxPicNum);
+                }
+            } else {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+
+        }
+        function uploadpathstr(uploadcontainer) {
+            var nowpath = '';
+            $("."+uploadcontainer).each(function () {
+                var path = $(this).attr('data-path');
+                nowpath +=path+",";
+            })
+            nowpath = nowpath.substr(0,nowpath.length-1);
+            $("#"+uploadcontainer).attr('uploadpath', nowpath);
+            return nowpath;
+        }
+
+        function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+            var  uploader = new plupload.Uploader({
+                browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+                url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+                filters: {
+                    mime_types: [
+                        {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                    ],
+                    prevent_duplicates: true // 不允许选取重复文件
+                },
+                multipart: true,
+                multipart_params: {
+                    'Filename': '${random}', // adding this to keep consistency across the runtimes
+                    'Content-Type': '',
+                    'policy': uploadTicket.policy,
+                    'authorization': uploadTicket.authorization
+                    /*'signature': '<?php echo $signature; ?>' */
+                },
+                flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+                silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+            });
+
+            //在实例对象上调用init()方法进行初始化
+            uploader.init();
+
+            //绑定各种事件，并在事件监听函数中做你想做的事
+            uploader.bind('FilesAdded',function(uploader,files){
+                var nownum = $("."+uploadcontainer).length;
+                if (nownum + uploader.files.length > maxPicNum) {
+                    for(var i in files){
+                        uploader.removeFile(files[i].id);
+                    }
+                    alert('多做上传'+maxPicNum+'张');
+                    return;
+                }
+                $("#parent"+uploadid).remove();
+                uploader.start();
+                //每个事件监听函数都会传入一些很有用的参数，
+                //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+            });
+
+            uploader.bind('FileUploaded',function (uploader,files,info) {
+                var response = JSON.parse(info.response);
+                var url = response.url;
+                var str = strpic(url,uploadcontainer);
+                uploader.removeFile(files.id);
+                $("#"+uploadcontainer).append(str);
+            })
+
+            uploader.bind('UploadComplete', function (uploader, files) {
+                var nownum = $("."+uploadcontainer).length;
+                if (nownum <maxPicNum) {
+                    createUploadStr(uploadcontainer,maxPicNum);
+                }
+                uploadpathstr(uploadcontainer);
+                uploader.destroy();
+            })
+        }
+
+
+
+
+        //提交文章信息
+        $("#surebtn").click(function () {
+            var title=$("#title").val();
+            var getblen = function(info) {
+                if (info == null) return 0;
+                if (typeof info != "string"){
+                    info += "";
+                }
+                return info.replace(/[^\x00-\xff]/g,"01").length/2;
+            }
+            var content=productinfoEditor.getContent();
+            var guanjiaid=$("#guanjianame").val();
+            var status=$("#status").val();
+            var pic = $("#headpic").attr('uploadpath');
+            console.log(title);
+            console.log(pic);
+            console.log(content);
+            console.log(guanjiaid);
+            console.log(status);
+            if(!title){
+                alert("文章标题不能为空");
+                return false;
+            }else  if(getblen(title)>24){
+                alert("文章标题长度不能超过24");
+                return false;
+            }else if(!pic){
+                alert("请添加文章头图");
+                return false;
+            }else if(!content){
+                alert("请输入文章详情");
+                return false;
+            }else if(!guanjiaid){
+                alert("请选择管家信息");
+                return false;
+            }else if(!status){
+                alert("请选择文章状态");
+                return false;
+            }else {
+                $.post("{:U('OperationArticle/addNewArticle')}",
+                    {
+                        title:title,
+                        pic:pic,
+                        content:content,
+                        guanjiaid:guanjiaid,
+                        status:status,
+                    },function (data) {
+                        if(data['state']==1){
+                            alert(data['msg']);
+                            window.location.href="{:U('OperationArticle/articleList')}";
+                        }else{
+                            alert(data['msg']);
+                        }
+                    },'json')
+            }
+        });
+
+
+    </script>
+
+</div>
+</body>
+</html>

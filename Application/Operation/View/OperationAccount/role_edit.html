@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加BD</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">分配账号</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px" >
+    <form action="#" method="post" class="form-horizontal">
+    
+        <input type="hidden"  id="id" name="id" value="{$data.id}" />
+    
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="font-size:18px">基础信息:</label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*角色名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="rolename"  name="rolename" maxlength="50" value="{$data.rolename}" placeholder="请输入名称">
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*角色权限</label>
+            
+            <div class="col-sm-10">
+             <input type="checkbox" id="xz_all" name="xz_all" value="1" onchange="xzall();" >全选
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-9">
+     
+     
+     {$xzcode} 
+     
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="surebtn" class="btn btn-success" style="width:80px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    function  xzall(){ //全选处理
+        var xzv = $('#xz_all').is(':checked') ;   // alert( 'xzv-->'+xzv  );
+        console.log(xzv);
+        $("input[name='qxxz']").each(function(){  
+        $(this).prop("checked", xzv);
+         })
+    }
+
+
+    //*新建BD用户*/
+    $("#surebtn").click(function () {
+        
+       var id        = $("#id").val();
+       var rolename  = $("#rolename").val();
+       var jgf='' ; 
+       var menu_list = "";  
+        $("input[name='qxxz']").each(function(){  
+            if($(this).is(":checked"))  
+            {  
+                menu_list += jgf+$(this).val();  
+                jgf=",";
+            }  
+         })
+         
+       //  alert( id+'  '+rolename+'  '+menu_list  ) ; 
+       
+        $.post("{:U('OperationAccount/role_submit')}",{id:id,rolename:rolename,menu_list:menu_list},function (res) {
+            if (res.state) {
+                alert(res.msg);
+                window.location.href="{:U('role_list')}";
+            } else {
+                alert(res.msg);
+            }
+        },'json')
+
+    })
+
+</script>
+</body>
+</html>

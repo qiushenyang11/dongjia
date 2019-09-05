@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定制化运营位</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">定制化运营位</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*运营位名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control"  value="{$res.title}" name="name" placeholder="仅后台显示" id="title">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*显示城市</label>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio" name="status" class="status" value="1" checked id="" <if condition="$res.city_type eq 1">checked</if>>白名单
+            </div>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio" name="status" class="status" value="2"  id="" <if condition="$res.city_type eq 2">checked</if>>黑名单
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-2" id="wenan">
+                <!--<if condition="$res.city_type eq 1">-->
+                    <!--<span style="color:#d4d4d4">*只在以下城市显示</span>-->
+                    <!--<else />-->
+                    <!--<span style="color:#d4d4d4">*不在以下城市显示</span>-->
+                <!--</if>-->
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-4">
+                <select class="js-example-basic-multiple col-sm-12" name="states[]" multiple="multiple">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*在线时间</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showstarttime" value="{$res.show_start}" name="goodname" placeholder="选择开始时间">
+            </div>
+            <div class="col-sm-1 control-label" style="text-align: center;margin-left: -47px;margin-right: -47px;">
+                一
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showendtime"  value="{$res.show_end}" name="goodname" placeholder="选择结束时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="ishow">
+                    <option value="1" <if condition="$res.is_show eq 1">selected</if>>在线</option>
+                    <option value="2" <if condition="$res.is_show eq 2">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >位置1（左侧）</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*图片</label>
+            <div class="col-sm-1" id="pic1">
+            </div>
+            <div class="col-sm-1" style="margin-top:48px;margin-left: 20px">
+                <p style="width:80px;text-align:center;color:red" >*限330*310</p>
+            </div>
+            <label class="col-sm-2" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group one1">
+            <label for="" class="col-sm-2 control-label" >*落地页</label>
+            <div class="col-sm-2" id="" style="z-index: 10000">
+                <select  name=""  class="form-control urltype " id="one1" data-elemnt="one1">
+                    <option value="4"  <if condition="$res.a_type eq 4">selected</if>>产品</option>
+                    <option value="3" <if condition="$res.a_type eq 3">selected</if>>管家</option>
+                    <option value="2" <if condition="$res.a_type eq 2">selected</if>>二级分类</option>
+                    <option value="1" <if condition="$res.a_type eq 1">selected</if>>链接</option>
+                </select>
+            </div>
+            <div class="col-sm-3" id="one1condition">
+                <select name=""   class="form-control productselect" style="height:34px"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >位置2（右上）</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*图片</label>
+            <div class="col-sm-1" id="pic2">
+            </div>
+            <div class="col-sm-1" style="margin-top:48px;margin-left: 20px">
+                <p style="width:80px;text-align:center;color:red" >*限330*146</p>
+            </div>
+            <label class="col-sm-2" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group one2">
+            <label for="" class="col-sm-2 control-label" >*落地页</label>
+            <div class="col-sm-2" id="" style="z-index: 10000">
+                <select  name=""  class="form-control urltype " id="one2" data-elemnt="one2">
+                    <option value="4" <if condition="$res.b_type eq 4">selected</if>>产品</option>
+                    <option value="3" <if condition="$res.b_type eq 3">selected</if>>管家</option>
+                    <option value="2" <if condition="$res.b_type eq 2">selected</if>>二级分类</option>
+                    <option value="1" <if condition="$res.b_type eq 1">selected</if>>链接</option>
+                </select>
+            </div>
+            <div class="col-sm-3" id="one2condition">
+                <select name=""   class="form-control productselect" style="height:34px"></select>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >位置3（右下）</label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*图片</label>
+            <div class="col-sm-1" id="pic3">
+            </div>
+            <div class="col-sm-1" style="margin-top:48px;margin-left: 20px">
+                <p style="width:80px;text-align:center;color:red" >*限330*146</p>
+            </div>
+            <label class="col-sm-2" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group one3">
+            <label for="" class="col-sm-2 control-label" >*落地页</label>
+            <div class="col-sm-2" id="" style="z-index: 10000">
+                <select  name=""  class="form-control urltype " id="one3" data-elemnt="one3">
+                    <option value="4" <if condition="$res.c_type eq 4">selected</if>>产品</option>
+                    <option value="3" <if condition="$res.c_type eq 3">selected</if>>管家</option>
+                    <option value="2" <if condition="$res.c_type eq 2">selected</if>>二级分类</option>
+                    <option value="1" <if condition="$res.c_type eq 1">selected</if>>链接</option>
+                </select>
+            </div>
+            <div class="col-sm-3" id="one3condition">
+                <select name=""   class="form-control productselect" style="height:34px"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+    <script>
+
+        //黑白名单文案显示操作
+        var status = $('.status:checked').val();
+        if(status==2){
+            var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }else{
+            var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }
+
+        $('.status').click(function(){
+            var status = $('.status:checked').val();
+            console.log(status);
+            if(status==2){
+                var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }else{
+                var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }
+        })
+
+
+        var getId="{$Think.get.id}";
+        //初始化左（1）落地页分类数据
+        $(function () {
+            if (getId) {
+                var select2id = '{$res.a_id}';
+                var select2name = '{$res.a_txt}';
+                var type = '{$res.a_type}';
+
+                var ids = [];
+                var data = [];
+                var inputstr1 = '';
+                if (type == 4) {
+                    inputstr1 = '<select name="" id="" class="form-control productselect" style="height:34px"></select>';
+                    $("#one1condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one1condition .productselect').select2({
+                        placeholder: '请输入产品id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 4
+                                };
+                            },
+                            processResults: function (data) {
+                                console.log(888);
+                                console.log(data);
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+
+                } else if (type == 3) {
+                    inputstr1 = '<select class="col-sm-12 form-control guanjiaselect" id="" name="urltvalue"></select>';
+                    $("#one1condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one1condition .guanjiaselect').select2({
+                        placeholder: '请输入管家id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 3
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 2) {
+                    inputstr1 = '<select class="col-sm-12 form-control two" id="" name="urltvalue"></select>';
+                    $("#one1condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one1condition .two').select2({
+                        placeholder: '请输入分类id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 2
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 1) {
+                    inputstr1 = '<input type="text" class="form-control urltvalue"  name="" id="" placeholder="输入链接地址">';
+                    $("#one1condition").html(inputstr1);
+                    $('#one1condition .urltvalue').val(select2name);
+                }
+
+
+                //初始化右上落地页分类数据
+
+                var select2id = '{$res.b_id}';
+                var select2name = '{$res.b_txt}';
+                var type = '{$res.b_type}';
+
+                var ids = [];
+                var data = [];
+                var inputstr1 = '';
+                if (type == 4) {
+                    inputstr1 = '<select name="" id="" class="form-control productselect" style="height:34px"></select>';
+                    $("#one2condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one2condition .productselect').select2({
+                        placeholder: '请输入产品id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 4
+                                };
+                            },
+                            processResults: function (data) {
+                                console.log(888);
+                                console.log(data);
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+
+                } else if (type == 3) {
+                    inputstr1 = '<select class="col-sm-12 form-control guanjiaselect" id="" name="urltvalue"></select>';
+                    $("#one2condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one2condition .guanjiaselect').select2({
+                        placeholder: '请输入管家id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 3
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 2) {
+                    inputstr1 = '<select class="col-sm-12 form-control two" id="" name="urltvalue"></select>';
+                    $("#one2condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one2condition .two').select2({
+                        placeholder: '请输入分类id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 2
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 1) {
+                    inputstr1 = '<input type="text" class="form-control urltvalue"  name="" id="" placeholder="输入链接地址">';
+                    $("#one2condition").html(inputstr1);
+                    $('#one2condition .urltvalue').val(select2name);
+                }
+                //初始化右下落地页分类数据
+
+                var select2id = '{$res.c_id}';
+                var select2name = '{$res.c_txt}';
+                var type = '{$res.c_type}';
+
+                var ids = [];
+                var data = [];
+                var inputstr1 = '';
+                if (type == 4) {
+                    inputstr1 = '<select name="" id="" class="form-control productselect" style="height:34px"></select>';
+                    $("#one3condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one3condition .productselect').select2({
+                        placeholder: '请输入产品id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 4
+                                };
+                            },
+                            processResults: function (data) {
+                                console.log(888);
+                                console.log(data);
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+
+                } else if (type == 3) {
+                    inputstr1 = '<select class="col-sm-12 form-control guanjiaselect" id="" name="urltvalue"></select>';
+                    $("#one3condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one3condition .guanjiaselect').select2({
+                        placeholder: '请输入管家id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 3
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 2) {
+                    inputstr1 = '<select class="col-sm-12 form-control two" id="" name="urltvalue"></select>';
+                    $("#one3condition").html(inputstr1);
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#one3condition .two').select2({
+                        placeholder: '请输入分类id或名称',
+                        data: data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 2
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                } else if (type == 1) {
+                    inputstr1 = '<input type="text" class="form-control urltvalue"  name="" id="" placeholder="输入链接地址">';
+                    $("#one3condition").html(inputstr1);
+                    $('#one3condition .urltvalue').val(select2name);
+                }
+
+            } else {
+                $('.productselect').select2({
+                    placeholder: '请输入产品ID或名称',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type: 4
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    minimumInputLength: 1
+                });
+            }
+
+        })
+        $('.urltype').change(function () {
+            var type = $(this).val();
+            var elemnt = $(this).attr("data-elemnt");
+            var inputstr = '';
+            if (type ==1) {
+                inputstr='<input type="text" class="form-control urltvalue"  name="" id="" placeholder="输入链接地址" style="height:28px">';
+            }else if(type==2){
+                inputstr='<select class="col-sm-12 form-control two" id="" name="urltvalue" ></select>';
+            }else if(type==3){
+                inputstr='<select class="col-sm-12 form-control guanjiaselect" id="" name="urltvalue"></select>';
+            }else if(type==4){
+                inputstr='<select class="col-sm-12 form-control productselect" id="" name="urltvalue"></select>';
+            }
+            console.log(elemnt)
+            $('#'+elemnt+'condition').html(inputstr)
+            selects(type,elemnt)
+        })
+
+        function selects(type,elemnt) {
+            if (type == 2) {
+                $('.'+elemnt).find('.two').select2({
+                    placeholder:'请输入分类ID或名称',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'2'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            } else if(type == 3) {
+                $('.'+elemnt).find('.guanjiaselect').select2({
+                    placeholder:'请输入管家ID或名称',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'3'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            }else if(type == 4) {
+                $('.'+elemnt).find('.productselect').select2({
+                    placeholder:'请输入产品ID或名称',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type:'4'
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            }
+
+        }
+
+        //获取当前日期时间
+        var newDate = new Date();
+        Date.prototype.format = function(format) {
+            var date = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S+": this.getMilliseconds()
+            };
+            if (/(y+)/i.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            for (var k in date) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                        ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+                }
+            }
+            return format;
+        }
+
+        var nowdate = newDate.format('yyyy-MM-dd');
+        nowdate+=' 00:00:00';
+        //日期插件
+        $("#showstarttime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+        $("#showendtime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+
+        function strpic(url,oneimageclass) {
+            var str = '<div style="display:inline-block;height: 60px;width:60px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="60" height="60" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:70px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+            return str;
+        }
+        var uploadTicket = {policy:null,authorization:null,bucket:null};
+        $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+            uploadTicket.policy = res.policy;
+            uploadTicket.authorization = res.authorization;
+            uploadTicket.bucket = res.bucket;
+            var initpic1 = '{$res.a_img}';
+            var initpic2 = '{$res.b_img}';
+            var initpic3 = '{$res.c_img}';
+            createUploadStr('pic1',1,initpic1,330,310);
+            createUploadStr('pic2',1,initpic2,330,146);
+            createUploadStr('pic3',1,initpic3,330,146);
+
+        },'json');
+        // 删除
+        $(document).on('click','.del', function () {
+            var path = $(this).attr('path');
+            var uploadcontainer = $(this).parent().parent().attr('id');
+            var nowimgNum = $("."+uploadcontainer).length;
+            $(this).parent().remove();
+            var nowpath = uploadpathstr(uploadcontainer);
+            console.log(path);
+            var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+            if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            } else if(maxPicNum == nowimgNum){
+                createUploadStr(uploadcontainer, maxPicNum, '');
+            }
+
+        })
+        function uploadpathstr(uploadcontainer) {
+            var nowpath = '';
+            $("."+uploadcontainer).each(function () {
+                var path = $(this).attr('data-path');
+                nowpath +=path+",";
+            })
+            nowpath = nowpath.substr(0,nowpath.length-1);
+            $("#"+uploadcontainer).attr('uploadpath', nowpath);
+            return nowpath;
+        }
+        function createUploadStr(uploadcontainer,maxPicNum,initpic,width,height) {
+            var timestamp = Date.parse(new Date());
+            var uploadid = uploadcontainer+timestamp;
+            var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+            $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+            $('#'+uploadcontainer).attr('needwith',width);
+            $('#'+uploadcontainer).attr('needheight',height);
+            if (initpic != '' && initpic != undefined) {
+                $("#"+uploadcontainer).attr('uploadpath',initpic);
+                initpic = initpic.split(',');
+                var tempstr = '';
+                for (var i = 0; i < initpic.length; i++) {
+                    tempstr += strpic(initpic[i], uploadcontainer);
+                }
+                $("#"+uploadcontainer).append(tempstr);
+                if (initpic.length < maxPicNum) {
+                    $("#"+uploadcontainer).append(imgstr);
+                    createPuoload(uploadcontainer,uploadid,maxPicNum,width,height);
+                }
+            } else {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum,width,height);
+            }
+
+        }
+
+        function createPuoload(uploadcontainer,uploadid,maxPicNum,width,height) {
+            var  uploader = new plupload.Uploader({
+                browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+                url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+                filters: {
+                    mime_types: [
+                        {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                    ],
+                    prevent_duplicates: true // 不允许选取重复文件
+                },
+                multipart: true,
+                multipart_params: {
+                    'Filename': '${random}', // adding this to keep consistency across the runtimes
+                    'Content-Type': '',
+                    'policy': uploadTicket.policy,
+                    'authorization': uploadTicket.authorization
+                    /*'signature': '<?php echo $signature; ?>' */
+                },
+                flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+                silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+            });
+
+            //在实例对象上调用init()方法进行初始化
+            uploader.init();
+
+            //绑定各种事件，并在事件监听函数中做你想做的事
+            uploader.bind('FilesAdded',function(uploader,files){
+                var nownum = $("."+uploadcontainer).length;
+                var reader = new FileReader();
+                var width = $("#"+uploadcontainer).attr('needwith');
+                var height = $("#"+uploadcontainer).attr('needheight');
+                reader.readAsDataURL(files[0].getNative());
+                reader.onload = (function (e) {
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        if (this.width == width && this.height == height) {
+                            if (nownum + uploader.files.length > maxPicNum) {
+                                for(var i in files){
+                                    uploader.removeFile(files[i].id);
+                                }
+                                alert('多做上传'+maxPicNum+'张');
+                                return;
+                            }
+                            $("#parent"+uploadid).remove();
+                            uploader.start();
+                        } else {
+                            for(var i in files){
+                                uploader.removeFile(files[i].id);
+                            }
+                            alert('请上传'+width+'*'+height+'图片');
+                        }
+
+                    };
+                });
+
+                //每个事件监听函数都会传入一些很有用的参数，
+                //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+            });
+
+            uploader.bind('FileUploaded',function (uploader,files,info) {
+                var response = JSON.parse(info.response);
+                var url = response.url;
+                var str = strpic(url,uploadcontainer);
+                uploader.removeFile(files.id);
+                $("#"+uploadcontainer).append(str);
+            })
+
+            uploader.bind('UploadComplete', function (uploader, files) {
+                var nownum = $("."+uploadcontainer).length;
+                if (nownum <maxPicNum) {
+                    createUploadStr(uploadcontainer,maxPicNum);
+                }
+                uploadpathstr(uploadcontainer);
+                uploader.destroy();
+            })
+        }
+
+        //搜索城市操作
+
+        var getId="{$Think.get.id}";
+        if(!getId){
+            $('.js-example-basic-multiple').select2({
+                placeholder:'请选择输入服务城市',
+                data:data,
+                ajax: {
+                    url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            param: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            })
+        }else{
+            var citys = '{$res.city_rang}';
+            var citys = citys.split('|');
+            var data = [];
+            var ids = [];
+            console.log(citys);
+            for (var i = 0;i<citys.length;i++){
+                var temp = citys[i].split(',');
+                data.push({id:temp[0],text:temp[1]});
+                ids.push(temp[0]);
+            }
+            $('.js-example-basic-multiple').select2({
+                placeholder:'请选择输入服务城市',
+                data:data,
+                ajax: {
+                    url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            param: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            }).val(ids).trigger("change");
+        }
+
+
+        //提交定制化信息
+
+        $('#surebtn').click(function () {
+
+            var savetype='diy';
+            var title = $("#title").val();
+            var city_type=$('.status:checked').val();
+            var city_rang='';
+            var city_rangdata=$('.js-example-basic-multiple').select2('data');
+            if (city_rangdata.length > 0) {
+                for (var i=0; i<city_rangdata.length;i++) {
+                    var text = city_rangdata[i].text;
+                    var id = city_rangdata[i].id;
+                    city_rang+=id+','+text+'|';
+                }
+                city_rang = city_rang.substr(0,city_rang.length-1);
+            }  else {
+                city_rang = '';
+            }
+            var show_start = $("#showstarttime").val();
+            var show_end = $("#showendtime").val();
+            var ishow = $("#ishow").val();
+            var a_img =$("#pic1").attr('uploadpath');
+            var b_img =$("#pic2").attr('uploadpath');
+            var c_img =$("#pic3").attr('uploadpath');
+            var a_type=$("#one1").val();
+            var b_type = $("#one2").val();
+            var c_type = $("#one3").val();
+            var a_id = '';
+            var a_txt='';
+            var b_id = '';
+            var b_txt='';
+            var c_id = '';
+            var c_txt='';
+            console.log(22333);
+          //左上
+            if(a_type==2) {
+                var urltvalues = $('#one1condition').find('.two').select2('data')[0];
+                console.log(urltvalues);
+                if (urltvalues) {
+                    var u = urltvalues.id ;
+                    console.log(u);
+                    a_id = u.substring(0, u.indexOf(",")) ;
+                    a_txt=urltvalues.text;
+                }
+            }else if(a_type==3){
+                console.log(a_type);
+                var urltvalues = $('#one1condition').find('.guanjiaselect').select2('data')[0];
+                console.log(urltvalues);
+                if (urltvalues) {
+                    var u = urltvalues.id ;
+                    a_id = u.substring(0, u.indexOf(",")) ;
+                    a_txt=urltvalues.text;
+                }
+            } else if(a_type==4){
+                console.log(a_type);
+                var urltvalues = $('#one1condition').find('.productselect').select2('data')[0];
+                console.log(333);
+                console.log(urltvalues);
+                    // data = urltvalues.split(',')
+                if (urltvalues) {
+                    var u = urltvalues.id ;
+                    a_id = u.substring(0, u.indexOf(",")) ;
+                    a_txt=urltvalues.text;
+                }
+            }else{
+                a_txt = $('#one1condition').find(".urltvalue").val();
+            }
+
+            //右（上）
+            if(b_type==2) {
+                var urltvalues = $('#one2condition').find('.two').select2('data')[0];
+                console.log( 'one2' ,  urltvalues);
+                if (urltvalues) {
+                       var u = urltvalues.id ;
+                    b_id = u.substring(0, u.indexOf(",")) ;
+                    b_txt= urltvalues.text;
+                }
+            }else if(b_type==3){
+                var urltvalues = $('#one2condition').find('.guanjiaselect').select2('data')[0];
+                console.log( 'one2' , urltvalues);
+                if (urltvalues) {
+                       var u = urltvalues.id ;
+                    b_id = u.substring(0, u.indexOf(",")) ;
+                    b_txt= urltvalues.text;
+                }
+            } else if(b_type==4){
+                var urltvalues = $('#one2condition').find('.productselect').select2('data')[0];
+                console.log( 'one2' , 333);
+                console.log( 'one2' , urltvalues);
+                if (urltvalues) {
+                    var u = urltvalues.id ;
+                    b_id = u.substring(0, u.indexOf(",")) ;
+                    b_txt=urltvalues.text;
+                }
+            }else{
+                b_txt = $('#one2condition').find(".urltvalue").val();
+            }
+
+           //右下
+            if(c_type==2) {
+                var urltvalues = $('#one3condition').find('.two').select2('data')[0];
+                console.log(urltvalues);
+                if (urltvalues) {
+                       var u = urltvalues.id ;
+                    c_id = u.substring(0, u.indexOf(",")) ;
+                    c_txt= urltvalues.text;
+                }
+            }else if(c_type==3){
+                var urltvalues = $('#one3condition').find('.guanjiaselect').select2('data')[0];
+                console.log(urltvalues);
+                if (urltvalues) {
+                       var u = urltvalues.id ;
+                    c_id = u.substring(0, u.indexOf(",")) ;
+                    c_txt= urltvalues.text;
+                }
+            } else if(c_type==4){
+                var urltvalues = $('#one3condition').find('.productselect').select2('data')[0];
+                console.log(333);
+                console.log(urltvalues);
+                if (urltvalues) {
+                    var u = urltvalues.id ;
+                    c_id = u.substring(0, u.indexOf(",")) ;
+                    c_txt=urltvalues.text;
+                }
+            }else{
+                c_txt = $('#one3condition').find(".urltvalue").val();
+            }
+
+            if(!title){
+                window.alert("请输入运营位名称");
+            }else if(!city_rang){
+                window.alert("请输入显示城市");
+            }else if(!show_start || !show_end){
+                window.alert("请输入在线时间");
+            }else if(show_start > show_end){
+                window.alert("开始时间不能大于结束时间");
+            }else if(!a_img){
+                window.alert("请上传左侧图片");
+            }else if(!a_txt){
+                window.alert("请选择左侧落地页");
+            }else if(!b_img){
+                window.alert("请上传右上图片");
+            }else if(!b_txt){
+                window.alert("请选择右上落地页");
+            }else if(!c_img){
+                window.alert("请上传右下图片");
+            }else if(!c_txt){
+                window.alert("请选择右下落地页");
+            } else {
+                $.post("{:U('save_submit')}",{
+                    id:"{$Think.get.id}",
+                    savetype:savetype,
+                    title:title,
+                    a_img:a_img,
+                    a_type:a_type,
+                    a_id:a_id,
+                    a_txt:a_txt,
+                    b_img:b_img,
+                    b_type:b_type,
+                    b_id:b_id,
+                    b_txt:b_txt,
+                    c_img:c_img,
+                    c_type:c_type,
+                    c_id:c_id,
+                    c_txt:c_txt,
+                    city_type:city_type,
+                    city_rang:city_rang,
+                    show_start:show_start,
+                    show_end:show_end,
+                    is_show:ishow
+                },function (res) {
+                    if(res.state==1){
+                        alert(res.msg);
+                        window.location.href="{:U('diy')}";
+                    }else {
+                        alert(res.msg);
+                    }
+                },'json')
+            }
+        })
+
+
+
+
+    </script>
+
+</div>
+</body>
+</html>

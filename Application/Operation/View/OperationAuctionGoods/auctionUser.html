@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/ajaxfileupload.js"></script>
+    </head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">拍卖管理</a></li>
+    <li class="active">添加竞拍用户</li>
+</ol>
+<div class="tc_timepick">
+    <h4><input type="file" id="file1" name="file" /></h4>
+        <div class="tc_btn clearfix">
+        <div class="btn_wrap"><input type="" value="取消" class="qx" /></div>
+        <div class="btn_wrap"><input type="button" value="导入" class="qr" id="export" /></div>
+    </div>
+</div>
+<div id="zz_c"></div>
+<div class="container row" style="background-color:white;padding-top:50px" >
+    <form action="#" method="post" class="form-horizontal">
+          <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">姓名</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="name"  name="name" placeholder="">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label" style="color:#697a9c">手机号码</label>
+            <div class="col-sm-4">
+                <input type="phone" class="form-control" id="phone" name="phone" placeholder="">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" style="color:#697a9c">地址</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="address"  name="address" placeholder="请输入地址信息">
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-danger" style="width:80px;background:#1AB394;border:0">取消</button>
+                <button type="button" id="surebtn" class="btn btn-success" style="width:80px;background:#1AB394;border:0">确认</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    /*添加用户提交*/
+    $("#surebtn").click(function(){
+        var name = $("#name").val();
+        var phone = $("#phone").val();
+        var address = $("#address").val();
+        $.post(
+            "{:U('AjaxApi/Auction/addAllowUser')}",{
+                username:name,
+                phone:phone,
+                address:address
+            },
+            function(data){
+                if(data['state']==1){
+                  alert("ok");
+                  window.location.href = '{:U("Operation/OperationAuctionGoods/user")}';
+                } else{
+                  alert("fail...")
+                }
+            },'json');
+    })
+
+    /*文件上传*/
+  /*  $(function () {
+        $(":button").click(function () {
+            if ($("#file1").val().length > 0) {
+                ajaxFileUpload();
+            }
+            else {
+                alert("请选择文件");
+            }
+        })
+    })
+    function ajaxFileUpload() {
+        $.ajaxFileUpload
+        (
+            {
+                url: '', //用于文件上传的服务器端请求地址
+                secureuri: false, //一般设置为false
+                fileElementId: 'file1', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+                    alert(data);
+                    $("#img1").attr("src", data);
+                    if (typeof (data.error) != 'undefined') {
+                        if (data.error != '') {
+                            alert(data.error);
+                        } else {
+                            alert(data.msg);
+                        }
+                    }
+                },
+                error: function (data, status, e)//服务器响应失败处理函数
+                {
+                    alert(e);
+                }
+            }
+        )
+        return false;
+    }*/
+
+    $(".qx").click(function() {
+        $("#zz_c,.tc_timepick").hide();
+    });
+    $(".dclb").click(function() {
+        $("#zz_c").show();
+        $(".tc_timepick").fadeIn(200);
+    });
+
+
+</script>
+</body>
+</html>

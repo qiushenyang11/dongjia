@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>礼品卡列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">礼品卡管理</a></li>
+    <li class="active">礼品卡列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get" id="searchform">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="1" <if condition="$type eq 1">selected</if>>批次ID</option>
+                    <option value="2" <if condition="$type eq 2">selected</if>>礼品卡名称</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="text" class="form-control"  value="{$condition}" name="condition" id="" placeholder="请输入搜索条件">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="cardtype"  class="form-control">
+                    <option value="0" <if condition="$cardtype eq '0'">selected</if>>类型</option>
+                    <option value="1" <if condition="$cardtype eq '1'">selected</if>>充值卡</option>
+                    <option value="2" <if condition="$cardtype eq '2'">selected</if>>兑换卡</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="status"  class="form-control">
+                    <option value="1" <if condition="$status eq '1'">selected</if>>可以绑定</option>
+                    <option value="0" <if condition="$status eq '0'">selected</if>>停止绑定</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="p" value="1">
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">
+            <span class="glyphicon glyphicon-search">
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <a href="{:U('addGiftCard')}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;">新建</button></a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">批次ID</th>
+            <th width="15%" align="center">礼品卡名称</th>
+            <th width="10%" align="center">类型</th>
+            <th width="10%" align="center">金额</th>
+            <th width="10%" align="center">总数</th>
+            <th width="15%" align="center">绑定份数</th>
+            <th width="10%" align="center">礼品卡用途</th>
+            <th width="15%" align="center">状态</th>
+            <th width="15%" align="left">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td><if condition="$vo.type eq 1">充值卡<else />兑换卡</if></td>
+                <td><if condition="$vo.type eq 1">{$vo.price}<else />/</if></td>
+                <td>{$vo.num}</td>
+                <td>{$vo.bindnum}</td>
+                <td>{$vo.info}</td>
+                <td>
+                    <if condition="$vo.status eq '1'">可以绑定
+                    <else />停止绑定
+                    </if>
+                   </td>
+                <td align="left">
+                    <a href="{:U('editGiftCard')}?id={$vo.id}"> <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">编辑</button></a>
+                    <a href="{:U('excelData')}?id={$vo.id}">
+                        <button type="button" data-id="{$vo.id}" class="bfL btn btn-success del" style="background:#1AB394;border:0;opacity:0.8" id="export">导出礼品卡</button>
+                    </a>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+</script>
+</body>
+</html>

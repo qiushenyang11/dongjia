@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <!-- End Required meta tags -->
+    <title> Sign In | Looper - Bootstrap 4 Admin Theme </title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/BaoXian/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="__PUBLIC__/BaoXian/assets/favicon.ico">
+    <meta name="theme-color" content="#3063A0">
+    <!-- BEGIN BASE STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/fontawesome/css/fontawesome.all.css">
+    <!-- END BASE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/main.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/custom.css">
+    <!-- END THEME STYLES -->
+    <style>
+        /* bootstrap.css*/
+        :root {
+            --jdred: #c44848;
+        }
+
+        .table-jdred,
+        .table-jdred > th,
+        .table-jdred > td {
+            background-color: #e8c5c5;
+        }
+
+        .table-hover .table-jdred:hover {
+            background-color: #e3b6b6;
+        }
+
+        .table-hover .table-jdred:hover > td,
+        .table-hover .table-jdred:hover > th {
+            background-color: #e3b6b6;
+        }
+
+        .form-control:focus {
+            color: #28313B;
+            background-color: #ffffff;
+            border-color: #b03535;
+            outline: 0;
+            -webkit-box-shadow: 0 0 0 1px #b03535;
+            box-shadow: 0 0 0 1px #b03535;
+        }
+
+        .btn-jdred {
+            color: #ffffff;
+            background-color: #b03535;
+            border-color: #b03535;
+        }
+
+        .btn-jdred:hover {
+            color: #ffffff;
+            background-color: #912a2a;
+            border-color: #8a2828;
+        }
+
+        .btn-jdred:focus, .btn-jdred.focus {
+            -webkit-box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+            box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+        }
+
+        .btn-jdred.disabled, .btn-jdred:disabled {
+            color: #ffffff;
+            background-color: #b03535;
+            border-color: #b03535;
+        }
+
+        .btn-jdred:not(:disabled):not(.disabled):active, .btn-jdred:not(:disabled):not(.disabled).active,
+        .show > .btn-jdred.dropdown-toggle {
+            color: #ffffff;
+            background-color: #8a2828;
+            border-color: #802525;
+        }
+
+        .btn-jdred:not(:disabled):not(.disabled):active:focus, .btn-jdred:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-jdred.dropdown-toggle:focus {
+            -webkit-box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+            box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+        }
+
+        .btn-outline-jdred {
+            color: #b03535;
+            background-color: transparent;
+            background-image: none;
+            border-color: #b03535;
+        }
+
+        .btn-outline-jdred:hover {
+            color: #ffffff;
+            background-color: #b03535;
+            border-color: #b03535;
+        }
+
+        .btn-outline-jdred:focus, .btn-outline-jdred.focus {
+            -webkit-box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+            box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+        }
+
+        .btn-outline-jdred.disabled, .btn-outline-jdred:disabled {
+            color: #b03535;
+            background-color: transparent;
+        }
+
+        .btn-outline-jdred:not(:disabled):not(.disabled):active, .btn-outline-jdred:not(:disabled):not(.disabled).active,
+        .show > .btn-outline-jdred.dropdown-toggle {
+            color: #ffffff;
+            background-color: #b03535;
+            border-color: #b03535;
+        }
+
+        .btn-outline-jdred:not(:disabled):not(.disabled):active:focus, .btn-outline-jdred:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-outline-jdred.dropdown-toggle:focus {
+            -webkit-box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+            box-shadow: 0 0 0 1px rgba(176, 53, 53, 0.5);
+        }
+
+        .badge-jdred {
+            color: #ffffff;
+            background-color: #b03535;
+        }
+
+        .badge-jdred[href]:hover, .badge-jdred[href]:focus {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #8a2828;
+        }
+
+        .alert-jdred {
+            color: #992f2f;
+            background-color: #f7f9fc;
+            border-color: #b03535;
+        }
+
+        .alert-jdred hr {
+            border-top-color: #9c2d2d;
+        }
+
+        .alert-jdred .alert-link {
+            color: #732222;
+        }
+
+
+        .list-group-item-jdred {
+            color: #702424;
+            background-color: #e8c5c5;
+        }
+
+        .list-group-item-jdred.list-group-item-action:hover, .list-group-item-jdred.list-group-item-action:focus {
+            color: #702424;
+            background-color: #e3b6b6;
+        }
+
+        .list-group-item-jdred.list-group-item-action.active {
+            color: #ffffff;
+            background-color: #702424;
+            border-color: #702424;
+        }
+
+        .bg-jdred {
+            background-color: #b03535 !important;
+        }
+
+        a.bg-jdred:hover, a.bg-jdred:focus,
+        button.bg-jdred:hover,
+        button.bg-jdred:focus {
+            background-color: #8a2828 !important;
+        }
+
+
+        .border-jdred {
+            border-color: #b03535 !important;
+        }
+
+
+        .text-jdred {
+            color: #b03535 !important;
+        }
+
+        a.text-jdred:hover, a.text-jdred:focus {
+            color: #8a2828 !important;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        /* main.css*/
+        .btn-jdred {
+            border-color: #912a2a;
+        }
+
+        .btn-jdred:hover {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .btn-jdred:focus, .btn-jdred.focus {
+            border-color: #802525;
+            -webkit-box-shadow: inset 0 1px 0 0 #c74444, 0 0 0 1px #802525;
+            box-shadow: inset 0 1px 0 0 #c74444, 0 0 0 1px #802525;
+        }
+
+        .alert-jdred .alert-icon {
+            color: #ffffff;
+            background-color: #992f2f;
+        }
+
+        .badge-subtle.badge-jdred {
+            color: #9c2d2d;
+            background-color: #f0d8d8;
+        }
+
+        .badge-subtle.badge-jdred[href]:hover, .badge-subtle.badge-jdred[href]:focus {
+            color: #9c2d2d;
+            text-decoration: none;
+            background-color: #edd1d1;
+        }
+
+        .list-group-item-jdred {
+            -webkit-box-shadow: inset 4px 0 0 0 #b03535;
+            box-shadow: inset 4px 0 0 0 #b03535;
+        }
+
+        .noUi-jdred .noUi-connect {
+            background-color: #b03535;
+        }
+
+        .noUi-jdred .noUi-handle {
+            border-color: #b03535;
+        }
+
+        .noUi-jdred .noUi-handle:hover, .noUi-jdred .noUi-handle:focus, .noUi-jdred .noUi-handle:active {
+            -webkit-box-shadow: 0 0 0 4px rgba(176, 53, 53, 0.26);
+            box-shadow: 0 0 0 4px rgba(176, 53, 53, 0.26);
+        }
+
+        .task-jdred {
+            border-left: 4px solid #b03535;
+        }
+
+    </style>
+    <style>
+        .form-label-group input~label {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            font-size: .75rem;
+            color: #686f76;
+        }
+        .auth-header{
+            background-color: #c44848;
+        }
+
+
+    </style>
+</head>
+<body>
+<!-- .auth -->
+<main class="auth">
+    <header id="auth-header" class="auth-header" style="">
+        <h1>
+            <span>东家金服智能保顾建模系统</span>
+            <span class="sr-only">Sign In</span>
+        </h1>
+    </header>
+    <!-- form -->
+    <form class="auth-form">
+        <!-- .form-group -->
+        <div class="form-group">
+            <div class="form-label-group">
+                <input type="text" id="inputPhone" class="form-control" placeholder="Username" required="" autofocus="">
+                <label for="inputPhone">PhoneNumber</label>
+            </div>
+        </div>
+        <!-- /.form-group -->
+        <!-- .form-group -->
+        <div class="form-group">
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+                <label for="inputPassword">Password</label>
+            </div>
+        </div>
+        <!-- /.form-group -->
+        <!-- .form-group -->
+        <div class="form-group">
+            <button class="btn btn-lg btn-jdred btn-block" type="button" id="submitBtn">Sign In</button>
+        </div>
+        <!-- /.form-group -->
+        <!-- .form-group -->
+        <div class="form-group text-center">
+            <div class="custom-control custom-control-inline custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="remember-me">
+                <label class="custom-control-label" for="remember-me">Keep me sign in</label>
+            </div>
+        </div>
+        <!-- /.form-group -->
+        <!-- recovery links -->
+        <div class="text-center pt-3">
+            <a href="javascript:alert('请联系管理员')" class="link">Forgot Username?</a>
+            <span class="mx-2">·</span>
+            <a href="javascript:alert('请联系管理员')" class="link">Forgot Password?</a>
+        </div>
+        <!-- /recovery links -->
+    </form>
+    <!-- /.auth-form -->
+    <!-- copyright -->
+    <footer class="auth-footer"> © 2018 All Rights Reserved.
+        <a href="#">Privacy</a> and
+        <a href="#">Terms</a>
+    </footer>
+</main>
+<!-- /.auth -->
+<!-- BEGIN PLUGINS JS -->
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/particles.js/particles.min.js"></script>-->
+<script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+<script>
+    let posturl = "/myWeb/BaoXian/BaoXianDoor/login.html";
+
+    $(document).ready(() => {
+      $('#submitBtn').click(() => {
+        let ua = $('#inputPhone').val();
+        let psd = $('#inputPassword').val();
+
+        $.ajax({
+          url: posturl,
+          type: 'post',
+          data: {
+            phone: ua,
+            code: psd
+          },
+          success(data) {
+            data = JSON.parse(data);
+            if (data.state) {
+              window.location.href = "/myWeb/BaoXian/BaoXianDoor/expert.html";
+            } else {
+              alert(data.msg);
+            }
+          }
+        });
+      });
+    });
+
+</script>
+<!-- END PLUGINS JS -->
+</body>
+</html>

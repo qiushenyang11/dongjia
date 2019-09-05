@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset=utf-8>
+    <title>授权登录</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href="__PUBLIC__/Admin/css/reset.css">
+    <link rel=stylesheet type=text/css href=https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css>
+<style>
+    .logo{
+        width: 93px;
+    }
+</style>
+</head>
+<body>
+<div class="page msg_success js_show">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><img class="logo" src="__PUBLIC__/Admin/images/logo300.png"></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">授权操作</h2>
+            <p class="weui-msg__desc">是否要同意京东的授权？</a></p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <a href="javascript:shouquan();" class="weui-btn weui-btn_primary">授权</a>
+            </p>
+        </div>
+        <!--<div class="weui-msg__extra-area">-->
+            <!--<div class="weui-footer">-->
+                <!--<p class="weui-footer__links">-->
+                    <!--<a href="javascript:void(0);" class="weui-footer__link">底部链接文本</a>-->
+                <!--</p>-->
+                <!--<p class="weui-footer__text">Copyright © 2008-2016 weui.io</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+<script>
+      function shouquan() {
+        var rs = window.location.href.split('=');
+        var url = rs[2];
+        document.cookie='pt_key=test; path=/';
+        window.location.href=url;
+
+    }
+</script>
+</html>

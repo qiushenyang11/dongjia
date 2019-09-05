@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8><title>深度保洁 限时买赠</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'><link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css><script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script><script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script><script>window.browser = {versions: function() {let u = navigator.userAgent;return {trident:u.indexOf('Trident')>-1,presto:u.indexOf('Presto') > -1,webKit:u.indexOf('AppleWebKit') > -1,gecko:u.indexOf('Gecko')>-1&&u.indexOf('KHTML')===-1,mobile:!!u.match(/AppleWebKit.*Mobile.*/),ios:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:u.indexOf('Android')>-1,iPhone:u.indexOf('iPhone')>-1,iPad:u.indexOf('iPad')>-1,jdjr: u.indexOf('JDJR-App') > -1,webApp:u.indexOf('Safari')===-1,wechat:u.indexOf('MicroMessenger')!==-1};}(),language: (navigator.browserLanguage || navigator.language).toLowerCase()};</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+window.ga('create', 'UA-115976658-1', 'auto');
+function getRequest() {
+    var url = window.location.href;
+//                console.log(url);
+    if (url.indexOf('?') !== -1) {
+        var str = url.substr(url.indexOf('?') + 1);
+        var strs = str.split('&');
+        var result = {};
+        for (var temp in strs) {
+            var tp = strs[temp].split('=');
+            result[tp[0]] = tp[1];
+        }
+        return result;
+    } else {
+        return {};
+    }
+}
+function ajax(){
+    var ajaxData = {
+        type:arguments[0].type || "GET",
+        url:arguments[0].url || "",
+        async:arguments[0].async || "true",
+        data:arguments[0].data || null,
+        dataType:arguments[0].dataType || "text",
+        contentType:arguments[0].contentType || "application/x-www-form-urlencoded",
+        beforeSend:arguments[0].beforeSend || function(){},
+        success:arguments[0].success || function(){},
+        error:arguments[0].error || function(){}
+    };
+    ajaxData.beforeSend();
+    var xhr = createxmlHttpRequest();
+    xhr.responseType=ajaxData.dataType;
+    xhr.open(ajaxData.type,ajaxData.url,ajaxData.async);
+    xhr.setRequestHeader("Content-Type",ajaxData.contentType);
+    xhr.send(convertData(ajaxData.data));
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if(xhr.status == 200){
+                ajaxData.success(xhr.response)
+            }else{
+                ajaxData.error()
+            }
+        }
+    }
+}
+function createxmlHttpRequest() {
+    if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    } else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    }
+}
+function convertData(data){
+    if( typeof data === 'object' ){
+        var convertResult = "" ;
+        for(var c in data){
+            convertResult+= c + "=" + data[c] + "&";
+        }
+        convertResult=convertResult.substring(0,convertResult.length-1)
+        return convertResult;
+    }else{
+        return data;
+    }
+}
+var para = getRequest();
+var GAStr;
+var paraStr = '';
+
+if (para.aid) {
+    paraStr = paraStr + '&aid=' + para.aid;
+}
+if (para.utm_medium) {
+    paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+}
+if (para.utm_source) {
+    paraStr = paraStr + '&utm_source=' + para.utm_source;
+}
+if (para.utm_campaign) {
+    paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+}
+if (paraStr.length > 1) {
+    paraStr = '?' + paraStr.substring(1);
+}
+GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+window.ga('send', 'pageview', GAStr);
+ajax({
+    type:"POST",
+    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+//    dataType:"json",
+    data:{
+        channelId: para.utm_medium,
+        sgId: 13,
+        scenceId: para.utm_source,
+        status: 0
+    }
+})
+</script>
+    <style type="text/css">
+        body {
+            background: #fff;
+        }
+        .mainapp {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .mainapp .headArea {
+            background: url("https://file.rose52.com/guanjia/activity/20180328v2/Artboard@3x.png?s=1");
+            width: 100vw;
+            height: 57.3vw;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+        }
+        .mainapp .secondArea {
+            width: 92.8vw;
+            margin-top: 22px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mainapp .secondArea .block {
+            width: 25.6vw;
+            height: 25.6vw;
+        }
+        .mainapp .secondArea .block img {
+            width: 100%;
+        }
+        .mainapp .categorysArea {
+            width: 100%;
+            /*background: #bbb;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+        }
+        .mainapp .categorysArea .outsiteBorder {
+            width: 92.8vw;
+            border: 1px solid rgba(235,159,162,0.21);
+            margin-top: 20px;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder {
+            width: 89.3vw;
+            border: 1px solid rgba(221,88,94,0.35);
+            min-height: 50px;
+            margin: -6px 6px 4px 6px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 6px;
+            padding-bottom: 50px;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item {
+            width: 72.8vw;
+            margin-top: 26px;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .img,
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .info {
+            width: 26.94vw;
+            height: 28.26vw;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .img {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .img img {
+            width: 100%;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .info {
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #242424;
+            letter-spacing: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .info .name {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .info .price {
+            margin-bottom: 8px;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .info .btn {
+            width: 77px;
+            height: 27px;
+            background: #dd585e;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: PingFangSC-Regular;
+            font-size: 12px;
+            letter-spacing: 0;
+            color: #fff;
+        }
+        .mainapp .categorysArea .outsiteBorder .insiteBorder .item a .first {
+            order: -1;
+        }
+        .mainapp .redirectArea {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .mainapp .redirectArea .redirectBtn {
+            width: 92.8vw;
+            height: 44px;
+            border: 1px solid rgba(221,88,94,0.35);
+            text-align: center;
+        }
+        .mainapp .redirectArea .redirectBtn a {
+            width: 100%;
+            height: 100%;
+            font-family: PingFangSC-Light;
+            font-size: 16px;
+            color: #dd585e;
+            letter-spacing: 0;
+            text-decoration: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        .mainapp .huodongtitle {
+            width: 100%;
+            height: 17px;
+            background: url("https://file.rose52.com/guanjia/activity/20180328v2/Group@3x.png?s=1");
+            background-position: center;
+            background-size: 114px 17px;
+            background-repeat: no-repeat;
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: PingFangSC-Medium;
+            font-size: 14px;
+            color: #dd585e;
+        }
+        .mainapp .rulesArea {
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
+        }
+        .mainapp .rulesArea span {
+            width: 92.53vw;
+            margin: 14px;
+            font-family: PingFangSC-Light;
+            color: #5a5a5a;
+            letter-spacing: 0;
+            line-height: 18px;
+            font-size: 13px;
+        }
+        .mainapp .rulesArea .title {
+            font-family: PingFangSC-Regular;
+            color: #000;
+            margin: 0;
+        }
+        .mainapp .rulesArea .list {
+            margin: 0;
+            display: list-item;
+            list-style-type: disc;
+        }
+        .mainapp .rulesArea a {
+            color: #dd585e;
+        }
+        .mainapp .arrow {
+            width: 5.34vw;
+            height: 5.34vw;
+            background: url("https://file.rose52.com/guanjia/activity/20180328/arr@3x.png?s=1");
+            background-position: center;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 152vw;
+            opacity: 0;
+            z-index: 500;
+            animation: myfirst 5s;
+            -moz-animation: myfirst 5s; /* Firefox */
+            -webkit-animation: myfirst 5s; /* Safari 和 Chrome */
+            -o-animation: myfirst 5s; /* Opera */
+        }
+    </style>
+</head><body><div class="mainapp"><div style="display: none;"><img src="https://file.rose52.com/guanjia/activity/20180328v2/Artboard@3x.png?s=1"></div> <div class="headArea"></div> <div class="secondArea"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/21" class="block"><img src="https://file.rose52.com/guanjia/activity/20180328v2/78@3x.png?s=1"></a> <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/21" class="block"><img src="https://file.rose52.com/guanjia/activity/20180328v2/458@3x.png?s=1"></a> <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/22" class="block"><img src="https://file.rose52.com/guanjia/activity/20180328v2/732@3x.png?s=1"></a></div> <div class="categorysArea"><div class="outsiteBorder"><div class="insiteBorder"><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/19"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/qw@3x.png?s=1"></div> <div class="info"><div class="name">全屋深度保洁</div> <div class="price">¥689</div> <div class="btn">买即赠 GO</div></div></a></div><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/20"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/ch@3x.png?s=1"></div> <div class="info first"><div class="name">精细擦窗</div> <div class="price">¥228</div> <div class="btn">买即赠 GO</div></div></a></div><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/22"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/ws@3x.png?s=1"></div> <div class="info"><div class="name">深度除螨</div> <div class="price">¥48</div> <div class="btn">买即赠 GO</div></div></a></div></div></div><div class="outsiteBorder"><div class="insiteBorder"><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/24"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/wy@3x.png?s=1"></div> <div class="info"><div class="name">卫生间深度保洁</div> <div class="price">¥188</div> <div class="btn">买即赠 GO</div></div></a></div><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/21"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/cf@3x.png?s=1"></div> <div class="info first"><div class="name">厨房深度保洁</div> <div class="price">¥458</div> <div class="btn">买即赠 GO</div></div></a></div><div class="item"><a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/23"><div class="img"><img src="https://file.rose52.com/guanjia/activity/20180328/xf@3x.png?s=1"></div> <div class="info"><div class="name">开荒保洁</div> <div class="price">¥750</div> <div class="btn">买即赠 GO</div></div></a></div></div></div></div> <div class="redirectArea"><div class="redirectBtn"><a href="/myWeb/WeChat/WeChatGuanJia/index">进入管家平台，发现更多优质服务&gt;&gt;</a></div></div> <div class="huodongtitle">活动规则</div> <div class="rulesArea"><span><span class="title">活动说明</span><br>
+凡在东家管家平台上购买清洁服务，单笔订单满固定金额，即可享受以下买赠福利：<br> <br>
+•　满600元 送 <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/21">Duskin厨房去油套装</a> 价值¥78<br>
+　（注：保洁团队将在上门服务时，送上赠品）<br>
+•　满1000元 送 <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/21">厨房深度保洁服务（平层）</a> 价值¥458<br>
+•　满2000元 送 <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index#/servicesDetail/7/22">三床一沙发除螨服务</a> 价值¥732<br> <br>
+活动时间：2018年3月28日至2018年4月30日<br>
+赠品获取方式：符合买赠条件的用户，将于下单后2个工作日内收到东家管家平台发送的赠品服务码短信，同时，客服将致电预约服务时间<br>
+赠品（服务类）使用时间：请在领取后半年内使用（法定节假日不可使用）<br> <br> <span class="title">特别说明</span><br>
+本次活动服务区域仅限上海市（崇明岛、奉贤区除外）<br><br>
+本次活动最终解释权归东家管家平台     <br></span></div></div>
+<a href=//m.jr.jd.com/spe/acl/xjkdispark/html/index.html ke-auto-link=true><img data-imgtype=htmlContent class=J_imgLazyload src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif data-srcset=//m.360buyimg.com/mobilecms/jfs/t17014/111/598066032/34564/f1d5ac06/5a99160fNee5025a2.jpg adaptive style=width:100%;height:auto; _xhe_src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif width=1125 height=200></a><a href=//m.jr.jd.com/integrate/getUp/html/index.html ke-auto-link=true><img data-imgtype=htmlContent class=J_imgLazyload src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif data-srcset=//m.360buyimg.com/mobilecms/jfs/t17881/217/603111452/30432/d30456a7/5a99160fNca232fb6.jpg adaptive style=width:100%;height:auto; _xhe_src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif width=1125 height=200></a><a href=//m.jr.jd.com/integrate/inviteFriendsTwo/html/index.html ke-auto-link=true><img data-imgtype=htmlContent class=J_imgLazyload src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif data-srcset=//m.360buyimg.com/mobilecms/jfs/t19384/123/599781002/40661/e1d97afb/5a99160fNe51302af.jpg adaptive style=width:100%;height:auto; _xhe_src=//m.360buyimg.com/cms/g10/M00/13/04/rBEQWFFj4PUIAAAAAAAESxyqJLUAADvdAIHC9oAAARj186.gif width=1125 height=200></a><div class=d-page-price-desc style="position: relative;"><p><strong>价格说明</strong></p><p>京东价：京东价为商品的销售价，是您最终决定是否购买商品的依据。</p><p>划线价：商品展示的划横线价格为参考价，该价格可能是品牌专柜标价、商品吊牌价或由品牌供应商提供的正品零售价（如厂商指导价、建议零售价等）或该商品在京东平台上曾经展示过的销售 价；由于地区、时间的差异性和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展 示的不一致，该价格仅供您参考。</p><p><strong>小贴士</strong>：因可能存在系统缓存、页面更新导致价格变动异常等不确定性情 况出现，如您发现活动商品标价或促销信息有异常，请您立即联系我们，以便我们及时补正。</p><span class=d-desc-close onclick="document.querySelectorAll('.d-page-price-desc')[0].style.display='none'">关闭</span></div><script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/??view/js/appIndex.js,/module/module.zoom.js,module/module.js?t=20171027185038"></script><script type=text/javascript src=//static.360buyimg.com/finance/base/1.2.0/js/jdjrflow.js></script><script type=text/javascript src=//wl.jd.com/unify.min.js></script><script type=text/javascript>//追加尾部参数
+commonLoder.initActPageParams();
+//埋点相关代码，需要放在unify.min.js后面
+try{MPing.inputs.Click.attachEvent();}catch(e){}</script><script type=text/javascript>var _url = location.origin + location.pathname,_imgUrl = /^(http)/.test('//m.360buyimg.com/mobilecms/jfs/t17518/101/608518649/3372/2c9bc9de/5a9917a7Ne9445378.jpg') ? '//m.360buyimg.com/mobilecms/jfs/t17518/101/608518649/3372/2c9bc9de/5a9917a7Ne9445378.jpg' : ('https:'+'//m.360buyimg.com/mobilecms/jfs/t17518/101/608518649/3372/2c9bc9de/5a9917a7Ne9445378.jpg');
+try {window.jdShare && jdShare.setShareInfo({title: '女神专属理财顾问', content: '专属理财顾问，助女神理财不让须眉', url: _url.indexOf("/app/") != -1 ? _url.replace(/\/app\//,"/m/") : _url, img: _imgUrl, timeline_title: '专属理财顾问，助女神理财不让须眉'});} catch (e) {}</script></body></html>

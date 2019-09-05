@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>登录</title>
+		<link rel="stylesheet" href="__PUBLIC__/Admin/css/work.css">
+	</head>
+
+	<body>
+		<div class="main">
+			<div class="logo_wrap"></div>
+
+			<form action="{:U('login')}" method='post'>
+				<input type="hidden" name='type' value='government' id='type' />
+				<input type="hidden" name="city" value='cityInfo' id='city' />
+				<div class="right">
+					<div class='login'>
+						<div class="login_wrap">
+							<div class="user_sf">
+								<ul class="u1 clearfix">
+									<li><b class="government">管家运营系统</b></li>
+								</ul>
+							</div>
+							<table>
+								<tr>
+									<td>用户名:</td>
+									<td><input type="text" name="phone"></td>
+								</tr>
+								<tr>
+									<td>密　码:</td>
+									<td><input type="password" name="code"></td>
+								</tr>
+								<tr>
+									<td>
+									验证码:
+									</td>
+									<td><input type="text" name="verifycode"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><img onclick="this.src=this.src+'?'+Math.random()" src="{:U('getCode')}" style="width: 225px;height: 30px"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="login_btn">
+							<input type="submit" value="登陆">
+						</div>
+						<div class="remember_forget">
+							<ul class='u3 clearfix'>
+								<li><label for="auto"><input type="checkbox" name="auto" value='n' class="checkbox" >记住密码</label></li>
+								<li style="float:right">
+									<a href="###">忘记密码？</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</form>
+
+		</div>
+		</body>
+</html>

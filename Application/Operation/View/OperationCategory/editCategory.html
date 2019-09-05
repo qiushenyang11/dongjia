@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑分类</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">品类管理</a></li>
+    <li class="active">编辑分类</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*分类名称</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control"  value="{$res.name}"  name="name" placeholder="请输入分类名称" id="name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*分类级别</label>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="categoryLevel" class="fenlei" value="1"  <if condition="$res.level eq 1"> checked</if> id="yiJi">
+                <span>1级分类</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">
+                <input type="radio" name="categoryLevel" class="fenlei" value="2" id="erJi" <if condition="$res.level eq 2"> checked</if> >
+                <span>2级分类</span>
+            </div>
+        </div>
+
+            <div id="erjiinfo">
+                <if condition="$res.level eq 2">
+                <div class="form-group" id="isFenLei">
+                    <if condition="$res.level eq 2">
+                        <label for="" class="col-sm-2 control-label" >*所属分类</label>
+                        <div class="col-sm-3">
+                            <select  name=""  class="form-control" id="pname">
+                                <volist name="category" id="vo">
+                                    <option value="{$vo.id}" <if condition="$vo['id'] eq $res['pid']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </if>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-2 control-label" >*分类图片</label>
+                    <div class="col-sm-1" id="picurl">
+                    </div>
+                    <div class="col-sm-1" style="margin-top:48px;margin-left: 20px">
+                        <p style="width:80px;text-align:center;color:red" >*限750*380</p>
+                    </div>
+                    <label class="col-sm-2" style="line-height:35px;color:#697a9c"></label>
+                </div>
+                </if>
+            </div>
+
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-2" style="margin-top:7px;">
+                <input type="radio" name="categoryStatus" class="categoryStatus" value="1" checked id="" <if condition="$res.status eq 1"> checked</if>>
+                <span>使用中</span>
+            </div>
+            <div class="col-sm-2" style="margin-top:7px;margin-left: -50px">
+                <input type="radio" name="categoryStatus" class="categoryStatus" value="2" id="" <if condition="$res.status eq 2"> checked</if>>
+                <span>停用</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    /*分类显示或隐藏*/
+    function fenLeiInfo(){
+        var str='<div class="form-group" id="isFenLei">\n' +
+            '                <label for="" class="col-sm-2 control-label" >*所属分类</label>\n' +
+            '                <div class="col-sm-3">\n' +
+            '                    <select  name=""  class="form-control" id="pname">\n' +
+            '                        <volist name="category" id="vo">\n' +
+            '                            <option value="{$vo.id}" >{$vo.name}</option>\n' +
+            '                        </volist>\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >*分类图片</label>\n' +
+            '                <div class="col-sm-1" id="picurl">\n' +
+            '                </div>\n' +
+            '                <div class="col-sm-1" style="margin-top:48px;margin-left: 20px">\n' +
+            '                    <p style="width:80px;text-align:center;color:red" >*限750*380</p>\n' +
+            '                </div>\n' +
+            '                <label class="col-sm-2" style="line-height:35px;color:#697a9c"></label>\n' +
+            '            </div>';
+        return str;
+    }
+
+    function addFenLei(){
+        var str='';
+        str=fenLeiInfo();
+        $("#erjiinfo").html(str);
+    }
+
+    $("#yiJi").click(function(){
+        $("#erjiinfo").html('');
+    })
+
+
+    $("#erJi").click(function(){
+        addFenLei();
+        $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+            uploadTicket.policy = res.policy;
+            uploadTicket.authorization = res.authorization;
+            uploadTicket.bucket = res.bucket;
+            var uploadcontainer1 = 'picurl';
+            var initpic1 = '';
+            createUploadStr(uploadcontainer1,1,initpic1);
+
+        },'json');
+    })
+
+    //添加分类信息
+    $("#surebtn").click(function(){
+        var id="{$Think.get.id}";
+        var name=$("#name").val();
+        var level = $('.fenlei:checked').val();
+        var pid = '';
+        var picurl='';
+        if(level==1){
+            pid='';
+        }else{
+            pid=$('#pname option:selected').val();
+            picurl=$("#picurl").attr('uploadpath');
+        }
+        var status = $('.categoryStatus:checked').val();
+        console.log(name);
+        console.log(level);
+        console.log(pid);
+        console.log(status);
+        var getblen = function(info) {
+            if (info == null) return 0;
+            if (typeof info != "string"){
+                info += "";
+            }
+            return info.replace(/[^\x00-\xff]/g,"01").length/2;
+        }
+        if(!name){
+            window.alert('请输入分类名称');
+        }else if(getblen(name)>5){
+            window.alert('分类名称最多5个字');
+        }else{
+            $.post(
+                "{:U('OperationCategory/saveCategory')}",{
+                    id:id,
+                    name:name,
+                    level:level,
+                    pid:pid,
+                    picurl:picurl,
+                    status:status
+                },
+                function(data) {
+                    if(data['state']==1){
+                        alert(data['msg']);
+                        window.location.href="{:U('index')}";
+                    }else {
+                        alert(data['msg'])
+                    }
+                },'json');
+        }
+
+    })
+
+    //上传二级分类头图
+    function strpic(url,oneimageclass) {
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        var uploadcontainer1 = 'picurl';
+        var initpic1 = '{$res.picurl}';
+        createUploadStr(uploadcontainer1,1,initpic1);
+
+    },'json');
+    // 删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        console.log(path);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png,jpeg'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+            multipart: true,
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0].getNative());
+            reader.onload = (function (e) {
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    if (this.width == 750 && this.height == 380) {
+                        if (nownum + uploader.files.length > maxPicNum) {
+                            for(var i in files){
+                                uploader.removeFile(files[i].id);
+                            }
+                            alert('多做上传'+maxPicNum+'张');
+                            return;
+                        }
+                        $("#parent"+uploadid).remove();
+                        uploader.start();
+                    } else {
+                        for(var i in files){
+                            uploader.removeFile(files[i].id);
+                        }
+                        alert('请上传750*380图片');
+                    }
+
+                };
+            });
+
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+</script>
+</body>
+</html>

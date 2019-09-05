@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>送200元新人大礼包</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+        window.browser = {
+            versions: function () {
+                let u = navigator.userAgent;
+                return {
+                    trident: u.indexOf('Trident') > -1,
+                    presto: u.indexOf('Presto') > -1,
+                    webKit: u.indexOf('AppleWebKit') > -1,
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+                    android: u.indexOf('Android') > -1,
+                    iPhone: u.indexOf('iPhone') > -1,
+                    iPad: u.indexOf('iPad') > -1,
+                    jdjr: u.indexOf('JDJR-App') > -1,
+                    webApp: u.indexOf('Safari') === -1,
+                    wechat: u.indexOf('MicroMessenger') !== -1
+                };
+            }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        };</script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        //      window.ga = function () {
+        //        console.log('ga', arguments)
+        //      };
+        window.ga('create', 'UA-115976658-1', 'auto');
+        function getRequest() {
+            var url = window.location.href;
+//                console.log(url);
+            if (url.indexOf('?') !== -1) {
+                var str = url.substr(url.indexOf('?') + 1);
+                var strs = str.split('&');
+                var result = {};
+                for (var temp in strs) {
+                    var tp = strs[temp].split('=');
+                    result[tp[0]] = tp[1];
+                }
+                return result;
+            } else {
+                return {};
+            }
+        }
+        function ajax() {
+            var ajaxData = {
+                type: arguments[0].type || "GET",
+                url: arguments[0].url || "",
+                async: arguments[0].async || "true",
+                data: arguments[0].data || null,
+                dataType: arguments[0].dataType || "text",
+                contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+                beforeSend: arguments[0].beforeSend || function () {
+                },
+                success: arguments[0].success || function () {
+                },
+                error: arguments[0].error || function () {
+                }
+            };
+            ajaxData.beforeSend();
+            var xhr = createxmlHttpRequest();
+            xhr.responseType = ajaxData.dataType;
+            xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+            xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+            xhr.send(convertData(ajaxData.data));
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        ajaxData.success(xhr.response)
+                    } else {
+                        ajaxData.error()
+                    }
+                }
+            }
+        }
+        function createxmlHttpRequest() {
+            if (window.ActiveXObject) {
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                return new XMLHttpRequest();
+            }
+        }
+        function convertData(data) {
+            if (typeof data === 'object') {
+                var convertResult = "";
+                for (var c in data) {
+                    convertResult += c + "=" + data[c] + "&";
+                }
+                convertResult = convertResult.substring(0, convertResult.length - 1)
+                return convertResult;
+            } else {
+                return data;
+            }
+        }
+        var para = getRequest();
+        var GAStr;
+        var paraStr = '';
+
+        if (para.aid) {
+            paraStr = paraStr + '&aid=' + para.aid;
+        }
+        if (para.utm_medium) {
+            paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+        }
+        if (para.utm_source) {
+            paraStr = paraStr + '&utm_source=' + para.utm_source;
+        }
+        if (para.utm_campaign) {
+            paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+        }
+        if (paraStr.length > 1) {
+            paraStr = '?' + paraStr.substring(1);
+        }
+        //      GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+        GAStr = window.location.pathname + window.location.hash.substring(1);
+        window.ga('send', 'pageview', GAStr);
+        //ajax({
+        //    type:"POST",
+        //    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+        ////    dataType:"json",
+        //    data:{
+        //        channelId: para.utm_medium,
+        //        sgId: 13,
+        //        scenceId: para.utm_source,
+        //        status: 0
+        //    }
+        //})
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .mainapp img {
+            width: 100%;
+        }
+        .normalall{
+            width:100%;
+            height:35.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/allcoupon.jpg');
+        }
+        .goall{
+            width:100%;
+            height:35.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/gocoupon.jpg');
+        }
+        .outall{
+            width:100%;
+            height:35.2vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/outcoupon.jpg');
+        }
+
+
+        .normalbutton{
+            width:100%;
+            height:38vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/normalbutton.jpg');
+        }
+        .gobutton{
+            width:100%;
+            height:38vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/gobutton.jpg');
+        }
+        .outbutton{
+            width:100%;
+            height:38vw;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url('https://file.rose52.com/2018/08/21/outbutton.jpg');
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="mainapp">
+    <img src="https://file.rose52.com/2018/08/21/giftbanner.jpg">
+    <div id="allcoupon" class="normalall" onclick="getCoupon1()"></div>
+    <img src="https://file.rose52.com/2018/08/21/productscoupon.jpg" alt="">
+    <div id="normalbutton" class="normalbutton" onclick="getCoupon()"></div>
+    <img src="https://file.rose52.com/2018/08/21/userole.jpg" alt="">
+    {$jdUnder}
+    <div style="margin-top:68px"></div>
+        <a href="https://djgjia.jd.com/myWeb/WeChat/WeChatGuanJia/index?utm_campaign=internal&utm_medium=guanjia&k" style="display:block;width:100%">
+            <img src="https://file.rose52.com/2018/08/21/floatbutton.png" alt="" style="position: fixed;bottom: 0px;">
+        </a>
+
+
+
+</div>
+<script>
+    const authurl = `{$loginurl}/user/login.action?appid=422&returnurl=${window.location.origin}${window.location.pathname}`;
+    let btn1 = document.getElementById('allcoupon');
+    let button1 = document.getElementById('normalbutton');
+    let lock1 = false;
+    let lock2 = false;
+    let lock3 = false;
+    let lock4 = false;
+    let lock5 = false;
+    let lock6 = false;
+    let lock7 = false;
+    let couponcode1 = 'qc180820';
+    let couponcode2 = 'tn180820';
+    let couponcode3 = 'bj180820';
+    let couponcode4 = 'sp180820';
+    let couponcode5 = 'ck180820';
+    let couponcode6 = 'tj180820';
+    let couponcode7 = 'qz180820';
+
+
+    let couponStatus = {
+        get: 1,
+        out: 3,
+        normal: 7
+    };
+    let coupon1Get = couponStatus.normal;
+    let coupon2Get = couponStatus.normal;
+    function setStatus() {
+        let count = parseInt(coupon1Get);
+
+        if (count >= 7) { // normal
+            btn1.className = 'normalall';
+
+        } else if ( count >= 3) { // out
+            btn1.className = 'outall';
+
+        } else { // get
+            btn1.className = 'goall';
+        }
+
+        return count;
+    }
+
+    function setStatus1() {
+        let count = parseInt(coupon2Get);
+
+        if (count >= 7) { // normal
+            button1.className = 'normalbutton';
+        } else if ( count >= 3) { // out
+            button1.className = 'outbutton';
+        } else { // get
+            button1.className = 'gobutton';
+        }
+
+        return count;
+    }
+
+    function getCoupon1() {
+        getCoupon1();
+    }
+
+    function getCoupon() {
+        getCoupon2();
+        getCoupon3();
+        getCoupon4();
+        getCoupon5();
+        getCoupon6();
+        getCoupon7();
+    }
+
+    //全场通用优惠券
+    function checkCoupon1() {
+        if (!lock1) {
+            lock1 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode1
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock1 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock1 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon1Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock1 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon1Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock1 = false;
+                        }
+                    }
+
+                    setStatus();
+                }
+            })
+        }
+    }
+    function getCoupon1() {
+        if (!lock1) {
+            lock1 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode1
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon1Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon1Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon1Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock1 = false;
+                        }
+                    }
+
+                    setStatus();
+                }
+            })
+        }
+    }
+
+    function checkCoupon2() {
+        if (!lock2) {
+            lock2 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode2
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock2 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock2 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock2 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock2 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon2() {
+        if (!lock2) {
+            lock2 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode2
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock2 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+
+    function checkCoupon3() {
+        if (!lock3) {
+            lock3 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode3
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock3 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock3 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock3 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock3 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon3() {
+        if (!lock3) {
+            lock3 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode3
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock2 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+
+    function checkCoupon4() {
+        if (!lock4) {
+            lock4 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode4
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock4 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock4 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock4 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock4 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon4() {
+        if (!lock4) {
+            lock4 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode4
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock4 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+    function checkCoupon5() {
+        if (!lock5) {
+            lock5 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode5
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock5 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock5 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock5 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock5 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon5() {
+        if (!lock5) {
+            lock5 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode5
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock5 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+    function checkCoupon6() {
+        if (!lock6) {
+            lock6 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode6
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock6 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock6 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock6 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock6 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon6() {
+        if (!lock6) {
+            lock6 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode6
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock6 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+    function checkCoupon7() {
+        if (!lock7) {
+            lock7 = true;
+            let url = '/myWeb/CouponApi/Coupon/couponEventCheck';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode7
+                },
+                success(res) {
+                    console.log('check', res);
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        // wait (๑˙ー˙๑)
+                        lock7 = false;
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        // wait (๑˙ー˙๑)
+                        lock7 = false;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+                        } else if (res.msg === '可以领取') {
+                            // wait (๑˙ー˙๑)
+                            lock7 = false;
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+                        } else {
+                            console.error(res);
+                            lock7 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+    function getCoupon7() {
+        if (!lock7) {
+            lock7 = true;
+            let url = '/myWeb/CouponApi/Coupon/pickUpCouponWithCode';
+            ajax({
+                type:"POST",
+                url: url,
+                data:{
+                    code: couponcode7
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        coupon2Get = couponStatus.get;
+//            alert('领取成功');
+                    }
+                    else if (parseInt(res.state) === 3) {
+                        window.location.href = authurl;
+                    }
+                    else {
+                        if (res.msg === '该优惠券已经被兑换') {
+                            coupon2Get = couponStatus.get;
+//              alert(res.msg);
+                        } else if (res.msg === '您来晚了，优惠券已兑完') {
+                            coupon2Get = couponStatus.out;
+//              alert(res.msg);
+                        } else {
+                            console.error(res);
+//              alert('网络异常，请稍候重试');
+                            lock7 = false;
+                        }
+                    }
+
+                    setStatus1();
+                }
+            })
+        }
+    }
+
+    checkCoupon1();
+    checkCoupon2();
+    checkCoupon3();
+    checkCoupon4();
+    checkCoupon5();
+    checkCoupon6();
+    checkCoupon7();
+
+</script>
+<script>
+    function setShare() {
+        if (window.browser.versions.wechat) {
+            let optionsWx = {
+                url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+                type: 'POST',
+                data: {
+                    url: encodeURIComponent(window.location.href)
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        let data = res.data;
+                        if (!data.gjEnable) {
+                            wx.config(data);
+                            wx.ready(() => {
+                                wx.onMenuShareAppMessage({
+                                title: '送200元新人大礼包',
+                                link: `${window.location.origin}${window.location.pathname}`,
+                                desc: '关注“东家管家”微信公众号，领取200元品质服务超级礼包',
+                                imgUrl: 'https://file.rose52.com/2018/08/21/share.png',
+                                success: function() {
+//                    alert('分享成功');
+                                }
+                            });
+                            wx.onMenuShareTimeline({
+                                title: '送200元新人大礼包', // 分享标题
+                                link: `${window.location.origin}${window.location.pathname}`,
+                                imgUrl: 'https://file.rose52.com/2018/08/16/share.png',
+                                success: function () {
+                                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                                },
+                                cancel: function () {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+                        });
+                            wx.error((res) => {
+                                console.error(res);
+//                alert('网络异常，请稍候重试');
+                        });
+                        }
+
+                    }
+                }
+            };
+
+            ajax(optionsWx);
+        }
+    }
+    setShare();
+
+</script>
+
+
+</body>
+</html>

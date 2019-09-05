@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加BD</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">菜单</a></li>
+    <li class="active">添加菜单</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:20px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*菜单名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="menu"  name="menu" value=""  placeholder="输入菜单名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属上级</label>
+            <div class="col-sm-4">
+                <select name="" id="parentid">
+                    <option value="0">一级菜单</option>
+                    <volist name="levelone" id="vo">
+                        <option value="{$vo.id}">{$vo.menu_name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*二级url</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="url"  name="url" value=""  placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="surebtn" class="btn btn-success" style="width:80px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    //*新建BD用户*/
+    $("#surebtn").click(function () {
+        var menuname = $('#menu').val();
+        var parentid = $("#parentid option:selected").val();
+        var url = $("#url").val()
+        $.post("{:U('add_menu')}",{menu_name:menuname,pid:parentid,url:url},function (res) {
+            if (res.state) {
+                alert('添加成功')
+                window.location.reload();
+            } else {
+                alert('添加失败');
+            }
+        },'json')
+    })
+
+
+
+
+
+</script>
+</body>
+</html>

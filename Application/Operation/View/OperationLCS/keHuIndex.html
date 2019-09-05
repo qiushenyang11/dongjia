@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>客户列表</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/upload_common.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.full.min.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">理财师管理</a></li>
+    <li class="active">客户列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('keHuIndex')}" method="get" id="searchform">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="2"  <if condition="$type eq 2">selected</if>>京东Pin</option>
+                    <option value="1" <if condition="$type eq 1">selected</if>>姓名</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="jdaccount" value="{$jdaccount}">
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="text" class="form-control"  value="{$condition}" name="condition" id="" placeholder="请输入搜索条件">
+        </div>
+        <input type="hidden" name="p" value="1">
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">
+            <span class="glyphicon glyphicon-search">
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <a href="{:U('addKeHu')}?jdaccount={$Think.get.jdaccount}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;">新建</button></a>
+        <button id="import_xls" type="button" class="btn btn-success  drbb_btn" style="background:#1AB394; border:0;opacity:0.8;float: right" onclick="$('input[id=files]').click();" >导入</button>
+    </form>
+
+    <form id="xlsform" action="{:U('LCSKeHudb')}?jdaccount={$Think.get.jdaccount}" enctype="multipart/form-data" method="post"  target="tmiframe" >
+        <input  type="file"   class="file" id="files" name="xls_file"  multiple="multiple"  style="display:none" />
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="10%" align="center">ID</th>
+            <th width="15%" align="center">客户姓名</th>
+            <th width="15%" align="center">京东Pin</th>
+            <th width="15%" align="center">头像</th>
+            <th width="15%" align="center">理财师京东Pin</th>
+            <th width="10%" align="center">历史最高持仓数</th>
+            <th width="20%" align="center">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.jdaccount}</td>
+                <td align="center">
+                    <div style="width: 100px;height: 60px;margin: 5px;overflow: hidden">
+                        <img src="{$vo.avatar}" alt="" style="max-height: 60px;max-width:100px">
+                    </div>
+                </td>
+                <td>{$vo.licashiaccount}</td>
+                <td></td>
+                <td align="center">
+                    <a href="{:U('editKeHu')}?id={$vo.id}"><button type="button" class="bfL btn btn-success " style="background:#1AB394;border:0;opacity:0.8">编辑</button></a>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<iframe src="" id="tmiframe" name="tmiframe" width="80%" marginwidth="0" height="100%" marginheight="0" align="middle" scrolling="auto"   style="display: none; "  >
+</iframe>
+<script>
+    var fileFilter = [".xls" ,".xlsx"] ;
+
+    $("#files").change(function(event) {
+
+        gotoup( ) ;
+
+    });
+
+    function  gotoup( ){
+
+        files_obj = document.getElementById("files");
+        filecount = files_obj.files.length;
+        fileii    = 0 ;
+
+        for( var i=0;i<filecount;i++) {
+
+            var file  = files_obj.files[i] ;
+            name  = file.name  ;  //文件名
+            size  = file.size  ;  //总大小shardSize = 2 * 1024 * 1024,
+            if( size >= 1048576 * 2 ){  // 3221225472
+                alert( '单个上传文件体积太大，必须小于100M！' ) ;
+
+
+                return ;
+            }
+            fwz = GetFileExt( name ) ; //文件尾缀
+            if( $.inArray( fwz , fileFilter ) == -1 ){
+                alert( '请您选择xls或xlsx文件！' ) ;
+
+                return ;
+            }
+
+
+
+        }
+
+        $("#xlsform").submit();
+    }
+
+    //取文件后缀名
+    function GetFileExt(filepath) {
+        if (filepath != "") {
+            var pos = "." + filepath.replace(/.+\./, "");
+            return pos;
+        }
+    }
+
+    function LCSKeHuIndex() {
+        window.location.href="{:U('keHuIndex')}?jdaccount={$Think.get.jdaccount}";
+    }
+</script>
+</body>
+</html>

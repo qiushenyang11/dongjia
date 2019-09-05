@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <!-- End Required meta tags -->
+    <title> 东家金服保险LEADS管理系统 </title>
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="http://file.rose52.com/guanjia/logo28.png">
+    <meta name="theme-color" content="#3063A0">
+    <!-- BEGIN BASE STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/fontawesome/css/fontawesome.all.css">
+    <!-- END BASE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/main.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/custom.css">
+    <!-- END THEME STYLES -->
+
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/jd.css">
+    <style>
+        .form-group .icon {
+            width: 100px
+        }
+        .productImg {
+            flex-shrink: 0;
+        }
+
+        .form-group, .form-actions {
+            margin-left:5px
+        }
+
+        .page a {
+            background: transparent;
+            color: #28313B;
+            line-height: 1.25;
+            margin-left: -1px;
+        }
+
+        .current {
+            color: #28313B;
+            background: transparent;
+            line-height: 1.25
+        }
+
+        .doPage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-set {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+    </style>
+
+</head>
+<body>
+<!-- .auth -->
+<main class="auth">
+    <div class="wrapper col-12">
+        <div class="page">
+            <div class="page-inner">
+                <div class="row col-12">
+                    <div class="col-lg-12 col-xl-12">
+                        <div class="card card-fluid">
+                            <header class="card-header d-flex align-items-center" id="sampleTitle">
+                                <form class="form-set" method="get" action="/myWeb/BaoXian/BaoXianLeads/shrsList.html?p={$p}">
+                                    <div class="form-group">
+                                        <label class="control-label" for="startTime">开始时间（2018/XX/XX格式！）</label>
+                                        <input id="startTime" type="text" class="form-control" name="starttime" value="2018/09/10">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="endTime">结束时间（2018/XX/XX格式！）</label>
+                                        <input id="endTime" type="text" class="form-control" name="endtime" value="2018/09/11">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-jdred" id="exportOut" type="button">导出</button>
+                                    </div>
+                                    <div class="form-actions">
+                                        处理实名
+                                        <input type="checkbox" class="btn btn-jdred" id="realname">
+                                    </div>
+                                </form>
+                            </header>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</main>
+<!-- /.auth -->
+<!-- BEGIN PLUGINS JS -->
+<script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/popper.min.js"></script>-->
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/bootstrap.min.js"></script>-->
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/stacked-menu/stacked-menu.min.js"></script>-->
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>-->
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>-->
+
+<!--<script src="__PUBLIC__/BaoXian/assets/vendor/flatpickr/flatpickr.min.js"></script>-->
+
+<script>
+  'use strict';
+
+  // Flatpickr Demo
+  // =============================================================
+
+  var flatpickrDemo = {
+    init: function init() {
+
+      this.bindUIActions();
+    },
+    bindUIActions: function bindUIActions() {
+
+      // event handlers
+      this.handleFlatpickr();
+    },
+    _fp1: function _fp1() {
+      // basic
+      return flatpickr('#startTime', {});
+    },
+    _fp2: function _fp1() {
+      // basic
+      return flatpickr('#endTime', {});
+    },
+    handleFlatpickr: function handleFlatpickr() {
+      this._fp1();
+      this._fp2();
+
+    }
+  };
+
+  // flatpickrDemo.init();
+
+$("#exportOut").click(function() {
+  let start = $('#startTime').val();
+  let end = $('#endTime').val();
+
+  console.log(start, end);
+  console.log($('#realname').is( ":checked" ));
+//  $.ajax({
+//    url: '/myWeb/BaoXian/BaoXianLeads/leadsExport',
+//    data: {
+//      starttime: start,
+//      endtime: end
+//    },
+//    method: 'get',
+//    success(res) {
+//      console.log(res);
+//    }
+//  })
+//  window.open(`/myWeb/BaoXian/BaoXianLeads/leadsExport?starttime=${start}&endtime=${end}`);
+  let uri = `/myWeb/BaoXian/BaoXianLeads/leadsExport?starttime=${start}&endtime=${end}`;
+
+  if ($('#realname').is( ":checked" )) {
+    uri = uri + '&realname=1';
+  }
+  window.location.href = uri;
+});
+</script>
+
+
+<!-- END PLUGINS JS -->
+</body>
+</html>

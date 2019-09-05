@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>中欧之约</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        body {
+            background-color: #ffffff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .mainapp img {
+            width: 100%;
+        }
+        .topicon{
+            display: flex;
+            justify-content:center;
+            width:20.26vw;
+            height:26.66vw;
+            margin-top:4.26vw;
+        }
+        .topicon img{
+            width:20.26vw;
+            height:26.66vw;
+        }
+        .titleStatus{
+            display: flex;
+            justify-content:center;
+            font-family: PingFang-SC-Medium;
+            font-size: 5.33vw;
+            color: #E16268;
+            letter-spacing: 0;
+            text-align: center;
+            /*margin-top:2.13vw;*/
+        }
+        .titleNotes{
+            display: flex;
+            justify-content:center;
+            font-family: PingFang-SC-Regular;
+            font-size: 3.73vw;
+            color: #666666;
+            letter-spacing: 0;
+            text-align: center;
+            width:82.66vw;
+            height:10.66vw;
+            margin-top:2.66vw;
+        }
+        .logopic{
+            display: flex;
+            justify-content:center;
+            width:38.4vw;
+            height:38.4vw;
+            margin-top:5.33vw;
+        }
+        .logopic img{
+            width:38.4vw;
+            height:38.4vw;
+        }
+        .weihao{
+            font-family: PingFang-SC-Medium;
+            font-size: 3.73vw;
+            color: #666666;
+            letter-spacing: 0;
+            text-align: center;
+            margin-bottom:5.33vw;
+            /*display: flex;*/
+            /*justify-content:center;*/
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+<div class="topicon">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/icon@3x.png" alt="">
+</div>
+    <div class="titleStatus">领取成功</div>
+    <div class="titleNotes">恭喜您！礼包领取成功，请添加东家管家微信账号为好友，并备注姓名，以便领取您的专属礼享卡</div>
+    <div class="logopic">
+        <img src="https://file.rose52.com/guanjia/activity/1228zhongou/QRcode@3x.png" alt="">
+    </div>
+    <div class="weihao">管家微信号:&nbsp;&nbsp;JD-Rich</div>
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/recommend@3x.png" alt="">
+</div>
+<script>
+    var state = "{$Think.get.state}";
+    console.log(state);
+    if(state==2){
+        $(".titleStatus").text("您已领取礼包");
+        $('.titleNotes').text('请添加东家管家微信账号为好友，并备注姓名，以便领取您的专属礼享卡');
+    }else{
+        $(".titleStatus").text("领取成功");
+        $('.titleNotes').text('恭喜您！礼包领取成功，请添加东家管家微信账号为好友，并备注姓名，以便领取您的专属礼享卡');
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑产品</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/product.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.tagsinput.js"></script>
+    <script type='text/javascript' src='__PUBLIC__/Admin/js/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery.tagsinput.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/jquery-ui.css" />
+    <link href="__PUBLIC__/Admin/css/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/Admin/js/jquery.searchableSelect.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/ueditor.all.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">产品管理</a></li>
+    <li class="active">编辑产品</li>
+</ol>
+<div class="form-group" style="margin-top: 20px">
+    <a href="">
+        <button type="button" class="btn btn-success" style="background:#1AB394;margin: 0 20px; border:0;opacity:0.8;float: left;">基础信息</button>
+    </a>
+
+    <a href="{:U('OperationGoods/goodsExpressIndex')}?productid={$result.id}" id="enterGoods">
+        <button type="button" class="btn btn-success "  id="goodlist"  style="background:#1AB394; border:0;opacity:0.8;float: left">商品列表</button>
+    </a>
+</div>
+<div class="container row" style="background-color:white;padding-top:50px" >
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >产品类型</label>
+            <button type="button" class="btn btn-success" style="background:#555;margin: 0 25px; border:0;opacity:0.8;float: left;">快递类</button>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品名称</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$result.name}"  name="name" placeholder="输入产品名称,24字以内" id="name">
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+        <!--<label for="phone" class="col-sm-2 control-label" >*产品亮点</label>-->
+        <!--<div class="col-sm-4">-->
+        <!--<input type="text" class="form-control" value="{$result.serviceinfo}"  name="serviceinfo" id="serviceinfo" placeholder="一句话介绍服务亮点，最多20字 ">-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label" >*服务亮点</label>
+            <div class="">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control serviceinfo"  name="serviceinfo"  placeholder="一句话介绍服务亮点，最多40字 " value="{$result['serviceinfo'][0]}">
+                </div>
+                <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">
+                    <span class="addInfoButton" >+</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="morePoint">
+            <volist name="result.serviceinfo" id="vo">
+                <if condition="$key neq 0">
+                    <div class="form-group liangdian">
+                        <label for="phone" class="col-sm-2 control-label" ></label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control serviceinfo"  name="serviceinfo" id="" placeholder="一句话介绍服务亮点，最多40字 " value="{$vo}">
+                        </div>
+                        <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">
+                            <span class="delInfoButton">-</span>
+                        </div>
+                    </div>
+                </if>
+            </volist>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*封面</label>
+            <div class="col-sm-4" id="fengmian">
+            </div>
+            <label class="col-sm-4" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品头图</label>
+            <div class="col-sm-4"  id="headpic">
+
+            </div>
+            <label class="col-sm-6" style="line-height:35px;color:#697a9c"></label>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品分类</label>
+            <div class="col-sm-2">
+                <select  name="yiji"  class="form-control" id="yiji" >
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select   class="form-control" id="erji" name="erji">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属管家</label>
+            <div class="col-sm-4" id="guanjiaid" style="z-index: 10000">
+                <select  name=""  class="form-control" id="guanjia">
+                    <option value="0">选择管家</option>
+                    <volist name="guanjiainfo" id="vo">
+                        <option value="{$vo.guanjiaid}" <if condition="$result.guanjiaid eq $vo['guanjiaid']">selected</if>>{$vo.guanjianame}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*所属BD</label>
+            <div class="col-sm-4" id="bdid">
+                <select  name=""  class="form-control" id="bd">
+                    <option value="0">选择BD</option>
+                    <volist name="bdinfo" id="vo">
+                        <option value="{$vo.id}" <if condition="$result['userid'] eq $vo['id']">selected</if>>{$vo.name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*是否包邮</label>
+            <div class="col-sm-4">
+                <input type="checkbox" value="1" name="isshipping"  disabled class="isshipping" <if condition="$result.isshipping eq 1">checked</if>> 包邮
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*产品介绍</label>
+            <div class="col-sm-6">
+                <div class="col-sm-12 row" id="productinfoparent">
+                    <script type="text/plain" id="productinfo" style="width:375px;min-height: 200px"></script>
+                    </div>
+                    </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">*预订须知</label>
+                        <div class="col-sm-6">
+                        <script type="text/plain" id="notes"  name="notes" style="width:375px;min-height:200px"></script>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label">*首页列表</label>
+                <div class="col-sm-5">
+                    <select  name=""  class="form-control" id="isTuijian">
+                        <option value="1" <if condition="$result.isrecommend eq 1">selected</if>>推荐</option>
+                        <option value="0" <if condition="$result.isrecommend eq 0">selected</if>>不推荐</option>
+                    </select>
+                </div>
+            </div>
+            <div id="showCeng" style="<if condition="$result.isrecommend eq 0">display:none</if>">
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label"></label>
+                <div class="">
+                    <label for="" class="col-sm-1 control-label">排序值</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  name="" value="{$result.weight}" id="weight" placeholder="输入排序值,排序值越大排序越靠前">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-2 control-label"></label>
+                <div class="">
+                    <label for="" class="col-sm-1 control-label">排序时间</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="indexstart"  value="{$result.showstarttime}" name="goodname" placeholder="选择开始时间">
+                    </div>
+                    <div class="col-sm-1 control-label" style="text-align: center;margin-left: -40px;margin-right: -40px;">
+                        至
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="indexend"  value="{$result.showendtime}" name="goodname" placeholder="选择结束时间">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="status">
+                    <option value="1" <if condition="$result.status eq 1">selected</if>>上线</option>
+                    <option value="2" <if condition="$result.status eq 2">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >自动停售时间</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" value="{$result.endtime}" id="endtime"  name="goodname" placeholder=" 选择时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="submit" id="surebtn" class="btn btn-primary" style="width:80px;background:#1AB394;border:0">修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    let cssPath = '__PUBLIC__/Admin/css';
+</script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/ueditorX.js"></script>
+<script>
+    $('#guanjiaid select').searchableSelect();
+    $("#bdid select").searchableSelect();
+    $(document).ready(()=>{
+        window.ueditorXsetContent({
+        productinfo: `{$result.productinfo}`,
+        notes: `{$result.notes}`
+    });
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        let policy = res.policy;
+        let authorization = res.authorization;
+        let bucket = res.bucket;
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        uploadTicket.deleteUrl = "{:U('AjaxApi/Upyun/deleteFile')}";
+        setUploadTicket(uploadTicket);
+    },'json');
+    });
+    //获取当前日期时间
+    var yiji =  "{$result.yiji}";
+    var erji = "{$result.erji}";
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+
+    //日期插件
+    $("#endtime").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+    $("#indexstart").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+    $("#indexend").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+    /*是否推荐显示隐藏问题*/
+    $("#isTuijian").click(function () {
+        var isTuiJian = $("#isTuijian").val();
+        if(isTuiJian==1){
+            show();
+        }else {
+            hide();
+        }
+    })
+    function show() {
+        $("#showCeng").show();
+    }
+    function hide() {
+        $("#showCeng").hide();
+    }
+    $("#status").change(function () {
+        var status = $(this).val();
+        if (status == 1) {
+            $("#endtime").prop('disabled',false);
+        } else {
+            $("#endtime").prop('disabled',true);
+            $("#endtime").val('');
+        }
+    })
+
+    /*服务亮点操作*/
+    function onePoint() {
+        var str='<div class="form-group liangdian">\n' +
+            '            <label for="phone" class="col-sm-2 control-label" ></label>\n' +
+            '                <div class="col-sm-4">\n' +
+            '                    <input type="text" class="form-control serviceinfo"  name="serviceinfo" id="" placeholder="一句话介绍服务亮点，最多40字 ">\n' +
+            '                </div>\n' +
+            '                <div class="col-sm-1" style="margin-left:-17px;margin-top: 1px;">\n' +
+            '                    <span class="delInfoButton">-</span>\n' +
+            '                </div>\n' +
+            '        </div>';
+
+        return str;
+    }
+
+    function addPoint(){
+        var str='';
+        str=onePoint();
+        $("#morePoint").append(str);
+    }
+
+    $(".addInfoButton").click(function () {
+        var length = $(".liangdian").length;
+        if(length>=3){
+            alert("服务亮点最多录入4条")
+        }else {
+            addPoint();
+        }
+    })
+
+    $("#morePoint").on('click','.delInfoButton',function () {
+        $(this).parents('.liangdian').remove();
+    })
+
+
+
+    $(function () {
+
+        $("#surebtn").click(function () {
+            var getblen = function(info) {
+                if (info == null) return 0;
+                if (typeof info != "string"){
+                    info += "";
+                }
+                return info.replace(/[^\x00-\xff]/g,"01").length/2;
+            }
+            var name = $("#name").val();
+            var serviceinfo = '';
+            var isserveinforight = true;
+            var isserviceinfonull = true;
+            $('.serviceinfo').each(function () {
+                serviceinfo += $(this).val()+'+-';
+
+                if (getblen($(this).val())>40) isserveinforight = false;
+                if (getblen($(this).val()) == 0) isserviceinfonull = false;
+            })
+            serviceinfo= serviceinfo.substr(0,serviceinfo.length-2);
+
+            var numsreg = /^[0-9]+$/;
+            var isrecommend = $("#isTuijian").val();
+            if(isrecommend==1){
+                var weight = $("#weight").val();
+                var showstarttime = $("#indexstart").val();
+                var showendtime = $("#indexend").val();
+            }else {
+                var weight ='';
+                var showstarttime ='';
+                var showendtime='';
+            }
+            var productpic = '';
+            var facepic = '';
+            var yijiname = $("#yiji option:selected").text();
+            var erjiname = $("#erji option:selected").text();
+            var categoryid = $("#erji").val();
+            var guanjiaid = $("#guanjia").val();
+            var bdid = $("#bd").val();
+            var productinfo = productinfoEditor.getContent();
+            var notes = notesEditor.getContent();
+            var status = $("#status").val();
+            var endtime = $("#endtime").val();
+            var id ="{$Think.get.id}";
+            productpic = $("#headpic").attr('uploadpath');
+            facepic = $("#fengmian").attr('uploadpath');
+            var isshipping = 1;
+            if(!name){
+                alert('请输入产品名称');
+            }else if(getblen(name)>24){
+                alert('产品名称最多输入24字');
+            }else if(!isserviceinfonull){
+                alert('请输入服务亮点');
+            }else if(!isserveinforight){
+                alert('服务亮点最多输入40字');
+            }else if(!facepic){
+                alert('请先上传产品封面');
+            }else if(!productpic){
+                alert('请先上传产品头图');
+            }else if(yijiname == '选择一级分类'){
+                alert('请选择一级分类');
+            }else if(erjiname == '选择二级分类'){
+                alert('请选择二级分类');
+            }else if(guanjiaid == 0){
+                alert('请选择管家');
+            }else if(bdid == 0){
+                alert('请选择BD');
+            }else if(!productinfo){
+                alert('请输入产品介绍');
+            }else if(!notes){
+                alert('请输入预订须知');
+            }else if (isrecommend == 1 && !weight) {
+                window.alert('请填写排序值');
+            }else if(isrecommend == 1 && !numsreg.test(weight)){
+                window.alert('请输入不小于0的整数');
+            }else if(isrecommend == 1 &&!showstarttime){
+                window.alert('请选择推荐开始时间');
+            }else if(isrecommend == 1 && !showendtime){
+                window.alert('请选择推荐结束时间');
+            }else if(isrecommend == 1 && showstarttime > showendtime){
+                window.alert('请选择正确的推荐时间段');
+            }else {
+                $.post("{:U('saveProduct')}",
+                    {
+                        id:id,
+                        name:name,
+                        serviceinfo:serviceinfo,
+                        productpic:productpic,
+                        yijiname:yijiname,
+                        erjiname:erjiname,
+                        categoryid:categoryid,
+                        guanjiaid:guanjiaid,
+                        bdid:bdid,
+                        productinfo:productinfo,
+                        notes:notes,
+                        status:status,
+                        endtime:endtime,
+                        facepic:facepic,
+                        isshipping:isshipping,
+                        isrecommend:isrecommend,
+                        weight:weight,
+                        showstarttime:showstarttime,
+                        showendtime:showendtime
+                    },
+                    function (res) {
+                        if (res.state==1) {
+                            // $("#goodlist").prop('disabled',false);
+                            // $("#goodlist").css("background-color","#1AB394");
+                            alert(res.msg);
+                        } else {
+                            alert(res.msg);
+                        }
+
+                    },
+                    'json'
+                )
+            }
+
+        })
+    });
+
+    //上传插件
+    // 文件保存的路径
+    function strpic(url,oneimageclass) {
+        var str = '<div style="display:inline-block;height: 115px;width:110px;margin-right: 10px" data-path="'+url+'" class="'+oneimageclass+'"><img src="https://file.rose52.com'+url+'"  alt="" width="100" height="100" path="'+url+'" style="margin-top: 15px;margin-left: 10px;float: left;"><div  class="del" style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;width: 20px;height: 20px; cursor: pointer" path="'+url+'">x</div></div>';
+        return str;
+    }
+    var uploadTicket = {policy:null,authorization:null,bucket:null};
+    $.post("{:U('AjaxApi/Upyun/getUpyunPolicyAndAuthorization')}",{},function (res) {
+        uploadTicket.policy = res.policy;
+        uploadTicket.authorization = res.authorization;
+        uploadTicket.bucket = res.bucket;
+        var uploadcontainer1 = 'headpic';
+        var initpic1 = '{$result.productpicstr}';
+        var uploadcontainer2 = 'fengmian';
+        var initpic2 = '{$result.facepicstr}';
+        createUploadStr(uploadcontainer1,9,initpic1);
+        createUploadStr(uploadcontainer2,1,initpic2);
+    },'json');
+    // 删除
+    $(document).on('click','.del', function () {
+        var path = $(this).attr('path');
+        var uploadcontainer = $(this).parent().parent().attr('id');
+        var nowimgNum = $("."+uploadcontainer).length;
+        $(this).parent().remove();
+        var nowpath = uploadpathstr(uploadcontainer);
+        console.log(path);
+        var maxPicNum = parseInt($("#"+uploadcontainer).attr("maxpicnum"));
+        if (nowpath == ''&& !($("."+uploadcontainer+'Pupload').length)) {
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        } else if(maxPicNum == nowimgNum){
+            createUploadStr(uploadcontainer, maxPicNum, '');
+        }
+
+    })
+
+    function createUploadStr(uploadcontainer,maxPicNum,initpic) {
+        var timestamp = Date.parse(new Date());
+        var uploadid = uploadcontainer+timestamp;
+        var imgstr = '<div class="'+uploadcontainer+'Pupload" style="display:inline-block;height: 115px;width:110px;margin-right: 10px" id="parent'+uploadid+'" ><img id="'+uploadid+'" src="__PUBLIC__/Admin/images/addpic.jpg"  alt="" width="100" height="100" style="margin-top: 15px;margin-left: 10px;float: left;"><div style="fload:right;margin-top:0px;margin-left:110px;color:red;font-size: 18px;font-weight: bold;">&nbsp;</div></div>'
+        $("#"+uploadcontainer).attr("maxpicnum",maxPicNum);
+        if (initpic != '' && initpic != undefined) {
+            $("#"+uploadcontainer).attr('uploadpath',initpic);
+            initpic = initpic.split(',');
+            var tempstr = '';
+            for (var i = 0; i < initpic.length; i++) {
+                tempstr += strpic(initpic[i], uploadcontainer);
+            }
+            $("#"+uploadcontainer).append(tempstr);
+            if (initpic.length < maxPicNum) {
+                $("#"+uploadcontainer).append(imgstr);
+                createPuoload(uploadcontainer,uploadid,maxPicNum);
+            }
+        } else {
+            $("#"+uploadcontainer).append(imgstr);
+            createPuoload(uploadcontainer,uploadid,maxPicNum);
+        }
+
+    }
+
+    function uploadpathstr(uploadcontainer) {
+        var nowpath = '';
+        $("."+uploadcontainer).each(function () {
+            var path = $(this).attr('data-path');
+            nowpath +=path+",";
+        })
+        nowpath = nowpath.substr(0,nowpath.length-1);
+        $("#"+uploadcontainer).attr('uploadpath', nowpath);
+        return nowpath;
+    }
+
+    function createPuoload(uploadcontainer,uploadid,maxPicNum) {
+        var  uploader = new plupload.Uploader({
+            browse_button : uploadid, //触发文件选择对话框的按钮，为那个元素id
+            url : 'https://v0.api.upyun.com/' + uploadTicket.bucket, //服务器端的上传页面地址
+            multipart: true,
+            filters: {
+                mime_types: [
+                    {title: 'Image files', extensions: 'jpg,gif,png'}
+                ],
+                prevent_duplicates: true // 不允许选取重复文件
+            },
+            multipart_params: {
+                'Filename': '${random}', // adding this to keep consistency across the runtimes
+                'Content-Type': '',
+                'policy': uploadTicket.policy,
+                'authorization': uploadTicket.authorization
+                /*'signature': '<?php echo $signature; ?>' */
+            },
+            flash_swf_url : 'js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+            silverlight_xap_url : 'js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+        });
+
+        //在实例对象上调用init()方法进行初始化
+        uploader.init();
+
+        //绑定各种事件，并在事件监听函数中做你想做的事
+        uploader.bind('FilesAdded',function(uploader,files){
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum + uploader.files.length > maxPicNum) {
+                for(var i in files){
+                    uploader.removeFile(files[i].id);
+                }
+                alert('多做上传'+maxPicNum+'张');
+                return;
+            }
+            $("#parent"+uploadid).remove();
+            uploader.start();
+            //每个事件监听函数都会传入一些很有用的参数，
+            //我们可以利用这些参数提供的信息来做比如更新UI，提示上传进度等操作
+        });
+
+        uploader.bind('FileUploaded',function (uploader,files,info) {
+            var response = JSON.parse(info.response);
+            var url = response.url;
+            var str = strpic(url,uploadcontainer);
+            uploader.removeFile(files.id);
+            $("#"+uploadcontainer).append(str);
+        })
+
+        uploader.bind('UploadComplete', function (uploader, files) {
+            var nownum = $("."+uploadcontainer).length;
+            if (nownum <maxPicNum) {
+                createUploadStr(uploadcontainer,maxPicNum);
+            }
+            uploadpathstr(uploadcontainer);
+            uploader.destroy();
+        })
+    }
+
+    //产品分类
+    $.ajax( {
+        url:"{:U('OperationGuanJia/getCategory')}",
+        type:'get',
+        dataType:'json',
+        data:{type:2},
+        success:function(message) {
+            var str='<option value="0">选择一级分类</option>';
+            var selectid = 0;
+            $('#yiji').text('');
+            for(var i=0;i<message['data'].length;i++){
+                if (yiji == message['data'][i]['name']) {
+                    str+="<option value ="+message['data'][i]['id']+" selected>"+message['data'][i]['name']+"</option>";
+                    selectid = message['data'][i]['id'];
+                } else {
+                    str+="<option value ="+message['data'][i]['id']+" >"+message['data'][i]['name']+"</option>";
+                }
+            }
+
+            geterji(selectid, erji);
+            $('#yiji').html(str);
+        }
+    })
+
+    function geterji(id, erji) {
+
+        $.get(
+            "{:U('OperationGuanJia/getCategory')}",{
+                id:id,
+                type:2
+            },
+            function(message){
+                if(message['state']==1){
+                    var str = '<option value="0">选择二级分类</option>';
+                    var data = message.data;
+                    console.log(message);
+                    for (var i=0;i<data.length;i++){
+                        if (erji && erji == data[i]['name'] ) {
+                            str+="<option value ="+data[i]['id']+" selected>"+data[i]['name']+"</option>";
+                        } else {
+                            str+="<option value ="+data[i]['id']+">"+data[i]['name']+"</option>";
+                        }
+                    }
+                    $("#erji").html(str);
+                } else{
+                    alert(message['msg']);
+                }
+            },'json');
+    }
+
+    $("#yiji").change(function(){
+        var id = $(this).val();
+        geterji(id, 0);
+    })
+</script>
+</body>
+</html>

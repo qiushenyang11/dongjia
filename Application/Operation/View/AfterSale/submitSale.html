@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>提交售后保单</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">售后管理</a></li>
+    <li class="active">提交保单</li>
+</ol>
+<form action="#" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label" >*售后订单号</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" id="ordersn"  name="ordersn" placeholder="售后订单号">
+        </div>
+        <div class="col-sm-1">
+            <input type="button" class="form-control btn-primary" id="verify" value="点击验证">
+        </div>
+    </div>
+    <div class="form-group">
+        <div style="border-bottom: 1px solid #cccccc"></div>
+    </div>
+    <div id="savebaodan" style="display: none">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*开普勒订单号</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="kordersn"  name="ordersn" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*sku</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="skuid"  name="skuid" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*服务类型</label>
+            <div class="col-sm-2">
+                <select name="customerExpect" id="customerExpect" class="form-control">
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >问题描述</label>
+            <div class="col-sm-2">
+                <textarea name="questionDesc" id="questionDesc" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >是否需要检测报告</label>
+            <div class="col-sm-2">
+                <select name="customerExpect" id="isNeedDetectionReport" class="form-control">
+                    <option value="0">不需要</option>
+                    <option value="1">需要</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >问题描述图片</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="questionPic"  name="questionPic" placeholder="请输入完整的url，多个请用逗号隔开" value="">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >是否有包装</label>
+            <div class="col-sm-2">
+                <select name="customerExpect" id="isHasPackage" class="form-control">
+                    <option value="0">有</option>
+                    <option value="1">无</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >包装描述</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="packageDesc"  name="packageDesc" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="customerContactName"  name="customerContactName" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人电话</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="customerTel"  name="customerTel" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人手机号</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="customerMobilePhone"  name="customerMobilePhone" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人email</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="customerEmail"  name="customerEmail" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*联系人邮编</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="customerPostcode"  name="customerPostcode" placeholder="" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*取件方式</label>
+            <div class="col-sm-2">
+                <select name="pickwareType" id="pickwareType" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div id="getgood">
+        </div>
+
+        <div id="return">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-1">
+                <input type="button" class="form-control btn-primary" id="aftersaleApply"  name="customerPostcode" placeholder="" value="保存服务单">
+            </div>
+        </div>
+
+    </div>
+
+</form>
+<script>
+
+    function getqujian() {
+        var str ='            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >取件省</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareProvince" id="pickwareProvince" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >取件市</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareCity" id="pickwareCity" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >取件县</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareCounty" id="pickwareCounty" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >取件乡镇</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareVillage" id="pickwareVillage" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >取件街道地址</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <input type="text" class="form-control" id="pickwareAddress"  name="pickwareAddress" placeholder="" value="">\n' +
+            '                </div>\n' +
+            '            </div>';
+        return str;
+    }
+
+    function fanjian() {
+        var str = '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件方式</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="returnwareType" id="returnwareType" class="form-control">\n' +
+            '                        <option value="0">默认</option>\n' +
+            '                        <option value="10">自营配送</option>\n' +
+            '                        <option value="20">第三方配送</option>\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件省</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareProvince" id="returnwareProvince" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件市</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareCity" id="returnwareCity" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件县</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareCounty" id="returnwareCounty" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件乡镇</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <select name="pickwareVillage" id="returnwareVillage" class="form-control">\n' +
+            '                    </select>\n' +
+            '                </div>\n' +
+            '            </div>\n' +
+            '            <div class="form-group">\n' +
+            '                <label for="" class="col-sm-2 control-label" >反件街道地址</label>\n' +
+            '                <div class="col-sm-2">\n' +
+            '                    <input type="text" class="form-control" id="returnwareAddress"  name="pickwareAddress" placeholder="" value="">\n' +
+            '                </div>\n' +
+            '            </div>';
+        return str;
+    }
+
+    function getProvince(elemtid,isinit) {
+        var str = '';
+        $.get("{:U('NewApi/Api/getJdAddress')}",function (res) {
+            console.log(res)
+            var data =res.data;
+            for (var i=0;i<data.length;i++) {
+                str+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+            }
+           $('#'+elemtid+'Province').html(str);
+            if (isinit != 1) {
+                $('#'+elemtid+'City').html('');
+                $('#'+elemtid+'County').html('');
+                $('#'+elemtid+'Village').html('');
+            }
+        },'json')
+    }
+
+    function getCity(elemtid,id,isinit) {
+        $.get("{:U('NewApi/Api/getJdAddress')}?parentid="+id+"&level=2",function (res) {
+            var str = '';
+            var data =res.data;
+            console.log(data)
+            for (var i=0;i<data.length;i++) {
+                str+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+            }
+            $('#'+elemtid+'City').html(str);
+            if (isinit != 1) {
+                $('#'+elemtid+'County').html('');
+                $('#'+elemtid+'Village').html('');
+            }
+        },'json')
+    }
+
+    function getCounty(elemtid,id,isinit) {
+        $.get("{:U('NewApi/Api/getJdAddress')}?parentid="+id+"&level=3",function (res) {
+            var str = '';
+            var data =res.data;
+            console.log(data)
+            for (var i=0;i<data.length;i++) {
+                str+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+            }
+            $('#'+elemtid+'County').html(str);
+            $('#'+elemtid+'Village').html('');
+            if (isinit != 1) {
+                $('#'+elemtid+'Village').html('');
+            }
+        },'json')
+    }
+
+    function getTown(elemtid,id) {
+        $.get("{:U('NewApi/Api/getJdAddress')}?parentid="+id+"&level=4",function (res) {
+            var str = '';
+            var data =res.data;
+            console.log(data)
+            for (var i=0;i<data.length;i++) {
+                str+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+            }
+            $('#'+elemtid+'Village').html(str);
+        },'json')
+    }
+
+    function init() {
+        var customerExpect  = $('#customerExpect').val();
+        var qujianstr = getqujian();
+        $('#getgood').html(qujianstr);
+        getProvince('pickware',1);
+        getCity('pickware',1,1);
+        getCounty('pickware',2812,1);
+        getTown('pickware',51130);
+        if (customerExpect != 10) {
+            var fanjian = fanjian();
+            $('#return').html(fanjian);
+
+            getProvince('returnware',1);
+            getCity('returnware',1,1);
+            getCounty('returnware',2812,1);
+            getTown('returnware',51130);
+        }
+
+    }
+
+    $('#customerExpect').change(function () {
+        var type = $(this).val();
+        console.log(type+'++++++++')
+        if (type == 10) {
+            $('#return').html('');
+        } else {
+            var fanjianstr = fanjian();
+            $('#return').html(fanjianstr);
+
+            getProvince('returnware',1);
+            getCity('returnware',1,1);
+            getCounty('returnware',2812,1);
+            getTown('returnware',51130);
+        }
+    })
+
+    $(document).on('change','#pickwareProvince',function () {
+        var id = $(this).val();
+        getCity('pickware',id);
+    })
+
+    $(document).on('change','#pickwareCity',function () {
+        var id = $(this).val();
+        getCounty('pickware',id);
+    })
+    $(document).on('change','#pickwareCounty',function () {
+        var id = $(this).val();
+        getTown('pickware',id);
+    })
+
+    $(document).on('change','#returnwareProvince',function () {
+        var id = $(this).val();
+        getCity('returnware',id);
+    })
+
+    $(document).on('change','#returnwareCity',function () {
+        var id = $(this).val();
+        getCounty('returnware',id);
+    })
+    $(document).on('change','#returnwareCounty',function () {
+        var id = $(this).val();
+        getTown('returnware',id);
+    })
+
+    $('#verify').click(function () {
+        var ordersn = $('#ordersn').val();
+        $.post("{:U('NewApi/Api/canAfterSale')}",{ordersn:ordersn},function (res) {
+            if (res.state) {
+                var data = res.data;
+                var kordersn = data.jdkerperorder;
+                var skuid = data.skuid;
+                var customerExpect = data.saletype;
+                var pickwareType = data.returnway;
+                $('#kordersn').val(kordersn);
+                $('#skuid').val(skuid);
+                var customerExpectstr = '';
+                for (var i =0 ;i<customerExpect.length;i++) {
+                    customerExpectstr +='<option value="'+customerExpect[i].type+'">'+customerExpect[i].name+'</option>';
+                }
+                var pickwareTypestr = '';
+                for (var i =0 ;i<pickwareType.length;i++) {
+                    pickwareTypestr +='<option value="'+pickwareType[i].code+'">'+pickwareType[i].name+'</option>';
+                }
+                $('#customerExpect').html(customerExpectstr);
+                $('#pickwareType').html(pickwareTypestr);
+                $('#savebaodan').show();
+                init();
+            } else {
+                alert(res.msg);
+            }
+        },'json')
+    })
+
+    $('#aftersaleApply').click(function () {
+        var ordersn = $('#ordersn').val();
+        var jdOrderId = $('#kordersn').val();
+        var skuid = $('#skuid').val();
+        var customerExpect = $('#customerExpect').val();
+        var questionDesc = $('#questionDesc').val();
+        var isNeedDetectionReport = $('#isNeedDetectionReport').val();
+        var questionPic = $('#questionPic').val();
+        var isHasPackage = $('#isHasPackage').val();
+        var packageDesc = $('#packageDesc').val();
+        var customerContactName = $('#customerContactName').val();
+        var customerTel = $('#customerTel').val();
+        var customerMobilePhone = $('#customerMobilePhone').val();
+        var customerEmail = $('#customerEmail').val();
+        var customerPostcode = $('#customerPostcode').val();
+        var pickwareType = $('#pickwareType').val();
+        var pickwareProvince = $('#pickwareProvince').val();
+        var pickwareCity = $('#pickwareCity').val();
+        var pickwareCounty = $('#pickwareCounty').val();
+        var pickwareVillage = $('#pickwareVillage').val();
+        var pickwareAddress = $('#pickwareAddress').val();
+
+        var returnwareType = $('#returnwareType').val();
+        var returnwareProvince = $('#returnwareProvince').val();
+        var returnwareCity = $('#returnwareCity').val();
+        var returnwareCounty = $('#returnwareCounty').val();
+        var returnwareVillage = $('#returnwareVillage').val();
+        var returnwareAddress = $('#returnwareAddress').val();
+        console.log(questionDesc)
+        if (customerExpect == 10) {
+            returnwareType = '';
+            returnwareProvince = '';
+            returnwareCity = '';
+            returnwareCounty = '';
+            returnwareVillage = '';
+            returnwareAddress = '';
+        }
+        $.post("{:U('NewApi/Api/aftersaleApply')}",
+            {
+                 ordersn:ordersn,
+         jdOrderId:jdOrderId,
+         skuid:skuid,
+         customerExpect:customerExpect,
+         questionDesc:questionDesc,
+         isNeedDetectionReport:isNeedDetectionReport,
+         questionPic:questionPic,
+         isHasPackage:isHasPackage,
+         packageDesc:packageDesc,
+         customerContactName:customerContactName,
+         customerTel:customerTel,
+         customerMobilePhone:customerMobilePhone,
+         customerEmail:customerEmail,
+         customerPostcode:customerPostcode,
+         pickwareType:pickwareType,
+         pickwareProvince:pickwareProvince,
+         pickwareCity:pickwareCity,
+         pickwareCounty:pickwareCounty,
+         pickwareVillage:pickwareVillage,
+         pickwareAddress:pickwareAddress,
+         returnwareType:returnwareType,
+         returnwareProvince:returnwareProvince,
+         returnwareCity:returnwareCity,
+         returnwareCounty:returnwareCounty,
+         returnwareVillage:returnwareVillage,
+         returnwareAddress:returnwareAddress
+            },
+            function (res) {
+                alert(res.msg)
+            },
+            'json'
+            )
+    })
+</script>
+</body>
+</html>

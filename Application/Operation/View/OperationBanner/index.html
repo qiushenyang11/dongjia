@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页Banner</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <style>
+        .ceng {
+            padding: 20px;
+            position: relative;
+        }
+        .queding {
+            border: none;
+            position: absolute;
+            bottom: 20px;
+            right: 35px;
+            background: #333333;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .quxiao {
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            background: #999999;
+            height: 30px;
+            line-height: 30px;
+            width: 85px;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div id="confirm" class="bgc" style=" z-index: 9998;position: fixed; top:0; left:0; width: 100%;height: 100%; background: rgba(0,0,0,0.5);display:none;">
+    <div id="ceng"
+         style=" margin:0 auto;margin-top: 10%; z-index: 9999; width: 300px;height: 150px;background: #FFFFFF;"
+         class="ceng">
+        <h2 style="text-align: left;margin-top:0;font-size: 18px;font-weight:200" id="title">确认删除?</h2>
+        <div class="quxiao" id="quxiao">取消</div>
+        <div class="queding" id="queding">确定</div>
+    </div>
+</div>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">首页banner</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('bannerSearch')}" method="post">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="3" <if condition="$type eq 3">selected</if>>城市</option>
+                    <option value="1" <if condition="$type eq 1">selected</if>>banner名称</option>
+                    <option value="2" <if condition="$type eq 2">selected</if>>bannerID</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="datetime" class="form-control" name="condition" id="condition" placeholder="" value="{$condition}">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-1">
+                <select  name="ishow"  class="form-control">
+                    <option value="0" <if condition="$ishow eq 0">selected</if>>状态</option>
+                    <option value="1" <if condition="$ishow eq 1">selected</if>>上线</option>
+                    <option value="2" <if condition="$ishow eq 2">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>在线时间</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3">
+                    <input type="text" class="form-control" id="times" value="{$timesearch}" name="timesearch" placeholder="选择时间">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">&nbsp;&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;&nbsp;</button>
+        <a href="{:U('OperationBanner/addBanner')}">
+        <button type="button"  class="btn btn-success" style="background:#1AB394; border:0;">新建banner</button>
+        </a>
+    </form>
+    <table class="table" style="margin-top: 20px;text-align:center;">
+        <thead style="height: 20px;background:#1AB394;color: white ">
+        <tr>
+            <td width="12%" align="center">ID</td>
+            <td width="12%" align="center">名称</td>
+            <td width="10%" align="center">图片</td>
+            <td width="12%" align="center">落地页</td>
+            <td width="12%" align="center">城市</td>
+            <td width="10%" align="center">在线时间</td>
+            <td width="10%" align="center">帧数</td>
+            <td width="0%" align="center">状态</td>
+            <td width="12%" align="center">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+       <volist name="result" id="vo">
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.title}</td>
+            <td>
+                <div style="width: 100px;height: 60px;margin: 5px;overflow: hidden">
+                    <img src="{$vo.pic}" alt="" style="max-height: 60px;max-width:100px">
+                </div>
+
+            </td>
+            <td style="text-align: left;" >
+                
+                        <if condition="$vo.urltype eq 1"  >产品：
+                    <elseif condition="$vo.urltype eq 2" />管家：
+                    <elseif condition="$vo.urltype eq 3" />链接：
+                    <else />二级分类：
+                    </if>
+                     {$vo.urltvalue}
+            </td>
+            
+            <td style="text-align: left;" >
+             <if condition="$vo.city_type eq 1">白名单：<else />黑名单：</if>{$vo.servicecity}
+            </td>
+            
+            <td><p>{$vo.showstarttime|date='Y-m-d H:i:s',###}</p>
+                <p>至</p>
+                <p>{$vo.showendtime|date='Y-m-d H:i:s',###}</p>
+            </td>
+            <td>{$vo.frame}</td>
+            <td><if condition="$vo.ishow eq 1">在线
+            <else/>下线
+            </if></td>
+            <td>
+                <a href="{:U('editBanner')}?id={$vo.id}">
+                <button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">编辑</button>
+                </a>
+                <button type="button" class="bfL btn btn-success del" style="background:#1AB394;border:0;opacity:0.8" data-id="{$vo.id}">删除</button>
+            </td>
+        </tr>
+       </volist>
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<script>
+
+</script>
+</body>
+<script>
+    //获取当前日期时间
+    var newDate = new Date();
+    Date.prototype.format = function(format) {
+        var date = {
+            "M+": this.getMonth() + 1,
+            "d+": this.getDate(),
+            "h+": this.getHours(),
+            "m+": this.getMinutes(),
+            "s+": this.getSeconds(),
+            "q+": Math.floor((this.getMonth() + 3) / 3),
+            "S+": this.getMilliseconds()
+        };
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                    ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+
+    var nowdate = newDate.format('yyyy-MM-dd h:m:s');
+    //日期插件
+    $("#times").jeDate({
+        format: "YYYY-MM-DD hh:mm:ss",
+        minDate:nowdate
+    })
+
+
+
+
+    var id = 0;
+    $('.del').click(function () {
+        show();
+        id = $(this).data('id');
+    })
+    $("#queding").click(function () {
+        $.post("{:U('delBanner')}",{id:id},function (res) {
+            if (res.state == 1) {
+                alert('删除成功');
+                window.location.reload();
+            } else {
+                alert('删除失败')
+            }
+            hide();
+        },'json')
+    })
+    $("#quxiao").click(function () {
+        hide();
+    })
+    function hide() {
+        $("#confirm").hide();
+    }
+    function show() {
+        $("#confirm").show();
+    }
+</script>
+</html>

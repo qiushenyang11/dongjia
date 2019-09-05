@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>用户信息</title>
+    <!-- <link rel="stylesheet" href="/myWeb/Public/Admin/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">拍卖管理</a></li>
+    <li class="active">用户信息</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="" method="post">
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="datetime" class="form-control" name="phone" id="end_time" placeholder="请输入手机号">
+        </div>
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">
+            <span class="glyphicon glyphicon-search">
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <a href="{:U('OperationAuctionGoods/auctionUser')}">
+            <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float:right;margin:5px;"><span class="glyphicon glyphicon-open-file"></span>添加用户</button>
+        </a>
+        <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right;margin: 5px"><span class="glyphicon glyphicon-open-file"></span>导入用户</button>
+    </form>
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th>姓名</th>
+            <th>手机号</th>
+            <th>加入时间</th>
+            <th>地址信息/th>
+            <th>openid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+        <tr>
+            <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.addtime}</td>
+                <td>{$vo.address}</td>
+                <td>{$vo.openid}</td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="margin-top:10px">
+            <td colspan='17' width="80" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

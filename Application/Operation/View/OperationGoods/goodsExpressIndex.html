@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>商品信息</title>
+    <!-- <link rel="stylesheet" href="/myWeb/Public/Admin/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">商品管理</a></li>
+    <li class="active">商品列表</li>
+</ol>
+<div class="form-group" style="margin-top: 20px">
+    <a href="{:U('OperationProduct/editProductExpress')}?id={$Think.get.productid}">
+        <button type="button" class="btn btn-success" style="background:#1AB394;margin: 0 20px; border:0;opacity:0.8;float: left;">基础信息</button>
+    </a>
+    <a href="" id="enterGoods">
+        <button type="button" class="btn btn-success " disabled id="goodlist"  style="background:darkgray; border:0;opacity:0.8;float: left">商品列表</button>
+    </a>
+</div>
+<div class="form-group col-sm-12" style="border-bottom: 1px solid gray;padding-bottom: 5px;font-size:16px"></div>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <span style="font-size: 16px;font-weight: 600">{$productname}</span>
+              <a href=" "id="enterAdd">
+                <button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right;margin-bottom: 20px"><span class="glyphicon glyphicon-open-file"></span>新增商品</button>
+            </a>
+    <table class="table"  style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th>商品ID</th>
+            <th>商品名称</th>
+            <th>状态&库存</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+
+                <if condition="$vo.status eq 1" >
+                    <td>{$vo.specname}(在线，剩余库存{$vo.nums})</td>
+                    <else/>
+                    <td>{$vo.specname}(下线，剩余库存{$vo.nums})</td>
+                </if>
+
+                <td>
+                    <a href="{:U('editExpressGoods')}?goodid={$vo.id}&&productid={$Think.get.productid}">
+                        <button type="button" class=" btn btn-success" style="background:#1AB394;border:0;opacity:0.8;width:70px;">编辑</button>
+                    </a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="margin-top:10px">
+            <td colspan='17' width="80" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    //添加商品跳转
+    var productid = "{$Think.get.productid}";
+    console.log(productid);
+    var url = "{:U('addExpressGoods')}"
+    url +="?productid="+productid;
+    $("#enterAdd").prop('href',url);
+
+
+
+</script>
+</body>
+</html>

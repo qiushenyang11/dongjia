@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<input type="button" value="支付测试" id="pay">
+</body>
+<script>
+    $("#pay").click(function () {
+        $.post("{:U('AjaxApi/WeChatGuanJia/submitOrder')}",
+            {
+                type:1,              //商品类型
+                productid:12,
+                goodsid:31,
+                nums:2,
+                addressname:'邱沈阳',
+                mobile:'18367826195',
+                totalprice:26,
+                specid:58
+            },
+            function (res) {
+                if (res.state == 1) {  //提交成功，请求微信端
+                    $.post("{:U('AjaxApi/WeChatGuanJia/getJsApiParam')}", {
+                        param:res.data,
+                    }, function(result) {
+                        var data =result.data;
+                        var order = '123';
+                        if(result.state == 1) {
+                            if(typeof WeixinJSBridge == "undefined") {
+                                if(document.addEventListener) {
+                                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                                } else if(document.attachEvent) {
+                                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                                }
+                            } else {
+
+                                onBridgeReady(data, order);
+                            }
+                        } else if(res.state == 2) {
+                            alert('lalal');
+                        } else {
+                            alert(res.msg);
+                        }
+                    }, 'json')
+
+                } else if (res.state == 2) {      //免费商品
+                    alert('跳转到支付成功页面');
+                } else{
+                    alert(res.msg);
+                }
+            },
+            'json'
+        )
+    })
+
+    function onBridgeReady(data, order) {
+        var a = data;
+        console.log(a);
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', a,
+            function(res) {
+                if(res.err_msg == "get_brand_wcpay_request:ok") {
+                    alert('支付成功');
+                } // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                else {
+                    alert("返回或者支付失败");
+                }
+            }
+        );
+    }
+/*    $("#pay").click(function() {
+
+        $.post("{:U('AjaxApi/WeChatGuanJia/getJsApiParam')}", {
+
+        }, function(res) {
+            var data =res.data;
+            var order = '123';
+            if(res.state == 1) {
+                if(typeof WeixinJSBridge == "undefined") {
+                    if(document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    } else if(document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                } else {
+
+                    onBridgeReady(data, order);
+                }
+            } else if(res.state == 2) {
+                alert('lalal');
+            } else {
+                alert(res.msg);
+            }
+        }, 'json')
+
+    });*/
+</script>
+</html>

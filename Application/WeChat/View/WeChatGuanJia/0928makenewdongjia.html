@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>乔迁新址，请输入您的名字</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+      window.browser = {
+        versions: function () {
+          let u = navigator.userAgent;
+          return {
+            trident: u.indexOf('Trident') > -1,
+            presto: u.indexOf('Presto') > -1,
+            webKit: u.indexOf('AppleWebKit') > -1,
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+            android: u.indexOf('Android') > -1,
+            iPhone: u.indexOf('iPhone') > -1,
+            iPad: u.indexOf('iPad') > -1,
+            jdjr: u.indexOf('JDJR-App') > -1,
+            webApp: u.indexOf('Safari') === -1,
+            wechat: u.indexOf('MicroMessenger') !== -1
+          };
+        }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+      };</script>
+
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+            background-image: url('https://file.rose52.com/guanjia/activity/0928newdongjia/bg1.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .mainapp {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mainapp .info {
+            width: 60vw;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .mainapp .info .item {
+          margin-bottom: 5px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: center;
+          color: #fff5ac;
+        }
+        .mainapp .info .item #name{
+          width: 100%;
+          height: 30px;
+        }
+        .mainapp .info .item .btn{
+          width: 100%;
+          height: 40px;
+          background: #fff5ac;
+          color: #c44848;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+  <div class="info">
+    <div class="item">请输入您的名字</div>
+    <div class='item'><input id="name"></div>
+    <div class='item'>
+      <div class='btn' onclick="goto()">确定</div>
+    </div>
+  </div>
+</div>
+<script>
+  let name = document.getElementById('name');
+  
+  function goto() {
+    window.location.href = '/act/newdongjia?aname=' + window.btoa(unescape(encodeURIComponent(name.value)));
+  }
+</script>
+{$jdUnder}
+</body>
+</html>

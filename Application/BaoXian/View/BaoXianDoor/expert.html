@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <!-- End Required meta tags -->
+    <title> Sign In | Looper - Bootstrap 4 Admin Theme </title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="__PUBLIC__/BaoXian/assets/apple-touch-icon.png">
+    <link rel="shortcut icon" href="__PUBLIC__/BaoXian/assets/favicon.ico">
+    <meta name="theme-color" content="#3063A0">
+    <!-- BEGIN BASE STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/vendor/fontawesome/css/fontawesome.all.css">
+    <!-- END BASE STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/main.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/assets/stylesheets/custom.css">
+    <!-- END THEME STYLES -->
+
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/jd.css">
+    <style>
+        .form-group .icon {
+            width: 100px
+        }
+        .productImg {
+            flex-shrink: 0;
+        }
+    </style>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <!-- 引入样式elementui -->
+    <link rel="stylesheet" href="__PUBLIC__/BaoXian/element-ui/index.css">
+    <!-- 引入组件库elementui -->
+    <script src="__PUBLIC__/BaoXian/element-ui/index.js"></script>
+
+</head>
+<body>
+<!-- .auth -->
+<main class="auth">
+    <div class="wrapper col-12">
+        <div class="page">
+            <div class="page-inner">
+                <!-- grid row -->
+                <div class="row col-12">
+                    <!-- grid column -->
+                    <div class="col-lg-12 col-xl-8 offset-xl-2">
+                        <!-- .card -->
+                        <div class="card card-fluid">
+                            <header class="card-header d-flex align-items-center" id="sampleTitle">
+                                <span class="mr-auto">{$sample.nowSample.name} <span class="text-muted">(总共{$sample.allSampleCount}个)</span></span>
+                            </header>
+                            <!-- grid row -->
+                            <div class="row no-gutters">
+                                <!-- grid column -->
+                                <div class="col-lg-8 order-lg-4">
+                                    <!-- .card-body -->
+                                    <div class="card-body border-left">
+                                        <canvas id="canvas-achievement" class="chartjs"></canvas>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /grid column -->
+                                <!-- grid column -->
+                                <div class="col-lg-4 order-lg-1">
+                                    <div class="list-group list-group-flush list-group-bordered" id="sampleDetail">
+                                        <volist id="vo" name="DetailInfo">
+                                            <div class="list-group-item justify-content-between"><span class="text-muted">{$vo.name}</span><strong>{$vo.value}</strong></div>
+                                        </volist>
+                                    </div>
+                                </div>
+                                <!-- /grid column -->
+                            </div>
+                            <!-- /grid row -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /grid column -->
+
+                </div>
+                <!-- /grid row -->
+                <!-- grid row -->
+                <div class="row col-12">
+                    <!-- grid column -->
+                    <!--<div class="col-lg-12 col-xl-4 offset-xl-2">-->
+                    <!--&lt;!&ndash; .card &ndash;&gt;-->
+                    <!--<section id="input-group" class="card">-->
+                    <!--&lt;!&ndash; .card-body &ndash;&gt;-->
+                    <!--<div class="card-body">-->
+                    <!--&lt;!&ndash; .form &ndash;&gt;-->
+                    <!--<form>-->
+                    <!--&lt;!&ndash; .fieldset &ndash;&gt;-->
+                    <!--<fieldset>-->
+                    <!--<legend id="operaTitle">筛选产品</legend>-->
+                    <!--<volist id="vo" name="product" key="outIndex">-->
+                    <!--<div class="form-group">-->
+                    <!--<label class="control-label">{$vo.name}</label>-->
+                    <!--<div class="media">-->
+                    <!--<div class="col-6">-->
+                    <!--<img src="{$vo.pic}" class="col-12" alt="User Avatar">-->
+                    <!--</div>-->
+                    <!--<div class="col-6">-->
+                    <!--<volist id="vo1" name="InsuredPeople">-->
+                    <!--{$vo1}<input type="text" value="0" class="spinner3" data-product="{$vo.name}" data-tag="{$vo1}" data-group="{$outIndex-1}">-->
+                    <!--</volist>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</volist>-->
+                    <!--</fieldset>-->
+                    <!--&lt;!&ndash; /.fieldset &ndash;&gt;-->
+                    <!--</form>-->
+                    <!--&lt;!&ndash; /.form &ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.card-body &ndash;&gt;-->
+                    <!--</section>-->
+                    <!--&lt;!&ndash; /.card &ndash;&gt;-->
+                    <!--</div>-->
+                    <include file="Components/selector"/>
+                    <!-- /grid column -->
+                    <!-- .col -->
+                    <div class="col-lg-12 col-xl-4">
+                        <!-- .card -->
+                        <section class="card">
+                            <!-- .card-body -->
+                            <div class="card-body">
+                                <canvas id="canvas-polar-area" style="height:400px" class="chartjs"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                            <!-- .card-footer -->
+                            <div class="card-footer">
+                                <div class="card-footer-item">每年交保费：<span id="totalCount">0</span>元</div>
+                            </div>
+                            <!-- /.card-footer -->
+                        </section>
+                        <!-- /.card -->
+                        <!-- .card -->
+                        <section class="card">
+                            <!-- .card-body -->
+                            <div class="card-body" style="height:480px">
+                                <canvas id="canvas-bar" style="width: 2150px;height: 480px;"></canvas>
+                            </div>
+                            <!-- /.card-body -->
+                        </section>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /grid row -->
+            </div>
+
+        </div>
+    </div>
+</main>
+<!-- /.auth -->
+<!-- BEGIN PLUGINS JS -->
+<script src="__PUBLIC__/Admin/js/jquery-2.1.0.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/popper.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/stacked-menu/stacked-menu.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/flatpickr/flatpickr.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/chart.js/Chart.min.js"></script>
+<script src="__PUBLIC__/BaoXian/assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<!--<script src="__PUBLIC__/BaoXian/assets/javascript/pages/chartjs-bar-demo.js"></script>-->
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+<script>
+  let sample = {$sampleJson};
+  let people = sample.nowSample.people;
+  let product = {$productJson};
+  let productList = {$productList};
+  let spinner3;
+  let totalCount = $('#totalCount');
+</script>
+<script>
+  var chartjsOtherDemo = {
+    chartObj: Object,
+    config: Object,
+    init: function init() {
+
+      this.bindUIActions();
+    },
+    bindUIActions: function bindUIActions() {
+      // turn off aspect ratio to get better mobile view
+      Chart.defaults.global.maintainAspectRatio = false;
+
+      // event handlers
+      this.polarAreaChart();
+    },
+    colors: function colors() {
+      return {
+        red: '#B76BA3',
+        orange: '#EC935E',
+        yellow: '#F7C46C',
+        green: '#A7C796',
+        teal: '#00A28A',
+        blue: '#346CB0',
+        purple: '#5F4B8B',
+        gray: '#BEC1C4'
+      };
+    },
+    getColor: function getColor(color) {
+      return this.colors()[color];
+    },
+    colorNames: function colorNames(color) {
+      return Object.keys(this.colors());
+    },
+    months: function months() {
+      return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    },
+    polarAreaChart: function polarAreaChart() {
+      let nameList = [];
+      let totalList = [];
+      let backgroundColor = [
+        Chart.helpers.color(this.getColor('red')).alpha(0.5).rgbString(),
+        Chart.helpers.color(this.getColor('purple')).alpha(0.5).rgbString(),
+        Chart.helpers.color(this.getColor('yellow')).alpha(0.5).rgbString(),
+        Chart.helpers.color(this.getColor('teal')).alpha(0.5).rgbString(),
+        Chart.helpers.color(this.getColor('blue')).alpha(0.5).rgbString()
+      ];
+      for (let item of productList) {
+        nameList.push(item.name);
+        totalList.push(item.total);
+      }
+      this.config = {
+        data: {
+          datasets: [{
+            data: totalList,
+            backgroundColor: backgroundColor,
+            label: 'My dataset' // for legend
+          }],
+          labels: nameList
+        },
+        options: {
+          responsive: true,
+          legend: {
+            display: false
+          },
+          title: {
+            display: true,
+            text: '每年所交保费比例'
+          },
+          scale: {
+            ticks: {
+              beginAtZero: true
+            },
+            reverse: false
+          },
+          animation: {
+            animateRotate: false,
+            animateScale: true
+          }
+        }
+        // init chart polar area
+      };
+
+      let canvas = $('#canvas-polar-area')[0].getContext('2d');
+      this.chartObj = Chart.PolarArea(canvas, this.config);
+    },
+    update: function update() {
+      let totalList = [];
+      for (let item of productList) {
+        totalList.push(item.total);
+      }
+      this.config.data.datasets[0].data = totalList;
+      console.log(this.config);
+      this.chartObj.update(this.config);
+    }
+  };
+  chartjsOtherDemo.init();
+</script>
+<script>
+  var spinnerDemo = {
+    init: function init() {
+
+      this.bindUIActions();
+    },
+    bindUIActions: function bindUIActions() {
+      // event handlers
+      this.handleSpinners();
+    },
+    handleSpinners: function handleSpinners() {
+      spinner3 = $('.spinner3');
+      // With prefix
+      spinner3.TouchSpin({
+        buttondown_class: 'btn btn-secondary',
+        buttonup_class: 'btn btn-secondary',
+        min: 0,
+        max: 1000000000,
+        stepinterval: 50,
+        maxboostedstep: 10000000,
+        postfix: '万元'
+      }).on('touchspin.on.startspin', function () {
+//        chartjsOtherDemo.init();
+      });
+      spinner3.change(() => {
+        let lastIndex = -1;
+        let index;
+        let count = 0;
+        spinner3.each((e) => {
+          index = spinner3.eq(e).data('group');
+          count += parseInt(spinner3.eq(e).val());
+          console.log(productList[index]);
+          if (productList[index]) {
+            if (index != lastIndex) {
+              productList[index].total = 0;
+              lastIndex = index;
+            }
+            productList[index].total += parseInt(spinner3.eq(e).val());
+          }
+        });
+
+        totalCount.text(count);
+        chartjsOtherDemo.update(productList);
+      });
+    }
+  };
+  spinnerDemo.init();
+</script>
+<script>
+  var dashboardDemo = {
+    init: function init() {
+
+      this.bindUIActions();
+    },
+    bindUIActions: function bindUIActions() {
+      // turn off aspect ratio to get better mobile view
+      Chart.defaults.global.maintainAspectRatio = false;
+//      let self = this;
+//      let sample;
+      // event handlers
+      this.handleTasksChart(sample);
+      this.handleFlatpickr();
+    },
+    colors: function colors() {
+      return {
+        red: '#B76BA3',
+        orange: '#EC935E',
+        yellow: '#F7C46C',
+        green: '#A7C796',
+        teal: '#00A28A',
+        blue: '#346CB0',
+        purple: '#5F4B8B',
+        gray: '#BEC1C4'
+      };
+    },
+    getColor: function getColor(color) {
+      return this.colors()[color];
+    },
+    colorNames: function colorNames(color) {
+      return Object.keys(this.colors());
+    },
+    handleTasksChart: function handleTasksChart(sample) {
+      var self = this;
+      var investhistory = sample.nowSample.investhistory.split(';');
+      var labels = [];
+      var labelsData = [];
+
+      labels.push('更早');
+      labelsData.push(0);
+
+      for (let i of investhistory) {
+        let temp = i.split(':');
+        let time = new Date(parseInt(temp[1]) * 1000);
+        labels.push(`${time.getFullYear()}.${time.getMonth() + 1}.${time.getDate()}`);
+        labelsData.push(parseInt(temp[0]));
+      }
+      var data = {
+        labels: labels,
+        datasets: [{
+          backgroundColor: self.getColor('blue'),
+          borderColor: self.getColor('blue'),
+          borderWidth: 1,
+          data: labelsData
+        }]
+        // init chart bar
+      };
+      var canvas = $('#canvas-achievement')[0].getContext('2d');
+      var chart = new Chart(canvas, {
+        type: 'line',
+        data: data,
+        options: {
+          responsive: true,
+          legend: { display: false },
+          title: { display: false },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: true,
+                drawBorder: false,
+                drawOnChartArea: false
+              },
+              ticks: {
+                maxRotation: 0,
+                maxTicksLimit: 3
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true,
+                drawBorder: false
+              },
+              ticks: {
+                beginAtZero: true,
+                stepSize: 100
+              }
+            }]
+          }
+        }
+      });
+    },
+    handleFlatpickr: function handleFlatpickr() {
+      flatpickr('#flatpickr', {
+        inline: true,
+        disableMobile: true,
+        mode: 'range',
+        dateFormat: 'Y-m-d'
+      });
+
+      $('#flatpickr').next().on('click', function (e) {
+        e.stopPropagation();
+      });
+    }
+  };
+  dashboardDemo.init();
+</script>
+<script src="__PUBLIC__/BaoXian/selector.js" type="module"></script>
+<!-- END PLUGINS JS -->
+</body>
+</html>

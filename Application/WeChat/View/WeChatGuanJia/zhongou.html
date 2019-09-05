@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=UTF-8>
+    <title>中欧之约年会礼包</title>
+    <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel=stylesheet type=text/css href='__PUBLIC__/myWeb/Public/Admin/css/reset.css?is=1'>
+    <link href="//static.360buyimg.com/static-sale-m/dist/view/css/base.css?t=20171027185038" rel=stylesheet type=text/css>
+    <script type=text/config id=jdAppType>jdapp,jdsmart,walletclient,jdcarapp,jdsg</script>
+    <script type=text/javascript src="//static.360buyimg.com/static-sale-m/dist/view/lib/common.js?t=20171027185038"></script>
+    <script type=text/javascript src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <script>
+        window.browser = {
+            versions: function () {
+                let u = navigator.userAgent;
+                return {
+                    trident: u.indexOf('Trident') > -1,
+                    presto: u.indexOf('Presto') > -1,
+                    webKit: u.indexOf('AppleWebKit') > -1,
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') === -1,
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+                    android: u.indexOf('Android') > -1,
+                    iPhone: u.indexOf('iPhone') > -1,
+                    iPad: u.indexOf('iPad') > -1,
+                    jdjr: u.indexOf('JDJR-App') > -1,
+                    webApp: u.indexOf('Safari') === -1,
+                    wechat: u.indexOf('MicroMessenger') !== -1
+                };
+            }(), language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        };</script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        //      window.ga = function () {
+        //        console.log('ga', arguments)
+        //      };
+        window.ga('create', 'UA-115976658-1', 'auto');
+        function getRequest() {
+            var url = window.location.href;
+//                console.log(url);
+            if (url.indexOf('?') !== -1) {
+                var str = url.substr(url.indexOf('?') + 1);
+                var strs = str.split('&');
+                var result = {};
+                for (var temp in strs) {
+                    var tp = strs[temp].split('=');
+                    result[tp[0]] = tp[1];
+                }
+                return result;
+            } else {
+                return {};
+            }
+        }
+        function ajax() {
+            var ajaxData = {
+                type: arguments[0].type || "GET",
+                url: arguments[0].url || "",
+                async: arguments[0].async || "true",
+                data: arguments[0].data || null,
+                dataType: arguments[0].dataType || "text",
+                contentType: arguments[0].contentType || "application/x-www-form-urlencoded",
+                beforeSend: arguments[0].beforeSend || function () {
+                },
+                success: arguments[0].success || function () {
+                },
+                error: arguments[0].error || function () {
+                }
+            };
+            ajaxData.beforeSend();
+            var xhr = createxmlHttpRequest();
+            xhr.responseType = ajaxData.dataType;
+            xhr.open(ajaxData.type, ajaxData.url, ajaxData.async);
+            xhr.setRequestHeader("Content-Type", ajaxData.contentType);
+            xhr.send(convertData(ajaxData.data));
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        ajaxData.success(xhr.response)
+                    } else {
+                        ajaxData.error()
+                    }
+                }
+            }
+        }
+        function createxmlHttpRequest() {
+            if (window.ActiveXObject) {
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                return new XMLHttpRequest();
+            }
+        }
+        function convertData(data) {
+            if (typeof data === 'object') {
+                var convertResult = "";
+                for (var c in data) {
+                    convertResult += c + "=" + data[c] + "&";
+                }
+                convertResult = convertResult.substring(0, convertResult.length - 1)
+                return convertResult;
+            } else {
+                return data;
+            }
+        }
+        var para = getRequest();
+        var GAStr;
+        var paraStr = '';
+
+        if (para.aid) {
+            paraStr = paraStr + '&aid=' + para.aid;
+        }
+        if (para.utm_medium) {
+            paraStr = paraStr + '&utm_medium=' + para.utm_medium;
+        }
+        if (para.utm_source) {
+            paraStr = paraStr + '&utm_source=' + para.utm_source;
+        }
+        if (para.utm_campaign) {
+            paraStr = paraStr + '&utm_campaign=' + para.utm_campaign;
+        }
+        if (paraStr.length > 1) {
+            paraStr = '?' + paraStr.substring(1);
+        }
+        //      GAStr = window.location.pathname + window.location.hash.substring(1) + paraStr;
+        GAStr = window.location.pathname + window.location.hash.substring(1);
+        window.ga('send', 'pageview', GAStr);
+        //ajax({
+        //    type:"POST",
+        //    url:"https://" + window.location.host + "/myWeb/WeChat/WeChatTrack/collectChannel",
+        ////    dataType:"json",
+        //    data:{
+        //        channelId: para.utm_medium,
+        //        sgId: 13,
+        //        scenceId: para.utm_source,
+        //        status: 0
+        //    }
+        //})
+    </script>
+    <style type="text/css">
+        body {
+            background-color: #ffffff;
+        }
+        .mainapp {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .mainapp img {
+            width: 100%;
+        }
+        .giftpack{
+            height: 103.2vw;
+            width: 89.3vw;
+            margin: 0 5.35vw;
+            z-index: 1000;
+            top: 63.73vw;
+            position: absolute;
+            background-image: url("https://file.rose52.com/guanjia/activity/1228zhongou/import_bj@3x.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .giftpack img{
+            margin-top: 6.66vw;
+            margin-bottom: 1.33vw;
+            margin-left: 27.47vw;
+            width: 34.67vw;
+            height: 7.46vw;
+        }
+        .pickbutton {
+            /*background-image: url('https://file.rose52.com/guanjia/activity/1228zhongou/button_cannot@3x.png');*/
+            /*background-size: cover;*/
+            /*background-position: center;*/
+            /*background-repeat: no-repeat;*/
+            background:#999999;
+            text-align: center;
+            line-height:11.73vw;
+            font-family: PingFang-SC;
+            color:#ffffff;
+            font-size:4.8vw;
+            width:69.33vw;
+            height:11.73vw;
+            margin-left:10vw;
+            margin-top:4.8vw;
+            border-radius:5.33vw;
+        }
+        /*.normalpickbutton{*/
+        /*background-image: url('https://file.rose52.com/guanjia/activity/1228zhongou/button_normal@3x.png');*/
+        /*background-size: cover;*/
+        /*background-position: center;*/
+        /*background-repeat: no-repeat;*/
+        /*width:69.33vw;*/
+        /*height:11.73vw;*/
+        /*margin-left:10vw;*/
+        /*margin-top:1.5vw;*/
+        /*}*/
+        .name,.phone,.grade,.email{
+            padding-left: 4vw;
+            width: 70.67vw;
+            height: 10.67vw;
+            background: #F1F1F1;
+            border-radius: 1.04vw;
+            margin-left: 7.47vw;
+            border: 0;
+            margin-top: 4vw;
+        }
+        input::-webkit-input-placeholder{
+            font-family: PingFang-SC-Regular;
+            font-size: 4.26vw;
+            color: #999999;
+            letter-spacing: 0;
+        }
+        input::-moz-placeholder{
+            font-family: PingFang-SC-Regular;
+            font-size: 4.26vw;
+            color: #999999;
+            letter-spacing: 0;
+        }
+        input:-moz-placeholder{
+            font-family: PingFang-SC-Regular;
+            font-size: 4.26vw;
+            color: #999999;
+            letter-spacing: 0;
+        }
+        input:-ms-input-placeholder{
+            font-family: PingFang-SC-Regular;
+            font-size: 4.26vw;
+            color: #999999;
+            letter-spacing: 0;
+        }
+
+        /*弹框层样式*/
+        .confirm{
+            background: rgba(0,0,0,0.7);
+            z-index: 9998;
+            position: fixed;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+            display:none;
+        }
+        .ceng{
+            margin-top:20vw;
+            margin-left:11.33vw;
+            z-index: 9999;
+            width:77.33vw;
+            height: 121vw;
+            background-image: url('https://file.rose52.com/guanjia/activity/1228zhongou/windows_bj@3x.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /*background-image: linear-gradient(-179deg, #EC937A 0%, #E16268 100%);*/
+            border-radius: 10px;
+        }
+        .titleStatus{
+            font-family: PingFang-SC-Semibold;
+            font-size: 5.33vw;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            display: flex;
+            justify-content:center;
+            padding-top:6.66vw;
+        }
+        .titleNotes{
+            ont-family: PingFangSC-Regular;
+            font-size: 3.2vw;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            text-align: center;
+            width:60vw;
+            margin-top:2.66vw;
+            margin-left:8.65vw;
+        }
+        .logopic{
+            width:38.4vw;
+            height:38.4vw;
+            /*display: flex;*/
+            /*justify-content:center;*/
+            margin-top:4vw;
+            margin-left:19.46vw;
+        }
+        .logopic img{
+            width:38.4vw;
+            height:38.4vw;
+        }
+        .weihao{
+            font-family: PingFang-SC-Medium;
+            font-size: 3.73vw;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            text-align: center;
+            margin-top:2.5vw;
+            /*display: flex;*/
+            /*justify-content:center;*/
+        }
+        .extra{
+            font-family: PingFang-SC-Regular;
+            font-size: 3.2vw;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            text-align: center;
+            width:62.9vw;
+            margin-top:3vw;
+            margin-left:8vw;
+        }
+        .addButton{
+            width:61.33vw;
+            height:11.73vw;
+            margin-top:4vw;
+            margin-left:8vw;
+            margin-bottom: 4.8vw;
+        }
+        .addButton img{
+            width:61.33vw;
+            height:11.73vw;
+        }
+        .note {
+            margin-left: 7.47vw;
+            margin-top:2.67vw ;
+            font-family: PingFang-SC-Regular;
+            font-size: 3.2vw;
+            color: #999999;
+            letter-spacing: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="mainapp">
+    <!--弹框内容-->
+    <!--<div id="confirm" class="confirm">-->
+    <!--<div id="ceng" class="ceng">-->
+    <!--<div class="titleStatus">礼包领取成功</div>-->
+    <!--<div class="titleNotes">请添加您的权益礼包管家！请备注姓名，以便及时发放权益卡给您！</div>-->
+    <!--<div class="logopic"><img src="https://file.rose52.com/guanjia/activity/1228zhongou/QRcode@3x.png" alt=""></div>-->
+    <!--<p class="weihao">管家微信号:&nbsp;&nbsp;JD-Rich</p>-->
+    <!--<div class="extra">扫码后参与活动还可获得<br>塞浦路斯5日高尔夫梦幻之旅<br>（包球费、含往返机票、五星级酒店）白马<br>山庄高尔夫球别墅豪华游-->
+    <!--（包球费、食宿）</div>-->
+    <!--<div class="addButton"><img src="https://file.rose52.com/guanjia/activity/1228zhongou/windows_button_normal@3x.png" alt=""></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div>
+        <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_1@3x.png">
+        <div class="giftpack">
+            <img src="https://file.rose52.com/guanjia/activity/1228zhongou/import_bt@3x.png" alt="">
+            <input type="text" class="name"  id="username" value="" placeholder="请输入姓名">
+            <input type="text" class="phone" id="userphone" value="" placeholder="请输入11位手机号">
+            <input type="text" class="grade" id="usergrade" value="" placeholder="中欧所在班级">
+            <input type="email" class="email" id="email" value="" placeholder="请输入电子邮件(选填)">
+            <div class="note">*填写邮箱更方便权益电子卡发放</div>
+            <div id="pickStatus" class="pickbutton">
+                立即领取
+                <!--<img src="https://file.rose52.com/guanjia/activity/1228zhongou/button_cannot@3x.png" alt="">-->
+            </div>
+        </div>
+    </div>
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_2@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_3@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_44@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_5@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_6@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_7@3x.png">
+    <img src="https://file.rose52.com/guanjia/activity/1228zhongou/zozy_8@3x.png">
+</div>
+<script>
+    function setShare() {
+        if (window.browser.versions.wechat) {
+            let optionsWx = {
+                url: '/myWeb/AjaxApi/WeChatGuanJia/getJssdkParam',
+                type: 'POST',
+                data: {
+                    url: encodeURIComponent(window.location.href)
+                },
+                success(res) {
+                    res = JSON.parse(res);
+                    if (parseInt(res.state) === 1) {
+                        let data = res.data;
+                        if (!data.gjEnable) {
+                            wx.config(data);
+                            wx.ready(() => {
+                                wx.onMenuShareAppMessage({
+                                title: '中欧之约年会礼包',
+                                link: `${window.location.origin}${window.location.pathname}`,
+                                desc: '校友和欢聚，共叙校友情',
+                                imgUrl: 'https://file.rose52.com/guanjia/activity/1228zhongou/share.jpg',
+                                success: function() {
+//                    alert('分享成功');
+                                }
+                            });
+                            wx.onMenuShareTimeline({
+                                title: '中欧之约年会礼包', // 分享标题
+                                link: `${window.location.origin}${window.location.pathname}`,
+                                imgUrl: 'https://file.rose52.com/guanjia/activity/1228zhongou/share.jpg',
+                                success: function () {
+                                    // 用户确认分享后执行的回调函数
+//                    alert('分享成功');
+                                },
+                                cancel: function () {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+                        });
+                            wx.error((res) => {
+                                console.error(res);
+//                alert('网络异常，请稍候重试');
+                        });
+                        }
+
+                    }
+                }
+            };
+
+            ajax(optionsWx);
+        }
+    }
+    setShare();
+
+</script>
+<script>
+    $("input").on("keyup",function(){
+        var name = $("#username").val();
+        var phone = $("#userphone").val();
+        var banji= $("#usergrade").val();
+        if(name!= '' && phone!= '' && banji!= ''){
+            $(".pickbutton").css('background-color','#E16268');
+        }else{
+            $(".pickbutton").css('background-color','#999999');
+        }
+    });
+
+    //alert 去除弹框中url原生态URL
+    (function(){
+        window.alert = function(name){
+            var iframe = document.createElement("IFRAME");
+            iframe.style.display="none";
+            iframe.setAttribute("src", 'data:text/plain');
+            document.documentElement.appendChild(iframe);
+            window.frames[0].window.alert(name);
+            iframe.parentNode.removeChild(iframe);
+        }
+    })();
+
+    function hide() {
+        $("#confirm").hide();
+    }
+
+    function
+    show() {
+        $("#confirm").show();
+    }
+
+    $(".pickbutton").click(function(){
+        var name = $("#username").val();
+        var phone = $("#userphone").val();
+        var banji= $("#usergrade").val();
+        var email = $('#email').val();
+        var emailreg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if(!name || !phone || !banji ){
+            $(".pickbutton").prop('disabled',true);
+        }else if(phone.length!=11){
+            window.alert("请输入11位手机号！");
+        }else{
+            $.post(
+                "{:U('AjaxApi/Appoint/doAppoint')}",{
+                    name:name,
+                    phone:phone,
+                    banji:banji,
+                    email:email
+                },
+                function(data) {
+                    if(data['state']==2) {
+                        // show();
+                        window.location.href="{:U('zhongoustatus')}?state=2";
+                        // $(".titleStatus").text("您已领取礼包");
+                    }else if(data['state']==0){
+                        alert(data['msg'])
+                    }else if(data['state']==1){
+                        // show();
+                        window.location.href="{:U('zhongoustatus')}?state=1";
+                        // $(".titleStatus").text("礼包领取成功");
+                    }
+                },'json');
+
+        }
+
+        $(".addButton").click(function(){
+            hide();
+        })
+
+
+    })
+
+</script>
+</body>
+</html>

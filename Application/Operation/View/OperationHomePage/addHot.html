@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>热门产品</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jeDate-test.css">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Admin/css/jedate.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/js/jquery.jedate.js"></script>
+    <link href="__PUBLIC__/Admin/css/select2.min.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/js/select2.min.js"></script>
+</head>
+<body>
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">运营位管理</a></li>
+    <li class="active">热门产品</li>
+</ol>
+<div class="container row" style="background-color:white;padding-top:50px">
+    <form action="#" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*热门产品</label>
+            <div class="col-sm-4">
+                <select name="" id="productselect" class="form-control" style="height:34px" placeholder="请输入产品ID或名称"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*显示城市</label>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio" <if condition="$res.city_type eq 1">checked</if> name="status" class="status" value="1" checked id="">白名单
+            </div>
+            <div class="col-sm-1" style="margin-top:5px">
+                <input type="radio"  <if condition="$res.city_type eq 2">checked</if> name="status" class="status" value="2"  id="">黑名单
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-2" id="wenan">
+                <!--<if condition="$res.city_type eq 1">-->
+                    <!--<span style="color:#d4d4d4">*只在以下城市显示</span>-->
+                    <!--<else />-->
+                    <!--<span style="color:#d4d4d4">*不在以下城市显示</span>-->
+                <!--</if>-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" ></label>
+            <div class="col-sm-4">
+                <select class="js-example-basic-multiple col-sm-12" name="states[]" multiple="multiple">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*推荐时间</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showstarttime"  value="{$res.show_start}" name="goodname" placeholder="选择开始时间">
+            </div>
+            <div class="col-sm-1 control-label" style="text-align: center;margin-left: -47px;margin-right: -47px;">
+                一
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="showendtime"  value="{$res.show_end}" name="goodname" placeholder="选择结束时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*帧数</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="frame">
+                    <option value="1" <if condition="$res.frame eq 1">selected</if>>1</option>
+                    <option value="2" <if condition="$res.frame eq 2">selected</if>>2</option>
+                    <option value="3" <if condition="$res.frame eq 3">selected</if>>3</option>
+                    <option value="4" <if condition="$res.frame eq 4">selected</if>>4</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="col-sm-2 control-label" >*状态</label>
+            <div class="col-sm-4">
+                <select  name=""  class="form-control" id="ishow">
+                    <option value="1" <if condition="$res.is_show eq 1">selected</if>>在线</option>
+                    <option value="2" <if condition="$res.is_show eq 2">selected</if>>下线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" name="" id="surebtn" class="btn btn-primary" style="width:140px;background:#1AB394;border:0">保存</button>
+            </div>
+        </div>
+    </form>
+    <script>
+        //黑白名单文案显示操作
+        var status = $('.status:checked').val();
+        if(status==2){
+            var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }else{
+            var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+            $("#wenan").html(instr);
+        }
+
+        $('.status').click(function(){
+            var status = $('.status:checked').val();
+            console.log(status);
+            if(status==2){
+                var instr='<span style="color:#d4d4d4">*不在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }else{
+                var instr='<span style="color:#d4d4d4">*只在以下城市显示</span>';
+                $("#wenan").html(instr);
+            }
+        })
+
+        //搜索城市操作
+
+        var getId="{$Think.get.id}";
+        if(!getId){
+            $('.js-example-basic-multiple').select2({
+                placeholder:'请选择输入服务城市',
+                data:data,
+                ajax: {
+                    url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            param: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            })
+        }else{
+            var citys = '{$res.city_rang}';
+            var citys = citys.split('|');
+            var data = [];
+            var ids = [];
+            console.log(citys);
+            for (var i = 0;i<citys.length;i++){
+                var temp = citys[i].split(',');
+                data.push({id:temp[0],text:temp[1]});
+                ids.push(temp[0]);
+            }
+            $('.js-example-basic-multiple').select2({
+                placeholder:'请选择输入服务城市',
+                data:data,
+                ajax: {
+                    url: "{:U('Operation/OperationGuanJia/getAllCity')}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            param: params.term,
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1
+            }).val(ids).trigger("change");
+        }
+
+
+        //获取当前日期时间
+        var id = '{$Think.get.id}';
+        var newDate = new Date();
+        Date.prototype.format = function(format) {
+            var date = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S+": this.getMilliseconds()
+            };
+            if (/(y+)/i.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            for (var k in date) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                        ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+                }
+            }
+            return format;
+        }
+
+        var nowdate = newDate.format('yyyy-MM-dd');
+        nowdate+=' 00:00:00';
+        //日期插件
+        $("#showstarttime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+        $("#showendtime").jeDate({
+            format: "YYYY-MM-DD hh:mm:ss",
+            minDate:nowdate
+        })
+
+        //初始化搜素产品信息
+        if (id) {
+            $(function () {
+                var select2id = '{$res.a_id}';
+                var select2name = '{$res.a_txt}';
+                var ids = [];
+                var data = [];
+                var type = 4;
+                if(type==4){
+                    var select2ids = select2id+','+select2name+','+type;
+                    data.push({id: select2ids, text: select2name});
+                    ids.push(select2ids);
+                    $('#productselect').select2({
+                        placeholder:'请输入产品id或名称',
+                        data : data,
+                        ajax: {
+                            url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function (params) {
+                                return {
+                                    value: params.term,
+                                    type: 4
+                                };
+                            },
+                            processResults: function (data) {
+                                console.log(888);
+                                console.log(data);
+                                return {
+                                    results: data
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function (markup) { return markup; },
+                        minimumInputLength: 1
+                    }).val(ids).trigger("change");
+                }
+
+            })
+        } else {
+            $(function () {
+                $('#productselect').select2({
+
+                    placeholder:'请输入产品ID或名称',
+                    ajax: {
+                        url: "{:U('CouponApi/Coupon/serachValeByType')}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            return {
+                                value: params.term,
+                                type: 4
+                            };
+                        },
+                        processResults: function (data) {
+                            console.log(data);
+                            return {
+                                results: data
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; },
+                    minimumInputLength: 1
+                });
+            })
+        }
+
+
+
+
+        //提交热门产品信息
+        $('#surebtn').click(function () {
+            var id="$Think.get.id";
+            var savetype='hot';
+            var join_id = '';
+            var join_name=''
+            var product=$('#productselect').select2('data')[0];
+            if(product){
+                console.log(product);
+                // var data = product.split(',');
+                // a_id=data[0];
+                // a_txt=data[1];
+                var u = product.id ;
+                a_id = u.substring(0, u.indexOf(",")) ;
+                a_txt=product.text;
+            }
+            var show_start = $("#showstarttime").val();
+            var show_end = $("#showendtime").val();
+            var frame = $("#frame").val();
+            var ishow = $("#ishow").val();
+
+            var city_type=$('.status:checked').val();
+            var city_rangdata=$('.js-example-basic-multiple').select2('data');
+            console.log(city_rangdata);
+            var city_rang='';
+            if (city_rangdata.length > 0) {
+                for (var i=0; i<city_rangdata.length;i++) {
+                    var text = city_rangdata[i].text;
+                    var id = city_rangdata[i].id;
+                    city_rang+=id+','+text+'|';
+                }
+                city_rang = city_rang.substr(0,city_rang.length-1);
+            }  else {
+                city_rang = '';
+            }
+            console.log('2222');
+            console.log(city_rang);
+            if(!a_txt){
+                window.alert('请选择热门产品');
+            }else if(!city_rang){
+                window.alert('请选择城市');
+            }else if(!show_start){
+                window.alert('请选择开始时间');
+            }else if(!show_end){
+                window.alert("请选择结束时间");
+            }else if(show_start>show_end){
+                window.alert("结束时间必须大于开始时间");
+            }else if(!frame){
+                window.alert("请选择帧位");
+            } else {
+                $.post("{:U('save_submit')}",{
+                    id:"{$Think.get.id}",
+                    savetype:savetype,
+                    a_id:a_id,
+                    a_txt:a_txt,
+                    show_start:show_start,
+                    show_end:show_end,
+                    frame:frame,
+                    is_show:ishow,
+                    city_type:city_type,
+                    city_rang:city_rang
+                },function (res) {
+                    if(res.state==1){
+                        alert(res.msg);
+                        window.location.href="{:U('hot')}";
+                    }else {
+                        alert(res.msg);
+                    }
+                },'json')
+            }
+        })
+    </script>
+
+</div>
+</body>
+</html>

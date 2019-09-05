@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <if condition="$ishome eq 'ishome' ">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no"/>
+    <else /> <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=yes"/>
+  </if>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125783604-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-125783604-1');
+  </script>
+  <link rel=stylesheet type=text/css href='https://file.rose52.com/guanjia/css/swiper.min.css'>
+  <link rel=stylesheet type=text/css href='__PUBLIC__/BaoXian/shrenshou_dist/js/styles_el.css?1ac1f4ca5000b1f8eb38'>
+  <script src="https://m.jr.jd.com/crayfish/zui/bridge/1.0.7/bridge.js"></script>
+  <title>京东金融</title>
+</head>
+<body>
+<span id="current-jdpin" style="display: none;">{$current_jdpin}</span>
+<span id="user-jdpin" style="display: none;">{$user_jdpin}</span>
+<span id="sheet-data" style="display: none;">{$sheet_data}</span>
+<span id="is-reserved" style="display: none;">{$isreserved}</span>
+<div id="app"></div>
+<script>
+  window.defer = jsBridgeV3.onReady();
+</script>
+<script src="__PUBLIC__/BaoXian/shrenshou_dist/js/vendor.js?1ac1f4ca5000b1f8eb38"></script>
+<script src="__PUBLIC__/BaoXian/shrenshou_dist/js/common.js?1ac1f4ca5000b1f8eb38"></script>
+<script src="__PUBLIC__/BaoXian/shrenshou_dist/js/app.js?1ac1f4ca5000b1f8eb38"></script>
+</body>
+</html>

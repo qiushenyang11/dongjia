@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>管家信息</title>
+    <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+    <script src="__PUBLIC__/Admin/js/jquery-1.11.1.min.js"></script>
+    <script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F6F7FA;">
+<ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">账号管理</a></li>
+    <li class="active">账号列表</li>
+</ol>
+<div class="container-fluid" style="background-color:white;padding-top:20px">
+    <form class="form-inline" action="{:U('index')}" method="get">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <select  name="type"  class="form-control">
+                    <option value="1" <if condition="$type eq 1"> selected</if>>姓名</option>
+                    <option value="2" <if condition="$type eq 2"> selected</if>>手机号</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="margin-left: 20px;margin-right: 20px;">
+            <label for="end_time"></label>
+            <input type="text" class="form-control"  value="{$typename}" name="typename" id="" placeholder="请输入搜索条件">
+        </div>
+        <input type="hidden" name="p" value="1">
+        <button type="submit" class="btn btn-success" style="background:#1AB394; border:0;opacity:1">
+            <span class="glyphicon glyphicon-search">
+
+            </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <a href="{:U('addAccounts')}"><button type="button" class="btn btn-success" style="background:#1AB394; border:0;opacity:0.8;float: right">添加账号</button></a>
+    </form>
+
+    <table class="table" style="margin-top:20px;text-align:center;">
+        <thead style="height:20px;background:#1AB394; color:white">
+        <tr>
+            <th width="16%" align="center">ID</th>
+            <th width="16%" align="center">姓名</th>
+            <th width="16%" align="center">手机号</th>
+            <th width="16%" align="center">角色</th>
+            <th width="16%" align="center">状态</th>
+            <th width="16%" align="center">操作</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="result" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.role_txt}</td>
+                
+                <td>
+                    <if condition="$vo.is_stop eq 1">启用</if>
+                    <if condition="$vo.is_stop eq 2">停用</if>
+                    
+                </td>
+                
+                <td align="center">
+                    <a href="{:U('addAccounts')}?id={$vo.id}">
+<button type="button" class="bfL btn btn-success" style="background:#1AB394;border:0;opacity:0.8">编辑</button> 
+                   </a>
+                </td>                
+                
+                
+            </tr>
+        </volist>
+        </tbody>
+        <tr style="padding-top:30px">
+            <td colspan='17' width="200" align="center" height='30px' style="color:#C3C9DA;font-family:'微软雅黑';">
+                <span style="display: inline-block;float:left;margin-left: 50px">第{$all}条,共{$count}条</span>
+                <span style="display:inline-block">{$page}</span>
+                <span style="display:inline-block;float:right">当前第{$nowPage}页,共{$totalPages}页</span>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
